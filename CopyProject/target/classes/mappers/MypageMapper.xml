@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.mypageMapper">
+
+	<insert id="insertMember" parameterType="MemberVO">
+    	INSERT INTO member(
+    		id,
+    		pass,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		post_code,
+    		addr,
+    		recommender
+    	) VALUES(
+    		#{id},
+    		#{pass},
+    		#{nick_name},
+    		#{membername},
+    		CONCAT(#{birth1},"년 ",#{birth2},"월 ",#{birth3},"일"),
+    		#{gender},
+    		CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
+    		#{addr1},
+    		CONCAT(#{addr2}," ",#{addr3}),
+    		#{recommender}
+    	)
+    </insert>
+    
+    <select id="detailMember" resultType="MemberVO" parameterType="int">
+		SELECT
+			midx,
+    		id,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		join_date,
+    		mileage,
+    		grade,
+    		del_yn,
+    		blacklist_yn,
+    		follower_cnt,
+    		post_code,
+    		addr,
+    		profile_system
+		FROM
+			member
+		WHERE
+			midx = #{midx}
+    </select>
+    
+    <update id="modifyMember" parameterType="MemberVO">
+    	UPDATE member 
+    	SET
+    		id = #{id},
+    		nick_name = #{nick_name},
+    		gender = #{gender},
+    		phone = CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
+    		addr = #{addr}
+    	WHERE 
+    		midx = #{midx}
+    </update>
+    
+     <update id="deleteMember" parameterType="MemberVO">
+    	UPDATE member 
+    	SET
+    		id = #{id},
+    		nick_name = #{nick_name},
+    		gender = #{gender},
+    		phone = #{phone},
+    		addr = #{addr},
+    		del_yn = #{del_yn},
+    		del_cause = #{del_cause}
+    	WHERE 
+    		midx = #{midx}
+    </update>
+    
+    <select id="orderList" resultType="OrderListVO" parameterType="OrderListVO">
+         SELECT 
+         		olidx,
+         		title,
+         		price,
+         		img_system,
+         		buying_date,
+         		progress,
+         		delivery_status,
+         		review_registration
+           FROM 
+           		order_list
+          WHERE 
+          		midx = #{midx}
+
+    </select>
+    
+    
+</mapper>

@@ -1,0 +1,420 @@
+@charset "UTF-8";
+/* 본문 CSS */
+section{
+	margin: auto;
+	max-width: 1560px;
+}
+#joinFrm{
+	width: 500px;
+	margin-top: 30px;
+	margin-bottom: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+#joinFrm div{
+	display: inline-block;
+}
+.value{
+	padding-left: 5px;
+	height: 30px;
+}
+.value:focus{
+	outline: none;
+}
+.input::placeholder{
+	font-size: 10px;
+}
+.border{
+	margin-top: 20px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	width: 99%;
+}
+.idArea{
+	margin: 0px;
+}
+.title{
+	text-align: center;
+	margin-bottom: 50px;
+	font-size: 25px;
+	width: 100%;
+}
+.input{
+	width: 310px;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+	padding-top: 3px;
+}
+.label{
+	height: 30px;
+	border-right: 1px solid lightgray;
+	padding-top: 3px;
+}
+.labelGender{
+	height: 30px;
+	padding-top: 3px;
+}
+.head{
+	height: 30px;
+	width: 160px;
+	font-size: 15px;
+	text-align: center;
+	display: inline-block;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.foot{
+	font-size: 13px;
+	color: red;
+	margin-left: 170px;
+	text-align: center;
+	visibility: hidden;
+}
+.idArea{
+	display: inline-block;
+}
+.emailArea{
+	display: inline-block;
+	width: 99%;
+}
+.emailBorder{
+	border: 1px solid gray;
+	display: inline-block;
+	border-radius: 5px;
+}
+.emailbtn, .idbtn{
+	border: none;
+	height: 25px;
+	width: 90px;
+	color: white;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	cursor: pointer;
+	margin: 0px 0px 0px 20px;
+	padding: 0px;
+	position: absolute;
+	font-size: 13px;
+
+}
+.addrArea{
+	text-align: right;
+	width: 490px;
+}
+.addrbtn{
+	margin: 0px;
+	padding: 0px;
+	display: inline-block;
+	width: 100px;
+	border: none;
+	height: 27px;
+	color: white;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	cursor: pointer;
+	font-size: 13px;
+}
+.addr{
+	display: inline-block;
+	border: 1px solid lightgray;
+	width: 490px;
+	height: 30px;
+}
+.addr::placeholder{
+	padding-left: 10px; 
+}
+.addr1::placeholder{
+	padding-left: 7px;
+}
+.addr1{
+	width: 375px;
+	border: none;
+	height: 25px;
+}
+.phone{
+	width: 17%;
+	height: 22px;
+	border: none;	
+	text-align: center;
+}
+#phone1{
+	width: 13%;
+	height: 25px;
+	margin-left: 30px;
+	margin-right: 15px;
+	border-radius: 3px;
+}
+.birth{
+	width: 13%;
+	height: 22px;
+	text-align: center;
+	border: none;
+	margin-left: 10px;
+	padding: 0px;
+}
+#birth1{
+	margin-left: 30px;
+}
+.gender{
+	width: 12px;
+	height: 12px;		
+	margin-right: 5px;
+	margin-left: 30px;
+}
+#gender1{
+	margin-left: 10px;
+}
+.submitArea{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin: 30px 0px 10px 0px;
+}
+#submitbtn{
+	width: 200px;
+	height: 35px;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	color: white;
+	margin-bottom: 10px;
+}
+.submitArea a{
+	text-decoration: none;
+	color: gray;
+	font-size: 15px;
+}
+.button{
+		border: 2px solid #ffb6c1;
+}
+.button:hover, #submitbtn:hover{
+	color: #ffb6c1;
+	background-color: white;
+}
+
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+	#joinFrm{	
+		width: 500px;
+	}
+	.head{
+		width: 160px;
+		font-size: 15px;
+	}
+	.foot{
+		margin-left: 170px;			
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+	.sidebar_menu{
+		width: 400px;
+	}
+	#joinFrm{	
+		width: 400px;
+	}
+	.addrArea{
+		width: 390px;
+	}
+	.head{
+		width: 130px;
+		font-size: 14px;
+		height: 26px;
+	}
+	.input{
+		width: 255px;
+		font-size: 13px;
+	}
+	.foot{
+		margin-left: 140px;
+		font-size: 12px;		
+	}
+	.addr{
+		width: 390px;
+	}
+	.addr1{
+		width: 275px;
+	}
+	#phone1{
+		margin-left: 15px;
+		margin-right: 5px;
+	}
+	.phone{
+		font-size: 13px;
+	}
+	#birth1{
+		margin-left: 15px;
+	}
+	.birthArea{
+		font-size: 14px;
+	}
+	.birth{
+		font-size: 13px;
+	}
+	.gender{
+		width: 10px;
+	}
+	.genderArea{
+		font-size: 14px;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.sidebar_menu{
+		width: 100%;
+		max-width: 400px;
+	}
+	#joinFrm{
+		width: 300px;
+		margin-top: 0px;
+	}
+	.head{
+		font-size: 13px;
+		width: 100px;
+		height: 26px;
+	}
+	.input{
+		width: 185px;
+		font-size: 12px;
+	}
+	.foot{
+		margin-left: 100px;
+		font-size: 10px;
+		display: block;
+	}			
+	.addrArea{
+		width: 290px;
+	}
+	.addr{
+		width: 290px;
+	}
+	.idbtn, .emailbtn{
+		font-size: 12px;
+		width: 80px;
+	}
+	.addrbtn{
+		width: 95px;
+		font-size: 13px;
+	}
+	.addr1{
+		width: 185px;
+	}
+	.phone{
+		font-size: 12px;
+		width: 43px;
+	}
+	#phone1{
+		margin-left: 0px;
+		margin-right: 0px;
+		width: 60px;
+		font-size: 13px;
+	}
+	#birth1{
+		margin-left: 0px;
+		width: 50px;
+
+	}
+	.birthArea{
+		font-size: 13px;
+	}
+	.birth{
+		font-size: 12px;
+		width: 30px;
+	}
+	.gender{
+		width: 10px;
+		margin-left: 15px;
+	}
+	#gender{
+		margin-left: 5px;
+	}
+	.genderArea{
+		font-size: 11px;
+	}
+}

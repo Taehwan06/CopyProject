@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+.content_right{
+	text-align: right;
+	margin-bottom: 20px;
+	padding-right: 10px;
+}
+.write_btn_{
+	text-align : center;
+	width : 90px;
+	height : 45px;
+	background : #ffb6c1;
+	color : white;
+	border-radius : 5px;
+	border : none;
+}
+.write_btn{
+	text-align : center;
+	width : 90px;
+	height : 45px;
+	background : #ffb6c1;
+	color : white;
+	border-radius : 5px;
+	border : none;
+	position : fixed;
+	bottom: 35px;
+	right: 100px;
+	visibility : hidden;
+}
+.category{
+	text-align: center;
+	font-size: 21px;
+	color: black;
+	cursor: pointer;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.category_img{
+	width: 50%;
+	
+}
+.shopListTitle{
+	padding-left:30px;
+}
+.img_box{
+	margin-bottom: 10px;
+}
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	
+	#mdlg_display_none{
+		display: none;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	
+	#mdlg_display_none{
+		display: none;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	
+}
+@media screen and (max-width: 575.99px){
+	
+}

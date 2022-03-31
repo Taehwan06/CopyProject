@@ -1,0 +1,143 @@
+@charset "UTF-8";
+/* 본문 CSS */
+.write_btn{
+	text-align : center;
+	margin-top : auto;
+	margin-bottom : auto;
+	width : 90px;
+	height : 45px;
+	background : #ffb6c1;
+	color : white;
+	border-radius : 5px;
+	border : none;
+	position : fixed;
+	top : 170px;
+	right : 30px;
+}
+#community{
+	color : #ffb6c1;
+}
+
+li{
+	border: 1px solid white;
+}
+.list_{
+	margin-top : 45px;
+}
+.list_ button{
+	width : 80px;
+	height : 30px;
+	border-radius : 15px;
+	background : none;
+	border : none;
+}
+.list_all{
+	margin-top : 50px;
+	color : gray;
+	font-size : 15px;
+}
+.likeyView{
+	margin-top : 10px;
+	color : gray;
+	text-align : center;
+}
+.storyText{
+	text-align : center;
+}
+#recent{
+	background : #ffb6c1;
+	color : white;
+}
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	.write_btn{
+		top : 200px;
+		right : 30px;
+	}
+	#subNav2{
+		display : block;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	.write_btn{
+		right : 5px;
+	}
+	#subNav2{
+		display : block;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	.write_btn{
+		position : absolute;
+		top : 190px;
+		right : 70px;
+	}
+	#subNav2{
+		display : block;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#logo{
+		padding : 0;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	.write_btn{
+		position : absolute;
+		top : 190px;
+		right : 40px;
+		z-index : -999;
+	}
+	#subNav2{
+		display : block
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#logo{
+		padding : 0;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	.write_btn{
+		position : absolute;
+		top : 165px;
+		right : 20px;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#smallMenu{
+		padding : 0;
+	}
+	#logo{
+		padding : 0;
+	}
+	
+}
+@media screen and (max-width: 575.99px){
+	.write_btn{
+		position : absolute;
+		top : 120px;
+		right : 10px;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#smallMenu{
+		padding : 0;
+	}
+	#logo{
+		padding : 0;
+	}
+}

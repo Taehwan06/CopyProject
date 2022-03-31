@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+*{
+	padding: 0px;
+	margin: 0px;
+}
+body{
+	margin: auto;
+}
+
+@media screen and (min-width: 1400px){
+	#headerDiv,.navbar{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	
+	#vacant1{
+		display: none;
+	}
+	
+	
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv,.navbar{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+	
+	
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv,.navbar{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	#vacant1{
+		display: none;
+	}			
+	
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv,.navbar{
+		width: 100%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+	
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv,.navbar{
+		width: 90%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	#subNav, #subNav2{
+		display : none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+	
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv,.navbar{
+		width: 100%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	
+	.login_logo{
+		display: none;
+	}
+	
+	nav{ 
+		display:none;
+	}
+	section{
+		border-top: 3px solid #ffb6c1; 
+	}
+
+	
+}
+
+
+/* 로그인 스타일 */
+
+.login_wrap{
+	text-align: center;
+}
+
+.login_vacant{
+	height: 60px;
+}
+
+.login_wrap input[type=text], input[type=password]{
+	width:60%;
+	max-width: 500px;
+	min-width: 320px;
+	height:50px;
+	margin-top: 10px;
+	color:gray;
+	background:white;
+	border:1px solid #dcdcdc;
+	font-size:medium;
+	font-weight:medium;
+	border-radius: 0.25rem;
+}
+
+.login_wrap input[type=text]::placeholder, .login_wrap input[type=password]::placeholder{
+	text-align:left;
+	font-size:1rem;
+	font-weight:500;
+	color:#dcdcdc; 
+}
+
+.login_wrap input[type=button]{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	width:60%;
+	max-width: 500px;
+	min-width: 320px;
+	height:50px;
+	display: inline-block;
+	font-weight: bold;
+	color: white;
+	text-align: center; 
+ 	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #ffb6c1;
+	padding: 0.375rem 0.75rem;
+	font-size: 1.2rem;
+	border-radius: 0.25rem;
+	border: none;
+}
+
+input[type=text]:hover,input[type=password]:hover{
+	box-shadow: 0 80px 0 0 rgba(0,0,0,0.012) inset, 0 -80px 0 0 rgba(0,0,0,0.011) inset;
+}
+
+.login_wrap input[type=button]:hover{
+	color: #ffb6c1;
+	background-color:white;
+	border: 2px solid #ffb6c1;
+}
+
+.login_wrap a{
+	text-decoration: none;
+	color: gray;
+}
+
+.login_wrap a:hover{	
+	color: #ffb6c1;
+}
+
+.login_logo{
+	margin: 15px;
+}
+
+.SNS_login{
+	font-size: 0.8rem;
+	color: gray;
+}
+
+.red{
+	color: red;
+	font-size: 20px;
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+

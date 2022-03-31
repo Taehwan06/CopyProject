@@ -1,0 +1,201 @@
+@charset "UTF-8";
+/* 본문 CSS */
+section{
+	margin: auto;
+	max-width: 1560px;
+}
+
+
+.eventDiv{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50px;
+}
+.eventImg{
+	width: 100%;
+	height: auto;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+.searchTitle{
+	font-size: 25px;
+	text-align: center;
+	margin-bottom: 50px;	
+}
+.bold{
+	font-weight: bold;
+}
+
+.resultNone{
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 70px;
+}
+
+.storyList, .shopList{
+	margin-top: 10px;
+	margin-bottom: 50px;
+}
+.searchType, .recommendTitle{
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+.moreButtonDiv{
+	text-align: right;
+	
+}
+.moreview{
+   color : #ffb6c1;
+   font-size : 18px;
+   font-weight : bold;
+   float : right;
+   cursor : pointer;
+}
+.clear{
+	clear: both;
+}
+.story, .shop{
+	margin-bottom: 25px;
+}
+.storyImg, .shopImg{
+	width: 100%;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.storyText, .shopText{
+	width: 100%;
+	padding: 15px;
+	cursor: pointer;
+}
+.storyTitle{
+	font-size: 19px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.storyWriter{
+	font-size: 18px;
+	font-weight: 100;
+}
+.writerImg{
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	margin-right: 10px;
+}
+
+.brand{
+	color: gray;
+	font-size: 14px;
+}
+.shopTitle{
+	font-size: 16px;
+}
+.shopPrice{
+	font-size: 18px;
+	font-weight: bold;
+}
+.red{
+	color: red;
+}
+.sky{
+	color: skyblue;
+}
+.gray{
+	color: gray;
+}
+		
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+}

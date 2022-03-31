@@ -1,0 +1,366 @@
+@charset "UTF-8";
+/* 본문 CSS */
+body{
+	min-width : 518px;
+}
+#headerDiv{
+	padding-left : 60px;
+	padding-right : 60px;
+	padding-top : 10px;
+	padding-bottom : 10px;
+	min-width : 568px;
+}
+#logo{
+	width : 140px;
+}
+#searchInput{
+	width : 86%;
+	min-width : 182px;
+}
+.headerMenu{
+	padding : 0;
+}
+#Com_area{
+	max-width : 1560px;
+}
+#store_category{
+	color : gray;
+	margin : auto;
+	margin-top : 25px;
+	margin-bottom : 35px;
+	max-width : 1560px;
+	font-weight : 600;
+}
+#shop_content{
+	max-width : 1560px;
+	margin : auto;
+}
+.shopImg{
+	width : 100%;
+	border-radius : 10px;
+	cursor : pointer;
+}
+.brand{
+	font-size : 15px;
+	font-weight : bold;
+	color : gray;
+	width : 100%;
+	
+}
+.content{
+	font-size : 24px;
+	margin-left : 40px;
+	line-height : 40px;
+}
+.discount{
+	width : 100px;
+	color : #ffb6c1;
+	font-size : 30px;
+}
+.price{
+	margin-top : 15px;
+	width : 100%;
+	font-weight : bold;
+}
+.delivery{
+	margin-top : 15px;
+	margin-bottom : 30px;
+	font-size : 16px;
+	width : 100%;
+	height : 60px;
+	border-bottom : 2px solid #ffb6c1;
+}
+.delivery_{
+	color : #ffb6c1;
+	width : 70px;
+}
+.delivery__{
+	width : 70%;
+}
+.selectbox{
+	width : 100%;
+	height : 80px;
+}
+.order_price{
+	margin-top : 15px;
+	width : 100%;
+	font-size : 14px;
+}
+.order_pirce_{
+	width : 140px;
+}
+.order_price__{
+	text-align : right;
+}
+.btn_area div{
+	padding : 3px;
+}
+#basket_btn{
+	border-radius : 8px;
+	width : 100%;
+	height : 65px;
+	font-size : 20px;
+	font-weight : bold;
+	background-color : white;
+	color : #ffb6c1;
+	border : 2px solid #ffb6c1;
+}
+#buy_btn{
+	border-radius : 8px;
+	width : 100%;
+	height : 65px;
+	font-size : 20px;
+	font-weight : bold;
+	background-color : #ffb6c1;
+	color : white;
+	border : none;
+}
+article{
+	max-width : 1560px;
+	margin-top : 50px;
+	margin-left : auto;
+	margin-right : auto;
+	border-top : 1px solid #ffb6c1;
+	border-bottom : 1px solid #ffb6c1;
+	width : 100%;
+	position: sticky;
+	top: 75px;
+	z-index: 3333;
+	background-color: white;
+}
+.information{
+	width : 100%;
+	height : 60px;
+	font-size : 18px;
+	font-weight : bold;
+}
+.information div{
+	text-align : center;
+	margin-top : 15px;
+}
+.information span{
+	color : gray;
+}
+
+/* 두번째 섹션 영역 */
+.information_area{
+	position : relative;
+}
+#shop_information_area_header{
+	margin-left : auto;
+	margin-right : auto;
+	margin-top : 70px;
+	width : 70%;
+	font-size : 18px;
+	font-weight : bold;
+}
+#shop_information_area{
+	margin : auto;
+	width : 70%;
+}
+#shop_information_area img{
+	width : 100%;
+}
+#review_area_header, #QnA_area_header, #delivery_area_header, #change_area_header{
+	margin-left : auto;
+	margin-right : auto;
+	width : 70%;
+	font-size : 20px;
+	font-weight : bold;
+}
+#QnA_area_header, #delivery_area_header, #change_area_header{
+	margin-top : 70px;
+}
+#review_area, #QnA_area, #delivery_area, #change_area, #change_content{
+	margin : auto;
+	margin-top : 30px;
+	width : 70%;
+}
+#delivery_area td, #change_area td{
+	border-bottom : 1px solid #ffb6c1;
+	padding-top : 10px;
+	padding-bottom : 10px;
+	padding-right : 25px;
+}
+#review_area img, #QnA_area img{
+	width : 100%;
+}
+#review_area_header div, #QnA_area_header div{
+	display : inline-block;
+}
+#review_area_header span, #QnA_area_header span{
+	color : #ffb6c1;
+	font-weight : bold;
+}
+#reviewwrite, #QnAwrite{
+	float : right;
+	color : #ffb6c1;
+}
+#change_content_header1, #change_content_header2{
+	font-size : 20px;
+	font-weight : bold;
+	margin-bottom : 5px;
+}
+#change_content_, #change_impossible_{
+	font-size : 15px;
+	color : #ffb6c1;
+	margin-bottom : 5px;
+}
+#change_content__, #change_impossible__{
+	font-size : 15px;
+}
+#change_content__ li, #change_impossible__ li{
+	list-style-type : decimal;
+}
+#change_content__ span, #change_impossible__ span{
+	color : #ffb6c1;
+	font-size : 12px;
+}
+.hidden_area{
+	width : 100%;
+	height : 55vh;
+}
+.buy_area{
+	max-width : 33%;
+	display : inline-block;
+	position : sticky;
+	margin-top : 10px;
+	top : 250px;
+	
+}
+.buy_area_{
+	width : 100%;
+	height : 75vh;
+	position : sticky;
+	top : 210px;
+}
+
+.selectbox_ select{
+	margin : auto;
+	margin-top : 30px;
+	width : 100%;
+	border : 1px solid #ffb6c1;
+}
+
+.buy_btn_area button{
+	margin-top : 20px;
+}
+#basket_btn2{
+	width : 48%;
+	border-radius : 8px;
+	height : 65px;
+	border : 2px solid #ffb6c1;
+	margin-right : 5px;
+	background : white;
+	color : #ffb6c1;
+	font-size : 20px;
+	font-weight : bold;
+}
+._product, ._review, ._QnA, ._change{
+	cursor : pointer;
+}
+#buy_btn2{
+	width : 48%;
+	border-radius : 8px;
+	height : 65px;
+	border : none;
+	float : right;
+	background : #ffb6c1;;
+	color : white;
+	font-size : 20px;
+	font-weight : bold;
+}
+.price___{
+	width : 100%;
+	font-weight : bold;
+	margin-bottom : 20px;
+}
+.price___ span {
+	float : right;
+	font-size : 24px;
+}
+.Top_btn_{
+	position : fixed;
+	bottom : 30px;
+	right : 30px;
+	width : 60px;
+	height : 60px;
+	color : #ffb6c1;
+}
+@media screen and (min-width: 1400px){
+	#subNav{
+		display : block;
+	}
+	#menuStore{
+		color : #ffb6c1;
+	}
+	article{
+		top : 70px;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#subNav{
+		display : block;
+	}
+	#menuStore{
+		color : #ffb6c1;
+	}
+	article{
+		top : 68px;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#subNav{
+		display : block;
+	}
+	#menuStore{
+		color : #ffb6c1;
+	}
+	article{
+		top : 68px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#subNav{
+		display : block
+	}
+	#menuStore{
+		color : #ffb6c1;
+	}
+	article{
+		top : 68px;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#subNav,#subNav2{
+		display : none;
+	}
+	#menuStore{
+		color : #ffb6c1;
+	}
+	article{
+		top : 68px;
+	}
+	.shop_subject{
+		font-size : 16px;
+		font-weight : bold;
+	}
+	.selectbox_, .buy_btn_area, .price___{
+		display : none;
+	}
+	#hiddenDiv{
+		display : none;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#hiddenDiv{
+		display : none;
+	}
+	article{
+		top : 68px;
+	}
+	.shop_subject{
+		font-size : 16px;
+		font-weight : bold;
+	}
+}

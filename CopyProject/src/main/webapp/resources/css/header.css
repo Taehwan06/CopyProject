@@ -1,0 +1,213 @@
+@charset "UTF-8";
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Verdana', Geneva, Arial, sans-serif;
+}
+body{
+	margin: auto;
+}
+header{
+	margin: 10px 0;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background-color: white;
+}
+
+
+/* 모달 CSS */
+#exampleModal{
+	z-index: 7777;
+}
+#exampleModalLabel{
+	text-align: center;
+}
+
+#modalLogo{
+	cursor: pointer;
+}
+#modalSearchFrm{
+	width: 80%;
+	border: 3px solid #ffb6c1;
+	border-radius: 50px;
+	height: 50px;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding-right: 6px;
+}
+
+#modalSearchInput{
+	border: none;
+	background: none;
+	width: 88%;
+	height: 40px;
+}
+#modalSearchInput:focus{
+	outline: none;
+}
+
+#modalSearchButton{
+	border: none;
+	background: none;
+	color: #ffb6c1;
+}
+
+
+.modalMenu{
+	text-align: center;
+}
+.modalMenuBtn{
+	border: none;
+	width: 100px;
+	height: 35px;
+	color: white;
+	background-color: #ffb6c1;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	font-size: 18px;
+}
+.modalMenuBtn:hover{
+	color: #ffb6c1;
+	background-color: white;
+}
+.iconMenu{
+	margin-top: 30px;
+}
+.modalIconBtn{
+	border: none;
+	background-color: white;
+	display: inline-block;
+	margin-bottom: 30px;
+}
+#modalMypage, #modalBasket, #modalDelivery{
+	font-size: 50px;
+}
+.modalLoginButton{
+	margin-bottom: 50px;
+}
+.modalTextMenu{
+	text-align: center;
+	font-size: 22px;
+	color: black;
+}
+.detailMenu{
+	font-size: 18px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+.detailMenu:hover{
+	color: blue;
+}
+.eventMenu{
+	text-align: left;
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+.eventMenu:hover{
+	color: blue;
+}
+#loginBtn{
+	margin-left: 50px;
+}
+#joinBtn{
+	margin-right: 50px;
+}
+		
+
+/* 헤더 CSS */
+.iconBtn{
+	border: none;
+	background-color: white;
+	display: inline-block;
+}
+#headerDiv{
+	margin: auto;
+	max-width: 1560px;
+}
+#logo{
+	cursor: pointer;
+}
+#searchFrm{
+	width: 40%;
+	border: 3px solid #ffb6c1;
+	border-radius: 50px;
+	height: 50px;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+	padding-right: 6px;
+}
+
+#searchInput{
+	border: none;
+	background: none;
+	width: 88%;
+	height: 40px;
+}
+#searchInput:focus{
+	outline: none;
+}
+
+#smallMenu{
+	display: none;
+	cursor: pointer;
+}
+
+#searchButton{
+	border: none;
+	background: none;
+	color: #ffb6c1;
+}
+
+.headerMenu {
+	cursor: pointer;
+	margin-top: auto;
+	margin-bottom: auto;
+	font-size: 35px;
+}
+
+.headerMenu:hover{
+	color: #ffb6c1;
+}
+
+
+
+#modalProfile{
+	font-size: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+	cursor: pointer;
+}
+#modalProfileImg{
+	width: 25px;
+	height: 25px;
+	border-radius: 50px;
+}
+#modalProfile:hover{
+	color: #ffb6c1;
+}
+  
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#logo{
+		padding: 0px;
+	}
+}
+@media screen and (min-width: 576.01px) and (max-width: 767.99px){
+	#smallMenu{
+		padding: 0px;
+	}
+	
+}
+@media screen and (max-width: 575.99px){
+	#smallMenu, #logo{
+		padding: 0px;
+	}
+}

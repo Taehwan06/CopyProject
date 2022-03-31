@@ -1,0 +1,182 @@
+@charset "UTF-8";
+section{
+	margin: auto;
+	max-width: 1560px;
+	width: 100%;
+}
+.sectionTitle{
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+#sectionSearchType{
+	width: 100px;
+	height: 30px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#sectionSearchType:focus{
+	outline: 1px solid #ffb6c1;
+	border: 1px solid #ffb6c1;
+}
+#sectionSearchValue{
+	width: 200px;
+	height: 30px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#sectionSearchValue:focus{
+	outline: 1px solid #ffb6c1;
+	border: 1px solid #ffb6c1;
+}
+#sectionSearchButton{
+	width: 50px;
+	height: 30px;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	color: white;
+	font-weight: bold;
+}
+#sectionSearchButton:hover{
+	background-color: white;
+	color: #ffb6c1;
+	font-weight: bold;
+}
+
+
+.memberTable{
+	text-align: center;
+	margin-top: 30px;
+}
+tbody tr:hover{
+	background-color: #ffe3ee;
+}
+tbody td{
+	cursor: pointer;
+}
+
+.pink{
+	margin-top: 30px;
+}
+.pink a{
+	color: #ffb6c1;
+	background-color: white;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+}
+.pink a:hover{
+	color: white;
+	background-color: #ffb6c1;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+}
+.pink li{
+	margin: 3px;
+}
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+	.sidebar_menu{
+		width: 400px;
+	}
+	.phone{
+		display: none;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.sidebar_menu{
+		width: 100%;
+		max-width: 400px;
+	}
+	.phone, .birth{
+		display: none;
+	}
+}

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.memberMapper">
+
+	<insert id="insertMember" parameterType="MemberVO">
+    	INSERT INTO member(
+    		id,
+    		pass,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		post_code,
+    		addr,
+    		recommender
+    	) VALUES(
+    		#{id},
+    		#{pass},
+    		#{nick_name},
+    		#{membername},
+    		CONCAT(#{birth1},"년 ",#{birth2},"월 ",#{birth3},"일"),
+    		#{gender},
+    		CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
+    		#{addr1},
+    		CONCAT(#{addr2}," ",#{addr3}),
+    		#{recommender}
+    	)
+    </insert>
+    
+    <select id="loginMember" resultType="memberVO" parameterType="memberVO">
+		SELECT
+			midx,
+    		id,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		join_date,
+    		mileage,
+    		grade,
+    		del_yn,
+    		blacklist_yn,
+    		follower_cnt,
+    		post_code,
+    		addr,
+    		profile_system
+		FROM
+			member
+		WHERE
+			del_yn = "N"
+		AND
+			id = #{id}
+		AND
+			pass = #{pass}
+    </select>
+    
+    <select id="findIdMember" resultType="memberVO" parameterType="MemberVO">
+		SELECT
+			id
+		FROM
+			member
+		WHERE
+			del_yn = "N"
+		AND
+			membername = #{membername}
+		AND
+			phone = CONCAT(#{phone1},"-",#{phone2},"-",#{phone3})
+    </select>
+    
+    <select id="findPwdMember" resultType="memberVO" parameterType="MemberVO">
+		SELECT
+			midx,
+    		id,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		join_date,
+    		mileage,
+    		grade,
+    		del_yn,
+    		blacklist_yn,
+    		follower_cnt,
+    		post_code,
+    		addr,
+    		profile_system
+		FROM
+			member
+		WHERE
+			del_yn = "N"
+		AND
+			membername = #{membername}
+		AND
+			id = #{id}
+    </select>
+    
+    <update id="updateTempPwd" parameterType="MemberVO">
+    	UPDATE 
+    		member
+		SET 
+    	   	pass = #{pass}
+		WHERE 
+         	midx = #{midx}
+    </update>
+    
+    <select id="idCheckMember" resultType="memberVO" parameterType="String">
+		SELECT
+			midx
+		FROM
+			member
+		WHERE
+			id = #{id}
+    </select>
+    
+    <delete id="deleteTempNum" parameterType="String">
+    	DELETE FROM 
+    		temp
+    	WHERE 
+    		id = #{id}
+    </delete>
+    
+    <insert id="insertTempNum" parameterType="MemberVO">
+    	INSERT INTO temp(
+    		id,
+    		temp_number
+    	) VALUES(
+    		#{id},
+    		#{temp_number}
+       	)
+    </insert>
+    
+    <select id="tempNumCheck" resultType="memberVO" parameterType="MemberVO">
+		SELECT
+			tidx,
+			id,
+			temp_number
+		FROM
+			temp
+		WHERE
+			id = #{id}
+		AND
+			temp_number = #{temp_number}
+    </select>
+    
+</mapper>

@@ -1,0 +1,219 @@
+@charset "UTF-8";
+.write_btn{
+	text-align : center;
+	margin-top : auto;
+	margin-bottom : auto;
+	width : 90px;
+	height : 45px;
+	background : #ffb6c1;
+	color : white;
+	border-radius : 5px;
+	border : none;
+	position : fixed;
+	top : 170px;
+	right : 30px;
+}
+#storyimg{
+	max-width : 1560px;
+	margin : auto;
+	margin-top : 30px;
+}
+#storyimg_area{
+	position : relative;
+	padding : 0;
+}
+#MainImg{
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	border-radius : 8px;
+}
+#story_title{
+	color : white;
+	font-size : 40px;
+	font-weight : bold;
+}
+#absolute_{
+	position : absolute;
+	bottom : 40px;
+	left : 40px;
+	width : 50%;
+}
+#profile{
+	margin-top : 10px;
+	color : white;
+}
+#btn_absolute{
+	position : absolute;
+	bottom : 40px;
+	right : 40px;
+	width : 15%;
+	height : 10%;
+}
+#btn_absolute button{
+	width : 100%;
+	height : 100%;
+	border-radius : 5px;
+	background : none;
+	color : white;
+	font-weight : bold;
+	font-size : 20px;
+	border : 3px solid white;
+}
+.storyList{
+	margin-top : 50px;
+}
+.storyListTitle{
+	font-weight : bold;
+}
+#moreview{
+	color : #ffb6c1;
+	font-size : 18px;
+	font-weight : bold;
+	float : right;
+	cursor : pointer;
+}
+#clear{
+	clear : both;
+}
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	.write_btn{
+		top : 200px;
+		right : 30px;
+	}
+	#subNav2{
+		display : block;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#community{
+		color : #ffb6c1;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	.write_btn{
+		right : 5px;
+	}
+	#subNav2{
+		display : block;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#community{
+		color : #ffb6c1;
+	}
+	#story_title{
+		font-size : 36px;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#story_area{
+		margin-top : 50px;
+	}
+	.write_btn{
+		position : absolute;
+		top : 190px;
+		right : 70px;
+	}
+	#subNav2{
+		display : block;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#community{
+		color : #ffb6c1;
+	}
+	#story_title{
+		font-size : 32px;
+	}
+}
+@media screen and (min-width: 768.01px) and (max-width: 991.99px){
+	#story_area{
+		margin-top : 50px;
+	}
+	.write_btn{
+		position : absolute;
+		top : 190px;
+		right : 40px;
+		z-index : -999;
+	}
+	#subNav2{
+		display : block
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#community{
+		color : #ffb6c1;
+	}
+	#story_title{
+		font-size : 28px;
+	}
+	#btn_absolute{
+		width : 20%
+	}
+}
+@media screen and (max-width: 768px){
+	#menuSearchlist{
+		border-left: none;
+	}
+}
+@media screen and (min-width: 576.01px) and (max-width: 767.99px){
+	.write_btn{
+		position : absolute;
+		top : 165px;
+		right : 20px;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#smallMenu{
+		padding : 0;
+	}
+	#story_title{
+		font-size : 24px;
+	}
+	#btn_absolute{
+		width : 22%;
+		height : 35px;
+	}
+	
+}
+@media screen and (max-width: 576px){
+	#spaceDiv{
+		display : block;
+	}
+}
+@media screen and (max-width: 575.99px){
+	.write_btn{
+		position : absolute;
+		top : 120px;
+		right : 10px;
+	}
+	#menuComm{
+		color : #ffb6c1;
+	}
+	#smallMenu{
+		padding : 0;
+	}
+	#storyimg_area{
+		min-width : 528px;
+		width : 100%;
+		height : 360px;
+	}
+	#btn_absolute{
+		width : 24%
+	}
+	#story_title{
+		font-size : 20px;
+	}
+	#slide_area{
+		display : none;
+	}
+}

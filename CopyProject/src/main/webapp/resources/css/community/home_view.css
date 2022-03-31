@@ -1,0 +1,245 @@
+.MainImg{
+	overflow : hidden;
+	max-height : 800px;
+}
+.MainImg img{
+	max-height: initial;
+	width : 100%;
+	margin-top : -20%;
+}
+section{
+	max-width : 1560px;
+	margin : auto;
+}
+.comm_area{
+	margin-left : auto;
+	margin-right : auto;
+	margin-top : 50px;
+	padding : 0;
+	width : 750px;
+}
+.comm_area_{
+	margin : auto;
+}
+.comm_category{
+	color : gray;
+	font-weight : 500;
+}
+.comm_title{
+	margin-top : 10px;
+	font-size : 30px;
+	font-weight : bold;
+}
+.storyWriter{
+	margin-top : 10px;
+}
+.profile{
+	position : relative;
+	display : inline-block;
+	font-size : 12px;
+	padding-left : 60px;
+	line-height : 21px;
+}
+.profile_img{
+	position : absolute;
+	display : block;
+	left : 0;
+	width : 50px;
+	height : 50px;
+	
+}
+.writerImg{
+	width : 100%;
+	height : 100%;
+}
+.profile_name{
+	font-weight : bold;
+}
+.writedate{
+	color : gray;
+	font-weight : 500;
+}
+.follow_btn{
+	margin-top : auto;
+	margin-bottom : auto;
+	text-align : right;
+	padding : 0;
+}
+.follow_btn button{
+	background : #ffb6c1;
+	color : white;
+	border : none;
+	border-radius : 5px;
+	font-size : 14px;
+	font-weight : bold;
+	width : 90px;
+	height : 36px;
+}
+.content_area{
+	width : 750px;
+	padding : 0;
+	margin-top : 100px;
+	margin-left : auto;
+	margin-right : auto;
+	
+}
+.content_img{
+	min-width : 580px;
+	margin : auto;
+}
+.content_img div{
+	margin-top : 20px;
+	margin-bottom : 10px;
+	font-size : 24px;
+	font-weight : bold;
+}
+.content_img img{
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+.content_stats{
+	padding : 12px;
+	width : 750px;
+	margin : auto;
+	margin-top : 50px;
+	margin-bottom : 20px;
+}
+.content_stats div{
+	display : inline-block;
+	margin-right : 16px;
+	padding-left : 12px;
+	font-size : 14px;
+	color : gray;
+	font-weight : bold;
+}
+.footer_profile{
+	width : 750px;
+	margin : auto;
+	padding :30px 12px;
+	border-top : 1px solid #dedede;
+	border-bottom : 1px solid #dedede;
+	margin-bottom : 20px;
+}
+.footer_profile_img{
+	font-weight : bold;
+}
+.footer_writerImg{
+	border-radius : 100%;
+	width : 70px;
+	height : 70px;
+	margin-right : 15px;
+}
+.footer_profile_img button{
+	margin-left : 15px;
+	border : none;
+	background : none;
+	color : #ffb6c1;
+	font-weight : 900;
+}
+.reply_area{
+	font-size : 16px;
+	font-weight : 900;
+	width : 750px;
+	margin : auto;
+	margin-top : 40px;
+}
+.reply_area span{
+	color : #ffb6c1;
+}
+.reply_write{
+	margin-top : 10px;
+}
+.reply_write img{
+	padding : 0px 5px;
+}
+#replyFrm{
+	height : 40px;
+	margin-top : auto;
+	margin-bottom : auto;
+	padding : 5px;
+}
+.profile_reply img{
+	width : 50px;
+	height : 50px;
+}
+#reply_text{
+	outline : none;
+	border : 1px solid black;
+	width : 700px;
+	height : 30px;
+	resize : none;
+	margin-right : 10px;
+}
+#reply_btn{
+	float : right;
+	border : none;
+	background : none;
+	color : #ffb6c1;
+}
+.reply_view{
+	margin-top : 35px;
+}
+.slide_bar{
+	position : fixed;
+	display : none;
+	top : 300px;
+	right : 200px;
+	cursor : pointer;
+}
+.slide_bar_{
+	position : fixed;
+	display : none;
+	top : 400px;
+	right : 200px;
+	cursor : pointer;
+}
+.sideMenu:visited{
+	color : #ffb6c1;
+}
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	.slide_bar, .slide_bar_{
+		right : 100px;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	.slide_bar, .slide_bar_{
+		right : 50px;
+	}
+}
+@media screen and (min-width: 880.01px) and (max-width: 991.99px){
+	.slide_bar, .slide_bar_{
+		right : 30px;
+	}
+}
+@media screen and (min-width: 768.01px) and (max-width: 880px){
+	.slide_bar, .slide_bar_{
+		visibility : hidden;
+	}
+}
+@media screen and (max-width: 768px){
+	.slide_bar, .slide_bar_{
+		visibility : hidden;
+	}
+}
+@media screen and (min-width: 576.01px) and (max-width: 767.99px){
+	.slide_bar, .slide_bar_{
+		visibility : hidden;
+	}
+	
+}
+@media screen and (max-width: 576px){
+	.slide_bar, .slide_bar_{
+		visibility : hidden;
+	}
+}
+@media screen and (max-width: 575.99px){
+	.slide_bar, .slide_bar_{
+		visibility : hidden;
+	}
+}

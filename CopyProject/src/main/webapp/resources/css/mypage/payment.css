@@ -1,0 +1,362 @@
+@charset "UTF-8";
+/* 본문 CSS */
+section{
+	margin: auto;
+	max-width: 1560px;
+}
+.title{
+	font-weight: bold;
+	font-size: 30px;
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+.contents{
+	border-top: 1px solid lightgray;
+}
+
+
+/* 배송지 정보 css */
+.addrArea{
+	width: 100%;
+	min-width: 450px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.addrTitle{
+	border-bottom: 1px solid black;
+	font-weight: bold;
+	font-size: 22px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+.addrContents{
+
+	margin-top: 10px;
+}
+.addrName{
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+.addr{
+	width: 70%;
+	min-width: 450px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.addrPhone{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.addrselect{
+	margin-top: 15px;
+	margin-bottom: 30px;
+}
+#request, #requestInput{
+	width: 70%;
+	min-width: 450px;
+	max-width: 600px;
+	height: 45px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid lightgray;
+	border-radius: 3px;
+}
+#requestInput{
+	display: inline-block;
+	visibility: hidden;
+}
+#request:focus, #requestInput:focus{
+	outline: 2px solid #ffb6c1;
+	border: 1px solid #ffb6c1;
+}
+
+
+
+/* 주문 상품 css */
+.orderList{
+	width: 100%;
+	min-width: 450px;
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+.orderListTitle{
+	width: 100%;
+	border-bottom: 1px solid black;
+	font-size: 22px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+.orderTitle{
+	margin-right: 20px;
+}
+.orderSub{
+	font-size: 15px;
+	color: gray;
+}
+.bold{
+	font-weight: bold;
+}
+.brand{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.productDetail{
+	width: 100%;
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid black;
+	font-size: 15px;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+.productImgDiv{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 0px;
+	border-right: 1px solid lightgray;
+	text-align: center;
+}
+.productImg{
+	object-fit: contain;
+	cursor: pointer;
+}
+.productName, .productCnt, .productPrice{
+	border-right: 1px solid lightgray;
+}
+.productName{
+	height: 150px;
+	padding-top: 20px;
+}
+.productLink{
+	cursor: pointer;
+}
+.productCnt, .productPrice, .productDelivery{
+	height: 150px;
+	padding-top: 40px;
+}
+.productCnt, .productPrice, .productDelivery{
+	text-align: center;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.proCnt, .proPrice, .deliCharge{
+	border: none;
+	background-color: white;
+	font-weight: bold;
+	text-align: right;
+}
+.proCnt{
+	width: 20px;
+}
+.proPrice{
+	width: 100px;
+}
+.deliCharge{
+	width: 90px;
+}
+.schedule{
+	color: gray;
+	font-size: 14px;
+	margin-top: 7px;
+}
+.blue{
+	color: blue;
+	font-weight: bold;
+}
+
+
+/* 결제하기 css */
+.paymentArea{
+	text-align: conter;
+	box-shadow: 0px 0px 5px gray;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-bottom: 50px;
+}
+.amountArea{
+	font-size: 20px;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#blank{
+	display: inline-block;
+	width: 30px;
+}
+#productAmount, #deliveryCharge, #amount{
+	border: none;
+	background-color: white;
+	width: 200px;
+	font-weight: bold;
+	text-align: center;
+}
+#deliveryCharge{
+	text-align: center;
+
+}
+#productAmount, #amount{
+	text-align: right;
+}
+.agreement{
+	text-align: center;
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.payButtonArea{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+#payButton{
+	width: 300px;
+	height: 60px;
+	font-size: 25px;
+	font-weight: bold;
+	color: white;
+	background-color: #ffb6c1;
+	border: 2px solid #ffb6c1;
+	border-radius: 10px;
+	cursor: pointer;
+}
+#payButton:hover{
+	color: #ffb6c1;
+	background-color: white;
+}
+
+
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+	.productName{
+		border: none;
+	}
+	.productCnt, .productPrice, .productDelivery{
+		height: 70px;
+		border-top: 1px solid lightgray;
+		padding-top: 20px;
+	}
+	.productImg{
+		margin-top: 20px;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+	.sidebar_menu{
+		width: 400px;
+	}
+	.productName{
+		border: none;
+	}
+	.productCnt, .productPrice, .productDelivery{
+		height: 70px;
+		border-top: 1px solid lightgray;
+		padding-top: 20px;
+	}
+	.productImg{
+		margin-top: 20px;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.sidebar_menu{
+		width: 100%;
+		max-width: 400px;
+	}
+	.productName{
+		border: none;
+	}
+	.productCnt, .productPrice, .productDelivery{
+		height: 70px;
+		border-top: 1px solid lightgray;
+		padding-top: 20px;
+	}
+	.productImg{
+		margin-top: 20px;
+	}
+}

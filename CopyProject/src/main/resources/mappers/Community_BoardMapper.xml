@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.Community_boardMapper">
+	
+	<select id="Comm_listBoard" resultType="Community_boardVO" parameterType="SearchVO">		
+         SELECT cbidx,
+         		title,
+         		writer,
+         		scrap_cnt,
+         		hit_cnt,
+         		img_system
+           FROM community_board
+          WHERE 1=1
+            AND del_yn = 'N' 
+            <if test="searchType != null and searchType.equals('title')">
+            	AND subject like '%'||#{searchValue}||'%'
+            </if>
+            <if test="searchType != null and searchType.equals('writer')">
+            	AND writer like '%'||#{searchValue}||'%'
+            </if>
+    </select>
+    
+    <select id="Comm_listcnt" resultType="int">
+    	SELECT count(*) as listCnt
+    	FROM community_board
+    	WHERE del_yn = 'N' 
+    		<if test="searchType != null and searchType.equals('title')">
+            	AND subject like '%'||#{searchValue}||'%'
+            </if>
+            <if test="searchType != null and searchType.equals('writer')">
+            	AND writer like '%'||#{searchValue}||'%'
+            </if>
+    </select>
+    	
+    <select id="Comm_mainImg" resultType="Community_boardVO">
+    	SELECT cbidx,
+    		   title,
+    		   writer,
+    		   img_system
+    	FROM community_board
+    	WHERE hit_cnt = (
+    	SELECT hit_cnt
+    	FROM community_board
+    	ORDER BY hit_cnt DESC
+    	LIMIT 1)
+    </select>
+    
+    <select id="Comm_detailBoard" resultType="Community_boardVO" parameterType="int">
+    	 SELECT cbidx,
+				title,
+         		content,
+         		writer,
+         		write_date,
+         		scrap_cnt,
+         		reply_cnt,
+         		img_system,
+         		hit_cnt
+          FROM community_board
+          WHERE cbidx= #{cbidx}
+    </select>
+    
+    <update id="Comm_updateBoard" parameterType="Community_BoardVO">
+    	UPDATE community_board
+    	   SET title = #{title}
+    		  ,content = #{content}
+         WHERE cbidx = #{cbidx}
+    </update>
+    
+    <delete id="Comm_deleteBoard" parameterType="int">
+    	UPDATE community_board
+    	   SET del_yn = 'Y'
+    	 WHERE cbidx = #{cbidx}
+    </delete>
+    
+    <insert id="Comm_insertBoard" parameterType="Community_BoardVO">
+    <![CDATA[
+    	INSERT INTO community_board(
+    		title,
+    		content,
+    		writer,
+    		midx,
+    		img_origin,
+    		img_system
+    	) VALUES(
+    		#{title},
+    		#{content},
+    		'세글자',
+    		1,
+    		#{img_origin},
+    		#{fileName}
+    	)
+    ]]>
+    <selectKey resultType="integer" keyProperty="cbidx" order="AFTER">
+    	SELECT MAX(cbidx)
+    	  FROM community_board
+    </selectKey>
+    </insert>
+    
+</mapper>

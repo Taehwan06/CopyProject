@@ -1,0 +1,216 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+nav{
+	height: 115px;
+	font-weight: bold;
+}
+
+#mainNav{
+	border-bottom: 3px solid #ffb6c1;
+}
+#subNav{
+	display : none;
+}
+#subNav2{
+	display : none;
+}
+#mainNavbar{
+	height: 60px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 0px;
+	padding: 0px;
+	max-width: 1560px;
+}
+#subNavbar{
+	margin : auto;
+	max-width : 1560px;
+}
+#subNavbar2{
+	margin : auto;
+	max-width : 1560px;
+}
+.mainMenu{
+	text-align: center;
+	font-size: 21px;
+	color: black;
+	cursor: pointer;
+}
+.subMenu{
+	text-align : center;
+	font-size : 18px;
+	color : black;
+	cursor : pointer;
+	padding: 3px 0px;
+}
+.mainMenu:hover{
+	color: #ffb6c1;
+}
+.subMenu:hover{
+	color: #ffb6c1;
+}
+#category{
+	text-align : center;
+	font-size : 18px;
+	color : black;
+	cursor : pointer;
+	padding: 3px 0px;
+}
+#categoryLi:hover{
+	color: #ffb6c1;
+}
+
+.navSpaceLi{
+	width: 14%;
+	height: 17px;
+	position: absolute;
+	z-index: 100;
+	border: none;
+}
+
+.categoryDiv{
+	width: 70%;
+	border: 2px solid #ffb6c1;
+	border-radius: 15px;
+	box-shadow: 0px 0px 10px #ffb6c1;
+	text-align: center;	
+	font-size: 16px;
+	max-width: 1100px;
+	position: absolute;
+	margin-top: 10px;
+	margin-left: 50px;
+	display: none;
+	z-index: 9999;
+	background-color: white;
+}
+
+.categoryUl{
+	width: 16%;
+	display: inline-block;
+	margin: auto;
+	text-align: left;
+	border-right: 1px solid gray;
+	padding: 15px 0px 15px 15px;
+}
+
+#dailyUl{
+	border: none;
+}
+
+.detailTitle{
+	font-weight: 900;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+.detail{
+	font-weight: 400;
+	cursor: pointer;
+}
+
+.detail:hover, .detailTitle:hover{
+	color: #ffb6c1;
+}
+
+.hidden{
+	visibility: hidden;
+}
+
+
+#navProfile{
+	font-size: 30px;
+	font-family: 'Nanum Pen Script', cursive;
+}
+#navProfileImg{
+	width: 25px;
+	height: 25px;
+	border-radius: 50px;
+}
+#navProfile:hover{
+	color: #ffb6c1;
+}
+#menuComm{
+	border-right: 1px solid lightgray;
+}
+#menuLogin{
+	border-left: 1px solid lightgray;
+}
+.listDown{
+	margin-left: 20px;
+}
+#searchListLiTitle{
+	font-weight: bold;
+}
+#searchListLiTitle:hover{
+	color: black;
+}
+
+
+
+/* 실시간 검색어 */
+/* ============================================== */
+.absolute{
+	position: absolute;
+	top: 0px;
+}
+.relative{
+	position: relative;
+}
+.searchListUl{
+	border-radius: 10px;
+	padding: 17px 20px 13px 15px;
+	z-index: 99;
+}
+#searchListUlHidden{
+	display: none;
+}
+.searchListUl:hover{
+	color: black;
+}
+.searchListLi{
+	display: block;
+	margin-left: 10px;
+	text-align: left;
+	font-size: 18px;
+	font-weight: 100;
+	padding: 0px 0px 10px 0px;
+}
+.searchListLi:hover{
+	color: #ffb6c1;
+}
+.searchRank{
+	font-weight: bold;
+	margin-right: 15px;
+}
+
+
+/* 미디어 쿼리 */
+/* ============================================== */
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#searchListLiTitle{
+		font-size: 16px;
+	}
+	.searchListUl{
+		padding: 17px 10px 13px 0px;
+	}
+}
+@media screen and (min-width: 576.01px) and (max-width: 767.99px){
+	#menuSearchlist{
+		border-right: none;
+		border-left: none;
+	}
+	#menuLogout, #navProfile{
+		display: none;
+	}
+	#searchListLiTitle{
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 575.99px){
+	nav{
+		height: 50px;
+	}
+	#menuLogout, #navProfile{
+		display: none;
+	}
+}

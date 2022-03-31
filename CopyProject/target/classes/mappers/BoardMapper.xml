@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.boardMapper">
+
+	<select id="listBoard" resultType="boardVO" parameterType="SearchVO">
+         SELECT bidx,
+         		subject,
+         		content,
+         		writeday
+           FROM board
+          WHERE 1=1
+            AND delyn = 'N' 
+            <if test="searchType != null and searchType.equals('subject')">
+            	AND subject like '%'||#{searchValue}||'%'
+            </if>
+            <if test="searchType != null and searchType.equals('writer')">
+            	AND writer like '%'||#{searchValue}||'%'
+            </if>
+    </select>
+    
+    <select id="detailBoard" resultType="boardVO" parameterType="int">
+    	SELECT bidx,
+         		subject,
+         		content,
+         		writeday
+          FROM board
+          WHERE bidx= #{bidx}
+    </select>
+    
+    <update id="updateBoard" parameterType="BoardVO">
+    	UPDATE board
+    	   SET subject = #{subject}
+    		  ,content = #{content}
+         WHERE bidx = #{bidx}
+    </update>
+    
+    <delete id="deleteBoard" parameterType="int">
+    	UPDATE board
+    	   SET delyn = 'Y'
+    	 WHERE bidx = #{bidx}
+    </delete>
+    
+    <insert id="insertBoard" parameterType="BoardVO">
+    <![CDATA[
+    	INSERT INTO board(
+    		bidx,
+    		subject,
+    		content,
+    		writer,
+    		midx
+    	) VALUES(
+    		bidx_seq.nextval,
+    		#{subject},
+    		#{content},
+    		#{writer},
+    		1
+    	)
+    ]]>
+    <selectKey resultType="integer" keyProperty="bidx" order="AFTER">
+    	SELECT MAX(bidx)
+    	  FROM board
+    </selectKey>
+    </insert>
+    
+</mapper>

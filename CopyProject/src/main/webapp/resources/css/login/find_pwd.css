@@ -1,0 +1,273 @@
+@charset "UTF-8";
+/* 본문 CSS */
+section{
+	margin: auto;
+	max-width: 1560px;
+}
+.contents{
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#findFrm{
+	width: 500px;
+	margin-top: 30px;
+	margin-bottom: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+#findFrm div{
+	display: inline-block;
+}
+.value{
+	padding-left: 5px;
+	height: 30px;
+}
+.value:focus{
+	outline: none;
+}
+.input::placeholder{
+	font-size: 13px;
+}
+.border{
+	margin-top: 20px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	width: 99%;
+}
+.idArea{
+	margin: 0px;
+}
+.title{
+	text-align: center;
+	margin-bottom: 50px;
+	font-size: 25px;
+	width: 100%;
+}
+.input{
+	width: 310px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+}
+.label{
+	height: 40px;
+	border-right: 1px solid lightgray;
+	padding-top: 6px;
+}
+.head{
+	height: 30px;
+	width: 160px;
+	font-size: 15px;
+	text-align: center;
+	display: inline-block;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.foot{
+	font-size: 13px;
+	color: red;
+	margin-left: 170px;
+	text-align: center;
+	visibility: hidden;
+}
+.idArea{
+	display: inline-block;
+}
+.sectionBtnArea{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin: 30px 0px 10px 0px;
+}
+#sectionFindBtn{
+	width: 200px;
+	height: 50px;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	color: white;
+	margin-bottom: 20px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.sectionBtnArea a{
+	text-decoration: none;
+	color: gray;
+	font-size: 15px;
+}
+#sectionFindBtn:hover{
+	color: #ffb6c1;
+	background-color: white;
+}
+.sectionBtnArea a:hover{
+	color: #ffb6c1;
+}
+
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+	#findFrm{	
+		width: 500px;
+	}
+	.head{
+		width: 160px;
+		font-size: 15px;
+	}
+	.foot{
+		margin-left: 170px;			
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+	.sidebar_menu{
+		width: 400px;
+	}
+	#findFrm{	
+		width: 400px;
+	}
+	.head{
+		width: 130px;
+		font-size: 14px;
+		height: 26px;
+	}
+	.input{
+		width: 255px;
+		font-size: 13px;
+	}
+	.foot{
+		margin-left: 140px;
+		font-size: 12px;		
+	}
+	#birth1{
+		margin-left: 15px;
+	}
+	.birthArea{
+		font-size: 14px;
+	}
+	.birth{
+		font-size: 13px;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.sidebar_menu{
+		width: 100%;
+		max-width: 400px;
+	}
+	#findFrm{
+		width: 300px;
+		margin-top: 0px;
+	}
+	.head{
+		font-size: 13px;
+		width: 100px;
+		height: 26px;
+	}
+	.input{
+		width: 185px;
+		font-size: 12px;
+	}
+	.foot{
+		margin-left: 100px;
+		font-size: 10px;
+		display: block;
+	}
+	#birth1{
+		margin-left: 0px;
+		width: 50px;
+	}
+	.birthArea{
+		font-size: 13px;
+	}
+	.birth{
+		font-size: 12px;
+		width: 30px;
+	}
+}
