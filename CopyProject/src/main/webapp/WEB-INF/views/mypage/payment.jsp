@@ -14,6 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
+	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	
 	
 	<title>주문/결제 - 홈프렌즈</title>
 	
@@ -165,11 +168,38 @@
 				위 내용을 확인하였으며 결제에 동의합니다.
 			</div>
 			<div class="payButtonArea">
-				<input type="button" id="payButton" value="결제하기" onclick="">
+				<input type="button" id="payButton" value="결제하기" onclick="iamport()">
 			</div>
 		</div>
 		
 	</section>
+	
+	<script>
+		function iamport(){
+			//가맹점 식별코드
+			IMP.init('imp58059253');
+			IMP.request_pay({
+				pg : 'html5_inicis',
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '상품1' , //결제창에서 보여질 이름
+			    amount : 100, //실제 결제되는 가격
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울 강남구 도곡동',
+			    buyer_postcode : '123-456'
+			}, function(rsp) {
+				console.log(rsp);
+			    if ( rsp.success ) {
+			    	location.href="order_success.do";
+			    } else {
+			    	location.href="order_fail.do";
+			    }
+			    alert(msg);
+			});
+		}
+	</script>
 
 	<script src="/controller/js/mypage/payment2.js"></script>
 	
