@@ -26,6 +26,7 @@
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/footer.js"></script>
 	
+
 </head>
 <body>
 	<%@ include file="header.jsp" %>
@@ -63,31 +64,31 @@
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="image/home02.png" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU01.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU02.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU02.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU03.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU03.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU04.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU04.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU05.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU05.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU06.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU06.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU07.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU07.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU08.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU08.jfif" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="image/IU09.jfif" class="d-block w-100" alt="...">
+					<img src="/controller/image/IU09.jfif" class="d-block w-100" alt="...">
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -111,38 +112,38 @@
 	            <div class="clear"></div>
 	         </div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-				<img src="image/story02.webp" class="storyImg" onclick="">
+				<img src="/controller/image/story02.webp" class="storyImg" onclick="">
 				<div class="storyText" onclick="">
 					<div class="storyTitle">내추럴 모던 홈 스타일링</div>
 					<div class="storyWriter">
-						<img class="writerImg" src="image/winter.png">Winter
+						<img class="writerImg" src="/controller/image/winter.png">Winter
 					</div>
 				</div>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-				<img src="image/story01.webp" class="storyImg" onclick="">
+				<img src="/controller/image/story01.webp" class="storyImg" onclick="">
 				<div class="storyText" onclick="">
 					<div class="storyTitle">맥시멀리스트의 싱글라이프</div>
 					<div class="storyWriter">
-						<img class="writerImg" src="image/karina.png">Karina
+						<img class="writerImg" src="/controller/image/karina.png">Karina
 					</div>
 				</div>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-				<img src="image/story03.webp" class="storyImg" onclick="">
+				<img src="/controller/image/story03.webp" class="storyImg" onclick="">
 				<div class="storyText" onclick="">
 					<div class="storyTitle">넓은 거실이 있는 30평대 신혼집</div>
 					<div class="storyWriter">
-						<img class="writerImg" src="image/iu.png">IU
+						<img class="writerImg" src="/controller/image/iu.png">IU
 					</div>
 				</div>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story hiddenStory">
-				<img src="image/story02.webp" class="storyImg" onclick="">
+				<img src="/controller/image/story02.webp" class="storyImg" onclick="">
 				<div class="storyText" onclick="">
 					<div class="storyTitle">내추럴 모던 홈 스타일링</div>
 					<div class="storyWriter">
-						<img class="writerImg" src="image/winter.png">Winter
+						<img class="writerImg" src="/controller/image/winter.png">Winter
 					</div>
 				</div>
 			</div>
@@ -159,7 +160,7 @@
 	            <div class="clear"></div>
 	         </div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
-				<img src="image/shop01.webp" class="shopImg" onclick="">
+				<img src="/controller/image/shop01.webp" class="shopImg" onclick="">
 				<div class="shopText" onclick="">
 					<div class="shopTitle">
 						<div class="brand">코코도르</div>
@@ -177,7 +178,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
-				<img src="image/shop02.webp" class="shopImg" onclick="">
+				<img src="/controller/image/shop02.webp" class="shopImg" onclick="">
 				<div class="shopText" onclick="">
 					<div class="shopTitle">
 						<div class="brand">픽켄드</div>
@@ -195,7 +196,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
-				<img src="image/shop03.webp" class="shopImg" onclick="">
+				<img src="/controller/image/shop03.webp" class="shopImg" onclick="">
 				<div class="shopText" onclick="">
 					<div class="shopTitle">
 						<div class="brand">미닉스</div>
@@ -213,7 +214,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop hiddenShop">
-				<img src="image/shop04.webp" class="shopImg" onclick="">
+				<img src="/controller/image/shop04.webp" class="shopImg" onclick="">
 				<div class="shopText" onclick="">
 					<div class="shopTitle">
 						<div class="brand">노와</div>

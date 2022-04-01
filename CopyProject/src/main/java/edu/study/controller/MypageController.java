@@ -1,9 +1,10 @@
 package edu.study.controller;
 
 import java.util.List;
-
-
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import edu.study.service.BasketService;
 import edu.study.service.HomeService;
 import edu.study.service.MypageService;
+import edu.study.vo.BasketVO;
 import edu.study.vo.HomeSearchVO;
-import edu.study.vo.HomeStoryVO;
 import edu.study.vo.MemberVO;
-import edu.study.vo.SearchVO;
 import edu.study.vo.OrderListVO;
+import edu.study.vo.SearchVO;
 
 /**
  * Handles requests for the application home page.
@@ -30,25 +32,34 @@ public class MypageController {
 	private MypageService mypageService;
 	@Autowired
 	private HomeService homeService;
+	@Autowired
+	private BasketService basketService;
 	 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String mypage(Locale locale, Model model, SearchVO vo, HttpServletRequest req) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
-			
+		
 		int midx=1;
 		MemberVO result = mypageService.detail(midx);
 		model.addAttribute("vo", result);
 		
-		return "mypage/mypage"; 
+		HttpSession session = req.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			return "home";
+		}else {
+			return "mypage/mypage";
+		}
 	}
 	
 	@RequestMapping(value = "/member_modify.do", method = RequestMethod.GET)
@@ -142,6 +153,27 @@ public class MypageController {
 		model.addAttribute("searchList", searchList);
 			
 		return "mypage/payment";
+	}
+	
+	@RequestMapping(value = "/payment.do", method = RequestMethod.POST)
+	public String payment(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+		
+		String sbidx = vo.getSbidx();
+		String[] sbidxArray = sbidx.split(",");
+		vo.setSbidxArray(sbidxArray);
+		
+		List<BasketVO> basketList = basketService.listBasketFromBasket(vo);
+		
+		model.addAttribute("basketList", basketList);
+		
+		HttpSession session = req.getSession();
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			return "home";
+		}else {
+			return "mypage/payment";
+		}
 	}
 	
 	@RequestMapping(value = "/order_success.do", method = RequestMethod.GET)

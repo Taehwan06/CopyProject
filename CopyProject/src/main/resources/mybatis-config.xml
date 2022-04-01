@@ -13,6 +13,7 @@
         <typeAlias type="edu.study.vo.OrderListVO" alias="OrderListVO"/>
         <typeAlias type="edu.study.vo.StoreVO" alias="StoreVO"/>
         <typeAlias type="edu.study.vo.Community_BoardVO" alias="Community_boardVO"/>
+        <typeAlias type="edu.study.vo.BasketVO" alias="BasketVO"/>
     </typeAliases>
 
 </configuration>

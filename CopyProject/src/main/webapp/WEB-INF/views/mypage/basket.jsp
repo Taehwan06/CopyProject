@@ -166,13 +166,24 @@
 					
 				</div>
 				<div class="content_margin">
-						<button type="button" class="sumPriceBox_button">구매하기</button>
+						<button type="button" class="sumPriceBox_button" onclick="payFn()">구매하기</button>
 				</div>
 			</div>
 		</div>
 		</form>
-		 
+		<form id="payFrm" name="payFrm">
+			<input type="hidden" name="sbidx" value="1,2,3">
+			<input type="hidden" name="midx" value="1">
+		</form>
 	</section>
+	
+	<script>
+		function payFn(){
+			document.payFrm.method = "post";
+			document.payFrm.action = "payment.do";
+			document.payFrm.submit();
+		}
+	</script>
 	
 	<%@ include file="../footer.jsp" %>
 	

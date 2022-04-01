@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.basketMapper">
+
+	<select id="listBasketFromBasket" resultType="BasketVO" parameterType="BasketVO">
+		SELECT
+			title,
+			price,
+			cnt,
+			delivery_charge,
+			free_delivery,
+			img_origin,
+			img_system,
+			spidx,
+			brand
+		FROM
+			shopping_basket
+		WHERE
+			1 = 1
+		<foreach item="sbidx" index="index" collection="sbidxArray">
+		OR
+			sbidx = ${sbidx}
+		</foreach>
+	
+    </select>
+    
+   
+    
+</mapper>
