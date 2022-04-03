@@ -32,19 +32,16 @@ public class MypageDAO {
 		return sqlSession.selectOne(Namespace+".detailMember",midx);
 	}
 	
-	
+	public int update(MemberVO vo) throws Exception{
+		return sqlSession.update(Namespace+".modifyMember",vo);
+		
+	}
 	
 	
 	public int insert(MemberVO vo) throws Exception{
 		return sqlSession.insert(Namespace+".insertMember",vo);
 	}
 	
-	
-	
-	public int update(MemberVO vo) throws Exception{
-		return sqlSession.update(Namespace+".modifyMember",vo);
-		
-	}
 	
 	public int delete(MemberVO vo) throws Exception{
 		return sqlSession.update(Namespace+".deleteMember",vo);
@@ -53,10 +50,16 @@ public class MypageDAO {
 	public List<OrderListVO> orderList(OrderListVO vo) throws Exception{
 		return sqlSession.selectList(Namespace+".orderList",vo);
 	} 
+	
+	public List<OrderListVO> orderList2(MemberVO vo) throws Exception{
+		return sqlSession.selectList(Namespace+".orderList",vo);
+	} 
 	 
 	
-	
-	
+	public int count(OrderListVO vo) throws Exception{ 
+		return sqlSession.selectOne(Namespace+".comcount",vo);
+	}
+
 	
 }
 

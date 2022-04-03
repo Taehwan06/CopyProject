@@ -43,47 +43,59 @@
 					<label><input type="checkbox" name="all" value="all"> 전체선택</label>
 				</div>
 			</div>
+			
 			<!-- 상품표기 -->
 			<div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 padding_right">
 				<div>
-					<!-- 개별 상품목록 -->
-					<ul class="row no_list container-fluid border_b">
-						<div class="col-6">
-							<input class="Selection" type="checkbox" name="Selection" value="상품번호3">
-						</div><!-- 상품삭제 -->
-						<div class="col-6" style="text-align: right; padding-right: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
-  						</div>
-						<li class="col-3">
-							<ul class="row no_list">
-							<li class="col-3"></li>
-								<li class="col-9">
-									<img class="product_image" src="/controller/image/bedding.png">
-								</li>
-							</ul>
-						</li>
-						<li class="col-9">
-							<ul class="row no_list" style="text-align: center;">
-								<li class="col-6 content_margin">
-									<div class="text_left">
-										포근한 이불
-									</div>
-								</li>
-								<li class="col-3 text_center">
-									<div class="padding_t10">
-										<button type="button" class="btn decreaseQuantity">	- </button>
-										<input type="text" class="numberUpDown" class="numberOnly" maxlength="3" size="1" value="1">
-									    <button type="button" class="btn increaseQuantity">&#43;</button>
-								    </div>
-								</li>
-								<li class="col-3 text_center price_val_box">
-									<div class="hidden">10000</div>
-									<div class="price_val margin_auto"><span>10000</span>원</div>
-								</li>
-							</ul>
-						</li>
-					</ul>
-					<!--  -->
+				
+				<c:if test="${basketListAll.size() == 0}">
+					
+				</c:if>
+				
+				<c:if test="${basketListAll.size() > 0}">
+					<c:forEach items="${basketListAll}" var="basketListAllvo" varStatus="cnt">
+						
+						<!-- 개별 상품목록 -->
+						<ul class="row no_list container-fluid border_b">
+							<div class="col-6">
+								<input class="Selection" type="checkbox" id="cnt" name="Selection" value="${basketListAllvo.sbidx}">
+							</div><!-- 상품삭제 -->
+							<div class="col-6" style="text-align: right; padding-right: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+	  							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+	  						</div>
+							<li class="col-3">
+								<ul class="row no_list">
+								<li class="col-3"></li>
+									<li class="col-9">
+										<img class="product_image" src="/controller/image/${basketListAllvo.img_system}">
+									</li>
+								</ul>
+							</li>
+							<li class="col-9">
+								<ul class="row no_list" style="text-align: center;">
+									<li class="col-6 content_margin">
+										<div class="text_left">
+											${basketListAllvo.title}
+										</div>
+									</li>
+									<li class="col-3 text_center">
+										<div class="padding_t10">
+											<button type="button" class="btn decreaseQuantity">	- </button>
+											<input type="text" class="numberUpDown" class="numberOnly" maxlength="3" size="1" value="1">
+										    <button type="button" class="btn increaseQuantity">&#43;</button>
+									    </div>
+									</li>
+									<li class="col-3 text_center price_val_box">
+										<div class="hidden">${basketListAllvo.price}</div>
+										<div class="price_val margin_auto"><span>${basketListAllvo.price}</span>원</div>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<!--  -->
+						
+					</c:forEach>
+				</c:if>
 					
 					
 					<!-- 하단 금액표기 -->
@@ -172,7 +184,7 @@
 		</div>
 		</form>
 		<form id="payFrm" name="payFrm">
-			<input type="hidden" name="sbidx" value="1,2,3">
+			<input type="hidden" name="sbidxStr" value="1,2,3,7">
 			<input type="hidden" name="midx" value="1">
 		</form>
 	</section>

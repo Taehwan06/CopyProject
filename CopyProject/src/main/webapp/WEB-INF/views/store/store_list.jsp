@@ -11,6 +11,9 @@
 	<!-- 부트스트랩 -->
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<!-- Bootstrap icon CSS-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -19,6 +22,7 @@
 	<link href="/controller/css/store/store_list.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/nav.js"></script>
+	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/store/store_list.js"></script>
 	
@@ -163,6 +167,12 @@
 					<c:if test="${not empty param.detail}">
 						<script>
 							var title = match[${param.detail}];
+							$("#store_main_Title").text(title);
+						</script>
+					</c:if>
+					<c:if test="${not empty param.type}">
+						<script>
+							var title = match["${param.type}"];
 							$("#store_main_Title").text(title);
 						</script>
 					</c:if>

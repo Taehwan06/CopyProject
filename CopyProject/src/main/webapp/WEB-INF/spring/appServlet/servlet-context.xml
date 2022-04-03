@@ -17,11 +17,18 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/image/**" location="/resources/image/" />
 	<resources mapping="/js/**" location="/resources/js/" />
+	<resources mapping="/upload/**" location="/resources/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 업로드 관련 빈 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <beans:property name="maxUploadSize" value="200000000" />
+	    <beans:property name="maxInMemorySize" value="200000000" />
 	</beans:bean>
 	
 	<context:component-scan base-package="edu.study.controller" />

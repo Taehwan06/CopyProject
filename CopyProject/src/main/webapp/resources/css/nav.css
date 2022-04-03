@@ -134,6 +134,9 @@ nav{
 #menuLogin{
 	border-left: 1px solid lightgray;
 }
+#menuLogout{
+	border-left: 1px solid lightgray;
+}
 .listDown{
 	margin-left: 20px;
 }

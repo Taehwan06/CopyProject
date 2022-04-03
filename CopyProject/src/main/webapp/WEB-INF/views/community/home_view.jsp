@@ -21,6 +21,8 @@
 	<link href="/controller/css/community/home_view.css" rel="stylesheet">
 	<script src="/controller/js/community/home_story.js"></script>
 	<script src="/controller/js/community/home_view.js"></script>
+	<script src="/controller/js/header.js"></script>
+	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/footer.js"></script>
 	
 </head>
@@ -30,7 +32,7 @@
 	
 	<!-- 본문 영역 -->
 	<div class="row MainImg">
-		<img src="/controller/upload/file/${vo.img_system }">
+		<img src="/controller/upload/${vo.img_system }">
 	</div>
 	<section id="story_area">
 		<div class="comm_area">
@@ -41,7 +43,7 @@
 				<div class="col-xl-4 storyWriter">
 					<div class="profile">
 						<div class="profile_img">
-							<img class="writerImg" src="/controller/image/karina.png">
+							<img class="writerImg" src="/controller/image/${vo.profile_system }">
 						</div>
 						<div class="profile_name">
 							${vo.writer }
@@ -60,23 +62,22 @@
 		</div>
 		<div class="row content_area">
 			<div class="row content_img">
-				<div>
-					거실
-				</div>
-				<img src="/controller/image/home_view01.webp">
-				<div>
-					주방
-				</div>
-				<img src="/controller/image/home_view02.webp">
-				<img src="/controller/image/home_view03.webp">
-				<div>
-					침실
-				</div>
-				<img src="/controller/image/home_view04.webp">
+				${vo.content }
 				<div id="footer_img_">
 					<img src="/controller/image/footer_img.PNG">
 				</div>
 			</div>
+		</div>
+		<div class="btn_area">
+			<button type="button" onclick="location.href='home_list.do'">목록</button>
+		<c:if test="${loginUser.midx == vo.midx }">
+			<button type="button" onclick="location.href='home_modify.do?cbidx='+${vo.cbidx}">수정</button>
+			<button type="button" onclick="del()">삭제</button>
+			<form name="delfrm" action="home_delete.do" method="post">
+				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
+			</form>
+		</c:if>
+			
 		</div>
 		<div class="content_stats">
 			<div>스크랩<span>${vo.scrap_cnt }</span></div>
@@ -85,7 +86,7 @@
 		</div>
 		<div class="footer_profile">
 			<div class="footer_profile_img">
-				<img class="footer_writerImg" src="/controller/image/karina.png">
+				<img class="footer_writerImg" src="/controller/image/${vo.profile_system }">
 				${vo.writer }
 				<button>팔로우</button>
 			</div>

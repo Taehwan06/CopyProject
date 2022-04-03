@@ -97,6 +97,22 @@ section{
 	margin-top : 10px;
 	margin-bottom : 10px;
 }
+.btn_area{
+	text-align : right;
+	width : 750px;
+	margin-left : auto;
+	margin-right : auto;
+}
+.btn_area button{
+	background : #ffb6c1;
+	color : white;
+	border : none;
+	border-radius : 5px;
+	font-size : 14px;
+	font-weight : bold;
+	width : 90px;
+	height : 36px;
+}
 .content_stats{
 	padding : 12px;
 	width : 750px;

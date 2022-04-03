@@ -5,7 +5,7 @@
  
 <mapper namespace="edu.study.mapper.basketMapper">
 
-	<select id="listBasketFromBasket" resultType="BasketVO" parameterType="BasketVO">
+	<select id="listPayFromBasket" resultType="BasketVO" parameterType="BasketVO">
 		SELECT
 			title,
 			price,
@@ -20,11 +20,31 @@
 			shopping_basket
 		WHERE
 			1 = 1
+		AND(
 		<foreach item="sbidx" index="index" collection="sbidxArray">
-		OR
 			sbidx = ${sbidx}
+		OR		
 		</foreach>
+			sbidx = 0)
 	
+    </select>
+    
+    
+    <select id="listBasket" resultType="BasketVO" parameterType="MemberVO">
+		SELECT
+			title,
+			price,
+			cnt,
+			delivery_charge,
+			free_delivery,
+			img_origin,
+			img_system,
+			spidx,
+			brand
+		FROM
+			shopping_basket
+		WHERE
+			midx = ${midx}
     </select>
     
    

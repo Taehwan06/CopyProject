@@ -40,6 +40,8 @@ function cancelFn(){
 		location.href = "home_list.do"
 	}
 }
+/* 이미지 업로드 */
+
 function adjustHeight() {
 	var textEle = $(".note-editable");
 	textEle[0].style.height = 'auto';
@@ -76,6 +78,8 @@ $(function() {
 	});
 });
 
+
+
 $(document).ready(function() {
 	
 	$('#summernote').summernote({
@@ -101,5 +105,71 @@ $(document).ready(function() {
 			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 
 	});
-	  
+	
+	$("input[type=file]").on("change", function(e){
+		
+		let formData = new FormData();
+		let fileInput = $('input[name="uploadFile"]');
+		let fileList = fileInput[0].files;
+		let fileObj = fileList[0];
+		
+		if(!fileCheck(fileObj.name, fileObj.size)){
+			return false;
+		}
+		
+		formData.append("uploadFile", fileObj);
+		
+		$.ajax({
+			url: 'uploadAjaxAction',
+	    	processData : false,
+	    	contentType : false,
+	    	data : formData,
+	    	type : 'POST',
+	    	datatype : 'json',
+	    	success : function(data){
+				var fileName = null;
+				var uploadPath = null;
+				var uuid = null
+				var orinfilename = $("#img_origin");
+				var uploadfilename = $("#img_system");
+				console.log(data);
+				$.each(data, function() { 
+				    fileName = this["fileName"];
+				
+				    uploadPath = this["uploadPath"].replace(/\\/g, '/');
+				    
+				    uuid = this["uuid"]
+				});
+				var filePath = uploadPath + "/" + uuid + "_" + fileName;
+
+			    
+				ornval = orinfilename.val(fileName);
+				upload = uploadfilename.val(filePath);
+			},
+			error : function(data){
+				alert("이미지 파일이 아닙니다.");
+			}
+		});
+		
+	});
+	
+	/* var, method related with attachFile */
+	let regex = new RegExp("(.*?)\.(jpg|png|webp|PNG|jfif)$");
+	let maxSize = 10485760; //10MB	
+	
+	function fileCheck(fileName, fileSize){
+
+		if(fileSize >= maxSize){
+			alert("파일 사이즈 초과");
+			return false;
+		}
+			  
+		if(!regex.test(fileName)){
+			alert("해당 종류의 파일은 업로드할 수 없습니다.");
+			return false;
+		}
+		
+		return true;		
+		
+	}
 });

@@ -22,6 +22,8 @@
 	<link href="/controller/css/footer.css" rel="stylesheet">
 	<link href="/controller/css/community/home_list.css" rel="stylesheet">
 	<script src="/controller/js/community/home_list.js"></script>
+	<script src="/controller/js/header.js"></script>
+	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/footer.js"></script>
 
 </head>
@@ -45,11 +47,11 @@
 		<div class="row storyList">
 			<c:forEach items="${list}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 story">
-					<img src="/controller/upload/file/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx='+${vo.cbidx}">
+					<img src="/controller/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx='+${vo.cbidx}">
 					<div class="storyText" onclick="location.href='home_view.do?cbidx='+${vo.cbidx}">
 						<div class="storyTitle">${vo.title }</div>
 						<div class="storyWriter">
-							<img class="writerImg" src="/controller/image/winter.png">${vo.writer }
+							<img class="writerImg" src="/controller/image/${vo.profile_system }">${vo.writer }
 						</div>
 						<div class="likeyView">
 							좋아요${vo.scrap_cnt } &middot; 조회${vo.hit_cnt }

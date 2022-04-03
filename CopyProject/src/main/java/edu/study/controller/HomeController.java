@@ -3,22 +3,21 @@ package edu.study.controller;
 import java.util.List;
 import java.util.Locale;
 
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.study.service.Community_BoardService;
 import edu.study.service.HomeService;
+import edu.study.service.StoreService;
+import edu.study.vo.Community_BoardVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.HomeStoreVO;
 import edu.study.vo.HomeStoryVO;
-import edu.study.vo.MemberVO;
+import edu.study.vo.SearchVO;
+import edu.study.vo.StoreVO;
 
 /**
  * Handles requests for the application home page.
@@ -28,6 +27,10 @@ public class HomeController {
 	
 	@Autowired
 	private HomeService homeService;
+	@Autowired
+	private Community_BoardService Community_boardService;
+	@Autowired
+	private StoreService storeService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -41,6 +44,16 @@ public class HomeController {
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
+		
+		List<Community_BoardVO> list = Community_boardService.list();
+	      
+	    model.addAttribute("list",list);
+	    
+	    SearchVO searchvo = new SearchVO();
+	    searchvo.setReview_cnt("yes");
+	    List<StoreVO> storeList = storeService.list(searchvo);
+	    
+	    model.addAttribute("storeList",storeList);
 				
 		return "home";
 	}
@@ -98,7 +111,13 @@ public class HomeController {
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
-		model.addAttribute("searchList", searchList);		
+		model.addAttribute("searchList", searchList);
+		
+		SearchVO searchvo = new SearchVO();
+	    searchvo.setReview_cnt("yes");
+	    List<StoreVO> storeList = storeService.list(searchvo);
+	    
+	    model.addAttribute("storeList",storeList);
 		
 		return "search_result_none";
 	}

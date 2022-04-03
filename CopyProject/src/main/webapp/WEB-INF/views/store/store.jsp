@@ -13,6 +13,9 @@
 	<!-- 부트스트랩 -->
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap icon CSS-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
     
 	<title>스토어</title>
 	
@@ -23,6 +26,7 @@
 	<link href="/controller/css/store/store.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/nav.js"></script>
+	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/store/store.js"></script>
 	<script src="/controller/js/footer.js"></script>
@@ -33,15 +37,19 @@
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
 	<!-- 본문내용 -->
-	<button class="write_btn">
-		상품등록
-	</button>
+	<c:if test="${loginUser.grade eq 'A'}">
+		<button class="write_btn">
+			상품등록
+		</button>
+	</c:if>
 	<section>
+		<c:if test="${loginUser.grade eq 'A'}">
 		<div class="content_right">
 			<button class="write_btn_">
 				상품등록
 			</button>
 		</div>
+		</c:if>
 		<!-- 이벤트 베너 -->
 		<div class="row">
 			<img class="col-12" src="/controller/image/store_vn_image.png">

@@ -86,10 +86,10 @@
 							<div class="accordion-body">
 								<ul class="list-unstyled">
 									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do'">카테고리</li>
-									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do'">베스트</li>
-									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do'">핫딜</li>
-									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do'">추천 상품</li>
-									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do'">좋아요</li>
+									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=sell_cnt'">베스트</li>
+									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=Discount'">핫딜</li>
+									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=review_cnt'">추천 상품</li>
+									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/store/likey.do'">좋아요</li>
 								</ul>
 							</div>
 						</div>
@@ -113,7 +113,7 @@
 					</div>
 				</div>
 				
-				<div class="col-8 modalTextMenu eventMenu" onclick="location.href='${pageContext.request.contextPath}/store/event_list.do'">
+				<div class="col-8 modalTextMenu eventMenu" onclick="location.href='${pageContext.request.contextPath}/store/event.do'">
 					이벤트
 				</div>
 

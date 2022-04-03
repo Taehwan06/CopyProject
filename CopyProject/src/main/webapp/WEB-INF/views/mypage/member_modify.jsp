@@ -108,16 +108,19 @@
 							</div>
 							<div class="edit_dummy2">
 								<div class="Edit edit_member_info">
-								</div>
+								</div> 
+									<c:set var = "addrInfo" value = "${vo.addr}"/>
+									<c:set var = "addr1" value = "${fn:substringBefore(addrInfo,' ')}"/>
+									<c:set var = "addr2" value = "${fn:substringAfter(addrInfo,' ')}"/>
 								<div class="Edit edit_member_form">
-									<input type="text" id="AddrInput2" value="${vo.addr}" name="addr" readonly>
+									<input type="text" id="AddrInput2" value="${addr1}" name="addr1" readonly>
 								</div>
 							</div>
 							<div class="edit_dummy">
 								<div class="Edit edit_member_info">
 								</div>
 								<div class="Edit edit_member_form">
-									<input type="text" id="AddrInput3" value="금암동" name="addr3" readonly>
+									<input type="text" id="AddrInput3" value="${addr2}" name="addr2" readonly>
 								</div>
 							</div>
 							<div class="edit_dummy">
@@ -131,6 +134,7 @@
 							</div>
 							<div class="memberEditSubmit">
 								<input type="submit" value="회원 정보 수정">
+								<input type="hidden" value="${vo.midx}" name="midx">
 							</div>
 						</form>
 					</div>

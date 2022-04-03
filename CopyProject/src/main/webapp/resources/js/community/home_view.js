@@ -29,3 +29,7 @@ textEle.on('keyup', function() {
 function focusOn(){
 	$("#reply_text").focus();
 }
+
+function del(){
+	document.delfrm.submit();
+}

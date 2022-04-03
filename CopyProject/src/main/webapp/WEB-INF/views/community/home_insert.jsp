@@ -30,6 +30,7 @@
 	<link href="/controller/css/nav.css" rel="stylesheet">
 	<link href="/controller/css/community/home_insert.css" rel="stylesheet">
 	<link href="/controller/css/footer.css" rel="stylesheet">
+	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/footer.js"></script>
 	<script src="/controller/js/community/home_insert.js"></script>
@@ -52,7 +53,6 @@
 	<section>
 		
 		<form id="insertFrm" name="insertFrm" action="home_insert.do" method="post" enctype="multipart/form-data">
-			<iuput type="hidden" name="midx" value="1">
 
 			<div class="center">
 				<label for="imgUpload" id="imgLabel">
@@ -72,6 +72,8 @@
 			</label>
 			<div id="imgUploadArea">
 				<input type="file" id="imgUpload" name="uploadFile">
+				<input type="hidden" name="img_origin" id="img_origin" value="">
+				<input type="hidden" name="img_system" id="img_system" value="">
 			</div>
 			
 			<div id="titleArea">

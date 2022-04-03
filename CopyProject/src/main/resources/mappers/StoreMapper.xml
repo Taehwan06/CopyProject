@@ -47,41 +47,65 @@
 	</select>
     
     <insert id="insertStore" parameterType="StoreVO">
-    <![CDATA[
-    	INSERT INTO shopping_product(
-    		img_origin,
-    		title,
-    		product_Name,
-    		content,
-    		writer,
-    		origin_price,
-    		sale_price,
-    		discount,
-    		brand,
-    		free_delivery,
-    		category,
-    		detail,
-    		midx
-    	) VALUES(
-    		#{img_origin},
-    		#{title},
-    		#{product_name},
-    		#{content},
-    		#{writer},
-    		#{origin_price},
-    		#{sale_price},
-    		#{discount},
-    		#{brand},
-    		#{free_delivery},
-    		#{category},
-    		#{detail},
-    		#{midx}
-    	)
-    ]]>
-    <selectKey resultType="integer" keyProperty="bidx" order="AFTER">
-    	SELECT MAX(spidx)
-    	  FROM shopping_product
-    </selectKey>
+	    <![CDATA[
+	    	INSERT INTO shopping_product(
+	    		img_origin,
+	    		title,
+	    		product_Name,
+	    		content,
+	    		writer,
+	    		origin_price,
+	    		sale_price,
+	    		discount,
+	    		brand,
+	    		free_delivery,
+	    		category,
+	    		detail,
+	    		midx
+	    	) VALUES(
+	    		#{img_origin},
+	    		#{title},
+	    		#{product_name},
+	    		#{content},
+	    		#{writer},
+	    		#{origin_price},
+	    		#{sale_price},
+	    		#{discount},
+	    		#{brand},
+	    		#{free_delivery},
+	    		#{category},
+	    		#{detail},
+	    		#{midx}
+	    	)
+	    ]]>
+	    <selectKey resultType="integer" keyProperty="bidx" order="AFTER">
+	    	SELECT MAX(spidx)
+	    	  FROM shopping_product
+	    </selectKey>
+    </insert>
+    
+    <insert id="basketIn" parameterType="BasketVO">
+    	 <![CDATA[
+	    	INSERT INTO shopping_basket(
+	    		title,
+	    		price,
+	    		cnt,
+	    		delivery_charge,
+	    		free_delivery,
+	    		img_origin,
+	    		spidx,
+	    		midx
+	    	) VALUES(
+	    		#{title},
+	    		#{price},
+	    		#{cnt},
+	    		#{delivery_charge},
+	    		#{free_delivery},
+	    		#{img_origin},
+	    		#{spidx},
+	    		#{midx}
+	    	)
+	    ]]>
     </insert>
     
     

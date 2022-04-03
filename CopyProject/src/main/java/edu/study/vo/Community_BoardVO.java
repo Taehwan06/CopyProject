@@ -1,7 +1,5 @@
 package edu.study.vo;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class Community_BoardVO {
 	private int cbidx;
 	private String title;
@@ -19,8 +17,15 @@ public class Community_BoardVO {
 	private int hit_cnt;
 	private int midx;
 	private int listCnt;
+	private String profile_system;
+	/* 경로 */
+	private String uploadPath;
+	
+	/* uuid */
+	private String uuid;
+	
+	/* 파일 이름 */
 	private String fileName;
-	private MultipartFile uploadFile;
 	
 	public int getListCnt() {
 		return listCnt;
@@ -118,11 +123,17 @@ public class Community_BoardVO {
 	public void setMidx(int midx) {
 		this.midx = midx;
 	}
-	public MultipartFile getUploadFile() {
-		return uploadFile;
+	public String getUploadPath() {
+		return uploadPath;
 	}
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
+	public void setUploadPath(String uploadPath) {
+		this.uploadPath = uploadPath;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	public String getFileName() {
 		return fileName;
@@ -130,4 +141,21 @@ public class Community_BoardVO {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	public String getProfile_system() {
+		return profile_system;
+	}
+	public void setProfile_system(String profile_system) {
+		this.profile_system = profile_system;
+	}
+	@Override
+	public String toString() {
+		return "Community_BoardVO [cbidx=" + cbidx + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", write_date=" + write_date + ", modify_yn=" + modify_yn + ", modify_date=" + modify_date
+				+ ", del_yn=" + del_yn + ", del_date=" + del_date + ", scrap_cnt=" + scrap_cnt + ", reply_cnt="
+				+ reply_cnt + ", img_origin=" + img_origin + ", img_system=" + img_system + ", hit_cnt=" + hit_cnt
+				+ ", midx=" + midx + ", listCnt=" + listCnt + ", uploadPath=" + uploadPath + ", uuid=" + uuid
+				+ ", fileName=" + fileName + "]";
+	}
+	
+	
 }

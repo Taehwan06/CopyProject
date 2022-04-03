@@ -57,12 +57,13 @@
     
     <update id="modifyMember" parameterType="MemberVO">
     	UPDATE member 
-    	SET
+    	SET 
     		id = #{id},
     		nick_name = #{nick_name},
     		gender = #{gender},
     		phone = CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
     		addr = #{addr}
+    		
     	WHERE 
     		midx = #{midx}
     </update>
@@ -86,6 +87,8 @@
          		olidx,
          		title,
          		price,
+         		cnt,
+         		delivery_charge,
          		img_system,
          		buying_date,
          		progress,
@@ -95,8 +98,21 @@
            		order_list
           WHERE 
           		midx = #{midx}
-
+          ORDER BY buying_date DESC
+          
     </select>
-    
+  
+      
+    <select id="comcount" resultType="int" parameterType="OrderListVO">
+    	SELECT
+    			count(*)
+    	FROM
+    			order_list 
+    	WHERE
+    			progress = #{progress}
+    	AND
+    			midx = #{midx}
+    			
+    </select>
     
 </mapper>

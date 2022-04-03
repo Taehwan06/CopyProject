@@ -230,14 +230,21 @@ function submitFn(){
 		/*img_style= img_style.replace(/&/g,"%26");*/
 		img_style= img_style.replace(/\+/g,"%2B");
 		/*img_style= img_style.replace(/=/g,"%3D");*/
-		console.log(img_style);/*
+		/*
 		console.log($("#insertFrm").serialize());*/
 		$.ajax({
 			type : "POST",
 			url : "store_insert.do",
 			data : $("#insertFrm").serialize()+"&img_style="+img_style,
 			success : function(res) {
-				alert("ok");
+				
+				console.log(res);
+				if(res>0){
+					alert("상품이 장바구니에 담겼습니다.");
+					location.href="store.do";
+				}else{
+					alert("실행오류");
+				}
 			}
 		});
 	}

@@ -30,6 +30,9 @@ public class StoreVO {
 	private int bidx;
 	private String mainImg;
 	
+	//장바구니 담을 추가정보
+	private int cnt;
+	private String price;
 	
 	public int getMidx() {
 		return midx;
@@ -201,6 +204,31 @@ public class StoreVO {
 	public void setMainImg(String mainImg) {
 		this.mainImg = mainImg;
 	}
+
+	
+	
+	//장바구니 담을 추가정보
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+
+	
+	
+	
+	
 	
 	
 	

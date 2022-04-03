@@ -22,6 +22,13 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 		
 		return list;
 	}
+	@Override
+	public List<Community_BoardVO> list() throws Exception {
+		
+		List<Community_BoardVO> list = Community_boardDao.list();
+		
+		return list;
+	}
 	
 	@Override
 	public Community_BoardVO detail(int cbidx) throws Exception{
@@ -43,8 +50,8 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 	@Override
 	public int insert(Community_BoardVO vo) throws Exception {
 		
-		return Community_boardDao.insert(vo);
-		
+	    return Community_boardDao.insert(vo);
+
 	}
 
 	@Override

@@ -2,7 +2,7 @@
 .dropdown-toggle::after {
 	display:none;
 }
-#insertFrm{
+#insertFrm, #updateFrm{
 	width: 70%;
 	min-width: 500px;
 	max-width: 1200px;
@@ -119,6 +119,16 @@ label{
 }
 #coverImg{
 	display : none;
+}
+.MainImg{
+	overflow : hidden;
+	max-height : 800px;
+	margin-bottom : 50px;
+}
+.MainImg img{
+	max-height: initial;
+	width : 100%;
+	margin-top : -20%;
 }
 
 /* 미디어 쿼리  CSS */

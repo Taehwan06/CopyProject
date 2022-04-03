@@ -41,6 +41,9 @@ li{
 	color : gray;
 	text-align : center;
 }
+.story img{
+	cursor : cursor;
+}
 .storyText{
 	text-align : center;
 }

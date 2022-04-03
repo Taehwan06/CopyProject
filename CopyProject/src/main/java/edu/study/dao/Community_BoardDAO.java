@@ -21,6 +21,10 @@ public class Community_BoardDAO {
 		
 		return sqlSession.selectList(Namespace+".Comm_listBoard", vo);
 	}
+	public List<Community_BoardVO> list() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(Namespace+".Comm_listBoard");
+	}
 
 	public Community_BoardVO detail(int cbidx) throws Exception{
 	      
@@ -36,7 +40,6 @@ public class Community_BoardDAO {
 		
 		return sqlSession.delete(Namespace+".Comm_deleteBoard", cbidx);
 	}
-	
 	public int insert(Community_BoardVO vo) throws Exception{
 		
 		return sqlSession.insert(Namespace+".Comm_insertBoard", vo);
@@ -50,6 +53,11 @@ public class Community_BoardDAO {
 		
 		return sqlSession.selectOne(Namespace+".Comm_mainImg");
 	}
+	public String profileImg(SearchVO vo) throws Exception {
+		
+		return sqlSession.selectOne(Namespace+".Comm_profileImg", vo);
+	}
+	
 }
 
 

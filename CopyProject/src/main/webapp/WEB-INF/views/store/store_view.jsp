@@ -10,6 +10,9 @@
 	<!-- 부트스트랩 -->
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<!-- Bootstrap icon CSS-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
 	<title>홈프렌즈 상품 상세보기 페이지 입니다.</title>
 	
@@ -19,22 +22,42 @@
 	<link href="/controller/css/footer.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<link href="/controller/css/store/view.css" rel="stylesheet">
-	<script src="/controller/js/store/store_view.js"></script>
+	<script src="/controller/js/nav.js"></script>
+	<script src="/controller/js/header.js"></script>
+	<script src="/controller/js/store/view.js"></script>
 	<script src="/controller/js/footer.js"></script>
 	
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
+	<c:if test="${loginUser.grade eq null}">
+		<c:set var="midx" value="${loginUser.midx}" />
+	</c:if>
+	<c:set var="spidx" value="${vo.spidx}" />
+	<c:set var="title" value="${vo.title}" />
+	<c:set var="delivery_charge" value="${vo.delivery_charge}" />
+	<c:set var="free_delivery" value="${vo.free_delivery}" />
+	<c:set var="img_origin" value="${vo.img_origin}" />
+	
+	
+	
 
 	<!-- 본문 영역 -->
 	<section id="Shop_area">
 		<div class="row" id="store_category">
-			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">가구>소파</div>
+			<div id="store_main_Title" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+				<c:if test="${not empty vo.detail}">
+					<script>
+						var title = match[${vo.detail}];
+						$("#store_main_Title").text(title);
+					</script>
+				</c:if>
+			</div>
 		</div>
 		<div class="row" id="shop_content">
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-				<img src= "/controller/image/shop05.webp" class="shopImg" onclick="">
+				<img src= "${vo.img_origin}" class="shopImg" onClick="">
 			</div>
 			<div class="col-sm-11 col-md-5 col-lg-5 col-xl-5 content">
 				<div class="row">
@@ -63,8 +86,8 @@
 					<div class="col-sm-6 col-md-6 order_price__"><span>0</span>원</div>
 				</div>
 				<div class="row btn_area">
-					<div class="col-6 col-sm-6 col-md-6"><button id="basket_btn" onclick="">장바구니</button></div>
-					<div class="col-6 col-sm-6 col-md-6"><button id="buy_btn" onclick="location.href=''">바로구매</button></div>
+					<div class="col-6 col-sm-6 col-md-6"><button id="basket_btn" onclick="basketInFn()">장바구니</button></div>
+					<div class="col-6 col-sm-6 col-md-6"><button id="buy_btn" onclick="paymentInFn()">바로구매</button></div>
 				</div>
 			</div>
 		</div>
@@ -72,10 +95,10 @@
 		<article>
 			<div class="row information">
 				<div class="col-md-1 col-lg-1 col-xl-1" id="hiddenDiv"></div>
-				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1 _product" onclick="locationFn('product')">상품정보</div>
-				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 _review" onclick="locationFn('review')">리뷰<span>${vo.review_cnt}</span></div>
-				<div class="col-3 col-sm-3 col-md-2 col-lg-3 col-xl-2 _QnA" onclick="locationFn('QnA')">문의<span>6,109</span></div>
-				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2 _change" onclick="locationFn('change')">배송/환불</div>
+				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1 _product" onClick="locationFn('product')">상품정보</div>
+				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 _review" onClick="locationFn('review')">리뷰<span>${vo.review_cnt}</span></div>
+				<div class="col-3 col-sm-3 col-md-2 col-lg-3 col-xl-2 _QnA" onClick="locationFn('QnA')">문의<span>6,109</span></div>
+				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2 _change" onClick="locationFn('change')">배송/환불</div>
 			</div>
 		</article>
 	<section id="Com_area">
@@ -215,7 +238,7 @@
 					<div class="selectbox_">
 						<select class="form-select form-select-lg">
 							<option value="00" selected>상품을 선택하세요.</option>
-							<option value="01"">마스 3인용 헤드틸팅 아쿠아텍스 소파</option>
+							<option value="01">${vo.product_name}</option>
 						</select>
 					</div>
 					<div class="hidden_area"></div>
@@ -223,7 +246,7 @@
 						주문금액<span>0원</span>
 					</div>
 					<div class="buy_btn_area">
-						<button id="basket_btn2">장바구니</button>
+						<button id="basket_btn2" onclick="basketInFn()">장바구니</button>
 						<button id="buy_btn2">바로구매</button>
 					</div>
 				</div>
@@ -232,6 +255,40 @@
 	</section>
 	
 	<%@ include file="../footer.jsp" %>
+	
+	<script>
+		function basketInFn(){
+			console.log(${spidx});
+			if(${!empty loginUser}){
+				$.ajax({
+					type : "GET",
+					url : "basketIn.do",
+					data : "midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt=1",
+					success : function(result) {
+						if(result > 0){
+							alert("장바구니에 담겼습니다.");
+						}else{
+							alert("장바구니에 담기지 못했습니다.");
+						}
+						
+					}
+				});
+			}else{
+				alert("로그인 후 이용가능 합니다.");
+			}
+		}
+		
+		function paymentInFn(){
+			console.log(${spidx});
+			if(${!empty loginUser}){
+				location.href="/controller/mypage/payment.do"+"?midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&price="+${vo.sale_price}+"&title="+"${vo.title}"+"&delivery_charge="+${vo.delivery_charge}+"&free_delivery="+"${vo.free_delivery}"+"&cnt=1"
+			}else{
+				alert("로그인 후 이용가능 합니다.");
+			}
+		}
+	
+	</script>
+	
 	<!-- 부트스트랩 -->	
 
 	<!-- Optional JavaScript; choose one of the two! -->

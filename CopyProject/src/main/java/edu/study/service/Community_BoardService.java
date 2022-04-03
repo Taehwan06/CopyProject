@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.SearchVO;
 
@@ -23,4 +24,6 @@ public interface Community_BoardService {
 	int getBoardlistCnt(SearchVO vo) throws Exception;
 
 	Community_BoardVO getCommunity_Mainimage() throws Exception;
+
+	List<Community_BoardVO> list() throws Exception;
 }

@@ -11,22 +11,27 @@
          		writer,
          		scrap_cnt,
          		hit_cnt,
-         		img_system
-           FROM community_board
+         		img_system,
+         		profile_system
+           FROM community_board c
+           INNER JOIN member m
+           ON c.midx = m.midx
+           
           WHERE 1=1
-            AND del_yn = 'N' 
+          AND bdel_yn = 'N'
             <if test="searchType != null and searchType.equals('title')">
             	AND subject like '%'||#{searchValue}||'%'
             </if>
             <if test="searchType != null and searchType.equals('writer')">
             	AND writer like '%'||#{searchValue}||'%'
             </if>
+            ORDER BY cbidx desc
     </select>
     
     <select id="Comm_listcnt" resultType="int">
     	SELECT count(*) as listCnt
     	FROM community_board
-    	WHERE del_yn = 'N' 
+    	WHERE bdel_yn = 'N' 
     		<if test="searchType != null and searchType.equals('title')">
             	AND subject like '%'||#{searchValue}||'%'
             </if>
@@ -34,18 +39,31 @@
             	AND writer like '%'||#{searchValue}||'%'
             </if>
     </select>
+    
+    <select id="Comm_profileImg" resultType="String">
+    	SELECT profile_system
+    	FROM community_board c
+    	INNER JOIN member m
+    	ON c.midx  = m.midx
+    </select>
     	
     <select id="Comm_mainImg" resultType="Community_boardVO">
     	SELECT cbidx,
     		   title,
     		   writer,
-    		   img_system
-    	FROM community_board
+    		   img_system,
+    		   profile_system
+    	FROM community_board c
+        INNER JOIN member m
+        ON c.midx = m.midx
     	WHERE hit_cnt = (
     	SELECT hit_cnt
     	FROM community_board
     	ORDER BY hit_cnt DESC
     	LIMIT 1)
+    	AND bdel_yn = 'N'
+    	ORDER BY cbidx DESC
+    	LIMIT 1
     </select>
     
     <select id="Comm_detailBoard" resultType="Community_boardVO" parameterType="int">
@@ -56,9 +74,14 @@
          		write_date,
          		scrap_cnt,
          		reply_cnt,
+         		img_origin,
          		img_system,
-         		hit_cnt
-          FROM community_board
+         		hit_cnt,
+         		c.midx,
+         		profile_system
+          FROM community_board c
+          INNER JOIN member m
+          ON c.midx = m.midx
           WHERE cbidx= #{cbidx}
     </select>
     
@@ -66,12 +89,13 @@
     	UPDATE community_board
     	   SET title = #{title}
     		  ,content = #{content}
+    		  ,img_system = #{img_system}
          WHERE cbidx = #{cbidx}
     </update>
     
     <delete id="Comm_deleteBoard" parameterType="int">
     	UPDATE community_board
-    	   SET del_yn = 'Y'
+    	   SET bdel_yn = 'Y'
     	 WHERE cbidx = #{cbidx}
     </delete>
     
@@ -87,13 +111,13 @@
     	) VALUES(
     		#{title},
     		#{content},
-    		'세글자',
-    		1,
+    		#{writer},
+    		#{midx},
     		#{img_origin},
-    		#{fileName}
+    		#{img_system}
     	)
     ]]>
-    <selectKey resultType="integer" keyProperty="cbidx" order="AFTER">
+    <selectKey resultType="int" keyProperty="cbidx" order="AFTER">
     	SELECT MAX(cbidx)
     	  FROM community_board
     </selectKey>
