@@ -18,6 +18,7 @@ public class Community_BoardVO {
 	private int midx;
 	private int listCnt;
 	private String profile_system;
+	private String cbridx;
 	/* 경로 */
 	private String uploadPath;
 	
@@ -147,15 +148,10 @@ public class Community_BoardVO {
 	public void setProfile_system(String profile_system) {
 		this.profile_system = profile_system;
 	}
-	@Override
-	public String toString() {
-		return "Community_BoardVO [cbidx=" + cbidx + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", write_date=" + write_date + ", modify_yn=" + modify_yn + ", modify_date=" + modify_date
-				+ ", del_yn=" + del_yn + ", del_date=" + del_date + ", scrap_cnt=" + scrap_cnt + ", reply_cnt="
-				+ reply_cnt + ", img_origin=" + img_origin + ", img_system=" + img_system + ", hit_cnt=" + hit_cnt
-				+ ", midx=" + midx + ", listCnt=" + listCnt + ", uploadPath=" + uploadPath + ", uuid=" + uuid
-				+ ", fileName=" + fileName + "]";
+	public String getCbridx() {
+		return cbridx;
 	}
-	
-	
+	public void setCbridx(String cbridx) {
+		this.cbridx = cbridx;
+	}
 }

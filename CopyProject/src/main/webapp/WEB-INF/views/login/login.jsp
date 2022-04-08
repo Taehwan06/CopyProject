@@ -40,10 +40,10 @@
 					<img class="login_logo" width="180px" src="/controller/image/mainLogo.png">
 					<form name="loginFrm" id="loginFrm">
 						<div>
-							<input type="text" name="id" id="id" placeholder="  이메일">
+							<input type="text" name="id" id="id" placeholder="  이메일" onkeyup="enterkey();">
 						</div>
 						<div> 
-							<input type="password" name="pass" id="pwd" placeholder="  비밀번호">
+							<input type="password" name="pass" id="pwd" placeholder="  비밀번호" onkeyup="enterkey();">
 						</div>
 						<div>
 							<input type="button" id="loginButton" value="로그인" onclick="loginFn()">

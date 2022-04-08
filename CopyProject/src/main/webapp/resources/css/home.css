@@ -61,6 +61,9 @@ section{
 	border-radius: 10px;
 	cursor: pointer;
 }
+.storyImg{
+	height : 27vh;
+}
 .storyText, .shopText{
 	width: 100%;
 	padding: 15px;
@@ -127,6 +130,9 @@ section{
 	#spaceDiv{
 		display: none;
 	}
+	.storyImg{
+		height : 25vh;
+	}
 }
 @media screen and (min-width: 992px) and (max-width: 1199.99px){
 	#headerDiv, .navbar, section, footer{
@@ -142,6 +148,9 @@ section{
 		font-size: 15px;
 		width: 80%;
 		margin-left: 20px;
+	}
+	#mdlg_display_none, #mdlg_display_none_{
+		display: none;
 	}
 }
 @media screen and (min-width: 768px) and (max-width: 991.99px){
@@ -161,6 +170,9 @@ section{
 	}
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
+	}
+	#mdlg_display_none, #mdlg_display_none_{
+		display: none;
 	}
 }
 @media screen and (min-width: 576.01px) and (max-width: 767.99px){
@@ -187,6 +199,7 @@ section{
 	.sidebar_menu{
 		width: 400px;
 	}
+	
 }
 @media screen and (max-width: 576px){
    #spaceDiv{
@@ -206,5 +219,8 @@ section{
 	.sidebar_menu{
 		width: 100%;
 		max-width: 400px;
+	}
+	.storyImg{
+		height : 45vh;
 	}
 }

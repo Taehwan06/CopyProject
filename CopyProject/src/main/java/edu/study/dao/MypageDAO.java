@@ -2,13 +2,11 @@ package edu.study.dao;
 
 import java.util.List;
 
-
-
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.study.vo.Community_BoardVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.OrderListVO;
@@ -32,10 +30,20 @@ public class MypageDAO {
 		return sqlSession.selectOne(Namespace+".detailMember",midx);
 	}
 	
+	public MemberVO checkPwd(MemberVO vo) throws Exception{
+		return sqlSession.selectOne(Namespace+".checkPwd",vo);
+	}
+	
 	public int update(MemberVO vo) throws Exception{
 		return sqlSession.update(Namespace+".modifyMember",vo);
 		
 	}
+	
+
+	public int updatePwd(MemberVO vo) throws Exception{
+		return sqlSession.update(Namespace+".updatePwd",vo);
+	}
+	
 	
 	
 	public int insert(MemberVO vo) throws Exception{
@@ -60,7 +68,13 @@ public class MypageDAO {
 		return sqlSession.selectOne(Namespace+".comcount",vo);
 	}
 
+	public List<OrderListVO> delState(OrderListVO vo) throws Exception{ 
+		return sqlSession.selectList(Namespace+".delState",vo);
+	}
 	
+	public List<Community_BoardVO> viewStory(Community_BoardVO vo) throws Exception{ 
+		return sqlSession.selectList(Namespace+".viewStory",vo);
+	}
 }
 
 

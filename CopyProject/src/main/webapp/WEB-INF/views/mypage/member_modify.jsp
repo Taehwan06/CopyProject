@@ -15,7 +15,6 @@
 	
 	<title>회원정보수정</title>
 	
-		
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
 	<link href="/controller/css/mypage/member_modify.css" rel="stylesheet">
@@ -24,7 +23,102 @@
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/login/join1.js"></script>
+	<script src="/controller/js/mypage/member_modify.js"></script>
+	
+	<style>
+		#imgUploadArea, #imgUpload{
+			visibility: hidden;
+		}
+		#coverImg{
+			cursor: pointer;
+		}
+	</style>
+	
+	<script>
+		
+		function readURL(input) {
+			let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
+			
+			var fileValue = document.getElementById("imgUpload").value;
+			
+			var fileNameAry = fileValue.split("\\");
+			var fileNameBe = fileNameAry[2];
+			var fileName = fileNameBe.toLowerCase();
+			
+			if(regex.test(fileName)){
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						$("#coverImg").attr("src", e.target.result);
+						$("#coverImg").css("width", "180px");
+						$("#coverImg").css("height", "auto");
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}else{
+				$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+				$("#coverImg").css("width", "180px");
+				$("#coverImg").css("height", "auto");
+			}
+		}
+		
+		function imgValCheckFn(){
+			var fileValue = document.getElementById("imgUpload").value;
+		    
+		    console.log("fileValue="+fileValue);
+		    
+		    if(fileValue == "" || fileValue == null){
+		    	$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+				$("#coverImg").css("width", "180px");
+				$("#coverImg").css("height", "auto");
+		    }
+		}
+		
+		$(function() {
+			$("#imgUpload").on("change", function(){
+				
+				var form = $("#uploadForm")[0];
+			    var formData = new FormData(form);
+			    
+			    $.ajax({
+					url: "fileUpload",
+					type: "post",
+					data: formData,
+					enctype: "multipart/form-data",
+					contentType: false,
+					processData: false,
+					success: function(data){
+						var result = data.trim();
+						
+						if(result == "fail1"){
+							alert("이미지 파일만 등록할 수 있습니다");
+							
+						}else if(result == "fail2"){
+							alert("이미지 변경에 실패했습니다");
+							$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+							$("#coverImg").css("width", "180px");
+							$("#coverImg").css("height", "auto");
+							
+						}else if(result == "fail3"){
+							alert("변경할 이미지를 선택해 주세요");
+							
+						}else{
+							var resultAry = result.split(",")
+							var profile_origin = resultAry[0];
+							var profile_system = resultAry[1];
+							
+							$("#profile_origin").val(profile_origin);
+							$("#profile_system").val(profile_system);
+							
+						}
+					}
+			    });
+			    readURL(this);
+			});
+		});
+		
+	</script>
+	
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -39,24 +133,31 @@
 						회원정보수정
 					</div>
 					<div class="withdrawal">
-						<a href='${pageContext.request.contextPath}/mypage/member_delete.do'">탈퇴하기</a>
+						<a href='${pageContext.request.contextPath}/mypage/password_check.do'>비밀번호 변경</a>&nbsp;|
+						<a href='${pageContext.request.contextPath}/mypage/member_delete.do'>탈퇴하기</a>
 					</div>
 					<div id="memberEdit_wrap">
-						<form action="member_modify.do" method="post"><!-- form태그 위치 -->
+						<form name="memberModifyFrm"><!-- form태그 위치 -->
 							<div class="edit_dummy">
 								<div class="Edit edit_member_info">
-									이메일<!--<span class="compulsory">*필수항목</span>-->
+									이메일
 								</div>
 								<div class="Edit edit_member_form">
-									<input type="text" id="emailInput" value="${vo.id}" name="id" readonly>
+									<input type="text" id="emailInput" value="${vo.id}" name="id" readonly onclick="impossible('email')">
+								</div>
+								<div class="text-span">
+									<div class="Edit vacantSpan"></div><span id="impossibleSpan">&nbsp;  이메일은 수정이 불가합니다</span>
 								</div>
 							</div>
 							<div class="edit_dummy">
 								<div class="Edit edit_member_info">
-									닉네임<!--<span class="compulsory">*필수항목</span>-->
+									닉네임
 								</div>
 								<div class="Edit edit_member_form">
-									<input type="text" id="nickInput" value="${vo.nick_name} " name="nick_name">
+									<input type="text" id="nickInput" value="${vo.nick_name}" name="nick_name" onchange="guide('nickname')" pattern="^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$">
+								</div>
+								<div class="text-span">
+									<div class="Edit vacantSpan"></div><span id="guideSpan">&nbsp;&nbsp;</span>
 								</div>
 							</div>
 							<div class="edit_dummy">
@@ -86,8 +187,11 @@
 										<option value="011" <c:if test="${phone1 == '011'}">selected</c:if>>011</option>
 										<option value="016" <c:if test="${phone1 == '016'}">selected</c:if>>016</option>
 									</select>
-									<input type="text" class="phoneInput" name="phone2" id="phone2" maxlength="4" value="${phone2}">
-									<input type="text" class="phoneInput" name="phone3" id="phone3" maxlength="4" value="${phone3}">
+									<input type="text" class="phoneInput" name="phone2" id="phone2" maxlength="4" value="${phone2}" onchange="guide('phone')"  pattern="[0-9]+">
+									<input type="text" class="phoneInput" name="phone3" id="phone3" maxlength="4" value="${phone3}" onchange="guide('phone')"  pattern="[0-9]+">
+								</div>
+								<div class="text-span">
+									<div class="Edit vacantSpan"></div><span id="guideSpan2">&nbsp; 가이드스판2</span>
 								</div>
 							</div>
 							<div class="edit_dummy">
@@ -95,7 +199,10 @@
 									생년월일
 								</div>
 								<div class="Edit edit_member_form">
-									<input type="text" id="BirthInput" value="${vo.birthday}" name="birthday" readonly>
+									<input type="text" id="BirthInput" value="${vo.birthday}" name="birthday" readonly onclick="impossible('birth')">
+								</div>
+								<div class="text-span">
+									<div class="Edit vacantSpan"></div><span id="impossibleSpan2">&nbsp;  생년월일은 수정이 불가합니다</span>
 								</div>
 							</div>
 							<div class="edit_dummy2">
@@ -123,20 +230,38 @@
 									<input type="text" id="AddrInput3" value="${addr2}" name="addr2" readonly>
 								</div>
 							</div>
+							
+							<input type="hidden" name="profile_origin" id="profile_origin" value="">
+							<input type="hidden" name="profile_system" id="profile_system" value="">
+							<input type="hidden" value="${vo.midx}" name="midx">
+							
 							<div class="edit_dummy">
+							
 								<div class="Edit edit_member_info imageDiv">
 									프로필 이미지
 								</div>
-								<div class="Edit edit_member_form imageDiv">
-									<img src="/controller/image/picture.PNG" width="180px">
-									<!--클릭시 이미지 첨부 가능한 버튼으로 바꿔야함-->
-								</div>
+								
+								<label for="imgUpload" id="imgLabel">
+									<div id="imgArea" class="Edit edit_member_form imageDiv">
+										<img id="coverImg" name="coverImg" alt="" onclick="imgValCheckFn()"
+										src="/controller/image/${vo.profile_system}" width="180px">
+									</div>
+								</label>
+								
 							</div>
-							<div class="memberEditSubmit">
-								<input type="submit" value="회원 정보 수정">
-								<input type="hidden" value="${vo.midx}" name="midx">
-							</div>
+							
 						</form>
+						
+						<form name="uploadForm" id="uploadForm" method="post" action="/uploadFile.do" enctype="multipart/form-data">
+							<div id="imgUploadArea">
+								<input type="file" id="imgUpload" name="imgFile">
+							</div>
+						</form>	
+						
+						<div class="memberEditSubmit">
+							<input type="button" id="submitButton" value="회원 정보 수정" onclick="checkForm();">
+						</div>
+						
 					</div>
 				</div>
 
@@ -146,7 +271,7 @@
 	</section>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="/controller/js/login/join2.js"></script>
-
+	
 	<%@ include file="../footer.jsp" %>
 	<!-- 부트스트랩 -->	
 

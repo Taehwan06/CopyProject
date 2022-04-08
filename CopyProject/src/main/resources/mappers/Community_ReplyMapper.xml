@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.Community_replyMapper">
+	
+	<!-- 댓글 조회 -->
+	<select id="replyList" parameterType="int" resultType="Community_replyVO">
+		SELECT cbridx,
+			   content,
+			   writer,
+			   write_date,
+			   cbidx,
+			   depth,
+			   lvl,
+			   r.midx,
+			   origin_cbridx,
+			   profile_system
+		FROM community_reply r
+		INNER JOIN member m
+		ON r.midx = m.midx
+		WHERE r.del_yn = 'N'
+		AND cbidx = #{cbidx}
+		ORDER BY origin_cbridx DESC,
+				 depth ASC
+	</select>
+	
+	<!-- 답글 조회 -->
+	<select id="RereplyList" parameterType="int" resultType="Community_replyVO">
+		SELECT cbridx,
+			   content,
+			   writer,
+			   write_date,
+			   depth,
+			   lvl,
+			   r.midx,
+			   profile_system
+		FROM community_reply r
+		INNER JOIN member m
+		ON r.midx = m.midx
+		WHERE r.del_yn = 'N'
+		AND cbidx = #{cbidx}
+		AND depth = 1
+	</select>
+	
+	<!-- 댓글 개수 조회 -->
+	<select id="countReplies" resultType="int">
+		SELECT COUNT(cbidx) 
+		FROM community_reply 
+		WHERE cbidx = #{cbidx}
+		AND del_yn = 'N'
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite" parameterType="Community_ReplyVO">
+	<![CDATA[
+		INSERT INTO community_reply(
+			content,
+			writer,
+			origin_cbridx,
+			cbidx,
+			midx
+		) VALUES(
+			#{content},
+			#{writer},
+			#{origin_cbridx},
+			#{cbidx},
+			#{midx}
+		)
+	]]>
+    <selectKey resultType="int" keyProperty="cbridx" order="AFTER">
+    	SELECT MAX(cbridx)
+    	  FROM community_reply
+    </selectKey>
+	</insert>
+	
+	<!-- 답글 작성 -->
+	<insert id="Rereply" parameterType="Community_ReplyVO">
+		INSERT INTO community_reply(
+			content,
+			writer,
+			origin_cbridx,
+			depth,
+			cbidx,
+			midx
+		) VALUES(
+			#{content},
+			#{writer},
+			#{origin_cbridx},
+			1,
+			#{cbidx},
+			#{midx}
+		)
+	</insert>
+	
+	<!-- 답글 작성시 lvl 업데이트 -->
+	<update id="lvlUp" parameterType="Community_ReplyVO">
+		UPDATE community_reply
+		   SET lvl = lvl+1
+		 WHERE origin_cbridx = #{origin_cbridx}
+		 AND depth = 1
+	</update>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="Community_ReplyVO">
+		UPDATE community_reply
+		   SET content = #{content}
+		 WHERE cbridx = #{cbridx}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="replyDel" parameterType="int">
+		UPDATE community_reply
+		   SET del_yn = 'Y'
+		 WHERE cbridx = #{cbridx}
+	</update>
+</mapper>

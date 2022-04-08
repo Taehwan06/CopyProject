@@ -13,4 +13,5 @@ public interface MemberService {
 	int deleteTempNum(String id) throws Exception;
 	MemberVO idCheckMember(String id) throws Exception;
 	MemberVO tempNumCheck(MemberVO vo) throws Exception;
+	MemberVO refreshMember(MemberVO vo) throws Exception;
 }

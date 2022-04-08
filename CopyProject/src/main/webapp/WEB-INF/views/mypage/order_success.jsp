@@ -53,7 +53,7 @@
 							</div>		
 							<div  class="inlineDiv">
 								<p class="odrTitle">주문금액</p>
-								<p>382000원</p>
+								<p>100원</p>
 							</div>
 						</div>
 						<div class="odr">

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import edu.study.dao.MypageDAO;
 import edu.study.vo.BasketVO;
+import edu.study.vo.Community_BoardVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.OrderListVO;
@@ -35,6 +36,12 @@ public class MypageServiceImpl implements MypageService {
 
 		return mypageDao.detail(midx);
 	}
+	
+	@Override
+	public MemberVO checkPwd(MemberVO vo) throws Exception{
+		return mypageDao.checkPwd(vo);
+	}
+	
 
 	@Override
 	public int update(MemberVO vo) throws Exception {
@@ -42,6 +49,13 @@ public class MypageServiceImpl implements MypageService {
 		return result;
 		
 	}
+	
+	@Override
+	public int updatePwd(MemberVO vo) throws Exception {
+		int result =  mypageDao.updatePwd(vo);
+		return result;
+	}
+	
 
 	@Override
 	public int delete(MemberVO vo) throws Exception {
@@ -77,8 +91,30 @@ public class MypageServiceImpl implements MypageService {
 		int result = mypageDao.count(vo);
 		return result;
 	}
-	
 
+
+	@Override
+	public List<OrderListVO> delState(OrderListVO vo) throws Exception {
+		
+		List<OrderListVO> result = mypageDao.delState(vo); 
+		
+		return result;
+	}
+
+
+	@Override
+	public List<Community_BoardVO> viewStory(Community_BoardVO vo) throws Exception {
+		
+		List<Community_BoardVO> result = mypageDao.viewStory(vo); 
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
 	
 
 }

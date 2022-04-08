@@ -22,6 +22,7 @@
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script>
+	<script src="/controller/js/mypage/member_delete.js"></script>
 	<script src="/controller/js/login/join1.js"></script>
 </head>
 <body>
@@ -36,7 +37,7 @@
 					<div class="del memberdelete_title">
 						회원탈퇴 신청
 					</div>
-					<form action="member_delete.do" method="post"><!-- form start -->
+					<form name ="OutFrm"><!-- form start -->
 					<div class="del delete_subtitle">
 						 회원 탈퇴 신청에 앞서 아래 내용을 반드시 확인해주세요
 					</div>
@@ -61,7 +62,7 @@
 					<div class="del deleteConfirm">
 						  <input type="checkbox" id="check1" name="del_yn" value="Y">
         					<label for="check1"></label>
-							&nbsp;위 내용을 모두 확인하였습니다
+							&nbsp;위 내용을 모두 확인하였습니다		
 					</div>
 					<div class="del delete_subtitle">
 						 홈프렌즈 이용중 어떤 부분이 불편하셨나요?
@@ -73,14 +74,7 @@
 						<textarea name="del_cause" placeholder="자세한 내용을 남겨주시면 서비스 개선에 큰 도움이 됩니다."></textarea>
 					</div>
 					<div class="del deleteBtn">
-						<input type="hidden" value="${vo.id}" name="id">
-						<input type="hidden" value="${vo.nick_name} " name="nick_name">
-						<input type="hidden" value="${vo.gender} " name="gender">
-						<input type="hidden" value="${vo.phone} " name="phone">
-						<input type="hidden" value="${vo.birthday} " name="birthday">
-						<input type="hidden" value="${vo.addr}" name="addr">
-						<input type="hidden" value="${vo.post_code}" name="post_code">
-						<button id="delApply">탈퇴하기</button>
+						<button id="delApply" onclick = "goOutFn()">탈퇴하기</button>
 						<button type="button" id="delCancel" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">취소하기</button>
 					</div>
 					</form>

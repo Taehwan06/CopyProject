@@ -1,7 +1,14 @@
 package edu.study.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,9 +136,74 @@ public class HomeController {
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
-		model.addAttribute("searchList", searchList);		
+		model.addAttribute("searchList", searchList);
 		
 		return "last_view";
+	}
+	
+	@RequestMapping(value = "/recentView.do", method = RequestMethod.GET)
+	public String recentView(Locale locale, Model model, HttpServletResponse response, HttpServletRequest request, HomeStoreVO vo) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);		
+		
+		
+		
+		
+		
+		
+		Cookie[] myCookies = request.getCookies();
+		String recentView = "0&";
+
+	    for(int i = 0; i < myCookies.length; i++) {
+	    	if(myCookies[i].getName().equals("recentView")) {
+	    		recentView = myCookies[i].getValue();
+	    	}
+	    }
+			    
+		String[] spidxAryDup = recentView.split("&");
+		
+		System.out.println(spidxAryDup);
+		
+		// 배열을 HashSet으로 변환
+		HashSet<String> hashSet = new HashSet<>(Arrays.asList(spidxAryDup));
+		// HashSet을 배열로 변환
+		String[] spidxAry = hashSet.toArray(new String[0]);
+		// Dup이 제거된 배열 출력
+		System.out.println(spidxAry.length);
+		System.out.println(Arrays.toString(spidxAry));
+		
+		
+		int size = spidxAry.length;
+				
+		String[] reversespidxAry = new String[size];
+		
+		for (int i = size - 1, j = 0; i >= 0; i--, j++) {
+			reversespidxAry[j] = spidxAry[i];
+		}
+		
+		List<HomeStoreVO> recentViewList = new ArrayList<HomeStoreVO>();
+		
+		if(size > 12) {
+			for(int i=0; i<12; i++) {
+				vo.setSpidx(Integer.parseInt(reversespidxAry[i]));
+				HomeStoreVO recentvo = homeService.recentViewStore(vo);
+				recentViewList.add(recentvo);
+			}
+		}else {
+			for(int i=0; i<size; i++) {
+				vo.setSpidx(Integer.parseInt(reversespidxAry[i]));
+				HomeStoreVO recentvo = homeService.recentViewStore(vo);
+				recentViewList.add(recentvo);
+			}
+		}
+		
+		model.addAttribute("recentViewList", recentViewList);
+		
+		return "recentView";
 	}
 	
 }

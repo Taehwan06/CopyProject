@@ -1,8 +1,9 @@
 package edu.study.dao;
 
+
 import java.util.List;
 
-
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import edu.study.vo.StoreVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.BasketVO;
+import edu.study.vo.Store_qnaVO;
 
 @Repository // 컴포넌트 하위에 있는 어노테이션, 외부와 연결 할 때 사용하는 어노테이션
 public class StoreDAO {
@@ -20,7 +22,7 @@ public class StoreDAO {
 	private static final String Namespace = "edu.study.mapper.storeMapper";
 	
 	public List<StoreVO> list(SearchVO vo) throws Exception {
-		
+		Configuration conf=sqlSession.getConfiguration();
 		return sqlSession.selectList(Namespace+".listStore",vo);
 	}
 	
@@ -40,9 +42,14 @@ public class StoreDAO {
 		return sqlSession.insert(Namespace+".insertStore",vo);
 	}
 	
-	public int basketIn(StoreVO vo) throws Exception{
+	public int basketIn(BasketVO vo) throws Exception{
 		return sqlSession.insert(Namespace+".basketIn",vo);
 	}
+	
+	public List<Store_qnaVO> qnaList(int spidx) throws Exception {
+		return sqlSession.selectList(Namespace+".listqna",spidx);
+	}
+	
 	
 	
 }

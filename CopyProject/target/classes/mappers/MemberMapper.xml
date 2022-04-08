@@ -19,7 +19,7 @@
     		recommender
     	) VALUES(
     		#{id},
-    		#{pass},
+    		SHA2(#{pass},512),
     		#{nick_name},
     		#{membername},
     		CONCAT(#{birth1},"년 ",#{birth2},"월 ",#{birth3},"일"),
@@ -56,7 +56,7 @@
 		AND
 			id = #{id}
 		AND
-			pass = #{pass}
+			pass = SHA2(#{pass},512)
     </select>
     
     <select id="findIdMember" resultType="memberVO" parameterType="MemberVO">
@@ -104,7 +104,7 @@
     	UPDATE 
     		member
 		SET 
-    	   	pass = #{pass}
+    	   	pass = SHA2(#{pass},512)
 		WHERE 
          	midx = #{midx}
     </update>
@@ -146,6 +146,32 @@
 			id = #{id}
 		AND
 			temp_number = #{temp_number}
+    </select>
+    
+    <select id="refreshMember" resultType="memberVO" parameterType="memberVO">
+		SELECT
+			midx,
+    		id,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		join_date,
+    		mileage,
+    		grade,
+    		del_yn,
+    		blacklist_yn,
+    		follower_cnt,
+    		post_code,
+    		addr,
+    		profile_system
+		FROM
+			member
+		WHERE
+			del_yn = "N"
+		AND
+			midx = #{midx}
     </select>
     
 </mapper>

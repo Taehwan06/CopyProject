@@ -26,6 +26,33 @@ public class BasketDAO {
 		return sqlSession.selectList(Namespace+".listBasket",vo);
 	}
 	
+	public int deleteOneBasket(BasketVO vo) throws Exception{
+		return sqlSession.update(Namespace+".deleteOneBasket",vo);
+	}
+	
+	public int plusCntBasket(BasketVO vo) throws Exception{
+		return sqlSession.update(Namespace+".plusCntBasket",vo);
+	}
+	
+	public int minusCntBasket(BasketVO vo) throws Exception{
+		return sqlSession.update(Namespace+".minusCntBasket",vo);
+	}
+	
+	public List<BasketVO> CheckedListBasket(BasketVO vo) throws Exception{
+		return sqlSession.selectList(Namespace+".CheckedListBasket",vo);
+	}
+	
+	public int deleteListBasket(BasketVO vo) throws Exception{
+		return sqlSession.update(Namespace+".deleteListBasket",vo);
+	}
+	
+	public int insertOrderList(BasketVO vo) throws Exception{
+		return sqlSession.insert(Namespace+".insertOrderList",vo);
+	}
+	
+	public BasketVO directPayFromProduct(BasketVO vo) throws Exception{
+		return sqlSession.selectOne(Namespace+".directPayFromProduct",vo);
+	}
 	
 }
 

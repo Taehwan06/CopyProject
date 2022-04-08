@@ -5,32 +5,6 @@
  
 <mapper namespace="edu.study.mapper.mypageMapper">
 
-	<insert id="insertMember" parameterType="MemberVO">
-    	INSERT INTO member(
-    		id,
-    		pass,
-    		nick_name,
-    		membername,
-    		birthday,
-    		gender,
-    		phone,
-    		post_code,
-    		addr,
-    		recommender
-    	) VALUES(
-    		#{id},
-    		#{pass},
-    		#{nick_name},
-    		#{membername},
-    		CONCAT(#{birth1},"년 ",#{birth2},"월 ",#{birth3},"일"),
-    		#{gender},
-    		CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
-    		#{addr1},
-    		CONCAT(#{addr2}," ",#{addr3}),
-    		#{recommender}
-    	)
-    </insert>
-    
     <select id="detailMember" resultType="MemberVO" parameterType="int">
 		SELECT
 			midx,
@@ -55,6 +29,27 @@
 			midx = #{midx}
     </select>
     
+    <select id="checkPwd" parameterType="MemberVO" resultType="MemberVO">
+		SELECT
+			midx
+		FROM
+			member
+		WHERE
+			midx = #{midx}
+		AND
+			pass = SHA2(#{pass},512)
+    </select>
+    
+     <update id="updatePwd"  parameterType="MemberVO">
+    	UPDATE 
+    		member
+		SET 
+    	   	pass = SHA2(#{pass},512)
+		WHERE 
+         	midx = #{midx}
+    </update>
+    
+    
     <update id="modifyMember" parameterType="MemberVO">
     	UPDATE member 
     	SET 
@@ -62,7 +57,9 @@
     		nick_name = #{nick_name},
     		gender = #{gender},
     		phone = CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
-    		addr = #{addr}
+    		addr =  CONCAT(#{addr1}," ",#{addr2}), 
+    		profile_origin = #{profile_origin}, 
+    		profile_system = #{profile_system} 
     		
     	WHERE 
     		midx = #{midx}
@@ -71,18 +68,13 @@
      <update id="deleteMember" parameterType="MemberVO">
     	UPDATE member 
     	SET
-    		id = #{id},
-    		nick_name = #{nick_name},
-    		gender = #{gender},
-    		phone = #{phone},
-    		addr = #{addr},
     		del_yn = #{del_yn},
     		del_cause = #{del_cause}
     	WHERE 
     		midx = #{midx}
     </update>
     
-    <select id="orderList" resultType="OrderListVO" parameterType="OrderListVO">
+     <select id="orderList" resultType="OrderListVO" parameterType="OrderListVO">
          SELECT 
          		olidx,
          		title,
@@ -93,7 +85,8 @@
          		buying_date,
          		progress,
          		delivery_status,
-         		review_registration
+         		review_registration,
+         		spidx
            FROM 
            		order_list
           WHERE 
@@ -101,6 +94,49 @@
           ORDER BY buying_date DESC
           
     </select>
+    
+      <select id="delState" resultType="OrderListVO" parameterType="OrderListVO">
+         SELECT 
+         		olidx,
+         		title,
+         		price,
+         		cnt,
+         		delivery_charge,
+         		img_system,
+         		buying_date,
+         		progress,
+         		delivery_status,
+         		review_registration,
+         		spidx
+           FROM 
+           		order_list
+          WHERE 
+          		midx = #{midx}
+          	
+          	<if test="progress.equals('default')">
+            	AND 
+            		1 = 1 
+            </if>
+            <if test="progress.equals('pay')">
+            	AND 
+            		progress = "결제완료"
+            </if>
+             <if test="progress.equals('ready')">
+            	AND 
+            		progress = "배송준비중"
+            </if>
+             <if test="progress.equals('ing')">
+            	AND 
+            		progress = "배송중"
+            </if>
+             <if test="progress.equals('complete')">
+            	AND 
+            		progress = "배송완료"
+            </if>
+          ORDER BY 
+          		buying_date DESC
+    </select>
+  
   
       
     <select id="comcount" resultType="int" parameterType="OrderListVO">
@@ -113,6 +149,18 @@
     	AND
     			midx = #{midx}
     			
+    </select>
+    
+    <select id = "viewStory" resultType="Community_BoardVO" parameterType="Community_BoardVO">
+    	SELECT
+    			cbidx,
+    			img_system
+    	FROM
+    			community_board
+    	WHERE
+    			midx = #{midx}
+    	ORDER BY
+    			cbidx DESC
     </select>
     
 </mapper>

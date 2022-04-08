@@ -65,4 +65,28 @@
     </selectKey>
     </insert>
     
+    <insert id="basketIn" parameterType="StoreVO">
+    	 <![CDATA[
+	    	INSERT INTO shopping_basket(
+	    		title,
+	    		price,
+	    		cnt,
+	    		delivery_charge,
+	    		free_delivery,
+	    		img_origin,
+	    		spidx,
+	    		midx
+	    	) VALUES(
+	    		#{title},
+	    		#{price},
+	    		#{cnt},
+	    		#{delivery_charge},
+	    		#{free_delivery},
+	    		#{img_origin},
+	    		#{spidx},
+	    		#{midx}
+	    	)
+	    ]]>
+    </insert>
+    
 </mapper>

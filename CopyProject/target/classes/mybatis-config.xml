@@ -5,14 +5,18 @@
 
 	<typeAliases>
         <typeAlias type="edu.study.vo.BoardVO" alias="boardVO"/>
-        <typeAlias type="edu.study.vo.SearchVO" alias="SearchVO"/>
-        <typeAlias type="edu.study.vo.MemberVO" alias="MemberVO"/>
-        <typeAlias type="edu.study.vo.HomeSearchVO" alias="HomeSearchVO"/>
-        <typeAlias type="edu.study.vo.HomeStoryVO" alias="HomeStoryVO"/>
-        <typeAlias type="edu.study.vo.HomeStoreVO" alias="HomeStoreVO"/>
-        <typeAlias type="edu.study.vo.OrderListVO" alias="OrderListVO"/>
-        <typeAlias type="edu.study.vo.StoreVO" alias="StoreVO"/>
         <typeAlias type="edu.study.vo.Community_BoardVO" alias="Community_boardVO"/>
+        <typeAlias type="edu.study.vo.HomeSearchVO" alias="HomeSearchVO"/>
+        <typeAlias type="edu.study.vo.HomeStoreVO" alias="HomeStoreVO"/>
+        <typeAlias type="edu.study.vo.HomeStoryVO" alias="HomeStoryVO"/>
+        <typeAlias type="edu.study.vo.MemberVO" alias="MemberVO"/>
+        <typeAlias type="edu.study.vo.OrderListVO" alias="OrderListVO"/>
+        <typeAlias type="edu.study.vo.SearchVO" alias="SearchVO"/>
+        <typeAlias type="edu.study.vo.StoreVO" alias="StoreVO"/>
+        <typeAlias type="edu.study.vo.BasketVO" alias="BasketVO"/>
+        <typeAlias type="edu.study.vo.Community_ReplyVO" alias="Community_replyVO"/>
+        <typeAlias type="edu.study.vo.Store_qnaVO" alias="Store_qnaVO"/>
+        <typeAlias type="edu.study.vo.PagingVO" alias="PagingVO"/>
     </typeAliases>
 
 </configuration>

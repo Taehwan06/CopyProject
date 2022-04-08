@@ -11,27 +11,44 @@
           WHERE 1=1
             AND del_yn = 'N' 
             <if test="searchType != null and searchType.equals('subject')">
-            	AND subject like '%'||#{searchValue}||'%'
+            	AND subject like '%'||#{searchValue}||'%' 
             </if>
             <if test="searchType != null and searchType.equals('writer')">
-            	AND writer like '%'||#{searchValue}||'%'
+            	AND writer like '%'||#{searchValue}||'%' 
             </if>
-            <if test="category != null">
-           		AND category = #{category}
+            <if test='category != null and category != ""'>
+           		AND category = #{category} 
            	</if>
-           	<if test="detail != null">
-           		AND detail = #{detail}
+           	<if test='detail != null and detail != ""'>
+           		AND detail = #{detail} 
            	</if>
-            
+           	<if test='free != null and free != "" and free == "Y"'>
+           		AND free_delivery = #{free} 
+           	</if>
+           	<if test='priceStart != null and priceStart != "" and priceEnd != null'>
+           		AND sale_price BETWEEN #{priceStart} AND #{priceEnd} 
+            </if>
             <!-- 정렬방식 -->
-           	<if test="sell_cnt != null and sell_cnt == 'yes'">
-           		ORDER BY sell_cnt DESC
+           	<if test='sell_cnt != null and sell_cnt != "" and sell_cnt.equals("yes")'>
+           		ORDER BY sell_cnt DESC 
            	</if>
-           	<if test="review_cnt != null and review_cnt == 'yes'">
-           		ORDER BY review_cnt DESC
+           	<if test='review_cnt != null and review_cnt != "" and review_cnt.equals("yes")'>
+           		ORDER BY review_cnt DESC 
            	</if>
-           	<if test="discount != null and discount == 'yes'">
-           		ORDER BY discount DESC
+           	<if test='discount != null and discount != "" and discount.equals("yes")'>
+           		ORDER BY discount DESC 
+           	</if>
+           	<if test='order != null and order != "" and order=="sell_cnt"'>
+           		ORDER BY sell_cnt DESC 
+           	</if>
+           	<if test='order != null and order != "" and order=="score"'>
+           		ORDER BY score DESC 
+           	</if>
+           	<if test='order != null and order != "" and order=="priceUp"'>
+           		ORDER BY sale_price DESC
+           	</if>
+           	<if test='order != null and order != "" and order=="priceDown"'>
+           		ORDER BY sale_price 
            	</if>
            	
     </select>
@@ -50,6 +67,7 @@
 	    <![CDATA[
 	    	INSERT INTO shopping_product(
 	    		img_origin,
+	    		img_system,
 	    		title,
 	    		product_Name,
 	    		content,
@@ -59,11 +77,13 @@
 	    		discount,
 	    		brand,
 	    		free_delivery,
+	    		delivery_charge,
 	    		category,
 	    		detail,
 	    		midx
 	    	) VALUES(
 	    		#{img_origin},
+	    		#{img_system},
 	    		#{title},
 	    		#{product_name},
 	    		#{content},
@@ -73,16 +93,50 @@
 	    		#{discount},
 	    		#{brand},
 	    		#{free_delivery},
+	    		#{delivery_charge},
 	    		#{category},
 	    		#{detail},
 	    		#{midx}
 	    	)
 	    ]]>
-	    <selectKey resultType="integer" keyProperty="bidx" order="AFTER">
+	    <selectKey resultType="integer" keyProperty="spidx" order="AFTER">
 	    	SELECT MAX(spidx)
 	    	  FROM shopping_product
 	    </selectKey>
     </insert>
+    
+    <update id="updateStore" parameterType="StoreVO">
+	    <![CDATA[
+	    	UPDATE shopping_product
+	    	   SET title = #{title}
+	    	      ,product_name = #{product_name}
+	    		  ,content = #{content}
+	    		  ,img_origin = #{img_origin}
+	    		  ,img_system = #{img_system}
+	    		  ,writer = #{writer}
+	    		  ,origin_price = #{origin_price}
+	    		  ,sale_price = #{sale_price}
+	    		  ,discount = #{discount}
+	    		  ,brand =#{brand}
+	    		  ,free_delivery = #{free_delivery}
+	    		  ,delivery_charge = #{delivery_charge}
+	    		  ,category = #{category}
+	    		  ,detail = #{detail}
+	    		  ,midx = #{midx}
+	    		  ,modify_yn = 'Y'
+	    		  ,modify_date = CURRENT_TIMESTAMP
+	         WHERE spidx = #{spidx}
+          ]]>
+    </update>
+    
+    <update id="deleteStore" parameterType="int">
+	    <![CDATA[
+	    	UPDATE shopping_product
+	    	   SET del_yn = 'Y'
+	    	   	  ,del_date = CURRENT_TIMESTAMP
+	         WHERE spidx = #{spidx}
+          ]]>
+    </update>
     
     <insert id="basketIn" parameterType="BasketVO">
     	 <![CDATA[
@@ -93,6 +147,7 @@
 	    		delivery_charge,
 	    		free_delivery,
 	    		img_origin,
+	    		img_system,
 	    		spidx,
 	    		midx
 	    	) VALUES(
@@ -102,11 +157,22 @@
 	    		#{delivery_charge},
 	    		#{free_delivery},
 	    		#{img_origin},
+	    		#{img_system},
 	    		#{spidx},
 	    		#{midx}
 	    	)
 	    ]]>
     </insert>
+    
+    <select id="listqna" resultType="Store_qnaVO" parameterType="int">
+         SELECT *
+         		,date_format(write_date, '%Y-%m-%d') w_day
+         		,date_format(answer_date, '%Y-%m-%d') a_day
+           FROM shopping_qna
+          WHERE 1=1
+            AND del_yn = 'N' 
+           	AND spidx = #{spidx}
+    </select>
     
     
     

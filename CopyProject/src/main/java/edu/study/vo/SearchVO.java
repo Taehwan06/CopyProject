@@ -17,9 +17,12 @@ public class SearchVO {
 	private String likey_cnt;
 	
 	private String distribution;
+	
+	//정렬방식
 	private String free;
-	private String priceUp;
-	private String priceDown;
+	private String priceStart;
+	private String priceEnd;
+	private String order;
 	
 	
 	public String getSearchType() {
@@ -103,18 +106,25 @@ public class SearchVO {
 	public void setFree(String free) {
 		this.free = free;
 	}
-	public String getPriceUp() {
-		return priceUp;
+	public String getPriceStart() {
+		return priceStart;
 	}
-	public void setPriceUp(String priceUp) {
-		this.priceUp = priceUp;
+	public void setPriceStart(String priceStart) {
+		this.priceStart = priceStart;
 	}
-	public String getPriceDown() {
-		return priceDown;
+	public String getPriceEnd() {
+		return priceEnd;
 	}
-	public void setPriceDown(String priceDown) {
-		this.priceDown = priceDown;
+	public void setPriceEnd(String priceEnd) {
+		this.priceEnd = priceEnd;
 	}
+	public String getOrder() {
+		return order;
+	}
+	public void setOrder(String order) {
+		this.order = order;
+	}
+	
 	
 	
 	

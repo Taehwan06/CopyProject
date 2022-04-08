@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
 	<!-- iamport.payment.js -->
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	
 	
 	<title>주문/결제 - 홈프렌즈</title>
@@ -30,63 +30,8 @@
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/mypage/payment1.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<%@ include file="paymentScript.jsp" %>
 	
-	<script>
-		var size = ${basketList.size()};
-		var totalPrice = 0;
-		var totalDelivery = 0;
-		<c:forEach items="${basketList}" var="basketListvo" varStatus="cnt">
-			totalPrice += (${basketListvo.price}) * (${basketListvo.cnt});
-			totalDelivery += ${basketListvo.delivery_charge}
-		</c:forEach>
-		
-		var totalPay = totalPrice + totalDelivery;
-		
-		if(totalDelivery == 0){
-			totalDelivery = "무료배송";
-		}else{
-			totalDelivery = totalDelivery+"원";
-		}
-		
-		console.log(totalPrice);
-		console.log(totalDelivery);
-		console.log(totalPay);
-		
-		window.onload = function(){
-			var productAmount = document.getElementById("productAmount");
-			productAmount.value = totalPrice;
-			var deliveryCharge = document.getElementById("deliveryCharge");
-			deliveryCharge.value = totalDelivery;
-			var amount = document.getElementById("amount");
-			amount.value = totalPay;
-		}
-		
-		function iamport(){
-			//가맹점 식별코드
-			IMP.init('imp58059253');
-			IMP.request_pay({
-				pg : 'html5_inicis',
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '상품1' , //결제창에서 보여질 이름
-			    amount : totalPay, //실제 결제되는 가격
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
-			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울 강남구 도곡동',
-			    buyer_postcode : '123-456'
-			}, function(rsp) {
-				console.log(rsp);
-			    if ( rsp.success ) {
-			    	location.href="order_success.do";
-			    } else {
-			    	location.href="order_fail.do";
-			    }
-			    alert(msg);
-			});
-		}
-	</script>
-	<script src="/controller/js/mypage/payment2.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp" %>

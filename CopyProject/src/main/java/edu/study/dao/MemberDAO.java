@@ -51,6 +51,10 @@ public class MemberDAO {
 		return sqlSession.selectOne(Namespace+".tempNumCheck",vo);
 	}
 		
+	public MemberVO refreshMember(MemberVO vo) throws Exception{
+		return sqlSession.selectOne(Namespace+".refreshMember",vo);
+	}
+	
 }
 
 

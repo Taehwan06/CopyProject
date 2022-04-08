@@ -154,8 +154,8 @@ $(document).ready(function() {
 	});
 	
 	/* var, method related with attachFile */
-	let regex = new RegExp("(.*?)\.(jpg|png|webp|PNG|jfif)$");
-	let maxSize = 10485760; //10MB	
+	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|jpeg|gif|JPG|PNG|WEBP|JFIF|JPEG|GIF)$");
+	let maxSize = 10485760; //10MB
 	
 	function fileCheck(fileName, fileSize){
 

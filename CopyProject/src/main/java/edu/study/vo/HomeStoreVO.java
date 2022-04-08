@@ -22,8 +22,15 @@ public class HomeStoreVO {
 	private String img_system;
 	private String category;
 	private String detail;
+	private String[] spidxAry;
 	
 	
+	public String[] getSpidxAry() {
+		return spidxAry;
+	}
+	public void setSpidxAry(String[] spidxAry) {
+		this.spidxAry = spidxAry;
+	}
 	public double getScore() {
 		return score;
 	}

@@ -237,5 +237,35 @@ let match = {10:"가구", 11:"가구 > 소파", 12:"가구 > 수납장", 13:"가
 			40:"가전", 41:"가전 > 냉장고", 42:"가전 > TV", 43:"가전 > 세탁기", 44:"가전 > 에어컨", 45:"가전 > 청소기",
 			50:"주방", 51:"주방 > 그릇 & 접시", 52:"주방 > 냄비 & 팬", 53:"주방 > 보관용기", 54:"주방 > 수저", 55:"주방 > 식기건조대", 56:"주방>컵",
 			60:"생활", 61:"생활 > 욕실", 62:"생활 > 수건", 63:"생활 > 청소", 64:"생활 > 세탁", 65:"생활 > 생활잡화"};
-			
+
+function delFn(){
+	var isCancel = false;
+	var tx1 = confirm("상품을 삭제하시겠습니까?");
+	if(tx1){
+		isCancel = confirm("확인을 누르면 상품이 삭제됩니다.");
+	}
+	
+	if(isCancel){
+		alert("상품이 삭제되었습니다.");
+		location.href = "store_del.do?spidx="+spidx;
+	}
+}	
+
+function cntFn(){
+	var selectCnt = $('#selectCnt option:selected').val();
+	if(selectCnt == 10){
+		$('#selectCnt').css("display","none");
+		$('.hiddenCnt').css("display","inline-block");
+	}
+	cnt=selectCnt
+	var sum_price = selectCnt*price;
+	$('.sum_price').text(sum_price);
+}	
+function cntFn2(){
+	var selectCnt = $('.hiddenCnt').val();
+	$('#cnt').val(selectCnt);
+	cnt=selectCnt
+	var sum_price = selectCnt*price;
+	$('.sum_price').text(sum_price);
+}
 			

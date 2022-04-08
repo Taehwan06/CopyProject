@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import edu.study.dao.StoreDAO;
 import edu.study.vo.StoreVO;
+import edu.study.vo.Store_qnaVO;
 import edu.study.vo.BasketVO;
 import edu.study.vo.SearchVO;
 
@@ -47,9 +48,15 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public int basketIn(StoreVO vo) throws Exception {
+	public int basketIn(BasketVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return StoreDao.basketIn(vo);
+	}
+
+	@Override
+	public List<Store_qnaVO> qnaList(int spidx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.qnaList(spidx);
 	}
 
 	

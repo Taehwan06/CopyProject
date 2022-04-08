@@ -18,6 +18,7 @@
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
+	<link href="/controller/css/home.css" rel="stylesheet">
 	<link href="/controller/css/search_result.css" rel="stylesheet">
 	<link href="/controller/css/footer.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>

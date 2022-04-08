@@ -25,6 +25,7 @@ public class StoreVO {
 	
 	//이미지
 	private String img_origin;
+	private String img_system;
 	
 	//왜진지모르겠는 안쓰면 오류나는것
 	private int bidx;
@@ -186,7 +187,14 @@ public class StoreVO {
 		this.img_origin = img_origin;
 	}
 
-	
+	public String getImg_system() {
+		return img_system;
+	}
+
+	public void setImg_system(String img_system) {
+		this.img_system = img_system;
+	}
+
 	
 	//오류
 	public int getBidx() {

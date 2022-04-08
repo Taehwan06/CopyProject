@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import edu.study.dao.Community_BoardDAO;
 import edu.study.vo.Community_BoardVO;
-import edu.study.vo.SearchVO;
 
 @Service
 public class Community_BoardServiceImpl implements Community_BoardService {
@@ -15,13 +14,6 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 	@Autowired
 	private Community_BoardDAO Community_boardDao;
 	
-	@Override
-	public List<Community_BoardVO> list(SearchVO vo) throws Exception {
-		
-		List<Community_BoardVO> list = Community_boardDao.list(vo);
-		
-		return list;
-	}
 	@Override
 	public List<Community_BoardVO> list() throws Exception {
 		
@@ -55,9 +47,9 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 	}
 
 	@Override
-	public int getBoardlistCnt(SearchVO vo) throws Exception {
+	public int getBoardlistCnt() throws Exception {
 		
-		return Community_boardDao.listCnt(vo);
+		return Community_boardDao.listCnt();
 	}
 	
 	@Override
@@ -65,5 +57,14 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 		
 		return Community_boardDao.Community_Mainimage();
 	}
-
+	@Override
+	public Integer cbridx() throws Exception {
+		
+		return Community_boardDao.cbridx();
+	}
+	@Override
+	public String writeDate(int cbidx) {
+		
+		return Community_boardDao.writeDate(cbidx);
+	}
 }

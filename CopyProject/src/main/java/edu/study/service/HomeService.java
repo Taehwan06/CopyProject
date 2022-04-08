@@ -13,4 +13,5 @@ public interface HomeService {
 	List<HomeSearchVO> listSearchList() throws Exception;
 	int insertSearchList(HomeSearchVO vo) throws Exception;
 	int deleteSearchList() throws Exception;
+	HomeStoreVO recentViewStore(HomeStoreVO vo) throws Exception;
 }

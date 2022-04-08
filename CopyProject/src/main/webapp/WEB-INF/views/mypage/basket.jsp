@@ -27,7 +27,9 @@
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/mypage/basket.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
+
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -40,7 +42,7 @@
 			<!-- 전체선택 체크박스 -->
 			<div class="checkbox_all">
 				<div>
-					<label><input type="checkbox" name="all" value="all"> 전체선택</label>
+					<label><input type="checkbox" name="all" value="all" onchange="selectFn()"> 전체선택</label>
 				</div>
 			</div>
 			
@@ -56,12 +58,17 @@
 					<c:forEach items="${basketListAll}" var="basketListAllvo" varStatus="cnt">
 						
 						<!-- 개별 상품목록 -->
-						<ul class="row no_list container-fluid border_b">
+						<ul class="row no_list container-fluid border_b" id="basket${basketListAllvo.sbidx}">
 							<div class="col-6">
-								<input class="Selection" type="checkbox" id="cnt" name="Selection" value="${basketListAllvo.sbidx}">
+								<input class="Selection" type="checkbox" id="Selection${basketListAllvo.sbidx}" name="Selection" 
+								onchange="selectFn()"
+								value="${basketListAllvo.sbidx},${basketListAllvo.cnt},${basketListAllvo.price},${basketListAllvo.delivery_charge}">
 							</div><!-- 상품삭제 -->
-							<div class="col-6" style="text-align: right; padding-right: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-	  							<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+							<div class="col-6" style="text-align: right; padding-right: 15px;">
+								<svg onclick="deleteOneBasketFn(${basketListAllvo.sbidx},${basketListAllvo.cnt},${basketListAllvo.price},${basketListAllvo.delivery_charge})" 
+								xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x deleteButton" viewBox="0 0 16 16">
+	  								<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+	  							</svg>
 	  						</div>
 							<li class="col-3">
 								<ul class="row no_list">
@@ -80,14 +87,16 @@
 									</li>
 									<li class="col-3 text_center">
 										<div class="padding_t10">
-											<button type="button" class="btn decreaseQuantity">	- </button>
-											<input type="text" class="numberUpDown" class="numberOnly" maxlength="3" size="1" value="1">
-										    <button type="button" class="btn increaseQuantity">&#43;</button>
+											<button type="button" class="btn decreaseQuantity" 
+											onclick="minusFn(this,${basketListAllvo.sbidx},${basketListAllvo.price},${basketListAllvo.delivery_charge})">	- </button>
+											<input type="text" class="numberUpDown" class="numberOnly" id="cnt${basketListAllvo.sbidx}" maxlength="3" size="1" value="${basketListAllvo.cnt}">
+										    <button type="button" class="btn increaseQuantity" 
+										    onclick="plusFn(this,${basketListAllvo.sbidx},${basketListAllvo.price},${basketListAllvo.delivery_charge})">&#43;</button>
 									    </div>
 									</li>
 									<li class="col-3 text_center price_val_box">
 										<div class="hidden">${basketListAllvo.price}</div>
-										<div class="price_val margin_auto"><span>${basketListAllvo.price}</span>원</div>
+										<div class="price_val margin_auto"><span>${basketListAllvo.price * basketListAllvo.cnt}</span>원</div>
 									</li>
 								</ul>
 							</li>
@@ -105,7 +114,7 @@
 								상품금액
 								<br>
 								<div class="bottom_all_price_price">
-									<span class="font_size_15px">0</span>&nbsp;원
+									<span class="font_size_15px totalPrice"></span>&nbsp;원
 								</div>
 							</div>
 						</div>
@@ -116,8 +125,8 @@
 							<div>
 								배송비
 								<br>
-								<div class="bottom_all_price_price">
-									<span class="font_size_15px">0</span>&nbsp;원
+								<div class="bottom_all_price_price totalDelivery">
+									<span class="font_size_15px"></span>&nbsp;원
 								</div>
 							</div>
 						</div>
@@ -126,10 +135,10 @@
 						</div>
 						<div class="col-4 bottom_all_price_text">
 							<div>
-								상품금액
+								결제금액
 								<br>
 								<div class="bottom_all_price_price">
-									<span class="font_size_15px">0</span>&nbsp;원
+									<span class="font_size_15px totalPay"></span>&nbsp;원
 								</div>
 							</div>
 						</div>
@@ -152,19 +161,19 @@
 							<li class="row text_middle margin_tb10">
 								<span class="col-4">상품수</span>
 								<span class="col-8 sumPriceBox_content_text_right">
-									<strong class="font_size_small">0</strong><span class="font_size_small">&nbsp;개</span>
+									<strong class="font_size_small productCnt"></strong><span class="font_size_small">&nbsp;개</span>
 								</span>
 							</li>
 							<li class="row text_middle margin_tb10">
 								<span class="col-4">금액</span>
 								<span class="col-8 sumPriceBox_content_text_right">
-									<strong class="font_size_small">0</strong><span class="font_size_small">&nbsp;원</span>
+									<strong class="font_size_small totalPrice"></strong><span class="font_size_small">&nbsp;원</span>
 								</span>
 							</li>
 							<li class="row text_middle margin_tb10">
 								<span class="col-4">배송비</span>
 								<span class="col-8 sumPriceBox_content_text_right">
-									<strong class="font_size_small">0</strong><span class="font_size_small">&nbsp;원</span>
+									<strong class="font_size_small totalDelivery"></strong><span class="font_size_small">&nbsp;원</span>
 								</span>
 							</li>
 						</ul>
@@ -172,30 +181,22 @@
 					<div class="row content_margin">
 						<span class="col-5 price_visible">총 결제금액</span>
 						<span class="col-7 sumPriceBox_content_text_right">
-							<strong >9,000,000</strong><span class="font_size_small">&nbsp;원</span>
+							<strong class="totalPay"></strong><span class="font_size_small">&nbsp;원</span>
 						</span>
 					</div>
-					
+					<div class="content_margin payBtnBox">
+						<button type="button" id="payBtn" class="sumPriceBox_button" onclick="payFn()">구매하기</button>
+					</div>
 				</div>
-				<div class="content_margin">
-						<button type="button" class="sumPriceBox_button" onclick="payFn()">구매하기</button>
-				</div>
+				
 			</div>
 		</div>
 		</form>
 		<form id="payFrm" name="payFrm">
-			<input type="hidden" name="sbidxStr" value="1,2,3,7">
-			<input type="hidden" name="midx" value="1">
+			<input type="hidden" name="sbidxStr" id="sbidxStr" value="">
+			<input type="hidden" name="midx" id="midxHidden" value="${loginUser.midx}">
 		</form>
 	</section>
-	
-	<script>
-		function payFn(){
-			document.payFrm.method = "post";
-			document.payFrm.action = "payment.do";
-			document.payFrm.submit();
-		}
-	</script>
 	
 	<%@ include file="../footer.jsp" %>
 	

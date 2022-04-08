@@ -26,7 +26,14 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/store/view.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<script>
+		var spidx=${vo.spidx};
+		var price=${vo.sale_price};
+	</script>
 	
+	<style>
+	
+	</style>
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -45,6 +52,12 @@
 
 	<!-- 본문 영역 -->
 	<section id="Shop_area">
+		<c:if test="${loginUser.grade eq 'A'}">
+			<div id="sv_md">
+				<button onclick="location.href='/controller/store/store_modify.do?spidx=${vo.spidx}'">상품수정</button>
+				<button onclick="delFn()">상품삭제</button>
+			</div>
+		</c:if>
 		<div class="row" id="store_category">
 			<div id="store_main_Title" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 				<c:if test="${not empty vo.detail}">
@@ -65,7 +78,14 @@
 				</div>
 				<div class="row">
 					<div class="col-12 col-sm-10 col-md-10 shop_subject">${vo.title}</div>
-					<div class="col-sm-1 col-md-1"></div>
+					<div class="col-sm-2 col-md-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+					  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+					</svg>
+					</div>
 				</div>
 				<div class="row price">
 					<div class="col-sm-4 col-md-4 col-lg-3 discount">${vo.discount}%</div>
@@ -78,12 +98,49 @@
 				<div class="row selectbox">
 					<select class="form-select form-select-lg">
 						<option value="00" selected>상품을 선택하세요.</option>
-						<option value="01" data-image="/shop05.webp">${vo.product_name}</option>
+						<option value="01" data-image="/shop05.webp" onclick="">${vo.product_name}</option>
 					</select>
 				</div>
+				<%-- <div> 만들다가 말음 상품선택및 갯수선택박스
+					<h2>selectValue</h2>
+					<button class="selling-option-item__delete" type="button" aria-label="삭제">
+						<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">
+							<path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">
+							</path>
+						</svg>
+					</button>
+					<select class="form-control">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10+</option>
+					</select>
+					<input type="number" value="1">
+					<div><span>${vo.sale_price}</span>원</div>
+				</div> --%>
 				<div class="row order_price">
-					<div class="col-sm-6 col-md-6 order_price_">주문금액</div>
-					<div class="col-sm-6 col-md-6 order_price__"><span>0</span>원</div>
+					<div class="col-sm-6 col-md-6 order_price_">
+						<select id="selectCnt" class="form-control" style="width: 70px; text-align: center;" onchange="cntFn()">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10+</option>
+						</select>
+						<input class="hiddenCnt" type="number" value="1" style="width: 70px; text-align: center;" onchange="cntFn2()">
+					</div>
+					<div class="col-sm-6 col-md-6 order_price__">주문금액:<span class="sum_price">${vo.sale_price}</span>원</div>
 				</div>
 				<div class="row btn_area">
 					<div class="col-6 col-sm-6 col-md-6"><button id="basket_btn" onclick="basketInFn()">장바구니</button></div>
@@ -123,7 +180,32 @@
 					<div id="QnAwrite">문의하기</div>
 				</div>
 				<div id="QnA_area">
-					<img src= "/controller/image/QnA.PNG">
+					<ul class="qna_list">
+						<c:forEach items="${qnaList}" var="qna">
+							<li class="qna_list_item">
+								<div>
+									<div>
+										<span class="qna_qa">Q</span> ${qna.writer} <span class="qna_day">${qna.w_day}</span>
+										<c:if test="${loginUser.grade eq 'A' && qna.answer eq 'N'}">
+											<span class="A_write">답변하기</span>
+										</c:if>
+									</div>
+									<div class="qna_content_font qna_q_back">${qna.content}</div>
+								</div>
+								<c:if test="${qna.answer ne 'N'}">
+								<div class="qna_a_area">
+									<div>
+										<span class="qna_qa">A</span> ${qna.answer_writer} <span class="qna_day">${qna.a_day}</span>
+										<c:if test="${loginUser.grade eq 'A'}">
+											<span class="A_write">수정하기</span>
+										</c:if>
+									</div>
+									<div class="qna_content_font qna_a_back">${qna.answer_content}</div>
+								</div>
+								</c:if>
+							</li>
+						</c:forEach>
+					</ul>
 				</div>
 				<div id="delivery_area_header">
 					<div>배송</div>
@@ -247,7 +329,7 @@
 					</div>
 					<div class="buy_btn_area">
 						<button id="basket_btn2" onclick="basketInFn()">장바구니</button>
-						<button id="buy_btn2">바로구매</button>
+						<button id="buy_btn2" onclick="">바로구매</button>
 					</div>
 				</div>
 			</div>
@@ -257,13 +339,14 @@
 	<%@ include file="../footer.jsp" %>
 	
 	<script>
+		var cnt=1;
 		function basketInFn(){
 			console.log(${spidx});
 			if(${!empty loginUser}){
 				$.ajax({
 					type : "GET",
 					url : "basketIn.do",
-					data : "midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt=1",
+					data : "midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt="+cnt,
 					success : function(result) {
 						if(result > 0){
 							alert("장바구니에 담겼습니다.");
@@ -281,7 +364,7 @@
 		function paymentInFn(){
 			console.log(${spidx});
 			if(${!empty loginUser}){
-				location.href="/controller/mypage/payment.do"+"?midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&price="+${vo.sale_price}+"&title="+"${vo.title}"+"&delivery_charge="+${vo.delivery_charge}+"&free_delivery="+"${vo.free_delivery}"+"&cnt=1"
+				location.href="/controller/mypage/directPayment.do"+"?midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt="+cnt;
 			}else{
 				alert("로그인 후 이용가능 합니다.");
 			}

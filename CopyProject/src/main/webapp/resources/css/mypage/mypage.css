@@ -147,16 +147,17 @@
 			display: inline-block;
 			width: 180px;
 			height: 180px;
-			background-color: #f5f5f5;
+			background-color: white;
 			border: none;
 			border-radius: 9px;
 		}
 
 		.my_homestroy_img{
-			width: 200px;
-			height: 200px;
+			width: 160px;
+			height: 160px;
 			object-fit:cover;
-			
+			margin:25px;
+			border-radius:15px;
 		}
 
 
@@ -374,6 +375,12 @@
 			}
 			section{
 				border-top: 3px solid #ffb6c1; 
+			}
+			
+			.my_homestroy_img{
+				width:150px;
+				height:150px;
+				margin:2px;
 			}
 
 		}

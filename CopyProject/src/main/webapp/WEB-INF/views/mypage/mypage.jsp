@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -38,7 +39,7 @@
 					</div>
 					<div class="col-9 col-lg-12" id="profile_id">
 						<div id="profile_name">
-							${vo.membername} 
+							${vo.nick_name}
 						</div>
 						<div id="profile_follow">
 							<p>팔로워 <strong>100</strong> | 
@@ -65,37 +66,37 @@
 				<div class="mydivtitle">주문배송조회</div>
 				<div id="mydiv2-1" class="row">
 					<div class="delivery col-4">
+						결제완료<br>
+						<a href='${pageContext.request.contextPath}/mypage/order_list.do'><i class="bi bi-credit-card delivery-icons"></i></a><br>
+						<strong>${count1}</strong>
+					</div>
+					<div class="delivery col-4">
 						배송중<br>
 						<a href='${pageContext.request.contextPath}/mypage/order_list.do'><i class="bi bi-truck delivery-icons"></i></a><br>
-						<strong>3</strong>
+						<strong>${count3}</strong>
 					</div>
 					<div class="delivery col-4">
-						배송완료<br>
+						배송완료<br>	
 						<a href='${pageContext.request.contextPath}/mypage/order_list.do'><i class="bi bi-bag-check-fill delivery-icons"></i></a><br>
-						<strong>2</strong>
+						<strong>${count4}</strong>
 					</div>
-					<div class="delivery col-4">
+					<!-- <div class="delivery col-4">
 						취소/반품/교환<br>
 						<a href="#"><i class="bi bi-arrow-counterclockwise delivery-icons"></i></a><br>
 						<strong>0</strong>
-					</div>
+					</div> -->
 				</div>
 				<div class="mydivtitle mydiv2-2">내 홈스토리</div>
 				<div id="mydiv2-2">	
 					<div>
-						<div class="my_homestroy">
-							<!--<img class="my_homestroy_img" src="/controller/image/home.jpg">-->
+					<c:forEach items="${Storylist}" end="3" var="vo" varStatus="cnt">
+						<div class="my_homestroy" id="mystory${cnt.count}" >
+							<input type="hidden" value="${vo.cbidx}">
+							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
 						</div>
-						<div class="my_homestroy">
-							<!--<img class="my_homestroy_img" src="/controller/image/home.jpg">-->
-						</div>
-						<div class="my_homestroy" id="mystory3">
-							<!--<img class="my_homestroy_img" src="/controller/image/home.jpg">-->
-						</div>
-						<div class="my_homestroy" id="mystory4">
-							<!--<img class="my_homestroy_img" src="/controller/image/home.jpg">-->
-						</div>
+					</c:forEach>
 					</div>
+					<br>
 					<div id="mystory_btn">
 						<button>내가 작성한 리뷰</button>
 						<button>내가 쓴 글</button>

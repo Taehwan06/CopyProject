@@ -25,7 +25,10 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/store/store_list.js"></script>
-	
+	<script>
+		var category="${param.category}";
+		var detail="${param.detail}";	
+	</script>
 	<title>store_list</title>
 	
 </head>
@@ -182,7 +185,7 @@
 				<div class="row" id="sectionDiv">
 					<ul class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 list_">
 						<li>
-							<button id="free" class="list_btn" onClick="listFn(this)">무료배송</button>
+							<button id="free" class="list_btn" onClick="freeFn(this)" onclick="lookup()">무료배송</button>
 						</li>
 					</ul>
 					<ul class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 list_">
@@ -193,11 +196,11 @@
 					<ul class="col-2 col-sm-5 col-md-5 col-lg-6 col-xl-6"></ul>
 					<ul class="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2 list_">
 						<li>
-							<select class="sort">
-								<option>구매순</option>
-								<option class="">별점순</option>
-								<option>가격높은순</option>
-								<option>가격낮은순</option>
+							<select id="sort" class="sort" onchange="lookup()">
+								<option value="sell_cnt">구매순</option>
+								<option value="score">별점순</option>
+								<option value="priceUp">가격높은순</option>
+								<option value="priceDown">가격낮은순</option>
 							</select>
 						</li>
 					</ul>
@@ -223,7 +226,7 @@
 										</span>
 										<span class="property-filter-panel-range-control__input-row__footer">원</span>
 									</span>
-									<button id="priceSelected"  class="property-filter-panel-range-control__input-row__button" type="button">적용</button>
+									<button id="priceSelected"  class="property-filter-panel-range-control__input-row__button" type="button" onclick="lookup()">적용</button>
 								</div>
 
 							</section>
@@ -243,7 +246,7 @@
 									${vo.title}
 								</div>
 								<div class="shopPrice">
-									<span class="red">${vo.discount}%</span> ${vo.sale_price}
+									<span class="red">${vo.discount}%</span> ${vo.sale_price}원
 								</div>
 								<span class="sky">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">

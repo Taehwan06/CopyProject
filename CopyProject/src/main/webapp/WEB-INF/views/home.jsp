@@ -101,7 +101,7 @@
 				<div class="clear"></div>
 			</div>
 			<c:forEach items="${list}" end="3" var="vo" varStatus="cnt">
-				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story" <c:if test="${cnt.last}">id="mdlg_display_none"</c:if>>
 					<img src="/controller/upload/${vo.img_system }" class="storyImg" onclick="location.href='/controller/community/home_view.do?cbidx=${vo.cbidx}'">
 					<div class="storyText" onclick="location.href='/controller/community/home_view.do?cbidx=${vo.cbidx}'">
 						<div class="storyTitle">${vo.title }</div>
@@ -124,7 +124,7 @@
 			</div>
 		
 			<c:forEach items="${storeList}" end="3" var="storeListvo" varStatus="cnt">
-				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop" <c:if test="${cnt.last}">id="mdlg_display_none_"</c:if>>
 					<img src="${storeListvo.img_origin}" class="shopImg" onclick="location.href='/controller/store/store_view.do?spidx=${storeListvo.spidx}'">
 					<div class="shopText" onclick="location.href='/controller/store/store_view.do?spidx=${storeListvo.spidx}'">
 						<div class="shopTitle">

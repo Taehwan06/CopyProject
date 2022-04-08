@@ -19,14 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
 import edu.study.service.Community_BoardService;
+import edu.study.service.Community_ReplyService;
 import edu.study.service.HomeService;
 import edu.study.vo.AttatchImageVO;
 import edu.study.vo.Community_BoardVO;
+import edu.study.vo.Community_ReplyVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.SearchVO;
@@ -42,6 +43,8 @@ public class CommunityController {
 	private Community_BoardService Community_boardService;
 	@Autowired
 	private HomeService homeService;
+	@Autowired
+	private Community_ReplyService replyService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -69,10 +72,10 @@ public class CommunityController {
 	}
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String uploadAjaxActionPOST(MultipartFile uploadFile,  Model model, Community_BoardVO boardVO) throws Exception {
+	public String uploadAjaxActionPOST(MultipartFile uploadFile,  Model model, Community_BoardVO boardVO, HttpServletRequest request) throws Exception {
 	
-		String uploadFolder = "C:\\Users\\82102\\git\\TeamProject2022\\HomeFriends\\src\\main\\webapp\\resources\\upload";
-		
+		String uploadFolder = "C://Users//lth-m//git//TeamProject2022//HomeFriends//src//main//webapp//resources//upload";
+		//String uploadFolder = request.getServletContext().getRealPath("/resources/upload");
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -139,8 +142,7 @@ public class CommunityController {
 	    boardVO.setWriter(loginUser.getNick_name());
 		
 		Community_boardService.insert(boardVO);
-		
-	
+
 		return "redirect:home_view.do?cbidx="+boardVO.getCbidx();
 	}
 	@RequestMapping(value = "/home_modify.do", method = RequestMethod.GET)
@@ -171,7 +173,6 @@ public class CommunityController {
 		
 		return "redirect:home_view.do?cbidx="+boardVO.getCbidx();
 	}
-	
 	@RequestMapping(value = "/home_delete.do", method = RequestMethod.POST)
 	public String home_delete(Locale locale, Model model, int cbidx) throws Exception {
 		
@@ -219,14 +220,14 @@ public class CommunityController {
 		
 		model.addAttribute("searchList", searchList);
 		
-		List<Community_BoardVO> list = Community_boardService.list(vo);
+		List<Community_BoardVO> list = Community_boardService.list();
 		
 		model.addAttribute("list",list);
 		
-		int listCnt = Community_boardService.getBoardlistCnt(vo);
+		int listCnt = Community_boardService.getBoardlistCnt();
 		
 		model.addAttribute("listCnt",listCnt);
-		
+	    
 		return "community/home_list";
 	}
 	
@@ -242,8 +243,28 @@ public class CommunityController {
 		Community_BoardVO vo = Community_boardService.detail(cbidx);
 	      
 	    model.addAttribute("vo",vo);
+	    
+	    //origin_cbridx
+		Integer orincbridx = Community_boardService.cbridx();
 		
-		return "community/home_view.jsp?cbidx="+vo.getCbidx();
+		if(orincbridx == null) {
+			orincbridx=0;
+		}
+		model.addAttribute("orincbridx", orincbridx+1);
+		
+		//작성 시간 가져오기
+		String writeDate = Community_boardService.writeDate(cbidx);
+		model.addAttribute("writeDate", writeDate);
+ 
+	    //댓글 개수
+	    int replycount = replyService.countReplies(cbidx);
+	    model.addAttribute("count", replycount);
+	    
+	    //댓글 조회
+	    List<Community_ReplyVO> reply = replyService.list(cbidx);
+	    model.addAttribute("reply", reply);
+	    
+		return "community/home_view.jsp?cbidx="+cbidx;
 	}
 	
 	@RequestMapping(value = "/following.do", method = RequestMethod.GET)
@@ -305,5 +326,4 @@ public class CommunityController {
 				
 		return "community/qna_modify";
 	}
-	
 }

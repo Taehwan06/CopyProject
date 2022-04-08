@@ -57,5 +57,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.tempNumCheck(vo);
 	}
 
+	@Override
+	public MemberVO refreshMember(MemberVO vo) throws Exception {
+		return memberDao.refreshMember(vo);
+	}
+
 
 }

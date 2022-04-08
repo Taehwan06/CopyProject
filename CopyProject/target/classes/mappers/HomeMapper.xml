@@ -10,14 +10,23 @@
 			cbidx,
 			writer,
 			title,
-			midx,
-			img_system
+			img_system,
+			profile_system
 		FROM
-			community_board
+			community_board c
+        INNER JOIN 
+        	member m
+        ON 
+        	c.midx = m.midx
 		WHERE
-			del_yn = "N"
-		AND
-			title like CONCAT("%",#{search_value},"%");
+			c.del_yn = "N"
+		AND	(
+			title like CONCAT("%",#{search_value},"%")
+		OR	
+			writer like CONCAT("%",#{search_value},"%")
+		OR
+			content like CONCAT("%",#{search_value},"%")
+		)
     </select>
     
     <select id="searchStore" resultType="homeStoreVO" parameterType="homeSearchVO">
@@ -37,8 +46,15 @@
 			shopping_product
 		WHERE
 			del_yn = "N"
-		AND
-			title like CONCAT("%",#{search_value},"%");
+		AND	(
+			title like CONCAT("%",#{search_value},"%")
+		OR	
+			brand like CONCAT("%",#{search_value},"%")
+		OR
+			content like CONCAT("%",#{search_value},"%")
+		OR
+			product_name like CONCAT("%",#{search_value},"%")
+		)
     </select>
     
     <insert id="insertSearchList" parameterType="homeSearchVO">
@@ -72,6 +88,30 @@
     		cnt desc
     	LIMIT 
     		5
+    </select>
+    
+    
+    <select id="recentViewStore" resultType="homeStoreVO" parameterType="homeStoreVO">
+    	
+		SELECT
+			spidx,
+			writer,
+			title,
+			midx,
+			img_system,
+			brand,
+			origin_price,
+			sale_price,
+			score,
+			discount,
+			review_cnt
+		FROM
+			shopping_product
+		WHERE
+			1=1
+		AND
+			spidx = #{spidx}
+		
     </select>
     
     

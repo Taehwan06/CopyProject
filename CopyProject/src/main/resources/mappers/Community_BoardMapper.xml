@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="edu.study.mapper.Community_boardMapper">
-	
+	<!-- 본문 가져오기 -->
 	<select id="Comm_listBoard" resultType="Community_boardVO" parameterType="SearchVO">		
          SELECT cbidx,
          		title,
@@ -15,38 +15,36 @@
          		profile_system
            FROM community_board c
            INNER JOIN member m
-           ON c.midx = m.midx
-           
+           ON c.midx = m.midx 
           WHERE 1=1
-          AND bdel_yn = 'N'
-            <if test="searchType != null and searchType.equals('title')">
-            	AND subject like '%'||#{searchValue}||'%'
-            </if>
-            <if test="searchType != null and searchType.equals('writer')">
-            	AND writer like '%'||#{searchValue}||'%'
-            </if>
-            ORDER BY cbidx desc
+          AND c.del_yn = 'N'
+            ORDER BY cbidx DESC
     </select>
     
+    <!-- 작성 시간 가져오기 -->
+    <select id="writeday" resultType="String">
+    <![CDATA[
+    	SELECT
+    	CASE
+    		WHEN TIMESTAMPDIFF(MINUTE, (select write_date from community_board where cbidx=#{cbidx}), NOW()) <= 0 THEN '방금 전'
+		    WHEN TIMESTAMPDIFF(MINUTE, (select write_date from community_board where cbidx=#{cbidx}), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '분 전')
+		    WHEN TIMESTAMPDIFF(HOUR, (select write_date from community_board where cbidx=#{cbidx}), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '시간 전')
+		    WHEN TIMESTAMPDIFF(DAY, (select write_date from community_board where cbidx=#{cbidx}), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '일 전')
+		    ELSE CONCAT(TIMESTAMPDIFF(MONTH, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '달 전')
+		END AS AGOTIME
+		FROM community_board
+		WHERE cbidx=#{cbidx}
+	]]>
+    </select>
+    
+    <!-- 전체 글 개수 -->
     <select id="Comm_listcnt" resultType="int">
     	SELECT count(*) as listCnt
     	FROM community_board
-    	WHERE bdel_yn = 'N' 
-    		<if test="searchType != null and searchType.equals('title')">
-            	AND subject like '%'||#{searchValue}||'%'
-            </if>
-            <if test="searchType != null and searchType.equals('writer')">
-            	AND writer like '%'||#{searchValue}||'%'
-            </if>
+    	WHERE del_yn = 'N'
     </select>
     
-    <select id="Comm_profileImg" resultType="String">
-    	SELECT profile_system
-    	FROM community_board c
-    	INNER JOIN member m
-    	ON c.midx  = m.midx
-    </select>
-    	
+    <!-- 본문 커버사진 -->
     <select id="Comm_mainImg" resultType="Community_boardVO">
     	SELECT cbidx,
     		   title,
@@ -61,11 +59,12 @@
     	FROM community_board
     	ORDER BY hit_cnt DESC
     	LIMIT 1)
-    	AND bdel_yn = 'N'
+    	AND c.del_yn = 'N'
     	ORDER BY cbidx DESC
     	LIMIT 1
     </select>
     
+    <!-- 본문 상세보기 -->
     <select id="Comm_detailBoard" resultType="Community_boardVO" parameterType="int">
     	 SELECT cbidx,
 				title,
@@ -85,20 +84,22 @@
           WHERE cbidx= #{cbidx}
     </select>
     
+    <!-- 본문 수정하기 -->
     <update id="Comm_updateBoard" parameterType="Community_BoardVO">
     	UPDATE community_board
     	   SET title = #{title}
     		  ,content = #{content}
-    		  ,img_system = #{img_system}
          WHERE cbidx = #{cbidx}
     </update>
     
-    <delete id="Comm_deleteBoard" parameterType="int">
+    <!-- 본문 삭제하기 -->
+    <update id="Comm_deleteBoard" parameterType="int">
     	UPDATE community_board
-    	   SET bdel_yn = 'Y'
+    	   SET del_yn = 'Y'
     	 WHERE cbidx = #{cbidx}
-    </delete>
+    </update>
     
+    <!-- 본문 글 작성 -->
     <insert id="Comm_insertBoard" parameterType="Community_BoardVO">
     <![CDATA[
     	INSERT INTO community_board(
@@ -122,5 +123,11 @@
     	  FROM community_board
     </selectKey>
     </insert>
+    
+    <!-- 마지막 댓글 번호 -->
+    <select id="cbridx" resultType="int">
+    	SELECT MAX(cbridx)
+    	FROM community_reply
+    </select>
     
 </mapper>

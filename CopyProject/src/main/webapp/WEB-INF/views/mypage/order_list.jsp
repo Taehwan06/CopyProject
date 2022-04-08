@@ -24,7 +24,7 @@
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script> 
-	<script src="/controller/js/login/join1.js"></script>
+	<script src="/controller/js/mypage/order_list.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -73,12 +73,14 @@
 				<!-- =============================================== -->
 							<div class="filter"><!-- 필터 -->
 								<select name="day" class="selectgood">
+									<option value="not">----</option>
 									<option value="month">한달</option>
 									<option value="3months">3개월</option>
 									<option value="6months">6개월</option>
 									<option value="1year">1년</option>
 								</select>
-								<select name="stateBar" class="selectgood">
+								<select id ="stateBar" name="stateBar" class="selectgood" onchange="stateFn()">
+									<option value="default">----</option>
 									<option value="pay">결제완료</option>
 									<option value="ready">배송준비중</option>
 									<option value="ing">배송중</option>
@@ -87,30 +89,29 @@
 							</div>
 				<!-- =============================================== -->		
 							<div class="product">
-							<%-- <c:forEach var="data" items="${orderList}"> --%> 
 							<c:forEach items="${orderList2}" var="orderList2" varStatus="cnt">
 								<div class="row">
 									<div class="col-6 buyDate">
 										${orderList2.buying_date}
 									</div>
 									<div class="col-6 goDatail">
-										<a href="#" id="goDetail">상세보기 <i class="bi bi-chevron-right detailIcon"></i></a>
+										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}" id="goDetail">상세보기 <i class="bi bi-chevron-right detailIcon"></i></a>
 									</div>
 									<hr>
 								</div>
 								<div class="row odrNdelBox">
 									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 productPic">
-										<a href="#"><img src="/controller/image/${orderList2.img_system}"></a>
+										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}"><img src="/controller/image/${orderList2.img_system}"></a>
 									</div>
 									<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 productInfo">
-										<a href="#">${orderList2.title}&nbsp;</a>| ${orderList2.cnt} 개 <br>
+										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}">${orderList2.title}&nbsp;</a>| ${orderList2.cnt} 개 <br>
 										<span class="producSpan">${orderList2.progress} | 일반택배</span>
 									</div>
 									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 productInfo">
 										${orderList2.price} 원	
 									</div> 
 									<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 productBtn">
-										<button id="delTrack">배송추적</button>
+										<button id="delTrack" onclick= "window.open('https://www.cjlogistics.com/ko/tool/parcel/tracking');">배송추적</button>
 										<button id="goReview">리뷰작성</button> 
 									</div> 
 								</div> 

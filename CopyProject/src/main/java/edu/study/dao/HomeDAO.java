@@ -39,7 +39,9 @@ public class HomeDAO {
 		return sqlSession.update(Namespace+".deleteSearchList");
 	}
 	
-	
+	public HomeStoreVO recentViewStore(HomeStoreVO vo) throws Exception{
+		return sqlSession.selectOne(Namespace+".recentViewStore",vo);
+	}
 	
 }
 

@@ -58,6 +58,14 @@ public class HomeServiceImpl implements HomeService {
 		return result;
 	}
 
+	@Override
+	public HomeStoreVO recentViewStore(HomeStoreVO vo) throws Exception {
+
+		HomeStoreVO list = homeDao.recentViewStore(vo);
+		
+		return list;
+	}
+
 	
 	
 }

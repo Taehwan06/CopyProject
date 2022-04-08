@@ -7,3 +7,4 @@ function selectFn(obj){
 		rInput.style.visibility = "hidden";
 	}
 }
+

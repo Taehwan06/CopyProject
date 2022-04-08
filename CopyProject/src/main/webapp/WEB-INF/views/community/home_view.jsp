@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,6 +29,7 @@
 	
 </head>
 <body>
+	<input type="hidden" value="${replyvo}">
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
 	
@@ -49,7 +52,7 @@
 							${vo.writer }
 						</div>
 						<div class="writedate">
-							${vo.write_date }
+							${writeDate }
 						</div>
 					</div>
 				</div>
@@ -81,7 +84,7 @@
 		</div>
 		<div class="content_stats">
 			<div>스크랩<span>${vo.scrap_cnt }</span></div>
-			<div>댓글<span>${vo.reply_cnt }</span></div>
+			<div>댓글<span>${count }</span></div>
 			<div>조회<span>${vo.hit_cnt }</span></div>
 		</div>
 		<div class="footer_profile">
@@ -91,24 +94,129 @@
 				<button>팔로우</button>
 			</div>
 		</div>
-		<div class="reply_area">
-			<div>
-				댓글<span>${vo.reply_cnt }</span>
-			</div>
-			<div class="row reply_write">
-				<div class="col-xl-1 profile_reply">
-					<img src="/controller/image/profile_img.PNG">
+	</section>
+	<!-- 댓글 영역 -->
+	<section id="reply_area">
+		<h1 class="reply_area">
+			댓글&nbsp;<span>${count }</span>
+		</h1>
+		<!-- 댓글 등록 -->
+		<c:if test="${loginUser != null}">
+			<form id="replyFrm" name="replyFrm" method="post">
+				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
+				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
+				<input type="hidden" id="midx" name="midx" value="${loginUser.midx }">
+				<input type="hidden" name="writer" value="${loginUser.nick_name }">
+				<div class="reply_writer">
+					<img src="/controller/image/${loginUser.profile_system }">
 				</div>
-				<form class="col-xl-11" id="replyFrm" name="replyFrm">
-					<textarea onkeyup="adjustHeight()" id="reply_text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-					<button type="button" id="reply_btn">등록</button>
-				</form>
-				<div class="reply_view">
-					<img src="/controller/image/reply01.PNG">
-					<img src="/controller/image/reply02.PNG">
+				<div class="reply_input">
+					<div class="reply_content">
+						<div class="reply_content_input">
+							<textarea name="content" class="reply_content_input_text reply_content_form_text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)" onkeyup="adjustHeight()"></textarea>
+						</div>
+					</div>
+					<div class="reply_action">
+						<button class="reply_submit" aria-label="등록" type="button">등록</button>
+					</div>
 				</div>
-			</div>
-		</div>
+			</form>
+		</c:if>
+		<!-- 비로그인시 -->
+		<c:if test="${loginUser == null }">
+			<form id="replyFrm_">
+				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
+				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
+				<input type="hidden" id="midx" name="midx" value="">
+				<input type="hidden" name="writer" value="">
+				<div class="reply_writer">
+					<img src="/controller/image/kakao_profile_basic.png">
+				</div>
+				<div class="reply_input">
+					<div class="reply_content">
+						<div class="reply_content_input">
+							<textarea name="content" class="reply_content_input_text reply_content_form_text" placeholder="로그인 후 이용 가능합니다." readonly></textarea>
+						</div>
+					</div>
+					<div class="reply_action">
+						<button class="reply_submit_" aria-label="등록" type="button">등록</button>
+					</div>
+				</div>
+			</form>
+		</c:if>
+		<!-- 댓글 조회 -->
+		<ul class="reply_list">
+			<c:forEach items="${reply }" var="reply">
+				<input type="hidden" name="origin_cbridx" value="${reply.cbridx }">
+				<input type="hidden" name="cbridx" value="${reply.cbridx }">
+				<li class="reply_list_item reply_list_item${reply.depth }">
+					<article class="reply_item_">
+						<p class="reply_item_content reply_item_content${reply.cbridx }">
+							<a class="reply_item_content_writer" href="">${reply.writer }
+								<img class="reply_item_content_writer_image" src="/controller/image/${reply.profile_system }">
+							</a>
+							<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">${reply.content }</span>
+						</p>
+						<footer class="reply_item_footer reply_item_footer${reply.depth } reply_item_footer${reply.cbridx }">
+							<%@ include file="time.jsp" %>
+							<c:if test="${loginUser == null }">
+								<button class="reply_item_footer_reply-btn" type="button" onclick="ReNot()">답글 달기</button>
+							</c:if>
+							<c:if test="${loginUser != null }">
+								<button class="reply_item_footer_reply-btn" type="button" onclick="Re('${reply.cbridx}')">답글 달기</button>
+							</c:if>
+							<c:if test="${loginUser.midx == reply.midx }">
+								<div class="mfdel">
+									<button class="replyUpdate" type="button" onclick="replymodify('${reply.cbridx}','${reply.profile_system }')">수정</button>
+									<button class="replyDelete" type="button" onclick="replydel('${reply.cbridx}')">삭제</button>
+								</div>
+								<!-- 댓글 삭제 -->
+								<form id="replydelfrm${reply.cbridx }" name="replydelfrm" method="post">
+									<input type="hidden" name="cbridx" value="${reply.cbridx }">
+									<input type="hidden" name="cbidx" value="${vo.cbidx }">
+								</form>
+							</c:if>
+						</footer>
+						<!-- 댓글의 답글 -->
+						
+						<!-- 답글 작성 -->
+						<form class="reply_Frm" id="reply_Frm${reply.cbridx}" name="reply_Frm" method="post">
+							<input type="hidden" name="origin_cbridx" value="${reply.cbridx}">
+							<input type="hidden" name="cbidx" value="${vo.cbidx }">
+							<input type="hidden" name="midx" value="${loginUser.midx }">
+							<input type="hidden" name="writer" value="${loginUser.nick_name }">
+							<input type="hidden" name="lvl" value="${reply.lvl }">
+							<div class="reply_writer">
+								<img src="/controller/image/${loginUser.profile_system }">
+							</div>
+							<div class="reply_input_">
+								<div class="reply_content">
+									<div class="reply_content_input">
+										<span>@${reply.writer }</span><textarea name="content" class="reply_content_input_text_ reply_content_form_text_${reply.cbridx}" onkeyup="adjust_Height('${reply.cbridx}')"></textarea>
+									</div>
+								</div>
+								<div class="reply_action">
+									<button class="Rereply_submit" aria-label="등록" type="button" onclick="Reinsert('${reply.cbridx}')">등록</button>
+								</div>
+							</div>
+						</form>
+					</article>
+				</li>
+			</c:forEach>
+		</ul>
+		<ul class="list-paginator">
+			<li>
+				<button class="list-paginator_page sm selected" type="button">1</button>
+			</li>
+			<li>
+				<button class="list-paginator_page sm" type="button">2</button>
+			</li>
+			<li>
+				<button class="list-paginator_next" type="button">
+					<svg width="26" height="26" viewBox="0 0 26 26" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd" transform="matrix(-1 0 0 1 26 0)"><rect width="25" height="25" x=".5" y=".5" stroke="#DCDCDC" rx="4"></rect><g stroke="#424242" stroke-linecap="square" stroke-width="2"><path d="M14.75 8.263L10.25 13M10.25 13l4.5 4.737"></path></g></g></svg>
+				</button>
+			</li>
+		</ul>
 		<div class="slide_bar">
 			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark sideMenu" viewBox="0 0 16 16">
 			  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
