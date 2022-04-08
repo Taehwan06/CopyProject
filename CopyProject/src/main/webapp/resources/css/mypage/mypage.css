@@ -192,6 +192,34 @@
 			cursor:pointer;
 		}
 		
+		/*AllStory CSS*/
+		
+		.all_homestroy_img{
+			width:300px;
+			height:300px;
+			object-fit:cover;
+			border-radius:15px;
+			
+			
+		}
+	
+		#myStoryDiv{
+			margin:30px;	
+			/* margin-bottom:30px; */
+			display:inline-block;
+		}
+		
+	
+		#clear{
+			clear : both;
+		}
+		
+		#myStoryDiv a {
+			text-decoration:none;
+			color:#808080;
+		}
+		
+		
 		/*미디어쿼리*/
 		@media screen and (min-width: 1400px){
 			#headerDiv, .navbar, section, footer{
@@ -246,6 +274,13 @@
 			#mystory4{
 				display: none;
 			}
+			
+			.all_homestroy_img{
+				width:255px;
+			
+			}
+			
+			
 		}
 		@media screen and (min-width: 768px) and (max-width: 991.99px){
 			#headerDiv, .navbar, section, footer{
@@ -277,6 +312,11 @@
 
 			.delivery-icons{
 				font-size: 65px;
+			}
+			
+			.all_homestroy_img{
+				width:660px;
+			
 			}
 			
 		}
@@ -331,7 +371,11 @@
 			border-radius: 100px;
 			object-fit:cover
 			}
-
+			
+			.all_homestroy_img{
+				width:620px;
+			
+			}
 
 		}
 		@media screen and (max-width: 575.99px){
@@ -382,6 +426,12 @@
 				height:150px;
 				margin:2px;
 			}
+			
+			.all_homestroy_img{
+				width:380px;
+			
+			}
+			
 
 		}
 		

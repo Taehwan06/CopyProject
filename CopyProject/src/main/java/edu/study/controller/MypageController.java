@@ -306,6 +306,35 @@ public class MypageController {
 	}
 	
 	
+	@RequestMapping(value = "/mypage_allStory.do", method = RequestMethod.GET)
+	public String mypage_allStory(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,Community_BoardVO list) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+		
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
+			    	  
+	    	MemberVO result = mypageService.detail(loginUser.getMidx());
+	  		model.addAttribute("vo", result);
+	  		
+	  		int Midx = loginUser.getMidx();
+			list.setMidx(Midx);
+	  		
+	  		List<Community_BoardVO> Storylist = mypageService.viewStory(list);
+	  		model.addAttribute("Storylist", Storylist);
+	  		
+	  		return "mypage/mypage_allStory";
+		      
+	    }
+	}
+	
+	
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
 	public String payment(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
 

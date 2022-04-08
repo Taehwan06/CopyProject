@@ -154,11 +154,16 @@
     <select id = "viewStory" resultType="Community_BoardVO" parameterType="Community_BoardVO">
     	SELECT
     			cbidx,
-    			img_system
+    			img_system,
+    			title
     	FROM
     			community_board
     	WHERE
     			midx = #{midx}
+    	AND
+    			del_yn = "N"
+    	AND
+    			img_origin is not null
     	ORDER BY
     			cbidx DESC
     </select>
