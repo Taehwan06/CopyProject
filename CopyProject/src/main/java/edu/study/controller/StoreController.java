@@ -291,47 +291,26 @@ public class StoreController {
 	public String store_view(Locale locale, Model model, int spidx, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
 		
-		
-		
-		
+		// 최근 본 상품 처리 영역
 		Cookie[] myCookies = request.getCookies();
-		String recentView = "";
-
+		String recentView = null;
+		
 	    for(int i = 0; i < myCookies.length; i++) {
 	    	if(myCookies[i].getName().equals("recentView")) {
 	    		recentView = myCookies[i].getValue();
 	    	}
 	    }
-		
-		recentView += spidx+"&";
+		if(recentView == null) {
+			recentView = ""+spidx;
+		}else {
+			recentView += "&"+spidx;
+		}
 		
 		Cookie recentViewCookie = new Cookie("recentView", recentView);
 		recentViewCookie.setMaxAge(60*60*24);
 		recentViewCookie.setPath("/"); 
 		response.addCookie(recentViewCookie);
-		
-		System.out.println(recentView);
-		
-		
-		Cookie[] newCookies = request.getCookies();
-		String newrecentView = "";
-
-	    for(int i = 0; i < newCookies.length; i++) {
-	    	if(newCookies[i].getName().equals("recentView")) {
-	    		newrecentView = newCookies[i].getValue();
-	    	}
-	    }
-	    System.out.println("newrecentView="+newrecentView);
-		
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+	    // 최근 본 상품 영역 끝
 	    
 	    
 		

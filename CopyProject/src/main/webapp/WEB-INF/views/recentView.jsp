@@ -42,8 +42,7 @@
 		<!-- ====================================================================================== -->
 		<div class="row shopList">
 			<div class="shopListTitle">
-				최근 본 상품
-				<span class="moreview" onclick="location.href='/controller/store/store_list.do?type=review_cnt'">더보기</span>
+				최근 본 상품<br><br>
 				<div class="clear"></div>
 			</div>
 			

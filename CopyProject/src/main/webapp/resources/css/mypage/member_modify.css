@@ -200,6 +200,16 @@
 		input:invalid{
 			outline:4px solid red;
 		}	
+		
+		
+		#imgUploadArea, #imgUpload{
+			visibility: hidden;
+		}
+		#coverImg{
+			cursor: pointer;
+		}
+		
+		
 
 		/* 미디어 쿼리  CSS */
    		/*========================================================================*/

@@ -82,27 +82,83 @@ function checkForm() {
 /* 이미지 업로드 */
 
 
+function readURL(input) {
+	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
+	
+	var fileValue = document.getElementById("imgUpload").value;
+	
+	var fileNameAry = fileValue.split("\\");
+	var fileNameBe = fileNameAry[2];
+	var fileName = fileNameBe.toLowerCase();
+	
+	if(regex.test(fileName)){
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("#coverImg").attr("src", e.target.result);
+				$("#coverImg").css("width", "180px");
+				$("#coverImg").css("height", "auto");
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}else{
+		$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+		$("#coverImg").css("width", "180px");
+		$("#coverImg").css("height", "auto");
+	}
+}
 
+function imgValCheckFn(){
+	var fileValue = document.getElementById("imgUpload").value;
+    
+    console.log("fileValue="+fileValue);
+    
+    if(fileValue == "" || fileValue == null){
+    	$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+		$("#coverImg").css("width", "180px");
+		$("#coverImg").css("height", "auto");
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$(function() {
+	$("#imgUpload").on("change", function(){
+		
+		var form = $("#uploadForm")[0];
+	    var formData = new FormData(form);
+	    
+	    $.ajax({
+			url: "fileUpload",
+			type: "post",
+			data: formData,
+			enctype: "multipart/form-data",
+			contentType: false,
+			processData: false,
+			success: function(data){
+				var result = data.trim();
+				
+				if(result == "fail1"){
+					alert("이미지 파일만 등록할 수 있습니다");
+					
+				}else if(result == "fail2"){
+					alert("이미지 변경에 실패했습니다");
+					$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+					$("#coverImg").css("width", "180px");
+					$("#coverImg").css("height", "auto");
+					
+				}else if(result == "fail3"){
+					alert("변경할 이미지를 선택해 주세요");
+					
+				}else{
+					var resultAry = result.split(",")
+					var profile_origin = resultAry[0];
+					var profile_system = resultAry[1];
+					
+					$("#profile_origin").val(profile_origin);
+					$("#profile_system").val(profile_system);
+					
+				}
+			}
+	    });
+	    readURL(this);
+	});
+});

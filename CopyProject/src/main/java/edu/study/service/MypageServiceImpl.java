@@ -91,8 +91,8 @@ public class MypageServiceImpl implements MypageService {
 		int result = mypageDao.count(vo);
 		return result;
 	}
-
-
+	
+	
 	@Override
 	public List<OrderListVO> delState(OrderListVO vo) throws Exception {
 		
