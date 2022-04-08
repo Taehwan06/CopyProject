@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,7 +67,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/search.do", method = RequestMethod.GET)
-	public String search(Locale locale, Model model, HomeSearchVO vo) throws Exception {
+	public String search(Locale locale, Model model, HomeSearchVO vo, HttpServletRequest request) throws Exception {
+
+		String nowUri = request.getRequestURI();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
 		
 		int insertResult = homeService.insertSearchList(vo);
 		int deleteResult = homeService.deleteSearchList();
@@ -100,7 +106,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/search_result.do", method = RequestMethod.GET)
-	public String search_result(Locale locale, Model model) throws Exception {
+	public String search_result(Locale locale, Model model, HttpServletRequest request) throws Exception {
+
+		String nowUri = request.getRequestURI();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -112,7 +123,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/search_result_none.do", method = RequestMethod.GET)
-	public String search_result_none(Locale locale, Model model) throws Exception {
+	public String search_result_none(Locale locale, Model model, HttpServletRequest request) throws Exception {
+		
+		String nowUri = request.getRequestURI();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
+		
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -144,6 +161,12 @@ public class HomeController {
 	@RequestMapping(value = "/recentView.do", method = RequestMethod.GET)
 	public String recentView(Locale locale, Model model, HttpServletResponse response, HttpServletRequest request, HomeStoreVO vo) throws Exception {
 		
+		String nowUri = request.getRequestURI();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
+		
+		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
@@ -151,7 +174,7 @@ public class HomeController {
 		model.addAttribute("searchList", searchList);		
 			
 		Cookie[] myCookies = request.getCookies();
-		String recentView = "0";
+		String recentView = null;
 
 	    for(int i = 0; i < myCookies.length; i++) {
 	    	if(myCookies[i].getName().equals("recentView")) {
@@ -159,40 +182,50 @@ public class HomeController {
 	    	}
 	    }
 	    
-	    String[] spidxAryDup = recentView.split("&"); 
-	    int size = spidxAryDup.length;
-	    
-		String[] reverseSpidxAry = new String[size];
-		
-		for (int i = size - 1, j = 0; i >= 0; i--, j++) {
-			reverseSpidxAry[j] = spidxAryDup[i];
-		}	    
-		
-		LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>(Arrays.asList(reverseSpidxAry));
-		
-		String[] spidxAry = linkedHashSet.toArray(new String[0]);
-		
-		List<HomeStoreVO> recentViewList = new ArrayList<HomeStoreVO>();
-		
-		size = spidxAry.length;
-		
-		if(size > 12) {
-			for(int i=0; i<12; i++) {
-				vo.setSpidx(Integer.parseInt(spidxAry[i]));
-				HomeStoreVO recentvo = homeService.recentViewStore(vo);
-				recentViewList.add(recentvo);
+	    if(recentView != null) {
+		    String[] spidxAryDup = recentView.split("&"); 
+		    int size = spidxAryDup.length;
+		    
+			String[] reverseSpidxAry = new String[size];
+			
+			for (int i = size - 1, j = 0; i >= 0; i--, j++) {
+				reverseSpidxAry[j] = spidxAryDup[i];
+			}	    
+			
+			LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>(Arrays.asList(reverseSpidxAry));
+			
+			String[] spidxAry = linkedHashSet.toArray(new String[0]);
+			
+			List<HomeStoreVO> recentViewList = new ArrayList<HomeStoreVO>();
+			
+			size = spidxAry.length;
+			
+			if(size > 12) {
+				for(int i=0; i<12; i++) {
+					vo.setSpidx(Integer.parseInt(spidxAry[i]));
+					HomeStoreVO recentvo = homeService.recentViewStore(vo);
+					recentViewList.add(recentvo);
+				}
+			}else {
+				for(int i=0; i<size; i++) {
+					vo.setSpidx(Integer.parseInt(spidxAry[i]));
+					HomeStoreVO recentvo = homeService.recentViewStore(vo);
+					recentViewList.add(recentvo);
+				}
 			}
-		}else {
-			for(int i=0; i<size; i++) {
-				vo.setSpidx(Integer.parseInt(spidxAry[i]));
-				HomeStoreVO recentvo = homeService.recentViewStore(vo);
-				recentViewList.add(recentvo);
-			}
-		}
-		
-		model.addAttribute("recentViewList", recentViewList);
-		
-		return "recentView";
+			
+			model.addAttribute("recentViewList", recentViewList);
+			
+			return "recentView";
+	    }else {
+	    	SearchVO searchvo = new SearchVO();
+	 	    searchvo.setReview_cnt("yes");
+	 	    List<StoreVO> storeList = storeService.list(searchvo);
+	 	    
+	 	    model.addAttribute("storeList",storeList);
+	 	    
+	    	return "recentView_none";
+	    }
 	}
 	
 }

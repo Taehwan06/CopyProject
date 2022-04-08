@@ -53,21 +53,25 @@ public class MypageController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model,OrderListVO vo,HttpServletRequest req,Community_BoardVO list) throws Exception {
+	public String mypage(Locale locale, Model model,OrderListVO vo, HttpServletRequest request, Community_BoardVO list) throws Exception {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-			
-		HttpSession session = req.getSession(); 
+		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-	      
-	      if(loginUser == null) {
+	    
+	    String nowUri = request.getRequestURI();
+		
+		session.setAttribute("nowUri", nowUri);
+	    
+		if(loginUser == null) {
 	         return "redirect:/login/login.do";
 	      }else {
 	    	  
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+			
 	    	vo.setMidx(loginUser.getMidx());
 		    vo.setProgress("결제완료");
 			int count = mypageService.count(vo);
@@ -97,96 +101,124 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/member_modify.do", method = RequestMethod.GET)
-	public String member_modify(Locale locale, Model model, HttpServletRequest req) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
-		MemberVO result = mypageService.detail(loginUser.getMidx());
-		model.addAttribute("vo", result);
-		
-		return "mypage/member_modify"; 
+	public String member_modify(Locale locale, Model model, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+			
+			MemberVO result = mypageService.detail(loginUser.getMidx());
+			model.addAttribute("vo", result);
+			
+			return "mypage/member_modify"; 
+	    }
 	}
 	
 	@RequestMapping(value = "/member_modify.do", method = RequestMethod.POST)
-	public String member_modifyOk(Locale locale, Model model,MemberVO vo, HttpServletRequest req) throws Exception {
+	public String member_modifyOk(Locale locale, Model model,MemberVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+			       
+		    int result = mypageService.update(vo);
+		    loginUser = memberService.refreshMember(vo);
+		      
+		    session.setAttribute("loginUser", loginUser);
 		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-	       
-	    int result = mypageService.update(vo);
-	    loginUser = memberService.refreshMember(vo);
-	      
-	    session.setAttribute("loginUser", loginUser);
-	
-		return "redirect: /controller/mypage/mypage.do";
+			return "redirect: /controller/mypage/mypage.do";
+	    }
 	}
 	
 	@RequestMapping(value = "/member_delete.do", method = RequestMethod.GET)
-	public String member_delete(Locale locale, Model model, HttpServletRequest req) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+	public String member_delete(Locale locale, Model model, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
 			
-	    int midx = loginUser.getMidx();
-		MemberVO result = mypageService.detail(midx);
-		
-		
-		return "mypage/member_delete"; 
+		    int midx = loginUser.getMidx();
+			MemberVO result = mypageService.detail(midx);
+			
+			
+			return "mypage/member_delete"; 
+	    }
 	}
 	
 	@RequestMapping(value = "/member_delete.do", method = RequestMethod.POST)
-	public String member_deleteOk(Locale locale, Model model, MemberVO vo, HttpServletRequest req) throws Exception {
+	public String member_deleteOk(Locale locale, Model model, MemberVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-	    int Midx = loginUser.getMidx();
-	    
-		vo.setMidx(Midx);
-		int result = mypageService.delete(vo);	
-		
-		session.setAttribute("loginUser", null);
-		return "home";
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
+			
+		    int Midx = loginUser.getMidx();
+		    
+			vo.setMidx(Midx);
+			int result = mypageService.delete(vo);	
+			
+			session.setAttribute("loginUser", null);
+			return "home";
+	    }
 	}
 	
 	
 	@RequestMapping(value = "/order_list.do", method = RequestMethod.GET)
-	public String order_list(Locale locale, Model model,OrderListVO vo, HttpServletRequest req) throws Exception {
+	public String order_list(Locale locale, Model model,OrderListVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+		String nowUri = request.getRequestURI();
+			
+		session.setAttribute("nowUri", nowUri);
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
-		
-	   if(loginUser == null) {
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			if(loginUser == null) {
 		        return "redirect:/login/login.do";
-		   }else {
-		
+			}else {
+				
 			    List<OrderListVO> orderList2 = mypageService.orderList2(loginUser);
 				model.addAttribute("orderList2", orderList2);
 				
@@ -211,29 +243,33 @@ public class MypageController {
 				model.addAttribute("count4", count);
 				
 		  	
-		         return "mypage/order_list";
-		   }  
+		        return "mypage/order_list";
+			}  
+	    }
 		
 	}
 	
 	@RequestMapping(value = "/state", method = RequestMethod.GET)
 	
-	public String state(Locale locale, Model model,OrderListVO vo, HttpServletRequest req) throws Exception {
+	public String state(Locale locale, Model model,OrderListVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
-		
-	   if(loginUser == null) {
-		        return "redirect:/login/login.do";
-		   }else {
-			    String progress = req.getParameter("progress");
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+					
+			if(loginUser == null) {
+				return "redirect:/login/login.do";
+			}else {
+			    String progress = request.getParameter("progress");
 				
 				vo.setProgress(progress);
 				vo.setMidx(loginUser.getMidx());
@@ -263,265 +299,375 @@ public class MypageController {
 				
 		  	
 		        return "mypage/order_list";
-		       
+			       
 		   }  
 		
-		
+	    }
 	}
 	
 	
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
-	public String payment(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String payment(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/payment";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/payment";
+	    }
 	}
 	
 	@RequestMapping(value = "/order_success.do", method = RequestMethod.GET)
-	public String order_success(Locale locale, Model model, SearchVO vo) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+	public String order_success(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+	
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/order_success";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/order_success";
+	    }
 	}
 	
 	@RequestMapping(value = "/order_fail.do", method = RequestMethod.GET)
-	public String order_fail(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String order_fail(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/order_fail";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/order_fail";
+	    }
 	}
 	
 	@RequestMapping(value = "/basket.do", method = RequestMethod.GET)
-	public String basket(Locale locale, Model model, SearchVO vo, HttpServletRequest req) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession();
+	public String basket(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+		String nowUri = request.getRequestURI();
+			
+		session.setAttribute("nowUri", nowUri);
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		if(loginUser == null) {
-			return "redirect:/login/login.do";
-		}else {
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
 			List<BasketVO> basketListAll = basketService.listBasket(loginUser);
 			
 			model.addAttribute("basketListAll", basketListAll);
 			
 			return "mypage/basket";
-		}
 			
-		
+	    }
 	}
 	
 	
 	@RequestMapping(value = "/password_check.do", method = RequestMethod.GET)
-	public String password_check(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String password_check(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/password_check";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/password_check";
+	    }
 	}
 	
 
 	@RequestMapping(value = "/password_check.do", method = RequestMethod.POST)
-	public String password_checkOK(Locale locale, Model model,String pass, HttpServletRequest req) throws Exception {
+	public String password_checkOK(Locale locale, Model model,String pass, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-	    model.addAttribute("loginUser", loginUser);
-	    
-		int Midx = loginUser.getMidx();
-		
-		MemberVO vo = new MemberVO();
-		vo.setMidx(Midx);
-		vo.setPass(pass);
-		
-		MemberVO checkPass = mypageService.checkPwd(vo);
-	    
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+					
+		    model.addAttribute("loginUser", loginUser);
+		    
+			int Midx = loginUser.getMidx();
+			
+			MemberVO vo = new MemberVO();
+			vo.setMidx(Midx);
+			vo.setPass(pass);
+			
+			MemberVO checkPass = mypageService.checkPwd(vo);
+		    
 		    if(checkPass == null) {
 		    	 return "mypage/password_check_fail";
 		    }else {
 		    	return "mypage/password_modify";
 		    }
+	    }
 	}
 	
 	
 	@RequestMapping(value = "/password_modify.do", method = RequestMethod.GET)
-	public String password_modify(Locale locale, Model model, SearchVO vo,  HttpServletRequest req) throws Exception {
+	public String password_modify(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-	    
-	    model.addAttribute("loginUser", loginUser);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/password_modify";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+			
+		    model.addAttribute("loginUser", loginUser);
+				
+			return "mypage/password_modify";
+	    }
 	}
 	
 	@RequestMapping(value = "/password_modify.do", method = RequestMethod.POST)
-	public String password_modifyOK(Locale locale, Model model, MemberVO vo, HttpServletRequest req) throws Exception {
+	public String password_modifyOK(Locale locale, Model model, MemberVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = req.getSession(); 
-	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-	    
-	    vo.getMidx();
-	  	int result = mypageService.updatePwd(vo);
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
 			
-		session.setAttribute("loginUser", null);
-		return "redirect: /controller/login/login.do";
+		    vo.getMidx();
+		  	int result = mypageService.updatePwd(vo);
+				
+			session.setAttribute("loginUser", null);
+			return "redirect: /controller/login/login.do";
+	    }
 	}
 	
 	
 	@RequestMapping(value = "/review_list.do", method = RequestMethod.GET)
-	public String review_list(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String review_list(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/review_list";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/review_list";
+	    }
 	}
 		
 	
 	
 	@RequestMapping(value = "/review_insert.do", method = RequestMethod.GET)
-	public String review_insert(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String review_insert(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/review_insert";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/review_insert";
+	    }
 	}
 	
 	@RequestMapping(value = "/delivery.do", method = RequestMethod.GET)
-	public String delivery(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String delivery(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/delivery";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/delivery";
+	    }
 	}
 	
 	@RequestMapping(value = "/mileage.do", method = RequestMethod.GET)
-	public String mileage(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String mileage(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/mileage";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/mileage";
+	    }
 	}
 	
 	@RequestMapping(value = "/address_list.do", method = RequestMethod.GET)
-	public String address_list(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String address_list(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/address_list";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/address_list";
+	    }
 	}
 	
 	@RequestMapping(value = "/address_insert.do", method = RequestMethod.GET)
-	public String address_insert(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String address_insert(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/address_insert";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/address_insert";
+	    }
 	}
 	
 	@RequestMapping(value = "/address_modify.do", method = RequestMethod.GET)
-	public String address_modify(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String address_modify(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
+			int deleteResult = homeService.deleteSearchList();
 			
-		return "mypage/address_modify";
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+				
+			return "mypage/address_modify";
+	    }
 	}
 	
 	@RequestMapping(value = "/payment.do", method = RequestMethod.POST)
-	public String payment(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
-		
-		String sbidxStr = vo.getSbidxStr();
-		String[] sbidxArray = sbidxStr.split(",");
-		vo.setSbidxArray(sbidxArray);
-		
-		List<BasketVO> basketList = basketService.listPayFromBasket(vo);
-		
-		model.addAttribute("basketList", basketList);
-		
-		HttpSession session = req.getSession();
+	public String payment(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-		if(loginUser == null) {
-			return "redirect:/login/login.do";
-		}else {
+			String sbidxStr = vo.getSbidxStr();
+			String[] sbidxArray = sbidxStr.split(",");
+			vo.setSbidxArray(sbidxArray);
+			
+			List<BasketVO> basketList = basketService.listPayFromBasket(vo);
+			
+			model.addAttribute("basketList", basketList);
+			
 			return "mypage/payment";
-		}
+		
+	    }
 	}
 	
 	
 	@RequestMapping(value = "/deleteOneBasket", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteOneBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+	public String deleteOneBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
 		
-		String sbidxStr = req.getParameter("sbidx");
+		String sbidxStr = request.getParameter("sbidx");
 		int sbidx = Integer.parseInt(sbidxStr);
 		
 		vo.setSbidx(sbidx);
@@ -537,9 +683,9 @@ public class MypageController {
 	
 	@RequestMapping(value = "/minusCntBasket", method = RequestMethod.POST)
 	@ResponseBody
-	public String minusCntBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+	public String minusCntBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
 		
-		String sbidxStr = req.getParameter("sbidx");
+		String sbidxStr = request.getParameter("sbidx");
 		int sbidx = Integer.parseInt(sbidxStr);
 		
 		vo.setSbidx(sbidx);
@@ -555,9 +701,9 @@ public class MypageController {
 	
 	@RequestMapping(value = "/plusCntBasket", method = RequestMethod.POST)
 	@ResponseBody
-	public String plusCntBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+	public String plusCntBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
 		
-		String sbidxStr = req.getParameter("sbidx");
+		String sbidxStr = request.getParameter("sbidx");
 		int sbidx = Integer.parseInt(sbidxStr);
 		
 		vo.setSbidx(sbidx);
@@ -573,9 +719,9 @@ public class MypageController {
 	
 	@RequestMapping(value = "/CheckedListBasket", method = RequestMethod.POST)
 	@ResponseBody
-	public String CheckedListBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+	public String CheckedListBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
 		
-		String checkedSbidx = req.getParameter("checkedSbidx");
+		String checkedSbidx = request.getParameter("checkedSbidx");
 		String[] sbidxArray = checkedSbidx.split(",");
 		vo.setSbidxArray(sbidxArray);
 		
@@ -592,9 +738,9 @@ public class MypageController {
 	
 	@RequestMapping(value = "/deleteListBasket", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteListBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+	public String deleteListBasket(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
 		
-		String sbidxStr = req.getParameter("sbidxStr");
+		String sbidxStr = request.getParameter("sbidxStr");
 		String[] sbidxArray = sbidxStr.split(",");
 		vo.setSbidxArray(sbidxArray);
 		
@@ -609,13 +755,13 @@ public class MypageController {
 	
 	@RequestMapping(value = "/insertOrderList", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertOrderList(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
+	public String insertOrderList(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
 		
-		String ordernumber = req.getParameter("ordernumber");
+		String ordernumber = request.getParameter("ordernumber");
 		vo.setOrdernumber(ordernumber);
 		vo.setPaynumber(ordernumber);
 		
-		String sbidxStr = req.getParameter("sbidxStr");
+		String sbidxStr = request.getParameter("sbidxStr");
 		String[] sbidxArray = sbidxStr.split(",");
 		
 		int size = sbidxArray.length;
@@ -635,42 +781,43 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/directPayment.do", method = RequestMethod.GET)
-	public String directPayment(Locale locale, Model model, BasketVO vo, HttpServletRequest req) throws Exception {
-		
-		int midx = Integer.parseInt(req.getParameter("midx"));
-		int spidx = Integer.parseInt(req.getParameter("spidx"));
-		int cnt = Integer.parseInt(req.getParameter("cnt"));
-		
-		HttpSession session = req.getSession();
+	public String directPayment(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
+
+		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
 		
-//		if(midx != loginUser.getMidx()) {
-//			return "redirect:/login/login.do";
-//		}
-		
-		vo.setSpidx(spidx);
-		BasketVO directvo = basketService.directPayFromProduct(vo);
-		directvo.setCnt(cnt);
-		directvo.setMidx(loginUser.getMidx());
-		directvo.setPrice(directvo.getSale_price());
-		
-		List<BasketVO> basketList = new ArrayList<BasketVO>();
-		
-		basketList.add(directvo);
-		
-		model.addAttribute("basketList", basketList);
-		
-		if(loginUser == null) {
-			return "redirect:/login/login.do";
-		}else {
+			int midx = Integer.parseInt(request.getParameter("midx"));
+			int spidx = Integer.parseInt(request.getParameter("spidx"));
+			int cnt = Integer.parseInt(request.getParameter("cnt"));
+			
+	//		if(midx != loginUser.getMidx()) {
+	//			return "redirect:/login/login.do";
+	//		}
+			
+			vo.setSpidx(spidx);
+			BasketVO directvo = basketService.directPayFromProduct(vo);
+			directvo.setCnt(cnt);
+			directvo.setMidx(loginUser.getMidx());
+			directvo.setPrice(directvo.getSale_price());
+			
+			List<BasketVO> basketList = new ArrayList<BasketVO>();
+			
+			basketList.add(directvo);
+			
+			model.addAttribute("basketList", basketList);
+			
 			return "mypage/payment";
-		}
+			
+	    }
 	}
 	
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(Locale locale, Model model, HttpServletRequest request, @RequestParam("imgFile") MultipartFile imgFile) throws Exception {
-		
 		
 		String savePath = "C://Users//lth-m//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";  // 파일이 저장될 프로젝트 안의 폴더 경로
 		//String savePath = request.getServletContext().getRealPath("/resources/image");  // 파일이 저장될 프로젝트 안의 폴더 경로

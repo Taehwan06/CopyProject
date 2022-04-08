@@ -101,7 +101,14 @@ public class LoginController {
 			return "login/login_fail";
 		}else {
 			session.setAttribute("loginUser", loginUser);
-			return "redirect: /controller/";
+			
+			String nowUri = (String)session.getAttribute("nowUri");
+			if(nowUri != null) {
+				session.setAttribute("nowUri", null);
+				return "redirect: "+nowUri;
+			}else {
+				return "redirect: /controller/";
+			}
 		}
 	}
 	
