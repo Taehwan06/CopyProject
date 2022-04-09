@@ -17,6 +17,7 @@
         <typeAlias type="edu.study.vo.Community_ReplyVO" alias="Community_replyVO"/>
         <typeAlias type="edu.study.vo.Store_qnaVO" alias="Store_qnaVO"/>
         <typeAlias type="edu.study.vo.PagingVO" alias="PagingVO"/>
+        <typeAlias type="edu.study.vo.PayInfoVO" alias="PayInfoVO"/>
     </typeAliases>
 
 </configuration>

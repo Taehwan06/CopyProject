@@ -40,13 +40,16 @@
 	}
 	
 	function iamport(){
+		var ordernumber = new Date().getTime();
+		var msg = "";
+		
 		//가맹점 식별코드
 		IMP.init("imp58059253");
 		IMP.request_pay({
 			pg : "html5_inicis",
 		    pay_method : "card",
-		    merchant_uid : "merchant_" + new Date().getTime(),
-		    name : payTitle , //결제창에서 보여질 이름
+		    merchant_uid : ordernumber,
+		    name : payTitle, //결제창에서 보여질 이름
 		    amount : totalPay, //실제 결제되는 가격
 		    buyer_email : "${loginUser.id}",
 		    buyer_name : "${loginUser.membername}",
@@ -54,12 +57,14 @@
 		    buyer_addr : "${loginUser.addr}",
 		    buyer_postcode : "${loginUser.post_code}"
 		}, function(rsp) {
-			console.log(rsp);
-		    if ( rsp.success ) {
-		    	
-				var ordernumber = new Date().getTime();
+			if ( rsp.success ) {
 				
-				$.ajax({
+				var impUid = rsp.imp_uid;
+				var merchantUid = rsp.merchant_uid;
+				var paidAmount = rsp.paid_amount;
+				var applyNum = rsp.apply_num;
+				
+	        	$.ajax({
 					url: "insertOrderList",
 					type: "post",
 					data: "ordernumber="+ordernumber+"&sbidxStr="+sbidxStr,
@@ -82,13 +87,14 @@
 						}
 					}
 				});
-		    	
-				location.href="order_success.do";
-		    	
-		    } else {
-		    	location.href="order_fail.do";
+			    
+				location.href="payConfirm.do?impUid="+impUid+"&merchantUid="+merchantUid+"&paidAmount="+paidAmount+"&applyNum="+applyNum;
+		    
+			} else {
+		        var msg = '결제에 실패하였습니다.';
+		        var errorMsg = rsp.error_msg;
+		        location.href="payConfirm.do?errorMsg="+errorMsg;
 		    }
-		    alert(msg);
 		});
 	}
 </script>

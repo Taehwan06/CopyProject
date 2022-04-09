@@ -30,6 +30,7 @@ import edu.study.vo.Community_BoardVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.OrderListVO;
+import edu.study.vo.PayInfoVO;
 import edu.study.vo.SearchVO;
 
 /**
@@ -888,6 +889,32 @@ public class MypageController {
 	    long time = System.currentTimeMillis();
 	    SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 	    return dayTime.format(new Date(time));
+	}
+	
+	
+	@RequestMapping(value = "/payConfirm.do", method = RequestMethod.GET)
+	public String payConfirm(Locale locale, Model model, HttpServletRequest request) throws Exception {
+		
+		String impUid = request.getParameter("impUid");
+		String merchantUid = request.getParameter("merchantUid");
+		String paidAmount = request.getParameter("paidAmount");
+		String applyNum = request.getParameter("applyNum");
+		String errorMsg = request.getParameter("errorMsg");
+		
+		PayInfoVO payInfovo = new PayInfoVO();
+		
+		if(errorMsg != null) {
+			payInfovo.setErrorMsg(errorMsg);
+			model.addAttribute("payInfovo", payInfovo);
+			return "mypage/order_fail";
+		}else {
+			payInfovo.setImpUid(impUid);
+			payInfovo.setMerchantUid(merchantUid);
+			payInfovo.setPaidAmount(paidAmount);
+			payInfovo.setApplyNum(applyNum);
+			model.addAttribute("payInfovo", payInfovo);
+			return "mypage/order_success";
+		}
 	}
 	
 }

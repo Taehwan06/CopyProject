@@ -49,11 +49,11 @@
 							<hr>
 							<div class="inlineDiv">
 								<p class="odrTitle">주문번호</p>
-								<p>DFWE2321321</p>
+								<p>${payInfovo.merchantUid}</p>
 							</div>		
 							<div  class="inlineDiv">
 								<p class="odrTitle">주문금액</p>
-								<p>100원</p>
+								<p>${payInfovo.paidAmount}원</p>
 							</div>
 						</div>
 						<div class="odr">
