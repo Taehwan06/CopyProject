@@ -54,8 +54,8 @@
 	<section id="Shop_area">
 		<c:if test="${loginUser.grade eq 'A'}">
 			<div id="sv_md">
-				<button onclick="location.href='/controller/store/store_modify.do?spidx=${vo.spidx}'">상품수정</button>
-				<button onclick="delFn()">상품삭제</button>
+				<button onClick="location.href='/controller/store/store_modify.do?spidx=${vo.spidx}'">상품수정</button>
+				<button onClick="delFn()">상품삭제</button>
 			</div>
 		</c:if>
 		<div class="row" id="store_category">
@@ -98,7 +98,7 @@
 				<div class="row selectbox">
 					<select class="form-select form-select-lg">
 						<option value="00" selected>상품을 선택하세요.</option>
-						<option value="01" data-image="/shop05.webp" onclick="">${vo.product_name}</option>
+						<option value="01" data-image="/shop05.webp" onClick="">${vo.product_name}</option>
 					</select>
 				</div>
 				<%-- <div> 만들다가 말음 상품선택및 갯수선택박스
@@ -126,7 +126,7 @@
 				</div> --%>
 				<div class="row order_price">
 					<div class="col-sm-6 col-md-6 order_price_">
-						<select id="selectCnt" class="form-control" style="width: 70px; text-align: center;" onchange="cntFn()">
+						<select id="selectCnt" class="form-control" style="width: 70px; text-align: center;" onChange="cntFn()">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -138,13 +138,13 @@
 							<option value="9">9</option>
 							<option value="10">10+</option>
 						</select>
-						<input class="hiddenCnt" type="number" value="1" style="width: 70px; text-align: center;" onchange="cntFn2()">
+						<input class="hiddenCnt" type="number" value="1" style="width: 70px; text-align: center;" onChange="cntFn2()">
 					</div>
 					<div class="col-sm-6 col-md-6 order_price__">주문금액:<span class="sum_price">${vo.sale_price}</span>원</div>
 				</div>
 				<div class="row btn_area">
-					<div class="col-6 col-sm-6 col-md-6"><button id="basket_btn" onclick="basketInFn()">장바구니</button></div>
-					<div class="col-6 col-sm-6 col-md-6"><button id="buy_btn" onclick="paymentInFn()">바로구매</button></div>
+					<div class="col-6 col-sm-6 col-md-6"><button id="basket_btn" onClick="basketInFn()">장바구니</button></div>
+					<div class="col-6 col-sm-6 col-md-6"><button id="buy_btn" onClick="paymentInFn()">바로구매</button></div>
 				</div>
 			</div>
 		</div>
@@ -154,7 +154,7 @@
 				<div class="col-md-1 col-lg-1 col-xl-1" id="hiddenDiv"></div>
 				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1 _product" onClick="locationFn('product')">상품정보</div>
 				<div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-2 _review" onClick="locationFn('review')">리뷰<span>${vo.review_cnt}</span></div>
-				<div class="col-3 col-sm-3 col-md-2 col-lg-3 col-xl-2 _QnA" onClick="locationFn('QnA')">문의<span>6,109</span></div>
+				<div class="col-3 col-sm-3 col-md-2 col-lg-3 col-xl-2 _QnA" onClick="locationFn('QnA')">문의<span>${vo.qna_cnt}</span></div>
 				<div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2 _change" onClick="locationFn('change')">배송/환불</div>
 			</div>
 		</article>
@@ -177,7 +177,7 @@
 				</div>
 				<div id="QnA_area_header">
 					<div>문의 <span>6,106</span></div>
-					<div id="QnAwrite">문의하기</div>
+					<div id="QnAwrite" onClick="location.href='store_qna_insert.do?spidx=${vo.spidx}'">문의하기</div>
 				</div>
 				<div id="QnA_area">
 					<ul class="qna_list">
@@ -328,8 +328,8 @@
 						주문금액<span>0원</span>
 					</div>
 					<div class="buy_btn_area">
-						<button id="basket_btn2" onclick="basketInFn()">장바구니</button>
-						<button id="buy_btn2" onclick="">바로구매</button>
+						<button id="basket_btn2" onClick="basketInFn()">장바구니</button>
+						<button id="buy_btn2" onClick="">바로구매</button>
 					</div>
 				</div>
 			</div>
@@ -341,7 +341,6 @@
 	<script>
 		var cnt=1;
 		function basketInFn(){
-			console.log(${spidx});
 			if(${!empty loginUser}){
 				$.ajax({
 					type : "GET",
@@ -364,7 +363,7 @@
 		function paymentInFn(){
 			console.log(${spidx});
 			if(${!empty loginUser}){
-				location.href="/controller/mypage/directPayment.do"+"?midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt="+cnt;
+				location.href="/controller/mypage/payment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
 			}else{
 				alert("로그인 후 이용가능 합니다.");
 			}

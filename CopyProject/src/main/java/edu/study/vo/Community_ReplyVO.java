@@ -15,6 +15,7 @@ public class Community_ReplyVO {
 	private int lvl;
 	private int cbidx;
 	private int midx;
+	private int reply_group;
 	private String profile_system;
 	
 	public int getCbridx() {
@@ -94,6 +95,12 @@ public class Community_ReplyVO {
 	}
 	public void setMidx(int midx) {
 		this.midx = midx;
+	}
+	public int getReply_group() {
+		return reply_group;
+	}
+	public void setReply_group(int reply_group) {
+		this.reply_group = reply_group;
 	}
 	public String getProfile_system() {
 		return profile_system;

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.study.vo.Community_ReplyVO;
-import edu.study.vo.PagingVO;
 
 @Repository
 public class Community_ReplyDAO {
@@ -20,9 +19,13 @@ public class Community_ReplyDAO {
 	private static final String Namespace = "edu.study.mapper.Community_replyMapper";
 	
 	//댓글 조회
-	public List<Community_ReplyVO> list(int cbidx) throws Exception {
+	public List<Community_ReplyVO> list(int cbidx, int start, int end) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("cbidx", cbidx);
+		map.put("start", start);
+		map.put("end", end);
 		
-		return sqlSession.selectList(Namespace+".replyList", cbidx);
+		return sqlSession.selectList(Namespace+".replyList", map);
 	}
 	
 	//댓글 작성
@@ -55,26 +58,9 @@ public class Community_ReplyDAO {
 		return sqlSession.update(Namespace+".lvlUp", vo);
 	}
 	
-	//댓글 페이징
-	public List<Community_ReplyVO> listPaging(int cbidx, PagingVO  vo) throws Exception {
-		
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("cbidx", cbidx);
-		paramMap.put("vo", vo);
-		
-		return sqlSession.selectList(Namespace+ ".listPaging", paramMap);
-	}
-	
 	//댓글 개수
-	public int countReplies(int cbidx) throws Exception { 
+	public int count(int cbidx) throws Exception { 
 		
 		return sqlSession.selectOne(Namespace + ".countReplies", cbidx); 
 	}
-	
-	//선택 댓글 조회
-	public Community_ReplyVO selectReply(int cbridx) throws Exception {
-		
-		return sqlSession.selectOne(Namespace+ ".selectReply", cbridx);
-	}
-
 }

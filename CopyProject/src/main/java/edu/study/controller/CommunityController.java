@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import edu.study.vo.Community_BoardVO;
 import edu.study.vo.Community_ReplyVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
+import edu.study.vo.PagingVO;
 import edu.study.vo.SearchVO;
 
 /**
@@ -72,10 +75,10 @@ public class CommunityController {
 	}
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String uploadAjaxActionPOST(MultipartFile uploadFile,  Model model, Community_BoardVO boardVO, HttpServletRequest request) throws Exception {
+	public String uploadAjaxActionPOST(MultipartFile uploadFile,  Model model, Community_BoardVO boardVO) throws Exception {
 	
-		String uploadFolder = "C://Users//lth-m//git//TeamProject2022//HomeFriends//src//main//webapp//resources//upload";
-		//String uploadFolder = request.getServletContext().getRealPath("/resources/upload");
+		String uploadFolder = "C:\\Users\\82102\\git\\TeamProject2022\\HomeFriends\\src\\main\\webapp\\resources\\upload";
+		
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -143,7 +146,7 @@ public class CommunityController {
 		
 		Community_boardService.insert(boardVO);
 
-		return "redirect:home_view.do?cbidx="+boardVO.getCbidx();
+		return "redirect:home_view.do?cbidx="+boardVO.getCbidx()+"&nowPage=1";
 	}
 	@RequestMapping(value = "/home_modify.do", method = RequestMethod.GET)
 	public String home_modify(Locale locale, Model model, int cbidx, HttpServletRequest req) throws Exception {
@@ -171,7 +174,7 @@ public class CommunityController {
 		
 		Community_boardService.update(boardVO);
 		
-		return "redirect:home_view.do?cbidx="+boardVO.getCbidx();
+		return "redirect:home_view.do?cbidx="+boardVO.getCbidx()+"&nowPage=1";
 	}
 	@RequestMapping(value = "/home_delete.do", method = RequestMethod.POST)
 	public String home_delete(Locale locale, Model model, int cbidx) throws Exception {
@@ -232,7 +235,12 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "/home_view.do", method = RequestMethod.GET)
-	public String home_view(Locale locale, Model model, int cbidx) throws Exception {
+	public String home_view(Locale locale, Model model, int cbidx, int nowPage, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String nowUri = request.getRequestURI();
+	      
+	      HttpSession session = request.getSession();
+	      session.setAttribute("nowUri", nowUri);
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -252,19 +260,47 @@ public class CommunityController {
 		}
 		model.addAttribute("orincbridx", orincbridx+1);
 		
-		//작성 시간 가져오기
-		String writeDate = Community_boardService.writeDate(cbidx);
-		model.addAttribute("writeDate", writeDate);
- 
-	    //댓글 개수
-	    int replycount = replyService.countReplies(cbidx);
+		//댓글 개수
+	    int replycount = replyService.count(cbidx);
 	    model.addAttribute("count", replycount);
 	    
-	    //댓글 조회
-	    List<Community_ReplyVO> reply = replyService.list(cbidx);
-	    model.addAttribute("reply", reply);
+	    //쿠키생성
+	    Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if(cookies != null) {
+	    	for(Cookie cookie : cookies) {
+	    		if(cookie.getName().equals("HomeView")) {
+	    			oldCookie = cookie;
+	    		}
+	    	}
+	    }
 	    
-		return "community/home_view.jsp?cbidx="+cbidx;
+	    if(oldCookie != null) {
+	    	if(!oldCookie.getValue().contains("["+cbidx+"]")) {
+	    		Community_boardService.viewCount(cbidx);
+	    		oldCookie.setValue(oldCookie.getValue()+"_["+cbidx+"]");
+	    		oldCookie.setPath("/");
+	    		oldCookie.setMaxAge(60*60*24);
+	    		response.addCookie(oldCookie);
+	    	}
+	    }else {
+	    	Community_boardService.viewCount(cbidx);
+	    	Cookie newCookie = new Cookie("HomeView","["+cbidx+"]");
+	    	newCookie.setPath("/");
+	    	newCookie.setMaxAge(60*60*60);
+	    	response.addCookie(newCookie);
+	    }
+	    
+	    //페이징처리
+  		int total = replyService.count(cbidx);
+  	    PagingVO pvo = new PagingVO(total, nowPage, 10);
+  	    int start = pvo.getStart(); 
+  	    int end = pvo.getEnd();
+  	    List<Community_ReplyVO> reply = replyService.list(cbidx, start, end);
+  	    model.addAttribute("reply", reply);
+  	    model.addAttribute("pvo", pvo);
+	    
+		return "community/home_view";
 	}
 	
 	@RequestMapping(value = "/following.do", method = RequestMethod.GET)

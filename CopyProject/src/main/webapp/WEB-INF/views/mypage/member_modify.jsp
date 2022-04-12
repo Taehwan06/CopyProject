@@ -159,7 +159,7 @@
 							
 						</form>
 						
-						<form name="uploadForm" id="uploadForm" method="post" action="/uploadFile.do" enctype="multipart/form-data">
+						<form name="uploadForm" id="uploadForm" enctype="multipart/form-data">
 							<div id="imgUploadArea">
 								<input type="file" id="imgUpload" name="imgFile">
 							</div>

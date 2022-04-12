@@ -22,6 +22,7 @@ public class StoreVO {
 	
 	private String category;
 	private String detail;
+	private int qna_cnt;
 	
 	//이미지
 	private String img_origin;
@@ -195,7 +196,14 @@ public class StoreVO {
 		this.img_system = img_system;
 	}
 
-	
+	public int getQna_cnt() {
+		return qna_cnt;
+	}
+
+	public void setQna_cnt(int qna_cnt) {
+		this.qna_cnt = qna_cnt;
+	}
+
 	//오류
 	public int getBidx() {
 		return bidx;

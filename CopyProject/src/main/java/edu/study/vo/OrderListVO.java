@@ -18,17 +18,13 @@ public class OrderListVO {
 
 	private int spidx;
 	private int midx;
-	
-	
-	public OrderListVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-
+	private int ordernumber;
+	private int paynumber;
+	
 	public OrderListVO(int olidx, int price, int cnt, int delivery_charge, String title, String free_delivery,
 			String img_origin, String img_system, String buying_date, String progress, String delivery_status,
-			String review_registration, int spidx, int midx) {
+			String review_registration, int spidx, int midx, int ordernumber, int paynumber) {
 		super();
 		this.olidx = olidx;
 		this.price = price;
@@ -44,7 +40,17 @@ public class OrderListVO {
 		this.review_registration = review_registration;
 		this.spidx = spidx;
 		this.midx = midx;
+		this.ordernumber = ordernumber;
+		this.paynumber = paynumber;
 	}
+
+
+	
+	public OrderListVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 
 	public int getOlidx() {
@@ -187,6 +193,28 @@ public class OrderListVO {
 	}
 	
 	
+	public int getOrdernumber() {
+		return ordernumber;
+	}
+
+
+
+	public void setOrdernumber(int ordernumber) {
+		this.ordernumber = ordernumber;
+	}
+
+
+
+	public int getPaynumber() {
+		return paynumber;
+	}
+
+
+
+	public void setPaynumber(int paynumber) {
+		this.paynumber = paynumber;
+	}
+
 	
 	
 	

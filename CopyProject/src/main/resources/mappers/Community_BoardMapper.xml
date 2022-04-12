@@ -5,7 +5,7 @@
  
 <mapper namespace="edu.study.mapper.Community_boardMapper">
 	<!-- 본문 가져오기 -->
-	<select id="Comm_listBoard" resultType="Community_boardVO" parameterType="SearchVO">		
+	<select id="Comm_listBoard" resultType="Community_boardVO" parameterType="SearchVO">
          SELECT cbidx,
          		title,
          		writer,
@@ -19,22 +19,6 @@
           WHERE 1=1
           AND c.del_yn = 'N'
             ORDER BY cbidx DESC
-    </select>
-    
-    <!-- 작성 시간 가져오기 -->
-    <select id="writeday" resultType="String">
-    <![CDATA[
-    	SELECT
-    	CASE
-    		WHEN TIMESTAMPDIFF(MINUTE, (select write_date from community_board where cbidx=#{cbidx}), NOW()) <= 0 THEN '방금 전'
-		    WHEN TIMESTAMPDIFF(MINUTE, (select write_date from community_board where cbidx=#{cbidx}), NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '분 전')
-		    WHEN TIMESTAMPDIFF(HOUR, (select write_date from community_board where cbidx=#{cbidx}), NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '시간 전')
-		    WHEN TIMESTAMPDIFF(DAY, (select write_date from community_board where cbidx=#{cbidx}), NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '일 전')
-		    ELSE CONCAT(TIMESTAMPDIFF(MONTH, (select write_date from community_board where cbidx=#{cbidx}), NOW()), '달 전')
-		END AS AGOTIME
-		FROM community_board
-		WHERE cbidx=#{cbidx}
-	]]>
     </select>
     
     <!-- 전체 글 개수 -->
@@ -66,14 +50,28 @@
     
     <!-- 본문 상세보기 -->
     <select id="Comm_detailBoard" resultType="Community_boardVO" parameterType="int">
+    <![CDATA[
     	 SELECT cbidx,
 				title,
          		content,
          		writer,
-         		write_date,
+      		CASE
+			    WHEN TIMESTAMPDIFF(MINUTE, write_date, NOW()) <= 0 THEN '방금 전'
+			    WHEN TIMESTAMPDIFF(MINUTE, write_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, write_date, NOW()), '분 전')
+			    WHEN TIMESTAMPDIFF(HOUR, write_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, write_date, NOW()), '시간 전')
+			    WHEN TIMESTAMPDIFF(DAY, write_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, write_date, NOW()), '일 전')
+		    	ELSE CONCAT(TIMESTAMPDIFF(MONTH, write_date, NOW()), '달 전')
+			END AS write_date,
+				modify_yn,
+			CASE
+			    WHEN TIMESTAMPDIFF(MINUTE, modify_date, NOW()) <= 0 THEN '방금 전'
+			    WHEN TIMESTAMPDIFF(MINUTE, modify_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, modify_date, NOW()), '분 전')
+			    WHEN TIMESTAMPDIFF(HOUR, modify_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, modify_date, NOW()), '시간 전')
+			    WHEN TIMESTAMPDIFF(DAY, modify_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, modify_date, NOW()), '일 전')
+		    	ELSE CONCAT(TIMESTAMPDIFF(MONTH, modify_date, NOW()), '달 전')
+			END AS modify_date,
          		scrap_cnt,
          		reply_cnt,
-         		img_origin,
          		img_system,
          		hit_cnt,
          		c.midx,
@@ -82,20 +80,25 @@
           INNER JOIN member m
           ON c.midx = m.midx
           WHERE cbidx= #{cbidx}
+          AND c.del_yn = 'N'
+    ]]>
     </select>
     
     <!-- 본문 수정하기 -->
     <update id="Comm_updateBoard" parameterType="Community_BoardVO">
     	UPDATE community_board
-    	   SET title = #{title}
-    		  ,content = #{content}
+    	   SET modify_yn = 'Y',
+    	   	   modify_date = now(),
+    	   	   title = #{title},
+    		   content = #{content}
          WHERE cbidx = #{cbidx}
     </update>
     
     <!-- 본문 삭제하기 -->
     <update id="Comm_deleteBoard" parameterType="int">
     	UPDATE community_board
-    	   SET del_yn = 'Y'
+    	   SET del_yn = 'Y',
+    	   	   del_date = now()
     	 WHERE cbidx = #{cbidx}
     </update>
     
@@ -130,4 +133,10 @@
     	FROM community_reply
     </select>
     
+    <!-- 조회수 증가 -->
+    <update id="viewCount" parameterType="int">
+    	UPDATE community_board
+    	   SET hit_cnt = hit_cnt+1
+    	 WHERE cbidx = #{cbidx}
+    </update>
 </mapper>

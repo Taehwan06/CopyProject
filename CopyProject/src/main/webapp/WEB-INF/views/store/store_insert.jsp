@@ -43,47 +43,46 @@
 	<script src="/controller/js/summernote/summernote-lite.js"></script>
 	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
-
-
-
-
 	
 </head>
 
-
 <body>
-
-
-
+	
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
 
 	<!-- 본문 영역 -->
 	<section>
 		
-		<form id="insertFrm" name="insertFrm" method="post">
-			<iuput type="hidden" name="midx" value="">
-			
-			<div class="center">
-				<label for="imgUpload" id="imgLabel">
-					<div id="imgArea">
-						<label for="imgUpload" id="imgLabel">
-							<span id="imgText">커버 사진을 추가해주세요.<br>(1:1 비율 권장)</span>
-						</label><br>
-						<label for="imgUpload" id="imgLabel">
-							<span id="imgButton">커버 사진 등록</span>
-							
-						</label>
-					</div>
-				</label>
-			</div>
-			
-			<label for="imgUpload">
-				<div id="imgUploadInfo" class="info">필수 입력 항목입니다.</div>
+		<div class="center">
+			<label for="imgUpload" id="imgLabel">
+				<div id="imgArea">
+					<label for="imgUpload" id="imgLabel">
+						<span id="imgText">커버 사진을 추가해주세요.<br>(1:1 비율 권장)</span>
+					</label><br>
+					<label for="imgUpload" id="imgLabel">
+						<span id="imgButton">커버 사진 등록</span>
+						
+					</label>
+				</div>
 			</label>
+		</div>
+		
+		<label for="imgUpload">
+			<div id="imgUploadInfo" class="info">필수 입력 항목입니다.</div>
+		</label>
+		
+		<form name="uploadForm" id="uploadForm" enctype="multipart/form-data">
 			<div id="imgUploadArea" class="area">
-				<input type="file" id="imgUpload" name="imgUpload">
+				<input type="file" id="imgUpload" name="imgFile">
 			</div>
+		</form>
+				
+		<form id="insertFrm" name="insertFrm" method="post">	
+			
+			<iuput type="hidden" name="midx" value="">
+			<input type="hidden" name="profile_origin" id="profile_origin" value="">
+			<input type="hidden" name="profile_system" id="profile_system" value="">
 			
 			<div id="titleArea">
 				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요.">

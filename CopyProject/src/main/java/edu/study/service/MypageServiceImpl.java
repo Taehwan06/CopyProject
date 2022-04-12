@@ -109,6 +109,15 @@ public class MypageServiceImpl implements MypageService {
 		
 		return result;
 	}
+
+
+	@Override
+	public List<OrderListVO> detailOrder(OrderListVO vo) throws Exception {
+	
+		List<OrderListVO> result = mypageDao.detailOrder(vo); 
+		
+		return result;
+	}
 	
 	
 	

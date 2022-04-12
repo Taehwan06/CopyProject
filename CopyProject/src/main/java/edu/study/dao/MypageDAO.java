@@ -75,6 +75,11 @@ public class MypageDAO {
 	public List<Community_BoardVO> viewStory(Community_BoardVO vo) throws Exception{ 
 		return sqlSession.selectList(Namespace+".viewStory",vo);
 	}
+	
+	public List<OrderListVO> detailOrder(OrderListVO vo) throws Exception{ 
+		return sqlSession.selectList(Namespace+".detailOrder",vo);
+	}
+	
 }
 
 

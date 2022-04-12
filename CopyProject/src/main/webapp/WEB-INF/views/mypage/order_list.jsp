@@ -95,7 +95,7 @@
 										${orderList2.buying_date}
 									</div>
 									<div class="col-6 goDatail">
-										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}" id="goDetail">상세보기 <i class="bi bi-chevron-right detailIcon"></i></a>
+										<a href="/controller/mypage/detailOrder.do?spidx=${orderList2.spidx}" id="goDetail">상세보기 <i class="bi bi-chevron-right detailIcon"></i></a>
 									</div>
 									<hr>
 								</div>

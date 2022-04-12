@@ -16,5 +16,7 @@ public interface StoreService {
 	int insert(StoreVO vo) throws Exception;
 	int basketIn(BasketVO vo) throws Exception;
 	List<Store_qnaVO> qnaList(int spidx) throws Exception;
+	int qna_cnt(int spidx) throws Exception;
+	int qnaIn(Store_qnaVO vo) throws Exception;
 	
 }

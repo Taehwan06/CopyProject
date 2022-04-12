@@ -335,6 +335,37 @@ public class MypageController {
 	    }
 	}
 	
+	@RequestMapping(value = "/detailOrder.do", method = RequestMethod.GET)
+	public String detailOrder(Locale locale, Model model, SearchVO vo, HttpServletRequest request, OrderListVO orderlist) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+		
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
+			
+			int midx = loginUser.getMidx();
+			orderlist.setMidx(midx);
+
+			
+			List<OrderListVO> detailOrder = mypageService.detailOrder(orderlist);
+			model.addAttribute("detailOrder", detailOrder);
+			
+			MemberVO result = mypageService.detail(midx); 
+			model.addAttribute("vo", result);
+	  	
+	  		return "mypage/detailOrder";
+		      
+	    }
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
 	public String payment(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
@@ -891,29 +922,19 @@ public class MypageController {
 	    return dayTime.format(new Date(time));
 	}
 	
-	
-	@RequestMapping(value = "/payConfirm.do", method = RequestMethod.GET)
-	public String payConfirm(Locale locale, Model model, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/payConfirm", method = RequestMethod.POST)
+	public String payConfirm(Locale locale, Model model, PayInfoVO payInfovo, HttpServletRequest request) throws Exception {
 		
-		String impUid = request.getParameter("impUid");
-		String merchantUid = request.getParameter("merchantUid");
-		String paidAmount = request.getParameter("paidAmount");
-		String applyNum = request.getParameter("applyNum");
-		String errorMsg = request.getParameter("errorMsg");
+		model.addAttribute("payInfovo", payInfovo);
 		
-		PayInfoVO payInfovo = new PayInfoVO();
-		
-		if(errorMsg != null) {
-			payInfovo.setErrorMsg(errorMsg);
-			model.addAttribute("payInfovo", payInfovo);
-			return "mypage/order_fail";
-		}else {
-			payInfovo.setImpUid(impUid);
-			payInfovo.setMerchantUid(merchantUid);
-			payInfovo.setPaidAmount(paidAmount);
-			payInfovo.setApplyNum(applyNum);
-			model.addAttribute("payInfovo", payInfovo);
+		if(payInfovo.getErrorMsg() == null || payInfovo.getErrorMsg().equals("")) {
+			
 			return "mypage/order_success";
+						
+		}else {
+			
+			return "mypage/order_fail";
+			
 		}
 	}
 	

@@ -59,8 +59,8 @@
 				<c:forEach items="${storyList}" end="7" var="storyListVO" varStatus="cnt">
 					<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
 						<img src="/controller/upload/${storyListVO.img_system}" class="storyImg" 
-						onclick="location.href='/controller/community/home_view.do?cbidx=${storyListVO.cbidx}'">
-						<div class="storyText" onclick="/controller/community/location.href='home_view.do?cbidx=${storyListVO.cbidx}'">
+						onclick="location.href='/controller/community/home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
+						<div class="storyText" onclick="/controller/community/location.href='home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
 							<div class="storyTitle">${storyListVO.title}</div>
 							<div class="storyWriter">
 								<img class="writerImg" src="/controller/image/${storyListVO.profile_system}">${storyListVO.writer}

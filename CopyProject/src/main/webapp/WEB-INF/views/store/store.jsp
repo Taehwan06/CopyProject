@@ -166,7 +166,7 @@
 			<div class="row shopList">
 				<div class="storyListTitle">
 		        추천상품
-			        <span class="moreview" onClick="location.href='store_list.do?type=review_cnt'">더보기</span>
+			        <span class="moreview" onClick="location.href='store_list.do?type=select'">더보기</span>
 			        <div class="clear"></div>
 		        </div>
 				 <c:forEach items="${list.get(2)}" var="vo" end="3" varStatus="cnt">

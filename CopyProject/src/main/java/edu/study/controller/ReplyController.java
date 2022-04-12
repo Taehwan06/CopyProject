@@ -29,8 +29,6 @@ public class ReplyController {
 	 * @throws Exception 
 	 */	
 	
-	//댓글 조회
-	
 	//댓글 작성
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	@ResponseBody

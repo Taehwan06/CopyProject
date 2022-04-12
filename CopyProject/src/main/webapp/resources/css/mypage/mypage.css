@@ -232,6 +232,20 @@
 				display: none;
 			}
 			
+			.all_homestroy_img{
+			width:360px;
+			height:270px;
+			}
+			
+			
+			#myStoryDiv{
+			margin:15px;	
+			/* margin-bottom:30px; */
+			display:inline-block;
+			}
+		
+			
+			
 		}
 		@media screen and (min-width: 1200px) and (max-width: 1427px){
 			#headerDiv, .navbar, section, footer{
@@ -247,6 +261,12 @@
 			#mystory4{
 				display: none; 
 			}
+			
+			.all_homestroy_img{
+			width:300px;
+			height:200px;
+			}
+			
 
 		}
 		@media screen and (min-width: 992px) and (max-width: 1199.99px){
@@ -275,13 +295,20 @@
 				display: none;
 			}
 			
-			.all_homestroy_img{
-				width:255px;
 			
+			.all_homestroy_img{
+			width:270px;
+			height:180px;
 			}
 			
 			
+			#myStoryDiv{
+			margin:15px;	
+			}
+		
+				
 		}
+		
 		@media screen and (min-width: 768px) and (max-width: 991.99px){
 			#headerDiv, .navbar, section, footer{
 				width: 95%;
@@ -316,6 +343,7 @@
 			
 			.all_homestroy_img{
 				width:660px;
+				height:300px;
 			
 			}
 			
@@ -373,7 +401,7 @@
 			}
 			
 			.all_homestroy_img{
-				width:620px;
+				width:500px;
 			
 			}
 

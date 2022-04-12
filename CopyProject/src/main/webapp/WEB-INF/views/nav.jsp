@@ -118,7 +118,7 @@
 			</li>
 			<li class="col-sm-2 col-md-2 subMenu" id="best" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=sell_cnt'">베스트</li>
 			<li class="col-md-2 subMenu" id="hotdil" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=Discount'">핫딜</li>
-			<li class="col-md-2 subMenu" id="recommend" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=review_cnt'">추천 상품</li>
+			<li class="col-md-2 subMenu" id="recommend" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=select'">추천 상품</li>
 			<li class="col-sm-2 col-md-2 subMenu" id="like" onclick="location.href='${pageContext.request.contextPath}/store/likey.do'">좋아요</li>
 			<li class="col-sm-2 col-md-2 subMenu" id="event" onclick="location.href='${pageContext.request.contextPath}/store/event.do'">이벤트</li>
 		</ul>

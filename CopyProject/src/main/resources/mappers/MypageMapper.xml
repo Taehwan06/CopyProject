@@ -168,4 +168,28 @@
     			cbidx DESC
     </select>
     
+     <select id="detailOrder" resultType="OrderListVO" parameterType="OrderListVO">
+    	SELECT 
+    		midx,
+    		olidx,
+    		title,
+    		price,
+    		cnt,
+    		free_delivery,
+    		progress,
+    		img_origin,
+    		buying_date,
+    		review_registration,
+    		spidx,
+    		ordernumber
+    	FROM
+    		order_list
+    	WHERE
+    		spidx = #{spidx}
+    	AND
+			midx = #{midx}
+    
+    </select>
+    
+    
 </mapper>

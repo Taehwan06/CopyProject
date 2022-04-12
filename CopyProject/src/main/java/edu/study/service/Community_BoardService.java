@@ -24,6 +24,6 @@ public interface Community_BoardService {
 	Community_BoardVO getCommunity_Mainimage() throws Exception;
 	
 	Integer cbridx() throws Exception;
-
-	String writeDate(int cbidx) throws Exception;
+	
+	int viewCount(int cbidx) throws Exception;
 }

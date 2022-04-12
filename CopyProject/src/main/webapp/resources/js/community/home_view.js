@@ -81,30 +81,9 @@ function del(){
 	}
 	
 }
-/* 댓글 작성 */
-$(document).ready(function(){
-	
-	$(".reply_submit").on("click", function(){
-		
-		var formdata = $("form[name='replyFrm']").serialize();
-		
-		$.ajax({
-			url : "/controller/reply/write",
-			type : "post",
-			data : formdata,
-			success : function(data){
-				location.reload();
-			},
-			error : function(data){
-				console.log("error");
-			}
-		});
-	});
-	
-	console.log($(".time").val());
-});
 /* 댓글 삭제 */
 function replydel(cbridx){
+	
 	if(confirm("정말 삭제하시겠습니까??") == true){
 		var form = $("#replydelfrm"+cbridx);
 		var formdata = form.serialize();
@@ -194,7 +173,6 @@ function Reinsert(orincbridx){
 	var form = $("#reply_Frm"+orincbridx);
 	var formdata = form.serialize();
 	formdata = decodeURIComponent(formdata);
-	console.log(formdata);
 	
 	$.ajax({
 		url : "/controller/reply/Reinsert",
@@ -209,3 +187,23 @@ function Reinsert(orincbridx){
 	});
 }
 
+/* 댓글 작성 */
+$(document).ready(function(){
+	
+	$(".reply_submit").on("click", function(){
+		
+		var formdata = $("form[name='replyFrm']").serialize();
+		
+		$.ajax({
+			url : "/controller/reply/write",
+			type : "post",
+			data : formdata,
+			success : function(data){
+				location.reload();
+			},
+			error : function(data){
+				console.log("error");
+			}
+		});
+	});
+});

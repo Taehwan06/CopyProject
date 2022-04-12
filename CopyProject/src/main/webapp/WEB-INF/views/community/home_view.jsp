@@ -52,7 +52,12 @@
 							${vo.writer }
 						</div>
 						<div class="writedate">
-							${writeDate }
+							<c:if test="${vo.modify_yn == 'N' }">
+								${vo.write_date }
+							</c:if>
+							<c:if test="${vo.modify_yn == 'Y' }">
+								${vo.modify_date }(수정됨)
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -149,7 +154,14 @@
 			<c:forEach items="${reply }" var="reply">
 				<input type="hidden" name="origin_cbridx" value="${reply.cbridx }">
 				<input type="hidden" name="cbridx" value="${reply.cbridx }">
-				<li class="reply_list_item reply_list_item${reply.depth }">
+				<c:if test="${reply.depth != 0 }">
+					<div class="reply reply${reply.depth }">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+						</svg>
+					</div>
+				</c:if>
+				<li class="reply_list_item reply_list_item${reply.depth }" style="margin-left : calc(${reply.depth}*65px);">
 					<article class="reply_item_">
 						<p class="reply_item_content reply_item_content${reply.cbridx }">
 							<a class="reply_item_content_writer" href="">${reply.writer }
@@ -158,12 +170,19 @@
 							<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">${reply.content }</span>
 						</p>
 						<footer class="reply_item_footer reply_item_footer${reply.depth } reply_item_footer${reply.cbridx }">
-							<%@ include file="time.jsp" %>
+							<time class="reply_item_footer_time">
+								<c:if test="${reply.modify_yn == 'N' }">
+									${reply.write_date }
+								</c:if>
+								<c:if test="${reply.modify_yn ==  'Y'}">
+									${reply.modify_date }(수정됨)
+								</c:if>
+							</time>
 							<c:if test="${loginUser == null }">
-								<button class="reply_item_footer_reply-btn" type="button" onclick="ReNot()">답글 달기</button>
+								<button class="reply_item_footer_reply-btn reply_item_footer_reply-btn${reply.depth }" type="button" onclick="ReNot()">답글 달기</button>
 							</c:if>
 							<c:if test="${loginUser != null }">
-								<button class="reply_item_footer_reply-btn" type="button" onclick="Re('${reply.cbridx}')">답글 달기</button>
+								<button class="reply_item_footer_reply-btn reply_item_footer_reply-btn${reply.depth }" type="button" onclick="Re('${reply.cbridx}')">답글 달기</button>
 							</c:if>
 							<c:if test="${loginUser.midx == reply.midx }">
 								<div class="mfdel">
@@ -181,10 +200,11 @@
 						
 						<!-- 답글 작성 -->
 						<form class="reply_Frm" id="reply_Frm${reply.cbridx}" name="reply_Frm" method="post">
-							<input type="hidden" name="origin_cbridx" value="${reply.cbridx}">
+							<input type="hidden" name="origin_cbridx" value="${reply.origin_cbridx}">
 							<input type="hidden" name="cbidx" value="${vo.cbidx }">
 							<input type="hidden" name="midx" value="${loginUser.midx }">
 							<input type="hidden" name="writer" value="${loginUser.nick_name }">
+							<input type="hidden" name="depth" value="${reply.depth }">
 							<input type="hidden" name="lvl" value="${reply.lvl }">
 							<div class="reply_writer">
 								<img src="/controller/image/${loginUser.profile_system }">
@@ -197,24 +217,63 @@
 								</div>
 								<div class="reply_action">
 									<button class="Rereply_submit" aria-label="등록" type="button" onclick="Reinsert('${reply.cbridx}')">등록</button>
+									</div>
 								</div>
-							</div>
-						</form>
+							</form>
 					</article>
 				</li>
 			</c:forEach>
 		</ul>
+		<!-- 페이징 처리 -->
 		<ul class="list-paginator">
 			<li>
-				<button class="list-paginator_page sm selected" type="button">1</button>
+				<a class="list-paginator_first" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.startPage}#reply_area">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+					  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+					</svg>
+				</a>
 			</li>
+			<c:if test="${pvo.nowPage != pvo.startPage}">
+				<li>
+					<a class="list-paginator_prev" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.nowPage-1}#reply_area">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+						</svg>
+					</a>
+				</li>
+			</c:if>
+			<!-- 페이지 블럭 처음부터 마지막 블럭까지 1씩 증가하는 페이지 출력 -->
+			<c:forEach var="num" begin="${pvo.startPage }" end="${pvo.endPage }">
+				<c:choose>
+					<c:when test="${num == pvo.nowPage }">
+						<li>
+							<button class="list-paginator_page sm selected" type="button">${num }</button>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li>
+							<a href="home_view.do?cbidx=${vo.cbidx }&nowPage=${num}#reply_area" class="list-paginator_page sm">${num }</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${pvo.nowPage != pvo.lastPage}">
+				<li>
+					<a class="list-paginator_next" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.nowPage+1}#reply_area">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+						</svg>
+					</a>
+				</li>
+			</c:if>
 			<li>
-				<button class="list-paginator_page sm" type="button">2</button>
-			</li>
-			<li>
-				<button class="list-paginator_next" type="button">
-					<svg width="26" height="26" viewBox="0 0 26 26" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd" transform="matrix(-1 0 0 1 26 0)"><rect width="25" height="25" x=".5" y=".5" stroke="#DCDCDC" rx="4"></rect><g stroke="#424242" stroke-linecap="square" stroke-width="2"><path d="M14.75 8.263L10.25 13M10.25 13l4.5 4.737"></path></g></g></svg>
-				</button>
+				<a class="list-paginator_last" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.lastPage }#reply_area">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+					  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+					  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+					</svg>
+				</a>
 			</li>
 		</ul>
 		<div class="slide_bar">

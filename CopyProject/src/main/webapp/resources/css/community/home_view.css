@@ -286,10 +286,14 @@ section{
 	text-align: -webkit-match-parent;
 }
 .reply_list_item{
-	margin-bottom : 20px;
+	margin-bottom : 30px;
+	position : relative;
 }
-.reply_list_item1{
-	margin-left : 65px;
+.reply{
+	clear : both;
+	float : left;
+	margin-top : 30px;
+	margin-left : 10px;
 }
 .reply_item{
 	padding-left : 40px;
@@ -355,6 +359,9 @@ p{
 	margin-left : 20px;
 	font-weight : bold;
 }
+.reply_item_footer_reply-btn1{
+	display : none;
+}
 .Re{
 	width: 99%;
     min-height: 48px;
@@ -372,16 +379,9 @@ p{
     box-sizing: border-box;
     outline : none;
 }
-.reply_item_footer0 div{
-	width : 75.5%;
-}
 .mfdel, .mfdel_{
-	width : 73%;
-	text-align : right;
-	margin-left : 25px;
-}
-.mfdel_{
-	width : 95%;
+	position : absolute;
+	right : 10px;
 }
 .mfdel button, .mfdel_ button{
 	background : none;
@@ -397,7 +397,7 @@ p{
 	display : inline-block;
 	vertical-align : bottom;
 }
-.list-paginator_page{
+.list-paginator_page, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
 	display: none;
     min-width: 26px;
     margin: 0 2px;
@@ -412,23 +412,15 @@ p{
     line-height: 1;
     color: #424242;
     transition: background-color .1s,color .1s;
+    text-decoration : none;
 }
-.list-paginator_page.sm{
+.list-paginator_page.sm, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
 	display : block;
 }
 .list-paginator_page.selected{
 	background-color : #ffb6c1;
 	color : white;
 	text-decoration : none;
-}
-.list-paginator_next{
-	margin : 0;
-	padding : 0;
-	border : none;
-	background : none;
-	font-size: 0;
-    transition: opacity .1s;
-    margin-left : 25px;
 }
 .slide_bar{
 	position : fixed;

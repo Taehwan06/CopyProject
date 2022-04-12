@@ -59,6 +59,18 @@ public class StoreServiceImpl implements StoreService {
 		return StoreDao.qnaList(spidx);
 	}
 
+	@Override
+	public int qnaIn(Store_qnaVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.qnaIn(vo);
+	}
+
+	@Override
+	public int qna_cnt(int spidx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.qna_cnt(spidx);
+	}
+
 	
 	
 

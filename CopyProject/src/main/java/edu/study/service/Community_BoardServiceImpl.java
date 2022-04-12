@@ -62,9 +62,10 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 		
 		return Community_boardDao.cbridx();
 	}
+
 	@Override
-	public String writeDate(int cbidx) {
+	public int viewCount(int cbidx) throws Exception {
 		
-		return Community_boardDao.writeDate(cbidx);
+		return Community_boardDao.viewCount(cbidx);
 	}
 }

@@ -1,6 +1,8 @@
 package edu.study.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -48,7 +50,7 @@ public class StoreController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/store.do", method = RequestMethod.GET)
-	public String store(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String store(HttpServletRequest request, Locale locale, Model model, SearchVO vo) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -63,9 +65,43 @@ public class StoreController {
 		vo.setSell_cnt("yes");
 		vo.setDiscount(null);
 		List<StoreVO> list2 = storeService.list(vo);
-		vo.setReview_cnt("yes");
 		vo.setSell_cnt(null);
-		List<StoreVO> list3 = storeService.list(vo);
+		List<StoreVO> list3 ;
+		Cookie[] myCookies = request.getCookies();
+		String recentView = null;
+		if(myCookies != null) {
+		    for(int i = 0; i < myCookies.length; i++) {
+		    	if(myCookies[i].getName().equals("recentView")) {
+		    		recentView = myCookies[i].getValue();
+		    	}
+		    }
+		    
+		    if(recentView != null) {
+			    String[] spidxAryDup = recentView.split("&"); 
+			    int size = spidxAryDup.length;
+			    
+				String[] reverseSpidxAry = new String[size];
+				
+				for (int i = size - 1, j = 0; i >= 0; i--, j++) {
+					reverseSpidxAry[j] = spidxAryDup[i];
+				}
+				LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>(Arrays.asList(reverseSpidxAry));
+				
+				String[] spidxAry = linkedHashSet.toArray(new String[0]);
+			
+				StoreVO selectOne = storeService.detail(Integer.parseInt(spidxAry[0]));
+				
+				vo.setDetail(selectOne.getDetail());
+				
+				
+
+				
+		    }
+			list3 = storeService.list(vo);
+	    }else {
+	    	list3 = storeService.list(vo);
+	    }
+
 		
 		list.add(list1);
 		list.add(list2);
@@ -79,12 +115,22 @@ public class StoreController {
 	
 	@RequestMapping(value = "/store_insert.do", method = RequestMethod.GET)
 	public String store_insert(HttpServletRequest request, Locale locale, Model model, SearchVO vo) throws Exception {
-		
+		String nowUri = request.getRequestURI();
+	      
 		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
+		
+		
 		MemberVO member = (MemberVO)session.getAttribute("loginUser");
-
-		if(member==null) {return "redirect:/login/login.do";}
-		if(!member.getGrade().equals("A")) {return "redirect:/store/store.do";}
+		
+		if(member==null) {
+			System.out.println("잘못된 접근으로인한 로그인이동");
+			return "redirect:/login/login.do";
+		}
+		if(!member.getGrade().equals("A")) {
+			System.out.println(member.getMidx()+"유저의 잘못된 방식의 접근");
+			return "redirect:/store/store.do";
+		}
 
 		
 		
@@ -246,7 +292,12 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value = "/store_list.do", method = RequestMethod.GET)
-	public String store_list(Locale locale, Model model, SearchVO vo, String type) throws Exception {
+	public String store_list(HttpServletRequest request, Locale locale, Model model, SearchVO vo, String type) throws Exception {
+		
+		String nowUri = request.getRequestURI();
+	      
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -266,6 +317,44 @@ public class StoreController {
 		if(type==null) {
 			vo.setOrder("sell_cnt");
 		}
+		
+		Cookie[] myCookies = request.getCookies();
+		String recentView = null;
+		if(myCookies != null) {
+		    for(int i = 0; i < myCookies.length; i++) {
+		    	if(myCookies[i].getName().equals("recentView")) {
+		    		recentView = myCookies[i].getValue();
+		    	}
+		    }
+		    if(type != null) {
+			    if(type.equals("select")) {
+				    if(recentView != null) {
+					    String[] spidxAryDup = recentView.split("&"); 
+					    int size = spidxAryDup.length;
+					    
+						String[] reverseSpidxAry = new String[size];
+						
+						for (int i = size - 1, j = 0; i >= 0; i--, j++) {
+							reverseSpidxAry[j] = spidxAryDup[i];
+						}
+						LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>(Arrays.asList(reverseSpidxAry));
+						
+						String[] spidxAry = linkedHashSet.toArray(new String[0]);
+					
+						StoreVO selectOne = storeService.detail(Integer.parseInt(spidxAry[0]));
+						
+						vo.setDetail(selectOne.getDetail());
+						
+						List<StoreVO> list = storeService.list(vo);
+			
+						model.addAttribute("list",list);
+						
+						return "store/store_list";
+						
+				    }
+			    }
+		    }
+	    }
 		List<StoreVO> list = storeService.list(vo);
 		
 		model.addAttribute("list",list);
@@ -289,7 +378,10 @@ public class StoreController {
 	
 	@RequestMapping(value = "/store_view.do", method = RequestMethod.GET)
 	public String store_view(Locale locale, Model model, int spidx, HttpServletResponse response, HttpServletRequest request) throws Exception {
-		
+		String nowUri = request.getRequestURI();
+	      
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
 		
 		// 최근 본 상품 처리 영역
 		Cookie[] myCookies = request.getCookies();
@@ -321,8 +413,12 @@ public class StoreController {
 		model.addAttribute("searchList", searchList);
 	
 		
-		
+		//상품정보
 		StoreVO selectOne = storeService.detail(spidx);
+			//문의글 갯수 가져오기
+		int qna_cnt = storeService.qna_cnt(spidx);
+		
+		selectOne.setQna_cnt(qna_cnt);
 		
 		model.addAttribute("vo",selectOne);
 		
@@ -331,6 +427,36 @@ public class StoreController {
 		model.addAttribute("qnaList",qnaList);
 		
 		return "store/store_view";
+	}
+	
+	@RequestMapping(value = "/store_qna_insert.do", method = RequestMethod.GET)
+	public String store_qna_insert(Locale locale, Model model, int spidx) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		model.addAttribute("spidx", spidx);	
+		return "store/store_qna_insert";
+	}
+	@RequestMapping(value = "/store_qna_insert.do", method = RequestMethod.POST)
+	public @ResponseBody String store_qna_insertOK(HttpServletRequest request, Locale locale, Model model, Store_qnaVO vo) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		vo.setMidx(member.getMidx());
+		vo.setWriter(member.getNick_name());
+		
+		int result = storeService.qnaIn(vo);
+		
+		return result+"";
 	}
 	
 	

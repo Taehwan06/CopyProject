@@ -64,7 +64,7 @@
 				var paidAmount = rsp.paid_amount;
 				var applyNum = rsp.apply_num;
 				
-	        	$.ajax({
+				$.ajax({
 					url: "insertOrderList",
 					type: "post",
 					data: "ordernumber="+ordernumber+"&sbidxStr="+sbidxStr,
@@ -75,8 +75,8 @@
 						}
 					}
 				});
-		    	
-		    	$.ajax({
+				
+				$.ajax({
 					url: "deleteListBasket",
 					type: "post",
 					data: "sbidxStr="+sbidxStr,
@@ -88,12 +88,20 @@
 					}
 				});
 			    
-				location.href="payConfirm.do?impUid="+impUid+"&merchantUid="+merchantUid+"&paidAmount="+paidAmount+"&applyNum="+applyNum;
-		    
+				$("#impUid").val(impUid);
+				$("#merchantUid").val(merchantUid);
+				$("#paidAmount").val(paidAmount);
+				$("#applyNum").val(applyNum);
+			    
+				paidConfirmFn()
+				
 			} else {
-		        var msg = '결제에 실패하였습니다.';
-		        var errorMsg = rsp.error_msg;
-		        location.href="payConfirm.do?errorMsg="+errorMsg;
+		    	var errorMsg = rsp.error_msg;
+		    	
+		    	$("#errorMsg").val(errorMsg);
+
+		    	paidConfirmFn()
+		    	
 		    }
 		});
 	}

@@ -67,7 +67,6 @@
 			<div class="col-12 col-lg-9 mydiv2">
 				<div class="mydivtitle mydiv2-2">내 홈스토리 모두보기</div>
 				<div id="AllstoryDiv">	
-					<div id = "clear"></div>
 					<c:forEach items="${Storylist}" var="vo" varStatus="cnt">
 						<div id ="myStoryDiv">
 							<input type="hidden" value="${vo.cbidx}">

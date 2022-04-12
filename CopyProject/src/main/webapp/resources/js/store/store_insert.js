@@ -250,23 +250,69 @@ function submitFn(){
 	}
 }
 
-$(function() {
-	$("#imgUpload").on("change", function(){
-	readURL(this);
-	});
-});
 function readURL(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			$("#imgArea").css("background-color", "none");
-			$("#imgArea").css("background-image", "url('"+e.target.result+"')");
-			$("#imgText").css("display", "none");
-			$("#imgButton").css("display", "none");
+	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
+	
+	var fileValue = document.getElementById("imgUpload").value;
+	
+	var fileNameAry = fileValue.split("\\");
+	var fileNameBe = fileNameAry[2];
+	var fileName = fileNameBe.toLowerCase();
+	
+	if(regex.test(fileName)){
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("#imgArea").css("background-color", "none");
+				$("#imgArea").css("background-image", "url('"+e.target.result+"')");
+				$("#imgText").css("display", "none");
+				$("#imgButton").css("display", "none");
+			}
+			reader.readAsDataURL(input.files[0]);
 		}
-		reader.readAsDataURL(input.files[0]);
 	}
 }
+
+
+$(function() {
+	$("#imgUpload").on("change", function(){
+		
+		var form = $("#uploadForm")[0];
+	    var formData = new FormData(form);
+	    
+	    $.ajax({
+			url: "/controller/mypage/fileUpload",
+			type: "post",
+			data: formData,
+			enctype: "multipart/form-data",
+			contentType: false,
+			processData: false,
+			success: function(data){
+				var result = data.trim();
+				
+				if(result == "fail1"){
+					alert("이미지 파일만 등록할 수 있습니다");
+					
+				}else if(result == "fail2"){
+					alert("이미지 변경에 실패했습니다");
+					
+				}else if(result == "fail3"){
+					alert("변경할 이미지를 선택해 주세요");
+					
+				}else{
+					var resultAry = result.split(",")
+					var profile_origin = resultAry[0];
+					var profile_system = resultAry[1];
+					
+					$("#profile_origin").val(profile_origin);
+					$("#profile_system").val(profile_system);
+				
+				}
+			}
+	    });
+	    readURL(this);
+	});
+});
 
 function cancelFn(){
    var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");

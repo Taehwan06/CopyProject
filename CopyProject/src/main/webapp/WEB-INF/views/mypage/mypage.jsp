@@ -92,7 +92,7 @@
 					<c:forEach items="${Storylist}" end="3" var="vo" varStatus="cnt">
 						<div class="my_homestroy" id="mystory${cnt.count}" >
 							<input type="hidden" value="${vo.cbidx}">
-							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
+							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
 						</div>
 					</c:forEach>
 					</div>

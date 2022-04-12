@@ -50,6 +50,13 @@ public class StoreDAO {
 		return sqlSession.selectList(Namespace+".listqna",spidx);
 	}
 	
+	public int qnaIn(Store_qnaVO vo) throws Exception {
+		return sqlSession.insert(Namespace+".insertqna",vo);
+	}
+	
+	public int qna_cnt(int spidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".qna_cnt",spidx);
+	}
 	
 	
 }

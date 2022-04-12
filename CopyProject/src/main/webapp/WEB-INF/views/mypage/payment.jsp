@@ -134,7 +134,13 @@
 				<input type="button" id="payButton" value="결제하기" onclick="iamport()">
 			</div>
 		</div>
-
+		<form name="hiddenFrm">
+			<input type="hidden" id="impUid" name="impUid" value="">
+			<input type="hidden" id="merchantUid" name="merchantUid" value="">
+			<input type="hidden" id="paidAmount" name="paidAmount" value="">
+			<input type="hidden" id="applyNum" name="applyNum" value="">
+			<input type="hidden" id="errorMsg" name="errorMsg" value="">
+		</form>	
 	</section>
 
 	<%@ include file="../footer.jsp" %>

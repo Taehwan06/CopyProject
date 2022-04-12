@@ -16,6 +16,8 @@ public interface MypageService {
 	List<OrderListVO> orderList2(MemberVO vo) throws Exception;
 	List<OrderListVO> delState(OrderListVO vo) throws Exception;
 	List<Community_BoardVO> viewStory(Community_BoardVO vo) throws Exception;
+	List<OrderListVO> detailOrder(OrderListVO vo) throws Exception;
+	
 	
 	int update(MemberVO vo) throws Exception;
 	int updatePwd(MemberVO vo) throws Exception;

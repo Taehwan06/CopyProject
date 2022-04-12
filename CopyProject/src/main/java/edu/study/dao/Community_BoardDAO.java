@@ -64,15 +64,15 @@ public class Community_BoardDAO {
 		return sqlSession.selectOne(Namespace+".cbridx");
 	}
 	
-	//작성 시간 가져오기
-	public String writeDate(int cbidx) {
-		
-		return sqlSession.selectOne(Namespace+".writeday", cbidx);
-	}
-	
 	public Community_BoardVO originReply() {
 	
 		return sqlSession.selectOne(Namespace+".replyOrigin");
+	}
+	
+	//조회수 증가
+	public int viewCount(int cbidx) {
+		
+		return sqlSession.update(Namespace+".viewCount", cbidx);
 	}
 }
 

@@ -59,13 +59,13 @@
 								<p>382000원</p>
 							</div>-->
 						</div>
-						<div class="odr">
-							<button id="odrApply" onclick="location.href='${pageContext.request.contextPath}/mypage/basket.do'">장바구니로 돌아가기</button>
-						</div>
 					</form>
 				</div>
 			</div>
-	</div>
+			<div id="returnArea">
+				<input type="button" id="return" value="장바구니로 돌아가기" onclick="location.href='${pageContext.request.contextPath}/mypage/basket.do'">
+			</div>
+		</div>
 	</section>
 
 	<%@ include file="../footer.jsp" %>
