@@ -19,6 +19,7 @@ public class Community_BoardVO {
 	private int listCnt;
 	private String profile_system;
 	private String cbridx;
+	
 	/* 경로 */
 	private String uploadPath;
 	

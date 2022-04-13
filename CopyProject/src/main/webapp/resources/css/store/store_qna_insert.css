@@ -133,6 +133,29 @@ label{
 .qna_content{
 	width: 100%;
 }
+/*상품정보*/
+#product_information{
+	border: 1px solid #dcdcdc;
+	border-radius: 10px;
+	text-align: center;
+}
+#product_img{
+	width: 150px;
+}
+#product_title, #product_price, #product_img{
+	padding: 10px;
+	
+}
+#product_title{
+	padding-top: 50px;
+	border-left: 1px solid #dcdcdc;
+	font-size: 1.5em;
+}
+
+/*서브 타이틀*/
+#page_sub_title{
+	margin-top: 50px;
+}
 
 /* 미디어 쿼리  CSS */
 /*========================================================================*/

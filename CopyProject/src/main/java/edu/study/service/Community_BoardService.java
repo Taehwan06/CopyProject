@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 
 
 import edu.study.vo.Community_BoardVO;
+import edu.study.vo.MemberVO;
+import edu.study.vo.SearchVO;
 
 @Service("Community_BoardService")
 public interface Community_BoardService {
-	List<Community_BoardVO> list() throws Exception;
+	List<Community_BoardVO> list(SearchVO vo) throws Exception;
 	
 	Community_BoardVO detail(int cbidx) throws Exception;
 	
@@ -26,4 +28,6 @@ public interface Community_BoardService {
 	Integer cbridx() throws Exception;
 	
 	int viewCount(int cbidx) throws Exception;
+	
+	List<Community_BoardVO> blist() throws Exception;
 }

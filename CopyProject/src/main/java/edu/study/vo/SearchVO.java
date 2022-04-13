@@ -24,6 +24,9 @@ public class SearchVO {
 	private String priceEnd;
 	private String order;
 	
+	//게시판 정렬
+	private String sort;
+	
 	
 	public String getSearchType() {
 		return searchType;
@@ -124,8 +127,11 @@ public class SearchVO {
 	public void setOrder(String order) {
 		this.order = order;
 	}
-	
-	
-	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	
 }

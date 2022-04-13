@@ -83,7 +83,7 @@
 						<div class="brand">${basketListvo.brand}</div>
 						<div class="productDetail row">
 							<div class="productImgDiv col-4 col-md-4 col-lg-3">
-								<img src="/controller/image/${basketListvo.img_system}" class="productImg" alt="" 
+								<img src="${basketListvo.img_system}" class="productImg" alt="" 
 								onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${basketListvo.spidx}'">
 							</div>
 							<div class="col-8 col-md-8 col-lg-9">
@@ -140,6 +140,7 @@
 			<input type="hidden" id="paidAmount" name="paidAmount" value="">
 			<input type="hidden" id="applyNum" name="applyNum" value="">
 			<input type="hidden" id="errorMsg" name="errorMsg" value="">
+			<input type="hidden" id="paynumber" name="paynumber" value="">
 		</form>	
 	</section>
 

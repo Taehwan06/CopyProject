@@ -1,5 +1,7 @@
 package edu.study.service;
 
+import java.util.List;
+
 import edu.study.vo.MemberVO;
 
 public interface MemberService {
@@ -14,4 +16,6 @@ public interface MemberService {
 	MemberVO idCheckMember(String id) throws Exception;
 	MemberVO tempNumCheck(MemberVO vo) throws Exception;
 	MemberVO refreshMember(MemberVO vo) throws Exception;
+	MemberVO inquiryOfUserByMidx(int midx) throws Exception;
+	List<MemberVO> mlist() throws Exception;
 }

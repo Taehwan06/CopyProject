@@ -32,9 +32,16 @@
 	<%@ include file="../nav.jsp" %>
 	
 	<!-- 본문 영역 -->
-	<button class="write_btn" onclick="location.href='home_insert.do'">
-		글쓰기
-	</button>
+	<c:if test="${loginUser == null }">
+		<button class="write_btn" onclick="writeFn()">
+			글쓰기
+		</button>
+	</c:if>
+	<c:if test="${loginUser != null }">
+		<button class="write_btn" onclick="location.href='home_insert.do'">
+			글쓰기
+		</button>
+	</c:if>
 	<section id="story_area">
 		<div class="row" id="storyimg">
 			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&nowPage=1'">

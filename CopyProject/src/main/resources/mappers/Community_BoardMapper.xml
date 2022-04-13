@@ -18,7 +18,15 @@
            ON c.midx = m.midx 
           WHERE 1=1
           AND c.del_yn = 'N'
-            ORDER BY cbidx DESC
+		  <if test="sort != null &amp;&amp; !sort.equals('') &amp;&amp; sort.equals('recent')">
+			  ORDER BY c.cbidx DESC
+		  </if>
+		  <if test="sort != null &amp;&amp; !sort.equals('') &amp;&amp; sort.equals('view')">
+			  ORDER BY c.hit_cnt DESC, c.cbidx DESC
+		  </if>
+		  <if test="sort != null &amp;&amp; !sort.equals('') &amp;&amp; sort.equals('scrap')">
+			  ORDER BY c.scrap_cnt DESC, c.cbidx DESC
+		  </if>
     </select>
     
     <!-- 전체 글 개수 -->
@@ -139,4 +147,11 @@
     	   SET hit_cnt = hit_cnt+1
     	 WHERE cbidx = #{cbidx}
     </update>
+    
+    <!-- midx로 리스트 가져오기 -->
+    <select id="boardList" resultType="Community_boardVO">
+    	SELECT *
+    	  FROM community_board
+    	 WHERE 1=1
+    </select>
 </mapper>

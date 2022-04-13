@@ -113,3 +113,22 @@ $(document).ready( function(){
 	});
 
 });
+
+
+Kakao.init("473ca00dc030c2f1282ad75e7ce958a3");
+//카카오로그아웃
+function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+    location.href="/controller/login/logout.do";
+  }

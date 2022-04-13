@@ -101,7 +101,7 @@
 								</div>
 								<div class="row odrNdelBox">
 									<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 productPic">
-										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}"><img src="/controller/image/${orderList2.img_system}"></a>
+										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}"><img src="${orderList2.img_system}"></a>
 									</div>
 									<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 productInfo">
 										<a href="/controller/store/store_view.do?spidx=${orderList2.spidx}">${orderList2.title}&nbsp;</a>| ${orderList2.cnt} 개 <br>

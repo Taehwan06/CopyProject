@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import edu.study.service.Community_BoardService;
 import edu.study.service.Community_ReplyService;
 import edu.study.service.HomeService;
+import edu.study.service.MemberService;
 import edu.study.vo.AttatchImageVO;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.Community_ReplyVO;
@@ -48,6 +49,8 @@ public class CommunityController {
 	private HomeService homeService;
 	@Autowired
 	private Community_ReplyService replyService;
+	@Autowired
+	private MemberService memberService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -57,20 +60,24 @@ public class CommunityController {
 	@RequestMapping(value = "/home_insert.do", method = RequestMethod.GET)
 	public String home_insert(Locale locale, Model model, SearchVO vo,HttpServletRequest req) throws Exception {
 		
+		String nowUri = req.getRequestURI();
+	      
+        HttpSession session = req.getSession();
+        session.setAttribute("nowUri", nowUri);
+		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
 		
-		HttpSession session = req.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 	    	
 	    if(loginUser == null) {
-	         return "redirect:/login/login.do";
-	      }else {
-	         return "community/home_insert";
-	      }
+           return "redirect:/login/login.do";
+        }else {
+           return "community/home_insert";
+        }
 		
 	}
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -132,7 +139,7 @@ public class CommunityController {
 	
 	@RequestMapping(value = "/home_insert.do", method = RequestMethod.POST)
 	public String home_insert(Model model, Community_BoardVO boardVO, HttpServletRequest req) throws Exception {
-		System.out.println();
+		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
@@ -193,13 +200,18 @@ public class CommunityController {
 	@RequestMapping(value = "/home_story.do", method = RequestMethod.GET)
 	public String home_story(Locale locale, Model model, SearchVO vo,HttpServletRequest req) throws Exception {
 		
+		String nowUri = req.getRequestURI();
+	      
+        HttpSession session = req.getSession();
+        session.setAttribute("nowUri", nowUri);
+		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
 		
-		List<Community_BoardVO> list = Community_boardService.list();
+		List<Community_BoardVO> list = Community_boardService.list(vo);
 		
 		model.addAttribute("list",list);
 		
@@ -207,7 +219,6 @@ public class CommunityController {
 		
 		model.addAttribute("CommMain",Comm_Main);
 		
-		HttpSession session = req.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 	    model.addAttribute("loginUser", loginUser);
 	    
@@ -215,7 +226,12 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "/home_list.do", method = RequestMethod.GET)
-	public String home_list(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String home_list(Locale locale, Model model, SearchVO vo, HttpServletRequest req) throws Exception {
+		
+		String nowUri = req.getRequestURI();
+		
+		HttpSession session = req.getSession();
+        session.setAttribute("nowUri", nowUri);
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -223,7 +239,7 @@ public class CommunityController {
 		
 		model.addAttribute("searchList", searchList);
 		
-		List<Community_BoardVO> list = Community_boardService.list();
+		List<Community_BoardVO> list = Community_boardService.list(vo);
 		
 		model.addAttribute("list",list);
 		
@@ -239,8 +255,8 @@ public class CommunityController {
 		
 		String nowUri = request.getRequestURI();
 	      
-	      HttpSession session = request.getSession();
-	      session.setAttribute("nowUri", nowUri);
+	    HttpSession session = request.getSession();
+	    session.setAttribute("nowUri", nowUri+"?cbidx="+cbidx+"&nowPage=1");
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -304,13 +320,21 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "/following.do", method = RequestMethod.GET)
-	public String following(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String following(Locale locale, Model model, SearchVO vo, MemberVO mvo) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
+		
+		List<MemberVO> mlist = memberService.mlist();
+		
+		model.addAttribute("mlist", mlist);
+		
+		List<Community_BoardVO> blist = Community_boardService.blist();
+		
+		model.addAttribute("blist", blist);
 		
 		return "community/following";
 	}

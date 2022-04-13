@@ -7,6 +7,9 @@
 	var titleAry = [];
 	var payTitle = "";
 	var sbidxStr = "";
+	var ordernumber = ${payInfovo.paynumber};
+	
+	console.log("ordernumber="+ordernumber);
 	
 	<c:forEach items="${basketList}" var="basketListvo" varStatus="cnt">
 		totalPrice += (${basketListvo.price}) * (${basketListvo.cnt});
@@ -40,7 +43,6 @@
 	}
 	
 	function iamport(){
-		var ordernumber = new Date().getTime();
 		var msg = "";
 		
 		//가맹점 식별코드
@@ -64,34 +66,13 @@
 				var paidAmount = rsp.paid_amount;
 				var applyNum = rsp.apply_num;
 				
-				$.ajax({
-					url: "insertOrderList",
-					type: "post",
-					data: "ordernumber="+ordernumber+"&sbidxStr="+sbidxStr,
-					success: function(data){
-						var result = data.trim();
-						if(result = "success"){
-							console.log("insertOrderList = success");
-						}
-					}
-				});
-				
-				$.ajax({
-					url: "deleteListBasket",
-					type: "post",
-					data: "sbidxStr="+sbidxStr,
-					success: function(data){
-						var result = data.trim();
-						if(result = "success"){
-							console.log("deleteListBasket = success");
-						}
-					}
-				});
-			    
 				$("#impUid").val(impUid);
 				$("#merchantUid").val(merchantUid);
 				$("#paidAmount").val(paidAmount);
 				$("#applyNum").val(applyNum);
+				$("#paynumber").val(ordernumber);
+				
+				console.log("ordernumber2="+ordernumber);
 			    
 				paidConfirmFn()
 				

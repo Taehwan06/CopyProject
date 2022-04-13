@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.study.vo.Community_BoardVO;
+import edu.study.vo.MemberVO;
+import edu.study.vo.SearchVO;
 
 @Repository
 public class Community_BoardDAO {
@@ -17,9 +19,9 @@ public class Community_BoardDAO {
 	private static final String Namespace = "edu.study.mapper.Community_boardMapper";
 	
 	//글 목록 조회
-	public List<Community_BoardVO> list() throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(Namespace+".Comm_listBoard");
+	public List<Community_BoardVO> list(SearchVO vo) throws Exception {
+		
+		return sqlSession.selectList(Namespace+".Comm_listBoard", vo);
 	}
 	
 	//글 상세 조회
@@ -73,6 +75,12 @@ public class Community_BoardDAO {
 	public int viewCount(int cbidx) {
 		
 		return sqlSession.update(Namespace+".viewCount", cbidx);
+	}
+	
+	//midx로 조회하기
+	public List<Community_BoardVO> blist() {
+		
+		return sqlSession.selectList(Namespace+".boardList");
 	}
 }
 

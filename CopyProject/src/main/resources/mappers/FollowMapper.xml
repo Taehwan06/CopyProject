@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.FollowMapper">
+	
+	<resultMap type="FollowVO" id="FollowResultMap">
+		<id property="fidx" column="fidx"/>
+		<result property="activeUser" column="active_user"/>
+		<result property="passiveUser" column="passive_user"/>
+		<result property="addDate" column="add_date"/>
+		
+		<result property="activeUserNick" column="active_user_nick"/>
+		<result property="passiveUserNick" column="passive_suer_nick"/>
+		
+		<result property="profileSystem" column="profile_system"/>
+	</resultMap>
+	
+	<resultMap type="MemberVO" id="MemberResultMap">
+		<id property="midx" column="midx"/>
+		<result property="id" column="id"/>
+		<result property="nickName" column="nick_name"/>
+	</resultMap>
+	
+	<!-- 팔로우 기능 -->
+	<insert id="follow">
+		INSERT INTO follow(
+			midx,
+			fmidx
+		) VALUES(
+			#{activeUser},
+			#{passiveUser}
+		)
+	</insert>
+	
+	<!-- 언팔로우 기능 -->
+	<delete id="unfollow">
+		DELETE FROM follow
+		 WHERE midx = #{activeUser}
+		   AND fmidx = #{passiveUser}
+	</delete>
+	
+	<!-- 팔로우 유무 조회 -->
+	<select id="isFollow" resultType="int">
+		SELECT COUNT(*)
+		  FROM follow
+		 WHERE midx = #{activeUser}
+		   AND fmidx = #{passiveUser}
+	</select>
+	
+	<!-- 팔로우 리스트 조회 -->
+	<select id="activeUser" resultMap="FollowResultMap">
+		SELECT midx,
+			   fmidx,
+			   add_date,
+			   m.nick_name as fmidx_nick,
+			   profile_system
+		  FROM follow
+		  LEFT OUTER JOIN member m
+		    ON fmidx = m.midx
+		 WHERE midx = #{activeUser}
+		 ORDER BY add_date desc
+	</select>
+	
+	<!-- 팔로워 리스트 조회 -->
+	<select id="passiveUser" resultMap="FollowResultMap">
+		SELECT midx,
+			   fmidx,
+			   add_date,
+			   m.nick_name as fmidx_nick,
+			   profile_system
+		  FROM follow f
+		  LEFT OUTER JOIN member m
+		    ON f.midx = m.midx
+		 WHERE fmidx = #{passiveUser}
+		 ORDER BY add_date desc
+	</select>
+	
+	<!-- 탈퇴시 팔로우 삭제 -->
+	<delete id="deleteUser">
+		DELETE FROM follow
+		 WHERE midx = #{midx}
+	</delete>
+	
+</mapper>

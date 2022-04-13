@@ -1,5 +1,7 @@
 package edu.study.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -55,6 +57,17 @@ public class MemberDAO {
 		return sqlSession.selectOne(Namespace+".refreshMember",vo);
 	}
 	
+	//회원번호로 정보 가져오기
+	public MemberVO inquiryOfUserByMidx(int midx) throws Exception{
+		
+		return sqlSession.selectOne(Namespace+".userOne", midx);
+	}
+	
+	//회원 리스트 가져오기
+	public List<MemberVO> mlist() throws Exception {
+		
+		return sqlSession.selectList(Namespace+".memberList");
+	}
 }
 
 

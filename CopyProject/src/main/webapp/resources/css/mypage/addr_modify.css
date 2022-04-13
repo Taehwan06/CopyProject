@@ -1,0 +1,353 @@
+@charset "UTF-8";
+  
+  /*메인컬러:ffb6c1 핑크*/
+  
+		section{
+			margin: auto;
+			max-width: 1560px;
+			color:gray;
+		}
+		
+		/*input 테두리*/
+		input:focus{
+			outline:4px solid #ffb6c1;
+		}
+		
+		  
+   		.member_modiv{	
+   			border: 1px solid #dcdcdc;
+   			text-align: left;
+   			width:100%;
+   			margin-bottom:30px;
+   			
+   		}
+   	
+   		.membermodiv_title{
+   			font-size: 1.6rem;
+			color: black;
+			margin-top: 40px;
+			margin-bottom: 50px;
+			margin-left:30px;
+			font-weight: 1000;
+   		}
+   		
+   		.withdrawal{
+   			height:50px;
+   			text-align:right;
+   			margin-right:20px;
+   			
+   		}
+   		
+   		a{
+   			text-decoration: none;
+   			color:gray;
+   		}
+   		
+   		a:hover{
+   			color:#ffb6c1;
+   			text-decoration: underline;
+   		}
+   		 
+   		
+		.edit_dummy,.memberEditSubmit{
+			margin-left:30px;
+			margin-bottom:50px;
+		}   
+	
+   		
+
+   		.Edit{
+   			display: inline-block;
+   		}
+
+   	
+   		.edit_member_info{
+   			width: 120px;
+   			font-size: 1rem;
+   			font-weight: 800;
+   		}
+   		
+   		.edit_dummy input[type=text]{
+   			text-align:center;
+   			color:gray;
+			background:white;
+			border:1px solid #dcdcdc;
+			font-size:medium;
+			font-weight:medium;
+			border-radius: 0.25rem;
+			height:40px; 
+			width:350px;
+			margin-bottom:5px;
+   		
+   		}
+   				
+	
+		#ChangeBtn{
+			width:350px; 
+			height:50px;
+			display: inline-block;
+			font-weight: 800;
+			color: white;
+			text-align: center; 
+		 	text-decoration: none;
+			vertical-align: middle;
+			cursor: pointer;
+			background-color: #ffb6c1;
+			padding: 0.375rem 0.75rem;
+			font-size: 1.2rem;
+			border-radius: 0.25rem;
+			border: none;
+		}
+		
+		#ChangeBtn:hover{
+			color: #ffb6c1;
+			background-color: white;
+			border: 1px solid #ffb6c1;
+		}
+	
+		#findaddr{
+			border: 1px solid #dcdcdc;
+			height: 30px;
+			color:gray;
+			background-color: white;
+			width: 90px;
+			border-radius: 4px;
+			font-size: 0.7rem;
+			
+		}
+		
+		#findaddr:hover{
+			background-color: #fffafa;
+			
+		}
+		
+		
+		/*input:invalid*/	
+		input:invalid{
+			outline:4px solid red;
+		}	
+		
+		
+		#imgUploadArea, #imgUpload{
+			visibility: hidden;
+		}
+		#coverImg{
+			cursor: pointer;
+		}		
+		
+		
+		
+
+		/* 미디어 쿼리  CSS */
+   		/*========================================================================*/
+   		/*========================================================================*/
+   		/*========================================================================*/
+		@media screen and (min-width: 1400px){
+			#headerDiv,.navbar{
+				width: 80%;
+			}
+			
+			section{
+				width:90%;
+			}
+			
+			#searchInput{
+				width: 90%;
+			}
+			#spaceDiv{
+				display: none;
+			}
+			
+			input[type=password]{
+   			width:380px;
+   		}
+			
+		}
+		@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+			#headerDiv,.navbar, section, footer{
+				width: 85%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+			#spaceDiv{
+				display: none;
+			}
+
+			#mystory4{
+				display: none; 
+			}
+			
+		}
+		@media screen and (min-width: 992px) and (max-width: 1199.99px){
+			#headerDiv, .navbar, footer{
+				width: 90%;
+			}
+			
+			section{
+				width:100%;
+			}
+			
+			
+			#searchInput{
+				width: 90%;
+			}
+
+			#spaceDiv, .hiddenStory, .hiddenShop{
+				display: none;
+			}
+
+			#spaceDiv{
+				display: none;
+			}
+
+			.categoryDiv{
+				font-size: 15px;
+				width: 80%;
+				margin-left: 20px;
+			}
+		}
+		@media screen and (min-width: 768px) and (max-width: 991.99px){
+			#headerDiv, .navbar, footer{
+				width: 95%;
+			}
+			
+			section{
+				width:100%;
+			}
+			
+			#searchInput{
+				width: 89%;
+			}
+			#spaceDiv, .hiddenStory, .hiddenShop{
+				display: none;
+			} 
+			.categoryDiv{
+				font-size: 12px;
+				width: 90%;
+				margin-left: 0px;
+			}
+			.categoryUl{
+				padding: 15px 0px 15px 10px;
+			}
+		
+		}
+		@media screen and (min-width: 576px) and (max-width: 767.99px){
+			#headerDiv, .navbar, footer{
+				width: 98%;
+			}
+			
+			section{
+				width:100%;	
+			}
+			
+			#searchFrm{
+				width: 55%;
+			}
+			#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+				display: none;
+			}
+			#menuComm{
+				border-right: 1px solid lightgray;
+			}
+			#smallMenu{
+				display: inline-block;
+			}
+			
+			.categoryDiv{
+				font-size: 10px;
+				width: 95%;
+				margin-left: 0px;
+			}
+			.sidebar_menu{
+				width: 400px;
+			}
+			
+			.phoneInput{
+				width:100px;
+			}
+			
+			#idInput{
+				width:120px;	
+			}
+			
+			#nickInput,#emailInput,#BirthInput{
+				width:320px;
+			}
+			
+			#AddrInput1, #AddrInput2, #AddrInput3{
+				width:320px;
+			}
+			
+			
+			input[type=submit]{
+				width:440px;
+			}
+			
+			
+		}
+		
+		
+		@media screen and (max-width: 575.99px){
+			#headerDiv, .navbar, footer{
+				width: 98%;
+			}
+			
+			section{
+				width:100%;
+			}
+			
+			#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+				display: none;
+			}
+			
+			#smallMenu{
+				display: inline-block;
+			}
+			
+			.sidebar_menu{
+				width: 400px;
+			}
+			
+			.member_modiv{
+				border: none;
+			}
+
+			.edit_member_info{
+   			width: 90px;
+   			font-size: 0.8rem;
+   			font-weight: 600;
+   			}
+   		   				
+   			
+   			nav{ 
+				display:none;
+			}
+			section{
+				border-top: 3px solid #ffb6c1; 
+			}
+			
+			#idInput, .phoneInput{
+				width:100px;
+				
+			}
+			
+			#nickInput,#emailInput,#BirthInput{
+				width:300px;
+			}
+			
+			#AddrInput1, #AddrInput2, #AddrInput3{
+				width:300px;
+			}
+			
+			#ChangeBtn{
+				width:300px;
+				height:40px;
+			}
+
+			.edit_dummy input[type=text]{
+				width:300px;
+			}
+
+
+		} 

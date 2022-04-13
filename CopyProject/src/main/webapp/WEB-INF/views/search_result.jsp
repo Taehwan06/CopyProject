@@ -13,6 +13,8 @@
     <!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+	<!-- kakao SDK -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
 	<title>검색 결과</title>
 	
@@ -88,7 +90,7 @@
 				<div class="row shopList">
 					<c:forEach items="${storeList}" end="7" var="storeListVO" varStatus="cnt">
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
-							<img src="/controller/image/${storeListVO.img_system}" class="shopImg" 
+							<img src="${storeListVO.img_origin}" class="shopImg" 
 							onclick="location.href='/controller/store/store_view.do?spidx=${storeListVO.spidx}'">
 							<div class="shopText" onclick="location.href='/controller/store/store_view.do?spidx=${storeListVO.spidx}'">
 								<div class="shopTitle">

@@ -8,8 +8,36 @@ public class PayInfoVO {
 	private String applyNum;
 	private String errorMsg;
 	private String successMsg;
+	private int midx;
+	private String amount;
+	private String paynumber;
+	private int pidx;
 	
 	
+	public int getPidx() {
+		return pidx;
+	}
+	public void setPidx(int pidx) {
+		this.pidx = pidx;
+	}
+	public String getPaynumber() {
+		return paynumber;
+	}
+	public void setPaynumber(String paynumber) {
+		this.paynumber = paynumber;
+	}
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public int getMidx() {
+		return midx;
+	}
+	public void setMidx(int midx) {
+		this.midx = midx;
+	}
 	public String getPaidAmount() {
 		return paidAmount;
 	}

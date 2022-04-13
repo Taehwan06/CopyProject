@@ -18,11 +18,10 @@
 	<link href="/controller/css/community/following.css" rel="stylesheet">
 	<link href="/controller/css/footer.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
+	<script src="/controller/js/community/follow.js"></script>
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/footer.js"></script>
 	
-	
-
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -35,222 +34,49 @@
 			<span class="bold">홈프렌즈 유저를 팔로우해보세요!</span><br>
 			유저의 최신 소식을 한눈에 모아볼 수 있습니다.
 		</div>
-	
-		<div class="followingUserList row">
-			<div class="followingUser col-12 col-lg-6">
-				<div class="row">
-					<div class="followingTextArea col-12">
-						<div class="row">
-							<div class="profile col-2">
-								<img src="/controller/image/iu.png" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
-							</div>
-							<div class="userName col-7" onclick="">
-								<span class="nick" onclick="">IU</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
-								내 이십대의 그 사이사이 조각들
-							</div>
-							<div class="followingButtonArea col-3">
-								<input type="button" name="followingButton" class="followingButton" value="팔로잉" onclick="">
-							</div>
-						</div>
-					</div>
-					<div class="followingImgArea col-12">
-						<div class="row">
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story01.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story02.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story03.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story04.png" alt="" class="followingImg" onclick="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="followingUser col-12 col-lg-6">
-				<div class="row">
-					<div class="followingTextArea col-12">
-						<div class="row">
-							<div class="profile col-2">
-								<img src="/controller/image/iu.png" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
-							</div>
-							<div class="userName col-7" onclick="">
-								<span class="nick" onclick="">IU</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
-								내 이십대의 그 사이사이 조각들
-							</div>
-							<div class="followingButtonArea col-3">
-								<input type="button" name="followingButton" class="followingButton" value="팔로잉" onclick="">
-							</div>
-						</div>
-					</div>
-					<div class="followingImgArea col-12">
-						<div class="row">
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story01.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story02.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story03.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story04.png" alt="" class="followingImg" onclick="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="followingUser col-12 col-lg-6">
-				<div class="row">
-					<div class="followingTextArea col-12">
-						<div class="row">
-							<div class="profile col-2">
-								<img src="/controller/image/iu.png" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
-							</div>
-							<div class="userName col-7" onclick="">
-								<span class="nick" onclick="">IU</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
-								내 이십대의 그 사이사이 조각들
-							</div>
-							<div class="followingButtonArea col-3">
-								<input type="button" name="followingButton" class="followingButton" value="팔로잉" onclick="">
-							</div>
-						</div>
-					</div>
-					<div class="followingImgArea col-12">
-						<div class="row">
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story01.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story02.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story03.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story04.png" alt="" class="followingImg" onclick="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="followingUser col-12 col-lg-6">
-				<div class="row">
-					<div class="followingTextArea col-12">
-						<div class="row">
-							<div class="profile col-2">
-								<img src="/controller/image/iu.png" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
-							</div>
-							<div class="userName col-7" onclick="">
-								<span class="nick" onclick="">IU</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
-								내 이십대의 그 사이사이 조각들
-							</div>
-							<div class="followingButtonArea col-3">
-								<input type="button" name="followingButton" class="followingButton" value="팔로잉" onclick="">
-							</div>
-						</div>
-					</div>
-					<div class="followingImgArea col-12">
-						<div class="row">
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story01.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story02.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story03.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story04.png" alt="" class="followingImg" onclick="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="followingUser col-12 col-lg-6">
-				<div class="row">
-					<div class="followingTextArea col-12">
-						<div class="row">
-							<div class="profile col-2">
-								<img src="/controller/image/iu.png" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
-							</div>
-							<div class="userName col-7" onclick="">
-								<span class="nick" onclick="">IU</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
-								내 이십대의 그 사이사이 조각들
-							</div>
-							<div class="followingButtonArea col-3">
-								<input type="button" name="followingButton" class="followingButton" value="팔로잉" onclick="">
-							</div>
-						</div>
-					</div>
-					<div class="followingImgArea col-12">
-						<div class="row">
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story01.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story02.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story03.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story04.png" alt="" class="followingImg" onclick="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="followingUser col-12 col-lg-6">
-				<div class="row">
-					<div class="followingTextArea col-12">
-						<div class="row">
-							<div class="profile col-2">
-								<img src="/controller/image/iu.png" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
-							</div>
-							<div class="userName col-7" onclick="">
-								<span class="nick" onclick="">IU</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
-								내 이십대의 그 사이사이 조각들
-							</div>
-							<div class="followingButtonArea col-3">
-								<input type="button" name="followingButton" class="followingButton" value="팔로잉" onclick="">
-							</div>
-						</div>
-					</div>
-					<div class="followingImgArea col-12">
-						<div class="row">
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story01.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story02.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story03.webp" alt="" class="followingImg" onclick="">
-							</div>
-							<div class="followingImgDiv col-3">
-								<img src="/controller/image/story04.png" alt="" class="followingImg" onclick="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-				
-		</div>
 		
-	</section>
+		<div class="followingUserList row">
+			<c:forEach items="${mlist }" var="mlist">
+				<input type="hidden" name="midx" value="${mlist.midx }">
+				<div class="followingUser col-12 col-lg-6">
+					<div class="row">
+						<div class="followingTextArea col-12">
+							<div class="row">
+								<div class="profile col-2">
+									<img src="/controller/image/${mlist.profile_system }" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="">
+								</div>
+								<div class="userName col-7" onclick="">
+									<span class="nick" onclick="">${mlist.nick_name }</span><span class="hashtag">#아이유 #U&I #겨울잠</span><br>
+									내 이십대의 그 사이사이 조각들
+								</div>
+								<div class="followingButtonArea col-3">
+									<c:if test="${loginUser != null }">
+										<button type="button" class="followingButton">팔로우</button>
+									</c:if>
+									<c:if test="${loginUser == null }">
+										<button type="button" class="followingButton" onclick="login()">팔로우</button>
+									</c:if>
+								</div>
+							</div>
+						</div>
+						
+						<div class="followingImgArea col-12">
+							<div class="row">
+								<c:forEach items="${blist }" var="blist">
+									<c:if test="${mlist.midx == blist.midx }">
+										<div class="followingImgDiv col-3">
+											<img src="/controller/upload/${blist.img_system }" alt="게시글 사진" class="followingImg" onclick="">
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</c:forEach>
 
+	</section>
 
 	
 	<%@ include file="../footer.jsp" %>

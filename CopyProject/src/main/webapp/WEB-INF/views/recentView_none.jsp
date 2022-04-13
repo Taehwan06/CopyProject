@@ -13,6 +13,8 @@
 	<!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+	<!-- kakao SDK -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
 	<title>최근 본 상품 - Home Friends</title>
 	

@@ -1,8 +1,33 @@
 function listFn(e){
-	$(".list_btn").css({"background" : "none", "color" : "black"});
-	$(e).css({"background" : "#ffb6c1", "color" : "white"});
+	if(e == 'recent'){
+		location.href="home_list.do?&sort=recent"
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#recent").css({"background" : "#ffb6c1", "color" : "white"});
+	}else if(e == 'view'){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#view").css({"background" : "#ffb6c1", "color" : "white"});
+		location.href="home_list.do?&sort=view"
+	}else{
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#scrap").css({"background" : "#ffb6c1", "color" : "white"});
+		location.href="home_list.do?&sort=scrap"
+	}
+}
+function writeFn(){
+	alert("로그인 후 이용 가능합니다.");
+	location.href='home_insert.do';
 }
 $(document).ready(function(){
+	if(sort == "recent"){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#recent").css({"background" : "#ffb6c1", "color" : "white"});
+	}else if(sort == 'view'){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#view").css({"background" : "#ffb6c1", "color" : "white"});
+	}else if(sort == "scrap"){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#scrap").css({"background" : "#ffb6c1", "color" : "white"});
+	}
 	/* 스토어 서브 네비 */
 	/*========================================================================*/
 	$("#menuStore").mouseover(function(){

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import edu.study.dao.BasketDAO;
 import edu.study.vo.BasketVO;
 import edu.study.vo.MemberVO;
+import edu.study.vo.PayInfoVO;
 
 
 @Service
@@ -86,6 +87,22 @@ public class BasketServiceImpl implements BasketService {
 		BasketVO basketvo = basketDao.directPayFromProduct(vo);
 		
 		return basketvo;
+	}
+
+	@Override
+	public int insertPaymentInfo(PayInfoVO vo) throws Exception {
+
+		int result = basketDao.insertPaymentInfo(vo);
+		
+		return result;
+	}
+
+	@Override
+	public PayInfoVO payConfirm(PayInfoVO vo) throws Exception {
+
+		PayInfoVO payInfovo = basketDao.payConfirm(vo);
+		
+		return payInfovo;
 	}
 	
 	

@@ -74,7 +74,7 @@
 								<ul class="row no_list">
 								<li class="col-3"></li>
 									<li class="col-9">
-										<img class="product_image" src="/controller/image/${basketListAllvo.img_system}">
+										<img class="product_image" src="${basketListAllvo.img_system}">
 									</li>
 								</ul>
 							</li>

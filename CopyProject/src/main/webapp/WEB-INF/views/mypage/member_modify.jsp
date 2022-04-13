@@ -41,6 +41,7 @@
 					</div>
 					<div class="withdrawal">
 						<a href='${pageContext.request.contextPath}/mypage/password_check.do'>비밀번호 변경</a>&nbsp;|
+						<a href='${pageContext.request.contextPath}/mypage/addr_modify.do'>주소변경</a>&nbsp;|
 						<a href='${pageContext.request.contextPath}/mypage/member_delete.do'>탈퇴하기</a>
 					</div>
 					<div id="memberEdit_wrap">
@@ -124,10 +125,10 @@
 								<div class="Edit edit_member_info">
 								</div> 
 									<c:set var = "addrInfo" value = "${vo.addr}"/>
-									<c:set var = "addr1" value = "${fn:substringBefore(addrInfo,' ')}"/>
-									<c:set var = "addr2" value = "${fn:substringAfter(addrInfo,' ')}"/>
+									<c:set var = "addr1" value = "${fn:substringBefore(addrInfo,'구')}"/>
+									<c:set var = "addr2" value = "${fn:substringAfter(addrInfo,'구')}"/>	
 								<div class="Edit edit_member_form">
-									<input type="text" id="AddrInput2" value="${addr1}" name="addr1" readonly>
+									<input type="text" id="AddrInput2" value="${addr1}구" name="addr1" readonly>
 								</div>
 							</div>
 							<div class="edit_dummy">
@@ -159,7 +160,7 @@
 							
 						</form>
 						
-						<form name="uploadForm" id="uploadForm" enctype="multipart/form-data">
+						<form name="uploadForm" id="uploadForm" method="post" action="/uploadFile.do" enctype="multipart/form-data">
 							<div id="imgUploadArea">
 								<input type="file" id="imgUpload" name="imgFile">
 							</div>

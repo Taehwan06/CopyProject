@@ -19,12 +19,12 @@ public class OrderListVO {
 	private int spidx;
 	private int midx;
 
-	private int ordernumber;
-	private int paynumber;
+	private String ordernumber;
+	private String paynumber;
 	
 	public OrderListVO(int olidx, int price, int cnt, int delivery_charge, String title, String free_delivery,
 			String img_origin, String img_system, String buying_date, String progress, String delivery_status,
-			String review_registration, int spidx, int midx, int ordernumber, int paynumber) {
+			String review_registration, int spidx, int midx, String ordernumber, String paynumber) {
 		super();
 		this.olidx = olidx;
 		this.price = price;
@@ -193,25 +193,25 @@ public class OrderListVO {
 	}
 	
 	
-	public int getOrdernumber() {
+	public String getOrdernumber() {
 		return ordernumber;
 	}
 
 
 
-	public void setOrdernumber(int ordernumber) {
+	public void setOrdernumber(String ordernumber) {
 		this.ordernumber = ordernumber;
 	}
 
 
 
-	public int getPaynumber() {
+	public String getPaynumber() {
 		return paynumber;
 	}
 
 
 
-	public void setPaynumber(int paynumber) {
+	public void setPaynumber(String paynumber) {
 		this.paynumber = paynumber;
 	}
 

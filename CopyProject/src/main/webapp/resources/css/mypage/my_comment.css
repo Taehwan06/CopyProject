@@ -1,0 +1,425 @@
+@charset "UTF-8";
+
+
+		section{
+			margin: auto;
+			max-width: 1560px;
+		}
+
+		#mypage_profile_box{
+			border: 2px solid #ffb6c1;
+			width: 95%;
+			float: none; 
+			margin:0 auto; 
+		}
+
+		.mydiv2{
+			margin-top: 30px;
+			
+		}
+
+
+		#mydiv2-1, #mydiv2-2{
+			width: 95%;
+			margin:0 auto;
+			border: 2px solid #ffb6c1;
+			float: none; 
+			max-width: 1000px;
+			text-align: center;
+			margin-top: 10px;
+			
+		}
+/* 
+		#mydiv2-1{
+			margin-bottom: 30px;
+		} */
+
+		#mydiv2-2{
+			margin-bottom: 60px;
+		}
+
+		.mydiv1{
+			margin-top: 64px;
+			text-align: center;
+		}
+
+
+		.mydivtitle{
+			width: 100%;
+			margin:0 auto;
+			float: none; 
+			color: gray;
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		#profile_image img{
+			margin: 20px;
+			width: 120px;
+			height: 120px;
+			border-radius: 100px;
+			object-fit:cover
+		}
+
+		#profile_name{
+			color: #222222;
+			font-size: 1.7rem;
+			font-weight: bold;
+			margin-bottom: 10px;
+			margin-top: 10px;
+
+		}
+
+		#profile_follow{
+			color: gray;
+			font-size: 0.75rem;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		#profile_follow strong, .profile_icon strong{
+			font-size: 0.85rem;
+			color: #222222;
+		}
+
+		#profile_btn button{
+			border: 1px solid #dcdcdc;
+			height: 34px;
+			color: #222222;
+			background-color: white;
+			width: 60px;
+			border-radius: 4px;
+			font-size: 0.7rem;
+
+		}
+
+		/* 프로필박스 아이콘 */
+
+		.bi-bookmark, .bi-heart{
+			font-size: 35px;
+			color: #bdbdbd;
+		}
+
+		.bi-bookmark:hover ,.bi-heart:hover {
+			color: #ffb6c1; 
+		}
+
+
+
+		.profile_icon{
+			display: inline-block;
+			color: gray;
+			font-size: 0.75rem;
+			font-weight: bold;
+			margin-bottom: 10px;
+			margin-right: 20px;
+			margin-left: 20px;
+		}
+		
+
+		#mypage_profile_box hr{
+			margin: auto;
+			width: 90%;
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+		
+		
+		.icon-pointer{
+			cursor:pointer;
+		}
+		
+/* ============================ 프로필 박스 css ============================  */
+		
+		.mydivVacant{
+			width:85%;
+			height:20px;
+			border-bottom:1px solid #dcdcdc;
+			margin-bottom:20px;
+		}
+		
+		
+		.comment2 img{
+			width:130px;
+			height:130px;
+			border-radius: 12px;
+			object-fit:cover;
+		}
+		
+		.chat{
+			font-size: 35px;
+			color: #ffb6c1; 
+			margin-left:14px;
+			margin-right:14px;
+		}
+		
+		.p1{
+			font-size:1.2rem;
+			font-weight:bold;
+			color:#222222;
+		}
+		
+		.p2{
+			font-size:0.9rem;
+			margin-left:14px;
+		}
+		
+		.p3{
+			margin-left:14px;
+			font-size:0.8rem;
+			color:gray;
+		}
+		
+		.p3 strong{
+			font-weight:bold;
+			color:#222222;
+		}
+		
+		#mycomment a{
+			text-decoration:none;
+			color:inherit;
+		}
+		
+		
+		
+		/*미디어쿼리*/
+		@media screen and (min-width: 1400px){
+			#headerDiv, .navbar, section, footer{
+				width: 80%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+			#spaceDiv{
+				display: none;
+			}
+			
+			
+		
+			
+			
+		}
+		@media screen and (min-width: 1200px) and (max-width: 1427px){
+			#headerDiv, .navbar, section, footer{
+				width: 85%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+			#spaceDiv{
+				display: none;
+			}
+			
+			
+			.mydivVacant{
+				width:98%;
+			
+			}
+			
+			.comment2 img{
+				margin-left:80px;
+			}
+
+			
+		
+		}
+		@media screen and (min-width: 992px) and (max-width: 1199.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 90%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+
+			#spaceDiv, .hiddenStory, .hiddenShop{
+				display: none;
+			}
+
+			#spaceDiv{
+				display: none;
+			}
+
+			.categoryDiv{
+				font-size: 15px;
+				width: 80%;
+				margin-left: 20px;
+			}
+
+			
+			.mydivVacant{
+				width:98%;
+			
+			}
+		
+			.comment2 img{
+				margin-left:20px;
+			}
+				
+		}
+		
+		@media screen and (min-width: 768px) and (max-width: 991.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 95%;
+			}
+			#searchInput{
+				width: 89%;
+			}
+			#spaceDiv, .hiddenStory, .hiddenShop{
+				display: none;
+			}
+			.categoryDiv{
+				font-size: 12px;
+				width: 90%;
+				margin-left: 0px;
+			}
+			.categoryUl{
+				padding: 15px 0px 15px 10px;
+			}
+		
+
+		
+
+			#profile_id{
+				text-align: left;
+			}
+
+			.delivery-icons{
+				font-size: 65px;
+			}
+			
+			#AllstoryDiv{
+				margin-left:4%;
+			}
+			
+			
+			.all_homestroy_img{
+				width:660px;
+				height:440px;
+			
+			}
+			
+			
+			.mydivVacant{
+				width:98%;
+			
+			}
+			
+			.comment2 img{
+				margin-left:90px;
+			}
+			
+		}
+
+		@media screen and (min-width: 576px) and (max-width: 767.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 98%;
+			}
+			#searchFrm{
+				width: 55%;
+			}
+			#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+				display: none;
+			}
+			#menuComm{
+				border-right: 1px solid lightgray;
+			}
+			#smallMenu{
+				display: inline-block;
+			}
+			
+			.categoryDiv{
+				font-size: 10px;
+				width: 95%;
+				margin-left: 0px;
+			}
+			.sidebar_menu{
+				width: 400px;
+			}
+
+			#mystory3,#mystory4{
+				display: none;
+			}
+
+			.delivery-icons{
+				font-size: 50px;
+			}
+
+
+			#profile_id{
+				text-align: center;
+				
+			}
+
+			#mypage_profile_box hr{
+				display: none; 
+			}
+
+			#profile_image img{
+			width: 130px;
+			height: 130px;
+			border-radius: 100px;
+			object-fit:cover
+			}
+			
+			.mydivVacant{
+				width:98%;
+			
+			}
+		
+			
+		
+		}
+		@media screen and (max-width: 575.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 98%;
+			}
+			#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+				display: none;
+			}
+			#smallMenu{
+				display: inline-block;
+			}
+			.sidebar_menu{
+				width: 100%;
+				max-width: 400px;
+			}
+
+			#mystory3,#mystory4{
+				display: none;
+			}
+
+
+			#profile_id{
+				text-align: center;
+			}
+
+			#mypage_profile_box hr{
+				display: none;
+			}
+
+			.delivery-icons{
+				font-size: 50px;
+			}
+
+			.delivery{
+			font-size: 0.9rem;
+			}
+			
+			nav{ 
+				display:none;
+			}
+			section{
+				border-top: 3px solid #ffb6c1; 
+			}
+			
+			.mydivVacant{
+				width:100%;
+			
+			}
+		
+			
+
+		}
+		
+		
+		

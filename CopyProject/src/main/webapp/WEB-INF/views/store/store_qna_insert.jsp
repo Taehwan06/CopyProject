@@ -53,7 +53,12 @@
 	<section>
 		
 		<form id="insertFrm" name="insertFrm" action="home_insert.do" method="post" enctype="multipart/form-data">
-
+			<div id="product_information" class="row">
+				<img id="product_img" class="col-3 col-md-3" alt="" src="${vo.img_origin}">
+				<div id="product_title" class="col-8 col-md-8"><c:out value="${vo.product_name}"/></div>
+			</div>
+			
+			<h2 id="page_sub_title">상품문의</h2>
 			
 			<div id="textArea">
 				<textarea id="summernote" name="content"></textarea>

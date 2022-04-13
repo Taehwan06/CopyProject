@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.study.vo.BasketVO;
 import edu.study.vo.MemberVO;
+import edu.study.vo.PayInfoVO;
 
 @Repository // 컴포넌트 하위에 있는 어노테이션, 외부와 연결 할 때 사용하는 어노테이션
 public class BasketDAO {
@@ -52,6 +53,14 @@ public class BasketDAO {
 	
 	public BasketVO directPayFromProduct(BasketVO vo) throws Exception{
 		return sqlSession.selectOne(Namespace+".directPayFromProduct",vo);
+	}
+	
+	public int insertPaymentInfo(PayInfoVO vo) throws Exception{
+		return sqlSession.insert(Namespace+".insertPaymentInfo",vo);
+	}
+	
+	public PayInfoVO payConfirm(PayInfoVO vo) throws Exception{
+		return sqlSession.selectOne(Namespace+".payConfirm",vo);
 	}
 	
 }

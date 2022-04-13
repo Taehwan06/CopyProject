@@ -13,7 +13,9 @@
 	<!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
-	
+	<!-- kakao SDK -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+		
 	<title>홈 프렌즈에 오신걸 환영합니다.</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">

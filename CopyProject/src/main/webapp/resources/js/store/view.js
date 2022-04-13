@@ -268,4 +268,130 @@ function cntFn2(){
 	var sum_price = selectCnt*price;
 	$('.sum_price').text(sum_price);
 }
+function qnaInFn(){
+	if(loginYN){
+		location.href="store_qna_insert.do?spidx="+spidx;
+	}else{
+		alert("로그인 후 이용하여 주세요.");
+	}
+}
+function Q_modifyFn(sqidx){
+	if(loginYN){
+		location.href="store_qna_modify.do?spidx="+spidx+"&sqidx="+sqidx;
+	}else{
+		alert("로그인 후 이용하여 주세요.");
+	}
+}
+
+//답변작성란출력
+function A_writeFn(obj,sqidx){
+	$(".qna_a_area_").remove();
+	var html = "<div class='qna_a_area qna_a_area_'>"
+				+"<div>"
+				+"<span class='qna_qa'>A</span><c:out value='${loginUser.nick_name}'/>"
+				+"<div style='float: right; padding-top:10px; '>"
+				+"<span class='A_write' onclick='A_insert("+sqidx+")'>저장</span>"
+				+" <span class='A_write' onclick='page_reload()'>취소</span>"
+				+"</div>"
+				+"</div>"
+				+"<div class='qna_content_font qna_a_back'>"
+				+"<textarea class='A_textarea'></textarea>"
+				+"</div>"
+				+"</div>"
+	$(obj).parent().parent().after(html);
+}
+function A_modifyFn(obj,sqidx){
+	$(".qna_a_area_").remove();
+	var content = $(obj).parent().next().html()
+	content = content.replace(/(<br>|<brV>|<br V>)/g,'\r\n');
+	var html = "<div class='qna_a_area qna_a_area_'>"
+				+"<div>"
+				+"<span class='qna_qa'>A</span><c:out value='${loginUser.nick_name}'/>"
+				+"<div style='float: right; padding-top:10px; '>"
+				+"<span class='A_write' onclick='A_insert("+sqidx+")'>저장</span>"
+				+" <span class='A_write' onclick='page_reload()'>취소</span>"
+				+"</div>"
+				+"</div>"
+				+"<div class='qna_content_font qna_a_back'>"
+				+"<textarea class='A_textarea'>"+content+"</textarea>"
+				+"</div>"
+				+"</div>"
+	$(obj).parent().parent().after(html);
+	$(obj).parent().parent().remove();
+}
+
+function A_insert(sqidx){
+	var content = $(".A_textarea").val();
+	content = content.replace(/(\n|\r\n)/g,'<br>');
+	if(content != ""){
+		$.ajax({
+			type : "POST",
+			url : "store_qna_a_insert.do",
+			data : "answer_content="+content+"&sqidx="+sqidx,
+			success : function(res) {
+				
+				console.log(res);
+				if(res>0){
+					alert("답변이 등록되었습니다.");
+					location.reload();
+				}else{
+					alert("실행오류");
+				}
+			}
+		});
+	}else{
+		alert("공백은 등록할수 없습니다..");
+	}
+}
+function A_delFn(sqidx){
+	var isCancel = false;
+	var tx1 = confirm("답변을 삭제하시겠습니까?");
+	if(tx1){
+		isCancel = confirm("확인을 누르면 답변이 삭제됩니다.");
+	}
+	
+	if(isCancel){
+		$.ajax({
+			type : "POST",
+			url : "store_qna_a_del.do",
+			data : "sqidx="+sqidx,
+			success : function(res) {
+				console.log(res);
+				if(res>0){
+					alert("답변이 삭제되었습니다.");
+					location.reload();
+				}else{
+					alert("실행오류");
+				}
+			}
+		});
+	}
+}
+function Q_delFn(sqidx){
+	var isCancel = false;
+	var tx1 = confirm("문의를 삭제하시겠습니까?");
+	if(tx1){
+		isCancel = confirm("확인을 누르면 문의가 삭제됩니다.");
+	}
+	
+	if(isCancel){
+		$.ajax({
+			type : "POST",
+			url : "store_qna_q_del.do",
+			data : "sqidx="+sqidx+"&midx="+midx,
+			success : function(res) {
+				console.log(res);
+				if(res>0){
+					alert("문의가 삭제되었습니다.");
+					location.reload();
+				}else{
+					alert("실행오류");
+				}
+			}
+		});
+	}
+}
+function page_reload(){
+	location.reload();
+}
 			

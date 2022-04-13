@@ -85,7 +85,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(Locale locale, Model model, HttpServletRequest req, MemberVO vo) throws Exception {
+	public String login(Locale locale, Model model, HttpServletRequest request, MemberVO vo) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -93,7 +93,7 @@ public class LoginController {
 		
 		model.addAttribute("searchList", searchList);
 		
-		HttpSession session = req.getSession();
+		HttpSession session = request.getSession();
 		MemberVO loginUser = memberService.login(vo);
 		
 		if(loginUser == null) {
@@ -343,6 +343,28 @@ public class LoginController {
 		}else {
 			return "fail";
 		}
+	}
+	
+	@RequestMapping(value = "/kakaoLogin.do", method = RequestMethod.POST)
+	public String kakaoLogin(Locale locale, Model model, HttpServletRequest request, MemberVO vo) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		HttpSession session = request.getSession();
+		
+		
+		MemberVO kakaoUser = new MemberVO();
+		kakaoUser.setNick_name(vo.getNick_name());
+		kakaoUser.setProfile_system("kakao.png");
+		
+		session.setAttribute("kakaoUser", kakaoUser);
+		
+		return "redirect: /controller/";
+		
 	}
 	
 }

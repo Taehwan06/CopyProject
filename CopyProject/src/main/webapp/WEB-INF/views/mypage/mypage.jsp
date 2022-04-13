@@ -98,9 +98,10 @@
 					</div>
 					<br>
 					<div id="mystory_btn">
-						<button>내가 작성한 리뷰</button>
 						<button onclick="location.href='${pageContext.request.contextPath}/mypage/mypage_allStory.do'">내가 쓴 글</button>
-						<button>내가 쓴 댓글</button>
+						<button onclick="location.href='${pageContext.request.contextPath}/mypage/my_comment.do'">나의 댓글</button>
+						<button>나의 리뷰</button>
+						<button onclick="location.href='${pageContext.request.contextPath}/mypage/my_QnA.do'">나의 문의</button>
 					</div>
 				</div>
 			</div>

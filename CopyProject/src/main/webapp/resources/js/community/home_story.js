@@ -108,3 +108,7 @@ $(window).resize(function() {
 			$("#subNav2").css({"display" : "none"});
 	}
 });
+function writeFn(){
+	alert("로그인 후 이용 가능합니다.");
+	location.href='home_insert.do';
+}

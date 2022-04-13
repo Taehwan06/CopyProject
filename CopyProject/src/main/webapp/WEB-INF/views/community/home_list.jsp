@@ -25,21 +25,31 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/footer.js"></script>
-
+	<script>
+		var sort = "${param.sort}"
+		console.log(sort);
+	</script>
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
 	
 	<!-- 본문 영역 -->
-	<button class="write_btn" onclick="location.href='home_insert.do'">
-		글쓰기
-	</button>
+	<c:if test="${loginUser == null }">
+		<button class="write_btn" onclick="writeFn()">
+			글쓰기
+		</button>
+	</c:if>
+	<c:if test="${loginUser != null }">
+		<button class="write_btn" onclick="location.href='home_insert.do'">
+			글쓰기
+		</button>
+	</c:if>
 	<section id="Community_area">
 		<div class="row" id="sectionDiv">
-			<div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 list_"><button class="list_btn" onclick="listFn(this)" id="recent">최신글</button></div>
-			<div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 list_"> <button class="list_btn" onclick="listFn(this)">조회수</button></div>
-			<div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 list_"><button class="list_btn" onclick="listFn(this)">좋아요</button></div>
+			<div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 list_"><button class="list_btn selected" onclick="listFn('recent')" id="recent">최신글</button></div>
+			<div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 list_"> <button class="list_btn" onclick="listFn('view')" id="view">조회수</button></div>
+			<div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 list_"><button class="list_btn" onclick="listFn('scrap')" id="scrap">좋아요</button></div>
 		</div>
 		<div class="row" id="sectionDiv">
 			<div class="col-4 col-sm-2 col-md-2 list_all">전체${listCnt}</div>

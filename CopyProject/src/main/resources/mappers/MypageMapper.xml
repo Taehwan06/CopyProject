@@ -49,6 +49,17 @@
          	midx = #{midx}
     </update>
     
+     <update id="updateAddr"  parameterType="MemberVO">
+    	UPDATE 
+    		member
+		SET 
+    	   	post_code = #{post_code},
+    	   	addr = CONCAT(#{addr1}," ",#{addr2}) 
+		WHERE 
+         	midx = #{midx}
+    </update>
+    
+    
     
     <update id="modifyMember" parameterType="MemberVO">
     	UPDATE member 
@@ -191,5 +202,28 @@
     
     </select>
     
+   
+    <select id="mycomment" resultType="MyContentVO" parameterType="MyContentVO">
+    	SELECT 
+    		B.title, 
+    		B.writer,
+    		B.write_date, 
+    		B.reply_cnt, 
+    		B.hit_cnt,
+    		B.img_system, 
+    		B.img_origin,
+    		B.cbidx,
+    		R.content
+  		 FROM 
+  		 	community_board B
+  		 INNER JOIN 
+  		 	community_reply R
+		ON
+			 B.cbidx = R.cbidx
+		WHERE 	
+			R.midx = #{midx}
+		AND
+    		R.del_yn = "N"
+    </select>
     
 </mapper>

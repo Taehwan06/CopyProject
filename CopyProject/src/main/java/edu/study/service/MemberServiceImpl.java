@@ -1,5 +1,7 @@
 package edu.study.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +62,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO refreshMember(MemberVO vo) throws Exception {
 		return memberDao.refreshMember(vo);
+	}
+	
+	//회원번호로 정보 가져오기
+	@Override
+	public MemberVO inquiryOfUserByMidx(int midx) throws Exception {
+		
+		return memberDao.inquiryOfUserByMidx(midx);
+	}
+	
+	//회원 리스트 가져오기
+	@Override
+	public List<MemberVO> mlist() throws Exception {
+		
+		return memberDao.mlist();
 	}
 
 

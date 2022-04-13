@@ -8,6 +8,11 @@ body{
 	margin: auto;
 }
 
+#facebook, #kakao, #naver{
+	cursor: pointer;
+	margin: 10px;
+}
+
 @media screen and (min-width: 1400px){
 	#headerDiv,.navbar{
 		width: 80%;

@@ -13,7 +13,7 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 
-	<title>내가 작성한 글 모두보기</title>
+	<title>나의 홈스토리</title>
 
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -65,14 +65,14 @@
 <!-- ===============================================================프로필영역================================================================ -->
 <!-- ==================================================================================================================================== -->
 			<div class="col-12 col-lg-9 mydiv2">
-				<div class="mydivtitle mydiv2-2">내 홈스토리 모두보기</div>
+				<div class="mydivtitle mydiv2-2">나의 홈스토리</div>
 				<div id="AllstoryDiv">	
 					<c:forEach items="${Storylist}" var="vo" varStatus="cnt">
 						<div id ="myStoryDiv">
 							<input type="hidden" value="${vo.cbidx}">
-							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}"><img class="all_homestroy_img" src="/controller/upload/${vo.img_system}"><br><span>${vo.title} </span></a>
+							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="all_homestroy_img" src="/controller/upload/${vo.img_system}"><br><span>${vo.title} </span></a>
 						</div>	
-					</c:forEach>
+					</c:forEach>	
 					
 				</div>
 			</div>

@@ -9,9 +9,9 @@ function selectFn(obj){
 }
 
 function paidConfirmFn(){
-   
-   document.hiddenFrm.method = "post";
-    document.hiddenFrm.action = "payConfirm";
-    document.hiddenFrm.submit();
+	
+	document.hiddenFrm.method = "post";
+	document.hiddenFrm.action = "payConfirm";
+	document.hiddenFrm.submit();
     
 }

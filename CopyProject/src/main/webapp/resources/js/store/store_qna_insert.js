@@ -80,9 +80,7 @@ $(function() {
 
 $(document).ready(function() {
 	
-	$('#summernote').summernote({
-		width : 750,
-		maxWidth : 750, 
+	$('#summernote').summernote({ 
 		minHeight: 300,             // 최소 높이
 		maxHeight: null,             // 최대 높이
 		focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부

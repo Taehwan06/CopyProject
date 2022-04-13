@@ -45,7 +45,7 @@ public class HomeController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws Exception {
+	public String home(Locale locale, Model model, SearchVO vo) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -53,7 +53,7 @@ public class HomeController {
 		
 		model.addAttribute("searchList", searchList);
 		
-		List<Community_BoardVO> list = Community_boardService.list();
+		List<Community_BoardVO> list = Community_boardService.list(vo);
 	      
 	    model.addAttribute("list",list);
 	    
