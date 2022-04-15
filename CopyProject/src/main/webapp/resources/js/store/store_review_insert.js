@@ -1,8 +1,3 @@
-function radiockFn(){
-		console.log($('input:radio[name="reviewStar"]').is(':checked'));
-	}
-
-
 function submitFn(){
 	var result = true;
 
@@ -11,9 +6,9 @@ function submitFn(){
 	var info = document.getElementById("contentInfo");
 	if(value == ""){
 		result = false;
-		info.style.visibility = "visible";
+		info.style.display = "inline";
 	}else{
-		info.style.visibility = "hidden";
+		info.style.display = "none";
 	}
 	
 	
@@ -21,22 +16,28 @@ function submitFn(){
 	info = document.getElementById("starInfo");
 	if(!starck){
 		result = false;
-		info.style.visibility = "visible";
+		info.style.display = "inline";
 	}else{
-		info.style.visibility = "hidden";
+		info.style.display = "none";
 	}
 	
-	if(result){/*넘길데이터 정리해야함 제대로 넘어가는지 확인해야함 controllre작업해야함*/
+	if(result){
 		var img_style = $("#imgArea").attr("style");
 		/*img_style= img_style.replace(/&/g,"%26");*/
-		img_style= img_style.replace(/\+/g,"%2B");
+		console.log(img_style);
+		if(img_style != "" && img_style != null){
+			img_style= img_style.replace(/\+/g,"%2B");
+		}
 		/*img_style= img_style.replace(/=/g,"%3D");*/
 		/*
 		console.log($("#insertFrm").serialize());*/
+		var content =$("#reviewContents").val();
+		content = content.replace(/(<br>|<brV>|<br V>)/g,'\r\n');
+		var score = $("input:radio[name='score']:checked").val( );
 		$.ajax({
 			type : "POST",
 			url : "store_review_insert.do",
-			data : $("#myform").serialize()+"&img_style="+img_style,
+			data : "content="+content+"&score="+score+"&img_style="+img_style+"&spidx="+spidx,
 			success : function(res) {
 				
 				console.log(res);
@@ -51,7 +52,7 @@ function submitFn(){
 	}
 }
 
-/*function readURL(input) {
+function readURL(input) {
 	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
 	
 	var fileValue = document.getElementById("imgUpload").value;
@@ -72,8 +73,11 @@ function submitFn(){
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-}*/
-
+}
+function resize(obj) {
+    obj.style.height = '1px';
+    obj.style.height = (12 + obj.scrollHeight) + 'px';
+}
 
 $(function() {
 	$("#imgUpload").on("change", function(){
@@ -122,6 +126,29 @@ function cancelFn(){
    }
 }
 
+function readURL(input) {
+	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
+	
+	var fileValue = document.getElementById("imgUpload").value;
+	
+	var fileNameAry = fileValue.split("\\");
+	var fileNameBe = fileNameAry[2];
+	var fileName = fileNameBe.toLowerCase();
+	
+	if(regex.test(fileName)){
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("#imgArea").css("background-color", "none");
+				$("#imgArea").css("background-image", "url('"+e.target.result+"')");
+				$("#imgText").css("display", "none");
+				$("#imgButton").css("display", "none");
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+}
+//textarea크기 자동조절
 function adjustHeight() {
    var textEle = $(".note-editable");
    textEle[0].style.height = 'auto';
@@ -134,6 +161,8 @@ var textEle = $(".note-editable");
 textEle.on('keyup', function() {
    adjustHeight();
 });
+
+
 
 $(document).ready(function() {
 	

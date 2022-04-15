@@ -12,6 +12,7 @@ import edu.study.vo.BasketVO;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
+import edu.study.vo.MyQnaVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.OrderListVO;
 
@@ -133,6 +134,13 @@ public class MypageServiceImpl implements MypageService {
 	public List<MyContentVO> mycomment(MyContentVO vo) throws Exception {
 		
 		List<MyContentVO> result = mypageDao.mycomment(vo); 
+		return result;
+	}
+
+
+	@Override
+	public List<MyQnaVO> myquestion(MyQnaVO vo) throws Exception {
+		List<MyQnaVO> result = mypageDao.myquestion(vo); 
 		return result;
 	}
 

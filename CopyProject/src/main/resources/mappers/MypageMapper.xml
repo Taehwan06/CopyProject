@@ -214,16 +214,39 @@
     		B.img_origin,
     		B.cbidx,
     		R.content
-  		 FROM 
+  		FROM 
   		 	community_board B
-  		 INNER JOIN 
+  		INNER JOIN 
   		 	community_reply R
 		ON
-			 B.cbidx = R.cbidx
+			B.cbidx = R.cbidx
 		WHERE 	
 			R.midx = #{midx}
 		AND
     		R.del_yn = "N"
     </select>
+    
+    <select id="myquestion" resultType="MyQnaVO" parameterType="MyQnaVO">
+    	SELECT 
+    		Q.content,
+    		Q.write_date, 
+    		Q.del_yn, 
+    		P.title, 
+    		P.brand,
+    		P.img_system, 
+    		P.img_origin,
+    		Q.spidx
+  		FROM 
+  		 	shopping_product P
+  		INNER JOIN 
+  		 	shopping_QnA Q
+		ON
+			Q.spidx = P.spidx
+		WHERE 	
+			Q.midx = #{midx}
+		AND
+    		Q.del_yn = "N"
+    </select>
+    
     
 </mapper>

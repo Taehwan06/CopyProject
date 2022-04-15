@@ -42,7 +42,7 @@
 						<div class="number_order">주문번호:${detailOrder.ordernumber} (${ detailOrder.buying_date})</div>
 						<hr>
 						<div class="row">
-							<div class="col-3 imgDiv"><img src="/controller/image/${detailOrder.img_origin}"></div>
+							<div class="col-3 imgDiv"><img src="${detailOrder.img_origin}"></div>
 							<div class="col-9">
 								<div class="row">
 									<div class = "col-4 ligtD">${detailOrder.title}</div>

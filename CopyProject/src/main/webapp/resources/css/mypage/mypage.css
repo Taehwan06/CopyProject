@@ -192,6 +192,13 @@
 			cursor:pointer;
 		}
 		
+		.no{
+			text-align:center;
+			font-weight:bolder;
+			font-size:large;
+			margin-top:60px;
+		}
+		
 		/*AllStory CSS*/
 		
 		.all_homestroy_img{
@@ -224,9 +231,14 @@
 		
 		#myStoryDiv span{
 			margin-left:5px;
-			font-size:19px;
+			font-size:16px;
 			font-weight:bold;
 		}
+		
+		#myStoryDiv span:hover{
+			color:#dcdcdc;
+		}
+		
 		
 		
 		/*미디어쿼리*/

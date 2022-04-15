@@ -1,0 +1,181 @@
+@charset "UTF-8";
+section{
+	margin: auto;
+	max-width: 1560px;
+	width: 100%;
+}
+.sectionTitle{
+	font-size: 25px;
+	margin-bottom: 20px;
+	margin-left: 50px;
+}
+#sectionContent{
+	width: 95%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 50px;
+}
+.borderDiv{
+	display: inline-block;
+	border: 3px solid lightgray;
+	min-height: 40px;
+	border-radius: 10px;
+	margin: 5px 0px;
+}
+.data{
+	font-size: 17px;
+	min-height: 40px;
+	text-align: center;
+	padding-top: 8px;
+}
+#addrTitle{
+	padding-top: 8px;
+}
+
+#profileImg{
+	max-width: 100%;
+	height: 150px;
+}
+#profileImgTitle{
+	padding-top: 60px;
+}
+#profileImgContent{
+	padding: 0px;
+}
+.right{
+	border-left: 2px solid lightgray;
+}
+
+#buttonArea{
+	text-align: right;
+	margin-bottom: 40px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.button{
+	width: 120px;
+	height: 30px;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	color: white;
+	font-weight: bold;
+	margin: 5px;
+}
+.button:hover{
+	background-color: white;
+	color: #ffb6c1;
+	font-weight: bold;
+}
+
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+	.sidebar_menu{
+		width: 400px;
+	}
+	.data{
+		font-size: 15px;
+		padding-right: 6px;
+		padding-left: 6px;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.sidebar_menu{
+		width: 100%;
+		max-width: 400px;
+	}
+	.data{
+		font-size: 13px;
+		padding-right: 3px;
+		padding-left: 3px;
+	}
+}

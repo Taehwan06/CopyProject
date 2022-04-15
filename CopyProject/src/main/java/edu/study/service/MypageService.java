@@ -5,6 +5,7 @@ import java.util.List;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
+import edu.study.vo.MyQnaVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.OrderListVO;
 
@@ -19,6 +20,7 @@ public interface MypageService {
 	List<Community_BoardVO> viewStory(Community_BoardVO vo) throws Exception;
 	List<OrderListVO> detailOrder(OrderListVO vo) throws Exception;
 	List<MyContentVO> mycomment(MyContentVO vo) throws Exception;
+	List<MyQnaVO> myquestion(MyQnaVO vo) throws Exception;
 	
 	
 	int update(MemberVO vo) throws Exception;

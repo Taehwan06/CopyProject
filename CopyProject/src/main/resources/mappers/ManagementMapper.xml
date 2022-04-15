@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.managementMapper">
+
+	<select id="allMemberList" resultType="memberVO">
+		SELECT
+			midx,
+    		id,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		join_date,
+    		recommender,
+    		mileage,
+    		grade,
+    		del_yn,
+    		del_cause,
+    		del_date,
+    		blacklist_yn,
+    		black_cause,
+    		blacklist_date,
+    		follower_cnt,
+    		post_code,
+    		addr,
+    		profile_system
+		FROM
+			member
+		WHERE
+			1 = 1
+    </select>
+    
+    
+    <!-- 회원 수 조회 -->
+	<select id="countMember" resultType="int" parameterType="MemberPagingVO">
+			SELECT 
+				COUNT(midx) 
+			FROM 
+				member
+			WHERE
+				1 = 1
+		<if test="searchType != null and searchType.equals('id')">
+			AND 
+				id like CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('nick')">
+			AND 
+				nick_name LIKE CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('membername')">
+			AND 
+				membername LIKE CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('midx')">
+			AND 
+				midx = #{searchValue}
+		</if>
+		<if test="searchType != null and searchType.equals('phone')">
+			AND 
+				phone LIKE CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('delyn')">
+			AND 
+				del_yn = #{searchValue}
+		</if>
+			
+	</select>
+	
+	<!-- 페이징 처리 후 회원 목록 조회 -->
+	<select id="selectPagingMember" resultType="MemberVO" parameterType="MemberPagingVO">
+		SELECT 
+			B.* 
+		FROM 
+			(SELECT 
+				@ROWNUM := @ROWNUM + 1 AS RN, 
+				A.* 
+			FROM 
+				(SELECT 
+					* 
+				FROM 
+					member 
+				WHERE 
+					1 = 1 
+			<if test="searchType != null and searchType.equals('id')">
+				AND 
+					id like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('nick')">
+				AND 
+					nick_name like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('membername')">
+				AND 
+					membername like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('midx')">
+				AND 
+					midx = #{searchValue}
+			</if>
+			<if test="searchType != null and searchType.equals('phone')">
+				AND 
+					phone like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('delyn')">
+				AND 
+					del_yn = #{searchValue}
+			</if>
+				ORDER BY 
+					midx ASC 
+				) A, 
+				(SELECT @ROWNUM := 0) R
+			) B
+		WHERE 
+			RN BETWEEN #{start} AND #{end}
+	</select>
+    
+    
+    <select id="selectOneMember" resultType="ManagementMemberVO" parameterType="MemberPagingVO">
+    	SELECT
+			*
+		FROM
+			member
+		WHERE
+			midx = #{midx}
+    </select>
+    
+    
+    <update id="withdrawMember" parameterType="MemberPagingVO">
+    	UPDATE
+    		member
+    	SET
+    		del_yn = "Y",     	
+    		del_cause = "관리자에 의해 강제 탈퇴",     	
+    		del_date = now() 
+    	WHERE
+    		midx = #{midx}
+    </update>
+    
+    
+    <update id="restoreMember" parameterType="MemberPagingVO">
+    	UPDATE
+    		member
+    	SET
+    		del_yn = "N", 
+    		del_cause = "관리자에 의해 탈퇴 복구됨", 
+    		del_date = now() 
+    	WHERE
+    		midx = #{midx}
+    </update>
+    
+    
+    <update id="modifyMember" parameterType="ManagementMemberVO">
+    	
+    	UPDATE
+    		member
+    	SET
+    		nick_name = #{nick_name}, 
+    		membername = #{membername}, 
+    		gender = #{gender}, 
+    		grade = #{grade}, 
+    		blacklist_yn = #{blacklist_yn}, 
+    	
+   		<if test="blacklist_yn eq 'Y'.toString()">
+   			blacklist_date = now(), 
+   		</if>
+   		
+    		black_cause = #{black_cause}
+    	WHERE
+    		midx = #{midx}
+    	
+    </update>
+    
+    
+    <update id="imgDelMember" parameterType="MemberPagingVO">
+    	UPDATE
+    		member
+    	SET
+    		profile_system = "kakao_profile_basic.png"
+    	WHERE
+    		midx = #{midx}
+    </update>
+    
+    
+    <select id="statsMember" parameterType="MemberPagingVO" resultType="StatsVO">
+    	SELECT 
+    		COUNT(DISTINCT o.ordernumber) AS buyingCnt, 
+    		o.ordernumber, 
+    		m.midx, 
+    		m.id, 
+    		m.join_date, 
+    		FORMAT(SUM(o.price*o.cnt), 0) AS amount,
+			MAX(o.buying_date) AS recentBuying
+		FROM 
+			order_list o 
+		JOIN 
+			member m
+		ON 
+			o.midx = m.midx
+		GROUP BY 
+			o.midx
+		ORDER BY 
+			m.midx asc
+    </select>
+    
+    
+    <!-- 구매 통계 수 조회 -->
+	<select id="countStats" resultType="int" parameterType="MemberPagingVO">
+			SELECT 
+	    		COUNT(DISTINCT m.midx) 
+			FROM 
+				order_list o 
+			JOIN 
+				member m
+			ON 
+				o.midx = m.midx
+			WHERE
+				1 = 1
+		<if test="searchType != null and searchType.equals('id')">
+			AND 
+				id like CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('nick')">
+			AND 
+				nick_name like CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('membername')">
+			AND 
+				membername like CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('midx')">
+			AND 
+				midx = #{searchValue}
+		</if>
+		<if test="searchType != null and searchType.equals('phone')">
+			AND 
+				phone like CONCAT("%",#{searchValue},"%")
+		</if>
+		<if test="searchType != null and searchType.equals('delyn')">
+			AND 
+				del_yn = #{searchValue}
+		</if>
+	</select>
+	
+	
+	<!-- 페이징 처리 후 구매 통계 조회 -->
+	<select id="selectPagingStats" resultType="StatsVO" parameterType="MemberPagingVO">
+		SELECT 
+			B.* 
+		FROM 
+			(SELECT 
+				@ROWNUM := @ROWNUM + 1 AS RN, 
+				A.* 
+			FROM 
+				(SELECT 
+		    		COUNT(DISTINCT o.ordernumber) AS buyingCnt, 
+		    		o.ordernumber, 
+		    		m.midx, 
+		    		m.id, 
+		    		m.join_date, 
+		    		FORMAT(SUM(o.price*o.cnt), 0) AS amount,
+					MAX(o.buying_date) AS recentBuying
+				FROM 
+					order_list o 
+				JOIN 
+					member m
+				ON 
+					o.midx = m.midx
+				WHERE 
+					1 = 1 
+			<if test="searchType != null and searchType.equals('id')">
+				AND 
+					id like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('nick')">
+				AND 
+					nick_name like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('membername')">
+				AND 
+					membername like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('midx')">
+				AND 
+					midx = #{searchValue}
+			</if>
+			<if test="searchType != null and searchType.equals('phone')">
+				AND 
+					phone like CONCAT("%",#{searchValue},"%")
+			</if>
+			<if test="searchType != null and searchType.equals('delyn')">
+				AND 
+					del_yn = #{searchValue}
+			</if>
+				GROUP BY 
+					o.midx
+				ORDER BY 
+					m.midx asc 
+				) A, 
+				(SELECT @ROWNUM := 0) R
+			) B
+		WHERE 
+			RN BETWEEN #{start} AND #{end}
+	</select>
+    
+    
+	<select id="orderList" resultType="StatsVO" parameterType="MemberPagingVO">
+		SELECT
+			*
+		FROM
+			order_list
+		WHERE
+			midx = #{midx}
+		ORDER BY
+			buying_date DESC
+	</select>
+    
+    
+</mapper>

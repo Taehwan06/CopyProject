@@ -302,7 +302,7 @@ function A_writeFn(obj,sqidx){
 }
 function A_modifyFn(obj,sqidx){
 	$(".qna_a_area_").remove();
-	var content = $(obj).parent().next().html()
+	var content = $(obj).parent().next().html();
 	content = content.replace(/(<br>|<brV>|<br V>)/g,'\r\n');
 	var html = "<div class='qna_a_area qna_a_area_'>"
 				+"<div>"

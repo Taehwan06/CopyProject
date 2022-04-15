@@ -31,6 +31,7 @@ import edu.study.vo.MemberVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.StoreVO;
 import edu.study.vo.Store_qnaVO;
+import edu.study.vo.Store_reviewVO;
 
 /**
  * Handles requests for the application home page.
@@ -415,13 +416,13 @@ public class StoreController {
 		
 		//상품정보
 		StoreVO selectOne = storeService.detail(spidx);
-			//문의글 갯수 가져오기
+		//문의글 갯수 가져오기
 		int qna_cnt = storeService.qna_cnt(spidx);
 		
 		selectOne.setQna_cnt(qna_cnt);
 		
 		model.addAttribute("vo",selectOne);
-		
+		//문의글 가져오기
 		List<Store_qnaVO> qnaList = storeService.qnaList(spidx);
 		
 		model.addAttribute("qnaList",qnaList);
@@ -446,21 +447,27 @@ public class StoreController {
 		return "store/store_review_insert";
 	}
 	@RequestMapping(value = "/store_review_insert.do", method = RequestMethod.POST)
-	public @ResponseBody String store_review_insertOK(HttpServletRequest request, Locale locale, Model model, Store_qnaVO vo) throws Exception {
+	public @ResponseBody String store_review_insertOK(HttpServletRequest request, Locale locale, Model model, Store_reviewVO vo,  @RequestParam String img_style) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
+		if(img_style != null && img_style.equals("")) {
+			int idx1 = img_style.indexOf("url(");
+			int idx2 = img_style.lastIndexOf("\"");
+			String new_img_style = img_style.substring(idx1+5, idx2);
+			vo.setImg_origin(new_img_style);
+			vo.setImg_system(new_img_style);
+		}
 		
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("loginUser");
 		vo.setMidx(member.getMidx());
 		vo.setWriter(member.getNick_name());
 		
-		int result = storeService.qnaIn(vo);
-		
+		int result = storeService.store_review_insert(vo);
 		return result+"";
 	}
 	

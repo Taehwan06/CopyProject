@@ -48,7 +48,7 @@
 			<c:if test="${loginUser == null && kakaoUser == null}">
 				<li class="col-md-2 mainMenu" id="menuJoin" onclick="location.href='${pageContext.request.contextPath}/login/join.do'">회원가입</li>
 			</c:if>
-			<c:if test="${loginUser != null}">
+			<c:if test="${loginUser != null && loginUser.grade ne 'A' && loginUser.grade ne 'M'}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
 					<img id="navProfileImg" src="/controller/image/${loginUser.profile_system}"> ${loginUser.nick_name}
 				</li>
@@ -56,6 +56,11 @@
 			<c:if test="${kakaoUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
 					<img id="navProfileImg" src="/controller/image/${kakaoUser.profile_system}"> ${kakaoUser.nick_name}
+				</li>
+			</c:if>
+			<c:if test="${loginUser != null && (loginUser.grade eq 'A' or loginUser.grade eq 'M')}">
+				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/management/member_list.do'">
+					<img id="navProfileImg" src="/controller/image/${loginUser.profile_system}"> ${loginUser.nick_name}
 				</li>
 			</c:if>
 		</ul>

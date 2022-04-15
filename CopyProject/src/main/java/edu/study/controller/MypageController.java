@@ -32,6 +32,7 @@ import edu.study.vo.Community_BoardVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
+import edu.study.vo.MyQnaVO;
 import edu.study.vo.OrderListVO;
 import edu.study.vo.PayInfoVO;
 import edu.study.vo.SearchVO;
@@ -416,7 +417,7 @@ public class MypageController {
 	
 
 	@RequestMapping(value = "/my_QnA.do", method = RequestMethod.GET)
-	public String my_QnA(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,MyContentVO list) throws Exception {
+	public String my_QnA(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,MyQnaVO list) throws Exception {
 
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -435,8 +436,8 @@ public class MypageController {
 	  		int Midx = loginUser.getMidx();
 			list.setMidx(Midx);
 	  		
-	  		List<MyContentVO> Commentlist = mypageService.mycomment(list);
-	  		model.addAttribute("Commentlist", Commentlist);
+	  		List<MyQnaVO> QnAlist = mypageService.myquestion(list);
+	  		model.addAttribute("QnAlist", QnAlist);
 	  		
 	  		return "mypage/my_QnA";
 		      
@@ -844,7 +845,7 @@ public class MypageController {
 				ordernumber += midxStr;
 			}
 			
-			System.out.println("ordernumberCon1="+ordernumber);
+			
 			
 			int paidAmount = 0;
 			
@@ -862,8 +863,6 @@ public class MypageController {
 			payInfovo.setPaynumber(ordernumber);
 			
 			model.addAttribute("payInfovo", payInfovo);
-			
-			System.out.println("ordernumberCon2="+ordernumber);
 			
 			int insertPaymentResult = basketService.insertPaymentInfo(payInfovo);
 			
@@ -1003,9 +1002,9 @@ public class MypageController {
 			int spidx = Integer.parseInt(request.getParameter("spidx"));
 			int cnt = Integer.parseInt(request.getParameter("cnt"));
 			
-	//		if(midx != loginUser.getMidx()) {
-	//			return "redirect:/login/login.do";
-	//		}
+			if(midx != loginUser.getMidx()) {
+				return "redirect:/login/login.do";
+			}
 			
 			vo.setSpidx(spidx);
 			BasketVO directvo = basketService.directPayFromProduct(vo);
@@ -1017,10 +1016,42 @@ public class MypageController {
 			
 			basketList.add(directvo);
 			
-			model.addAttribute("basketList", basketList);
 			
-			return "mypage/payment";
+			LocalDateTime now = LocalDateTime.now(); 
+			String ordernumber = now.format(DateTimeFormatter.ofPattern("YYMMddHHmmss"));
 			
+			String midxStr = Integer.toString(midx);
+			if(midx < 10) {
+				ordernumber += "000" + midxStr;
+			}else if(midx < 100 && midx > 9) {
+				ordernumber += "00" + midxStr;
+			}else if(midx < 1000 && midx > 99) {
+				ordernumber += "0" + midxStr;
+			}else {
+				ordernumber += midxStr;
+			}
+			
+			int paidAmount = (directvo.getPrice() * directvo.getCnt());
+			
+			PayInfoVO payInfovo = new PayInfoVO();
+			payInfovo.setMidx(loginUser.getMidx());
+			payInfovo.setAmount(Integer.toString(paidAmount));
+			payInfovo.setPaynumber(ordernumber);
+			
+			model.addAttribute("payInfovo", payInfovo);
+			
+			int insertPaymentResult = basketService.insertPaymentInfo(payInfovo);
+			
+			if(insertPaymentResult > 0) {
+				model.addAttribute("basketList", basketList);
+				
+				return "mypage/payment";
+			}else {
+				payInfovo.setErrorMsg("비정상적인 접근 error01"); // 주문 목록 불러오기 실패
+				model.addAttribute("payInfovo", payInfovo);
+				
+				return "mypage/order_fail";
+			}
 	    }
 	}
 	
@@ -1085,13 +1116,7 @@ public class MypageController {
 //			payInfovo.setPaynumber(payInfovo.getMerchantUid());
 			payInfovo.setAmount(payInfovo.getPaidAmount());
 			
-			System.out.println("paynumber="+payInfovo.getPaynumber());
-			System.out.println("amount="+payInfovo.getAmount());
-			System.out.println("midx="+payInfovo.getMidx());
-			
 			PayInfoVO checkvo = basketService.payConfirm(payInfovo);
-			
-			System.out.println("checkvo="+checkvo);
 			
 			if(checkvo != null) {
 				

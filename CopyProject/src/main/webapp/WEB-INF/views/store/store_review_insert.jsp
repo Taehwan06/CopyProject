@@ -60,7 +60,6 @@
 				<img id="product_img" class="col-3 col-md-3" alt="" src="${vo.img_origin}">
 				<div id="product_title" class="col-8 col-md-8"><c:out value="${vo.product_name}"/></div>
 			</div>
-			
 			<h2 id="page_sub_title">상품리뷰</h2>
 		</div>
 		<div class="center">
@@ -105,7 +104,7 @@
 			</fieldset>
 			<div id="starInfo">필수 입력 항목입니다.</div>
 			<div>
-				<textarea name="content" class="col-auto form-control" type="text" id="reviewContents"
+				<textarea name="content" class="col-auto form-control" type="text" id="reviewContents" onkeydown="resize(this)" onkeyup="resize(this)"
 						  placeholder="상품평을 남겨주세요."></textarea>
 			</div>
 			<div id="contentInfo">필수 입력 항목입니다.</div>
@@ -113,7 +112,6 @@
 			<div id="butttonArea">
 				<input type="button" id="submitButton" value="저장" onClick="submitFn()">
 				<input type="button" id="cancelButton" value="취소" onClick="cancelFn()">
-				<input type="button" id="cancelButton" value="별점여부" onClick="radiockFn()">
 			</div>
 		</form>	
 		

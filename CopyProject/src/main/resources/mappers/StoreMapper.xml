@@ -249,5 +249,29 @@
 		where sr.spidx = #{spidx} and sr.del_yn='N';
     </select>
     
+    <insert id="store_review_insert" parameterType="Store_reviewVO">
+	    	INSERT INTO shopping_review(
+	    		spidx,
+	    		midx,
+	    		content,
+	    		writer,
+	    		score
+	    		<if test="img_origin != null">
+	    		,img_origin
+	    		,img_system
+	    		</if>
+	    	) VALUES(
+	    		#{spidx},
+	    		#{midx},
+	    		#{content},
+	    		#{writer},
+	    		#{score}
+	    		<if test="img_origin != null">
+	    		,#{img_origin}
+	    		,#{img_system}
+	    		</if>
+	    	)
+    </insert>
+    
     
 </mapper>

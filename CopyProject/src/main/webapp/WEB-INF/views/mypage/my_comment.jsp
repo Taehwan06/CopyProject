@@ -67,33 +67,46 @@
 			<div class="col-12 col-lg-9 mydiv2">
 				<div class="mydivtitle mydiv2-2">나의 댓글</div>
 				<div class="mydivVacant"></div>
-			<c:forEach items="${Commentlist}" var="vo" varStatus="cnt">
-				<div id="mycomment">	
-					<div class="row">
-						<div class="col-8">
-							<p class="p1">
-								<i class="bi bi-chat chat"></i> 
-								<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1#reply_area">${vo.content}</a>
-							</p>
-							<p class="p2">${vo.title}</p> 
-							<p class="p3">
-								<strong>${vo.writer}</strong>
-								${vo.write_date}&nbsp;&#183; 
-								댓글&nbsp;${vo.reply_cnt}&nbsp;&#183; 
-								조회&nbsp;${vo.hit_cnt}
-							</p>	
+				<c:set var="length" value="${fn:length(Commentlist)}" />
+				<c:choose>
+					<c:when test="${length eq 0}">
+					<div id="mycomment">	
+						<div class="row">
+							<p class="no">아직 등록된 댓글이 없습니다.</p>
 						</div>
-						<div class="col-4 comment2">
-							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img src="/controller/image/${vo.img_origin}"></a>
-						</div>
-						<div class="mydivVacant"></div>
 					</div>
-				</div>	
-			</c:forEach>
+					</c:when>
+					
+					<c:when test="${length ne 0}">
+						<c:forEach items="${Commentlist}" var="vo" varStatus="cnt">
+						<div id="mycomment">	
+							<div class="row">
+							<div class="col-8">
+								<p class="p1">
+									<i class="bi bi-chat chat"></i> 
+									<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1#reply_area">${vo.content}</a>
+								</p>
+								<p class="p2">${vo.title}</p> 
+								<p class="p3">
+									<strong>${vo.writer}</strong>
+									${vo.write_date}&nbsp;&#183; 
+									댓글&nbsp;${vo.reply_cnt}&nbsp;&#183; 
+									조회&nbsp;${vo.hit_cnt}
+								</p>	
+							</div>
+							<div class="col-4 comment2">
+								<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img src="/controller/image/${vo.img_origin}"></a>
+							</div>
+							<div class="mydivVacant"></div>
+							</div>
+						</div>	
+						</c:forEach>
+					</c:when>
+				</c:choose>
 			</div>
-		</div>
+		</div><!-- row -->
 		<br><br><br><br>
-	</div>	
+	</div><!-- container -->
 	</section>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	

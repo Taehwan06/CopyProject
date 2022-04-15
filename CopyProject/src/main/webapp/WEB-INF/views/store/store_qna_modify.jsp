@@ -42,8 +42,11 @@
 	<script>
 		var spidx = "${param.spidx}";
 		var sqidx = "${qna_vo.sqidx}";
+		
+		var content = "${qna_vo.content}"
+		content = content.replace(/(<br>|<brV>|<br V>)/g,'\r\n');
+		
 	</script>
-	
 
 </head>
 <body>
@@ -62,7 +65,9 @@
 			<h2 id="page_sub_title">상품 문의 수정</h2>
 			
 			<div id="textArea">
-				<textarea id="summernote" name="content"><c:out value="${qna_vo.content}"/></textarea>
+				<textarea name="content" class="col-auto form-control" type="text" id="reviewContents" onkeydown="resize(this)" onkeyup="resize(this)">
+				
+				</textarea>
 			</div>
 			
 			<div id="contentInfo">필수 입력 항목입니다.</div>

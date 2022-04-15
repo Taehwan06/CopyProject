@@ -188,6 +188,9 @@ tbody td{
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
 	}
+	.recent{
+		display: none;
+	}
 }
 @media screen and (min-width: 576px) and (max-width: 767.99px){
 	#headerDiv, .navbar, section, footer{
@@ -213,7 +216,7 @@ tbody td{
 	.sidebar_menu{
 		width: 400px;
 	}
-	.birth{
+	.recent, .join{
 		display: none;
 	}
 }
@@ -231,7 +234,7 @@ tbody td{
 		width: 100%;
 		max-width: 400px;
 	}
-	.delyn, .birth{
+	.recent, .join{
 		display: none;
 	}
 }

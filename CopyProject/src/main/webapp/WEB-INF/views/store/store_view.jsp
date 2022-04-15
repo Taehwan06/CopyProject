@@ -149,7 +149,7 @@
 		</article>
 	<section id="Com_area">
 		<div class="row">
-			<div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 information_area">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 information_area">
 				<div id="shop_information_area_header">
 					상품정보
 				</div>
@@ -166,36 +166,33 @@
 					
 					
 					
-					<form class="mb-3" name="myform" id="myform" method="post">
-						<fieldset>
-							<span class="text-bold">별점을 선택해주세요</span>
-							<input type="radio" name="reviewStar" value="5" id="rate1"><label
-								for="rate1">★</label>
-							<input type="radio" name="reviewStar" value="4" id="rate2"><label
-								for="rate2">★</label>
-							<input type="radio" name="reviewStar" value="3" id="rate3"><label
-								for="rate3">★</label>
-							<input type="radio" name="reviewStar" value="2" id="rate4"><label
-								for="rate4">★</label>
-							<input type="radio" name="reviewStar" value="1" id="rate5"><label
-								for="rate5">★</label>
-						</fieldset>
-						<div>
-							<textarea class="col-auto form-control" type="text" id="reviewContents"
-									  placeholder="좋은 수강평을 남겨주시면 Cocolo에 큰 힘이 됩니다! 포인트 5000p도 지급!!"></textarea>
-						</div>
-					</form>	
 					
 					
 					
-					<%-- <ul class="review_list">
 					
-						<c:forEach items="${reviewList}" var="review">
-							<li class="review_list_item">
-								
-							</li>
-						</c:forEach>
-					</ul> --%>
+					<ul class="review_list">
+					
+						<%-- <c:forEach items="${reviewList}" var="review"> --%>
+							<li class="reply_list_item">
+							<article class="reply_item_">
+								<p class="reply_item_content">
+									<a class="reply_item_content_writer" href="">${rvo.writer }
+										<img class="reply_item_content_writer_image" src="/controller/image/${rvo.profile_system }">
+									</a>
+									<span class="reply_item_content_content">${rvo.content }</span>
+								</p>
+								<footer class="reply_item_footer">
+									<c:if test="${loginUser.midx == rvo.midx }">
+										<div class="mfdel">
+											<button class="replyUpdate" type="button" onclick="">수정</button>
+											<button class="replyDelete" type="button" onclick="">삭제</button>
+										</div>
+									</c:if>
+								</footer>
+							</article>
+						</li>
+						<%-- </c:forEach> --%>
+					</ul>
 				</div>
 				<div id="QnA_area_header">
 					<div>문의 <span>${vo.qna_cnt}</span></div>
@@ -392,7 +389,7 @@
 		function paymentInFn(){
 			console.log(${spidx});
 			if(${!empty loginUser}){
-				location.href="/controller/mypage/payment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
+				location.href="/controller/mypage/directPayment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
 			}else{
 				alert("로그인 후 이용가능 합니다.");
 			}

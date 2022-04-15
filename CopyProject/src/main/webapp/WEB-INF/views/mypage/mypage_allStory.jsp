@@ -66,15 +66,27 @@
 <!-- ==================================================================================================================================== -->
 			<div class="col-12 col-lg-9 mydiv2">
 				<div class="mydivtitle mydiv2-2">나의 홈스토리</div>
-				<div id="AllstoryDiv">	
-					<c:forEach items="${Storylist}" var="vo" varStatus="cnt">
-						<div id ="myStoryDiv">
-							<input type="hidden" value="${vo.cbidx}">
-							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="all_homestroy_img" src="/controller/upload/${vo.img_system}"><br><span>${vo.title} </span></a>
-						</div>	
-					</c:forEach>	
-					
-				</div>
+				<br><br>
+				<c:set var="length" value="${fn:length(Storylist)}" />
+				<c:choose>
+					<c:when test="${length eq 0}">
+					<div id="AllstoryDiv">	
+						<div class="row">
+							<p class="no">아직 등록된 글이 없습니다.</p>
+						</div>
+					</div>
+					</c:when>
+					<c:when test="${length ne 0}">
+					<div id="AllstoryDiv">	
+						<c:forEach items="${Storylist}" var="vo" varStatus="cnt">
+							<div id ="myStoryDiv">
+								<input type="hidden" value="${vo.cbidx}">
+								<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="all_homestroy_img" src="/controller/upload/${vo.img_system}"><br><span>${vo.title} </span></a>
+							</div>	
+						</c:forEach>	
+					</div>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 		<br><br><br><br>

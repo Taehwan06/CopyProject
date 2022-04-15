@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
+import edu.study.vo.MyQnaVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.OrderListVO;
 
@@ -90,6 +91,9 @@ public class MypageDAO {
 		return sqlSession.selectList(Namespace+".mycomment",vo);
 	}
 	
+	public List<MyQnaVO> myquestion(MyQnaVO vo) throws Exception{ 
+		return sqlSession.selectList(Namespace+".myquestion",vo);
+	}
 	
 }
 

@@ -8,126 +8,57 @@ section{
 	font-size: 25px;
 	margin-bottom: 20px;
 }
-#sectionSearchType{
-	width: 100px;
-	height: 30px;
-	border: 1px solid lightgray;
-	border-radius: 5px;
-}
-#sectionSearchType:focus{
-	outline: 2px solid #ffb6c1;
-	border: 2px solid #ffb6c1;
-}
-#sectionSearchValue{
-	width: 200px;
-	height: 30px;
-	border: 1px solid lightgray;
-	border-radius: 5px;
-}
-#sectionSearchValue:focus{
-	outline: 2px solid #ffb6c1;
-	border: 2px solid #ffb6c1;
-}
-#sectionSearchButton{
-	width: 50px;
-	height: 30px;
-	border: 2px solid #ffb6c1;
-	border-radius: 5px;
-	background-color: #ffb6c1;
-	color: white;
-	font-weight: bold;
-}
-#sectionSearchButton:hover{
-	background-color: white;
-	color: #ffb6c1;
-	font-weight: bold;
-}
 
-
-.memberTable{
+.statsTable{
 	text-align: center;
 	margin-top: 10px;
 }
-tbody tr:hover{
-	background-color: #ffe3ee;
-}
-tbody td{
-	cursor: pointer;
-}
 
-.pink{
-	margin-top: 30px;
-}
-.pink a{
-	color: #ffb6c1;
-	background-color: white;
-	border: 2px solid #ffb6c1;
-	border-radius: 5px;
-}
-.pink a:hover{
-	color: white;
-	background-color: #ffb6c1;
-	border: 2px solid #ffb6c1;
-	border-radius: 5px;
-}
-.pink li{
-	margin: 3px;
-}
-
-/* 페이징 영역  CSS */
-/*========================================================================*/
-#cntPerPageArea{
-	text-align: right;
-}
-#cntPerPage{
-	width: 120px;
-	height: 30px;
-	border: 1px solid lightgray;
-	border-radius: 5px;
-}
-#cntPerPage:focus{
-	outline: 2px solid #ffb6c1;
-	border: 2px solid #ffb6c1;
-}
-
-.list-paginator{
-	text-align : center;
-	margin-top: 30px;
+#sectionContent{
+	width: 95%;
+	margin-right: auto;
+	margin-left: auto;
 	margin-bottom: 50px;
 }
-.list-paginator a{
+.borderDiv{
+	display: inline-block;
+	border: 3px solid lightgray;
+	min-height: 40px;
+	border-radius: 10px;
+	margin: 5px 0px;
+}
+.data{
+	font-size: 17px;
+	min-height: 40px;
+	text-align: center;
+	padding-top: 8px;
+}
+.right{
+	border-left: 2px solid lightgray;
+}
+
+#buttonArea{
+	text-align: right;
+	margin-bottom: 40px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.button{
+	width: 120px;
+	height: 30px;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	color: white;
+	font-weight: bold;
+	margin: 5px;
+}
+.button:hover{
+	background-color: white;
 	color: #ffb6c1;
 	font-weight: bold;
 }
-.list-paginator>li{
-	display : inline-block;
-	vertical-align : bottom;
-}
-.list-paginator_page, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
-	display: none;
-    min-width: 26px;
-    margin: 0 2px;
-    padding: 5.5px 5px;
-    box-sizing: border-box;
-    border: none;
-    background-color: transparent;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1;
-    color: #424242;
-    transition: background-color .1s,color .1s;
-    text-decoration : none;
-}
-.list-paginator_page.sm, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
-	display : block;
-}
-.list-paginator_page.selected{
-	background-color : #ffb6c1;
-	color : white;
-	text-decoration : none;
-}
+
 
 
 /* 미디어 쿼리  CSS */
@@ -188,6 +119,9 @@ tbody td{
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
 	}
+	.spidx{
+		display: none;
+	}
 }
 @media screen and (min-width: 576px) and (max-width: 767.99px){
 	#headerDiv, .navbar, section, footer{
@@ -213,7 +147,7 @@ tbody td{
 	.sidebar_menu{
 		width: 400px;
 	}
-	.birth{
+	.spidx, .detailNum{
 		display: none;
 	}
 }
@@ -231,7 +165,7 @@ tbody td{
 		width: 100%;
 		max-width: 400px;
 	}
-	.delyn, .birth{
+	.spidx, .detailNum{
 		display: none;
 	}
 }

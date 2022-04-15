@@ -12,6 +12,7 @@ import edu.study.vo.StoreVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.BasketVO;
 import edu.study.vo.Store_qnaVO;
+import edu.study.vo.Store_reviewVO;
 
 @Repository // 컴포넌트 하위에 있는 어노테이션, 외부와 연결 할 때 사용하는 어노테이션
 public class StoreDAO {
@@ -71,6 +72,9 @@ public class StoreDAO {
 	}
 	public int qna_modify(Store_qnaVO vo) throws Exception {
 		return sqlSession.update(Namespace+".qna_modify",vo);
+	}
+	public int store_review_insert(Store_reviewVO vo) throws Exception {
+		return sqlSession.insert(Namespace+".store_review_insert",vo);
 	}
 	
 	

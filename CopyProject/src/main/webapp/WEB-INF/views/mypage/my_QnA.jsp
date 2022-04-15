@@ -63,35 +63,48 @@
 				</div>
 			</div>
 <!-- ===============================================================프로필영역================================================================ -->
-<!-- ==================================================================================================================================== -->
+<!-- ================================================================문의영역================================================================ -->
 			<div class="col-12 col-lg-9 mydiv2">
 				<div class="mydivtitle mydiv2-2">나의 문의</div>
 				<div class="mydivVacant"></div>
-				
-				<div id="mycomment">	
-					<div class="row">
-						<div class="col-8">
-							<p class="p1">
-							<i class="bi bi-question-circle-fill chat"></i>
-								배송은 언제쯤 받아볼 수 있나요?
-							</p>
-							<p class="p3">
-								<strong>바자르</strong>&nbsp;
-								모로코 로맨틱 광목 가리개 커튼(창문형/긴창형)&nbsp;&#183;&nbsp;
-								2022-04-12
-							</p>	
+				<c:set var="length" value="${fn:length(QnAlist)}" />
+				<c:choose>
+					<c:when test="${length eq 0}">
+					<div id="mycomment">	
+						<div class="row">
+							<p class="no">아직 등록된 문의글이 없습니다.</p>
 						</div>
-						<div class="col-4 comment2">
-							<img src="/controller/image/curtain01.jpg">
-						</div>
-						<div class="mydivVacant"></div>
 					</div>
-				</div>
-			
-			</div>
-		</div>
+					</c:when>
+					
+					<c:when test="${length ne 0}">
+						<c:forEach items="${QnAlist}" var="vo" varStatus="cnt">
+						<div id="mycomment">	
+						<div class="row">
+							<div class="col-8">
+								<p class="p1">
+									<i class="bi bi-question-circle-fill chat"></i>
+									<a href="/controller/store/store_view.do?spidx=${vo.spidx}">${vo.content}</a>
+								</p>
+								<p class="p3">
+									<strong>${vo.brand}</strong>&nbsp;
+									${vo.title} &nbsp;&#183;&nbsp;
+									${vo.write_date} 
+								</p>	
+							</div>
+							<div class="col-4 comment2">
+								<a href="/controller/store/store_view.do?spidx=${vo.spidx}"><img src="${vo.img_origin}"></a>
+							</div>
+							<div class="mydivVacant"></div>
+						</div>
+						</div>
+						</c:forEach>
+					</c:when>
+				</c:choose>
+			</div><!-- mydiv2 -->
+		</div><!-- row -->
 		<br><br><br><br>
-	</div>	
+	</div><!-- container -->
 	</section>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	

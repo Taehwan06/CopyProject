@@ -83,7 +83,7 @@
 						<div class="brand">${basketListvo.brand}</div>
 						<div class="productDetail row">
 							<div class="productImgDiv col-4 col-md-4 col-lg-3">
-								<img src="${basketListvo.img_system}" class="productImg" alt="" 
+								<img src="${basketListvo.img_origin}" class="productImg" alt="" 
 								onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${basketListvo.spidx}'">
 							</div>
 							<div class="col-8 col-md-8 col-lg-9">

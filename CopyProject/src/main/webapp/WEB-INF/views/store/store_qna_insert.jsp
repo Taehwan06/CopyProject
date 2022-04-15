@@ -61,7 +61,8 @@
 			<h2 id="page_sub_title">상품문의</h2>
 			
 			<div id="textArea">
-				<textarea id="summernote" name="content"></textarea>
+				<textarea name="content" class="col-auto form-control" type="text" id="reviewContents" onkeydown="resize(this)" onkeyup="resize(this)"
+						  placeholder="상품평을 남겨주세요."></textarea>
 			</div>
 			
 			<div id="contentInfo">필수 입력 항목입니다.</div>

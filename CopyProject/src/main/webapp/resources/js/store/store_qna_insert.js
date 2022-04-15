@@ -2,7 +2,7 @@ function submitFn(){
 	var result = true;
 
 
-	value = document.getElementById("summernote").value;
+	value = document.getElementById("reviewContents").value;
 	info = document.getElementById("contentInfo");
 	if(value == ""){
 		result = false;
@@ -13,10 +13,14 @@ function submitFn(){
 	
 	
 	if(result){
+		
+		var content =$("#reviewContents").val();
+		content = content.replace(/(\n|\r\n)/g,'<br>');
+		
 		$.ajax({
 			type : "POST",
 			url : "store_qna_insert.do",
-			data : $("#insertFrm").serialize()+"&spidx="+spidx,
+			data : "content="+content+"&spidx="+spidx,
 			success : function(res) {
 				
 				console.log(res);
@@ -31,6 +35,11 @@ function submitFn(){
 	}
 	
 	
+}
+
+function resize(obj) {
+    obj.style.height = '1px';
+    obj.style.height = (12 + obj.scrollHeight) + 'px';
 }
 function cancelFn(){
 	var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");

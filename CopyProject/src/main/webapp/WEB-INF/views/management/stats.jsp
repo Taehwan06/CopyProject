@@ -20,12 +20,13 @@
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/management/member_list.css" rel="stylesheet">
+	<link href="/controller/css/management/stats.css" rel="stylesheet">
 	<link href="/controller/css/footer.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/header.js"></script>
+	<script src="/controller/js/management/stats.js"></script>
 	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/management/member_list.js"></script>
+	
 	<script src="/controller/js/footer.js"></script>
 
 </head>
@@ -37,10 +38,10 @@
 	<section>
 		
 		<div class="sectionTitle">
-			회원 목록
+			회원별 구매 통계
 		</div>
 		
-		<form name="sectionSearchFrm" id="sectionSearchFrm" action="member_list.do" method="get">
+		<form name="sectionSearchFrm" id="sectionSearchFrm" action="stats.do" method="get">
 			<select id="sectionSearchType" name="searchType">
 				<option value="id" <c:if test="${memberPagingvo.searchType eq 'id'}">selected</c:if>>아이디</option>
 				<option value="nick" <c:if test="${memberPagingvo.searchType eq 'nick'}">selected</c:if>>닉네임</option>
@@ -71,21 +72,21 @@
 				<tr>
 					<th>회원 번호</th>
 					<th>아이디</th>
-					<th>이름</th>
-					<th>닉네임</th>
-					<th class="birth">생년월일</th>
-					<th class="delyn">탈퇴여부</th>
+					<th>구매 횟수</th>
+					<th>총 구매 금액</th>
+					<th class="join">가입일</th>
+					<th class="recent">마지막 구매일</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${memberPagingList}" var="list" varStatus="cnt">
-					<tr onclick="location.href='member_view.do?midx=${list.midx}&nowPage=${memberPagingvo.nowPage}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}'">
+				<c:forEach items="${statsList}" var="list" varStatus="cnt">
+					<tr onclick="location.href='stats_view.do?midx=${list.midx}&nowPage=${memberPagingvo.nowPage}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}'">
 						<td>${list.midx}</td>
 						<td>${list.id}</td>
-						<td>${list.membername}</td>
-						<td>${list.nick_name}</td>
-						<td class="birth">${list.birthday}</td>
-						<td class="delyn">${list.del_yn}</td>
+						<td>${list.buyingCnt}</td>
+						<td>${list.amount}</td>
+						<td class="join">${list.join_date}</td>
+						<td class="recent">${list.recentBuying}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -95,7 +96,7 @@
 		<!-- 페이징 처리 -->
 		<ul class="list-paginator">
 			<li>
-				<a class="list-paginator_first" href="member_list.do?nowPage=1&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+				<a class="list-paginator_first" href="stats.do?nowPage=1&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
 						<path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 						<path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -104,7 +105,7 @@
 			</li>
 			<c:if test="${memberPagingvo.startPage != 1}">
 				<li>
-					<a class="list-paginator_prev" href="member_list.do?nowPage=${memberPagingvo.startPage - 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+					<a class="list-paginator_prev" href="stats.do?nowPage=${memberPagingvo.startPage - 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
 							<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 						</svg>
@@ -122,14 +123,14 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="member_list.do?nowPage=${num}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}" class="list-paginator_page sm">${num }</a>
+							<a href="stats.do?nowPage=${num}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}" class="list-paginator_page sm">${num }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${memberPagingvo.endPage != memberPagingvo.lastPage}">
 				<li>
-					<a class="list-paginator_next" href="member_list.do?nowPage=${memberPagingvo.endPage + 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+					<a class="list-paginator_next" href="stats.do?nowPage=${memberPagingvo.endPage + 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
 							<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 						</svg>
@@ -137,7 +138,7 @@
 				</li>
 			</c:if>
 			<li>
-				<a class="list-paginator_last" href="member_list.do?nowPage=${memberPagingvo.lastPage }&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+				<a class="list-paginator_last" href="stats.do?nowPage=${memberPagingvo.lastPage }&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
 						<path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
 						<path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>

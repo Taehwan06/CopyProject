@@ -7,7 +7,8 @@
 	var titleAry = [];
 	var payTitle = "";
 	var sbidxStr = "";
-	var ordernumber = ${payInfovo.paynumber};
+	var ordernumber = "";
+	ordernumber += ${payInfovo.paynumber};
 	
 	console.log("ordernumber="+ordernumber);
 	

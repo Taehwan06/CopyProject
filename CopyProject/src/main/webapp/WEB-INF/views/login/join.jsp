@@ -177,7 +177,7 @@
 					<input type="radio" name="gender" id="gender2" class="input value gender" value="F" onblur="onBlurFn(this)" placeholder="">여성
 				</label>
 				<label for="gender3" class="labelGender">
-					<input type="radio" name="gender" id="gender3" class="input value gender" value="N" onblur="onBlurFn(this)" placeholder="">선택 안 함
+					<input type="radio" name="gender" id="gender3" class="input value gender" value="N" onblur="onBlurFn(this)" placeholder="">비공개
 				</label>
 			</div>
 			<label for="gender">

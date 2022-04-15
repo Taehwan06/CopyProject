@@ -24,6 +24,7 @@ import edu.study.vo.Community_BoardVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.HomeStoreVO;
 import edu.study.vo.HomeStoryVO;
+import edu.study.vo.MemberVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.StoreVO;
 
@@ -45,7 +46,10 @@ public class HomeController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String home(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession(); 
+	 	session.setAttribute("nowUri", null);
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -146,17 +150,6 @@ public class HomeController {
 		return "search_result_none";
 	}
 		
-	@RequestMapping(value = "/last_view.do", method = RequestMethod.GET)
-	public String last_view(Locale locale, Model model) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		return "last_view";
-	}
 	
 	@RequestMapping(value = "/recentView.do", method = RequestMethod.GET)
 	public String recentView(Locale locale, Model model, HttpServletResponse response, HttpServletRequest request, HomeStoreVO vo) throws Exception {
