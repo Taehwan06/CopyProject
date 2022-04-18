@@ -15,6 +15,7 @@ public class SearchVO {
 	private String sell_cnt;
 	private String sale_price;
 	private String likey_cnt;
+	private String page;
 	
 	private String distribution;
 	
@@ -132,6 +133,12 @@ public class SearchVO {
 	}
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	public String getPage() {
+		return page;
+	}
+	public void setPage(String page) {
+		this.page = page;
 	}
 	
 }

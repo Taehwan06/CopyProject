@@ -16,7 +16,7 @@
     <!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<title>회원 목록</title>
+	<title>회원 정보 수정 - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -208,15 +208,16 @@
 			<input type="hidden" name="nowPage" id="nowPage">
 			<input type="hidden" name="searchType" id="searchType">
 			<input type="hidden" name="searchValue" id="searchValue">
+			<input type="hidden" name="cntPerPage" id="cntPerPage">
 		</form>
 		
 		<div id="buttonArea">
 			<input type="button" name="saveButton" id="saveButton" class="button" value="저장" 
-			onclick="modifyFn(${memberPagingvo.nowPage }, '${memberPagingvo.searchType }', '${memberPagingvo.searchValue }')">
+			onclick="modifyFn(${memberPagingvo.nowPage }, '${memberPagingvo.searchType }', '${memberPagingvo.searchValue }', ${memberPagingvo.cntPerPage})">
 			<input type="button" name="cancelButton" id="cancelButton" class="button" value="취소" 
-			onclick="cancelFn(${memberPagingvo.nowPage }, '${memberPagingvo.searchType }', '${memberPagingvo.searchValue }')">
+			onclick="cancelFn(${memberPagingvo.nowPage }, '${memberPagingvo.searchType }', '${memberPagingvo.searchValue }', ${memberPagingvo.cntPerPage})">
 			<input type="button" name="imgDelButton" id="imgDelButton" class="button" value="프로필 이미지 삭제" 
-			onclick="imgDelFn(${memberPagingvo.nowPage }, '${memberPagingvo.searchType }', '${memberPagingvo.searchValue }', '${selectMember.membername }')">
+			onclick="imgDelFn(${memberPagingvo.nowPage }, '${memberPagingvo.searchType }', '${memberPagingvo.searchValue }', '${selectMember.membername }', ${memberPagingvo.cntPerPage})">
 		</div>
 		
 	</section>

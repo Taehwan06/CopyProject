@@ -29,7 +29,9 @@
 		var category="${param.category}";
 		var detail="${param.detail}";	
 	</script>
-	<title>store_list</title>
+	<title>
+		카테고리 - 홈프렌즈
+	</title>
 	
 </head>
 <body>

@@ -24,7 +24,6 @@ function submitFn(){
 	if(result){
 		var img_style = $("#imgArea").attr("style");
 		/*img_style= img_style.replace(/&/g,"%26");*/
-		console.log(img_style);
 		if(img_style != "" && img_style != null){
 			img_style= img_style.replace(/\+/g,"%2B");
 		}
@@ -32,7 +31,7 @@ function submitFn(){
 		/*
 		console.log($("#insertFrm").serialize());*/
 		var content =$("#reviewContents").val();
-		content = content.replace(/(<br>|<brV>|<br V>)/g,'\r\n');
+		content = content.replace(/(\n|\r\n)/g,'<br>');
 		var score = $("input:radio[name='score']:checked").val( );
 		$.ajax({
 			type : "POST",
@@ -92,6 +91,7 @@ $(function() {
 			enctype: "multipart/form-data",
 			contentType: false,
 			processData: false,
+			datatype : 'json',
 			success: function(data){
 				var result = data.trim();
 				

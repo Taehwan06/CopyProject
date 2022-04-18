@@ -14,7 +14,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
-	<title>리뷰 등록</title>
+	<title>리뷰 등록 - 홈프렌즈</title>
 	
 	
 	<!-- 부트스트랩 -->
@@ -44,7 +44,7 @@
 	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
 	<script>
-		var spidx = ${spidx};
+		var spidx = ${vo.spidx};
 	</script>
 </head>
 

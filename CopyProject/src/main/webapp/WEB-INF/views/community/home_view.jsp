@@ -14,7 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
-	<title>홈프렌즈 커뮤니티 상세보기 페이지 입니다.</title>
+	<title>홈 스토리 글 상세보기 - 홈프렌즈</title>
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -29,7 +29,6 @@
 	
 </head>
 <body>
-	<input type="hidden" value="${replyvo}">
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
 	
@@ -40,6 +39,7 @@
 	<section id="story_area">
 		<div class="comm_area">
 			<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
+			<input type="hidden" name="fmidx" value="${vo.midx }">
 			<div class="row comm_area_">
 				<div class="comm_category">홈 스토리</div>
 				<div class="comm_title">${vo.title }</div>
@@ -64,7 +64,14 @@
 				<div class="col-xl-5">
 				</div>
 				<div class="col-xl-3 follow_btn">
-					<button>+ 팔로우</button>
+					<c:if test="${(isFollow == 0 && loginUser.midx != vo.midx) || loginUser == null}">
+						<button onclick="follow(${vo.midx})">+ 팔로우</button>
+					</c:if>
+					<c:if test="${isFollow != 0}">
+						<button onclick="unfollow(${vo.midx})">- 언팔로우</button>
+					</c:if>
+					<c:if test="${loginUser.midx == vo.midx }">
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -89,21 +96,28 @@
 		</div>
 		<div class="content_stats">
 			<div>스크랩<span>${vo.scrap_cnt }</span></div>
-			<div>댓글<span>${count }</span></div>
+			<div>댓글<span>${vo.reply_cnt }</span></div>
 			<div>조회<span>${vo.hit_cnt }</span></div>
 		</div>
 		<div class="footer_profile">
 			<div class="footer_profile_img">
 				<img class="footer_writerImg" src="/controller/image/${vo.profile_system }">
 				${vo.writer }
-				<button>팔로우</button>
+				<c:if test="${(isFollow == 0 && loginUser.midx != vo.midx) || loginUser == null}">
+					<button onclick="follow(${vo.midx})">팔로우</button>
+				</c:if>
+				<c:if test="${isFollow != 0}">
+					<button onclick="unfollow(${vo.midx})">언팔로우</button>
+				</c:if>
+				<c:if test="${loginUser.midx == vo.midx }">
+				</c:if>
 			</div>
 		</div>
 	</section>
 	<!-- 댓글 영역 -->
 	<section id="reply_area">
 		<h1 class="reply_area">
-			댓글&nbsp;<span>${count }</span>
+			댓글&nbsp;<span>${vo.reply_cnt }</span>
 		</h1>
 		<!-- 댓글 등록 -->
 		<c:if test="${loginUser != null}">

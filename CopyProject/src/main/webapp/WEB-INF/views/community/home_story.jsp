@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
-	<title>홈프렌즈 커뮤니티 메인 페이지 입니다. </title>
+	<title>홈 스토리 - 홈프렌즈 </title>
 	
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<link href="/controller/css/header.css" rel="stylesheet">
@@ -44,7 +44,7 @@
 	</c:if>
 	<section id="story_area">
 		<div class="row" id="storyimg">
-			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&nowPage=1'">
+			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 				<img src="/controller/upload/${CommMain.img_system}" id="MainImg">
 				<div id="absolute_">
 					<div id="story_title">
@@ -108,8 +108,8 @@
 			</div>
 			<c:forEach items="${list}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-					<img src="/controller/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&nowPage=1'">
-					<div class="storyText" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&nowPage=1'">
+					<img src="/controller/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+					<div class="storyText" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
 						<!-- ${vo.title} -->
 						<div class="storyTitle">${vo.title }</div>
 						<div class="storyWriter">

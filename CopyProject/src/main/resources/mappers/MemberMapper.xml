@@ -174,5 +174,20 @@
 			midx = #{midx}
     </select>
     
+     <!-- 해당 유저 가져오기 -->
+    <select id="userOne" resultType="MemberVO">
+    	SELECT *
+    	  FROM member
+    	 WHERE midx = #{midx}
+    </select>
+    
+    <!-- 유저 목록 가져오기 -->
+    <select id="memberList" parameterType="int" resultType="MemberVO">
+    	SELECT *
+    	  FROM member
+    	 WHERE 1=1
+    	   AND del_yn = 'N'
+    </select>
+    
     
 </mapper>

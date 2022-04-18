@@ -17,7 +17,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
     
-	<title>스토어</title>
+	<title>스토어 - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -114,7 +114,7 @@
 							${vo.title}
 						</div>
 						<div class="shopPrice">
-							<span class="red">${vo.discount}%</span> ${vo.sale_price}
+							<span class="red">${vo.discount}%</span> ${vo.sale_price}원
 						</div>
 						<span class="sky">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">

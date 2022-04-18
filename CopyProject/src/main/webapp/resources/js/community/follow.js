@@ -1,40 +1,33 @@
-$(document).ready(function(){
-	$(".followingButton").on("click", function(){
-		follow(true);
-		console.log("click");
-	})
-	$(".unfollowingButton").on("click", function(){
-		follow(false);
-	})
-		
-});
-
-function follow(check){
-	if(check){
-		$.ajax({
-			type : 'post',
-			url : '/controller/follow/follow',
-			success : function(result){
-				console.log("result = "+result);
-				if(result == "FollowOK"){
-					$(".followingButtonArea").html("<button type='button' calss='unfollowingButton'>언팔로우</button>");
-					
-				}
+function follow(midx){
+	console.log(midx)
+	$.ajax({
+		type : 'post',
+		url : '/controller/community/follow',
+		data : 'midx='+midx,
+		success : function(result){
+			console.log("result = "+result);
+			if(result == "FollowOK"){
+				location.reload();
+				
 			}
-		});
-	}else{
-		$.ajax({
+		}
+	});
+	
+}	
+	
+function unfollow(midx){
+	$.ajax({
 			type : 'post',
 			url : '/controller/follow/unfollow',
+			data : 'midx='+midx,
 			success : function(result){
 				console.log("result = "+result);
 				if(result == "UnFollowOK"){
-					$(".followingButtonArea").html("<button type='button' calss='followingButton'>팔로우</button>");
+					location.reload();
 					
 				}
 			}	
 		});
-	}
 }
 
 function login(){

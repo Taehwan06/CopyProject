@@ -2,6 +2,7 @@ package edu.study.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,11 +27,13 @@ import com.google.gson.Gson;
 
 import edu.study.service.Community_BoardService;
 import edu.study.service.Community_ReplyService;
+import edu.study.service.FollowService;
 import edu.study.service.HomeService;
 import edu.study.service.MemberService;
 import edu.study.vo.AttatchImageVO;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.Community_ReplyVO;
+import edu.study.vo.FollowVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.PagingVO;
@@ -51,6 +54,8 @@ public class CommunityController {
 	private Community_ReplyService replyService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private FollowService followService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -251,12 +256,12 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(value = "/home_view.do", method = RequestMethod.GET)
-	public String home_view(Locale locale, Model model, int cbidx, int nowPage, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String home_view(Locale locale, Model model, int cbidx, int nowPage, HttpServletRequest request, HttpServletResponse response, int fmidx) throws Exception {
 		
 		String nowUri = request.getRequestURI();
 	      
 	    HttpSession session = request.getSession();
-	    session.setAttribute("nowUri", nowUri+"?cbidx="+cbidx+"&nowPage=1");
+	    session.setAttribute("nowUri", nowUri+"?cbidx="+cbidx+"&fmidx="+fmidx+"&nowPage=1");
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -275,10 +280,6 @@ public class CommunityController {
 			orincbridx=0;
 		}
 		model.addAttribute("orincbridx", orincbridx+1);
-		
-		//댓글 개수
-	    int replycount = replyService.count(cbidx);
-	    model.addAttribute("count", replycount);
 	    
 	    //쿠키생성
 	    Cookie oldCookie = null;
@@ -315,12 +316,29 @@ public class CommunityController {
   	    List<Community_ReplyVO> reply = replyService.list(cbidx, start, end);
   	    model.addAttribute("reply", reply);
   	    model.addAttribute("pvo", pvo);
+  	    
+  	    //팔로우 유무 조회
+  	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+  	    int midx = 0;
+  	    
+  	    if(loginUser != null) {
+  	    	midx = loginUser.getMidx();
+  	    }
+  	    model.addAttribute("midx", midx);
+  	    FollowVO fvo = new FollowVO();
+  	    
+  	    fvo.setMidx(midx);
+  	    fvo.setFmidx(fmidx);
+  	    
+  	    int isFollow = Community_boardService.isFollow(fvo);
+  	    
+  	    model.addAttribute("isFollow", isFollow);
 	    
 		return "community/home_view";
 	}
 	
 	@RequestMapping(value = "/following.do", method = RequestMethod.GET)
-	public String following(Locale locale, Model model, SearchVO vo, MemberVO mvo) throws Exception {
+	public String following(Locale locale, Model model, SearchVO vo, HttpSession session) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -330,13 +348,74 @@ public class CommunityController {
 		
 		List<MemberVO> mlist = memberService.mlist();
 		
-		model.addAttribute("mlist", mlist);
-		
 		List<Community_BoardVO> blist = Community_boardService.blist();
 		
-		model.addAttribute("blist", blist);
+		for(int i=0; i<mlist.size(); i++) {
+			int mmidx = mlist.get(i).getMidx();
+			List<Community_BoardVO> temp = new ArrayList<>();
+			for(Community_BoardVO bvo : blist) {
+				if(mmidx == bvo.getMidx()) {
+					temp.add(bvo);
+				}
+			}
+			mlist.get(i).setBvo(temp);
+		}
+		model.addAttribute("mlist", mlist);
+		
+		MemberVO activeUser = (MemberVO)session.getAttribute("loginUser");
+		
+		if(activeUser != null) {
+		
+		int midx = activeUser.getMidx();
+		
+		List<FollowVO> flist = followService.selectActiveUserList(midx);
+		
+		for(int i=0; i<flist.size(); i++) {
+			int fmidx = flist.get(i).getFmidx();
+			List<Community_BoardVO> temp = new ArrayList<>();
+			for(Community_BoardVO bvo : blist) {
+				if(fmidx == bvo.getMidx()) {
+					temp.add(bvo);
+				}
+			}
+			flist.get(i).setBvo(temp);
+			model.addAttribute("flist"+i, fmidx);
+		}
+		model.addAttribute("flist", flist);
+		
+		}
 		
 		return "community/following";
+	}
+	
+	@RequestMapping(value = "/follow", method = RequestMethod.POST)
+	@ResponseBody
+	public String follow(int midx, Model model, HttpServletRequest req) throws Exception {
+		
+		String nowUri = req.getRequestURI();
+	      
+        HttpSession session = req.getSession();
+        session.setAttribute("nowUri", nowUri);
+		
+		System.out.println("/follow/" + midx + " : 팔로우 요청");
+		
+		MemberVO activeUser = (MemberVO)session.getAttribute("loginUser");
+		MemberVO passiveUser = memberService.inquiryOfUserByMidx(midx);
+		
+		FollowVO follow = new FollowVO();
+		follow.setMidx(activeUser.getMidx());
+		follow.setFmidx(passiveUser.getMidx());
+		follow.setFmidx_nick(passiveUser.getNick_name());
+		
+		followService.follow(follow);
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+           return "redirect:/login/login.do";
+        }else {
+           return "FollowOK";
+        }
 	}
 	
 	@RequestMapping(value = "/scrap.do", method = RequestMethod.GET)

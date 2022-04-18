@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
-	<title>비밀번호 변경</title>
+	<title>비밀번호 변경 - 홈프렌즈</title>
 	
 		
 	<link href="/controller/css/header.css" rel="stylesheet">

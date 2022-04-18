@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import edu.study.dao.Community_BoardDAO;
 import edu.study.vo.Community_BoardVO;
-import edu.study.vo.MemberVO;
+import edu.study.vo.FollowVO;
 import edu.study.vo.SearchVO;
 
 @Service
@@ -75,5 +75,11 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 	public List<Community_BoardVO> blist() throws Exception {
 		
 		return Community_boardDao.blist();
+	}
+
+	@Override
+	public int isFollow(FollowVO fvo) throws Exception {
+		
+		return Community_boardDao.isFollow(fvo);
 	}
 }

@@ -14,7 +14,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
-	<title>홈프렌즈 상품 상세보기 페이지 입니다.</title>
+	<title>${vo.title} - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -81,17 +81,17 @@
 				<div class="row">
 					<div class="col-12 col-sm-10 col-md-10 shop_subject">${vo.title}</div>
 					<div class="col-sm-2 col-md-2">
-					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+					<!--좋아요기능 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
 					  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
 					</svg>
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-					</svg>
+					</svg> -->
 					</div>
 				</div>
 				<div class="row price">
 					<div class="col-sm-4 col-md-4 col-lg-3 discount">${vo.discount}%</div>
-					<div class="col-sm-7 col-md-7 original_price">${vo.sale_price}원</div>
+					<div class="col-sm-7 col-md-7 original_price"> ${vo.sale_price}원</div>
 				</div>
 				<div class="row delivery">
 					<div class="col-sm-2 col-md-2 delivery_">배송</div>
@@ -155,44 +155,63 @@
 				</div>
 				<div id="shop_information_area"><!-- 사이즈지정필요 -->
 					${vo.content}
+					<button id="moreview_button" class="moreview" onclick="moreview()">더보기</button>
 				</div>
 				<div id="review_area_header">
 					<div>리뷰 <span>${vo.review_cnt}</span></div>
-					<div id="reviewwrite" onclick="location.href='store_review_insert.do?spidx=50'">리뷰쓰기</div>
+					<div id="reviewwrite" onclick="location.href='store_review_insert.do?spidx=${vo.spidx}'">리뷰쓰기</div>
 				</div>
-				<div id="review_area">
-					<img src= "/controller/image/review01.PNG">
-					<img src= "/controller/image/review02.PNG">
+				<div id="review_area">							
+					<section id="reply_area">
+
 					
-					
-					
-					
-					
-					
-					
-					<ul class="review_list">
-					
-						<%-- <c:forEach items="${reviewList}" var="review"> --%>
-							<li class="reply_list_item">
-							<article class="reply_item_">
-								<p class="reply_item_content">
-									<a class="reply_item_content_writer" href="">${rvo.writer }
-										<img class="reply_item_content_writer_image" src="/controller/image/${rvo.profile_system }">
-									</a>
-									<span class="reply_item_content_content">${rvo.content }</span>
-								</p>
-								<footer class="reply_item_footer">
-									<c:if test="${loginUser.midx == rvo.midx }">
-										<div class="mfdel">
-											<button class="replyUpdate" type="button" onclick="">수정</button>
-											<button class="replyDelete" type="button" onclick="">삭제</button>
-										</div>
+						<ul class="reply_list">
+							<c:forEach items="${reviewList}" var="rvo">
+								<li class="reply_list_item">
+									<article class="reply_item_">
+										<p class="reply_item_content">
+											<a class="reply_item_content_writer" href="">${rvo.nick_name}
+												<img class="reply_item_content_writer_image" src="/controller/image/${rvo.profile_system }">
+											</a>
+											<time class="reply_item_footer_time">
+												<c:if test="${rvo.modify_yn == 'N' }">
+													${rvo.write_date}
+												</c:if>
+												<c:if test="${rvo.modify_yn == 'Y'}">
+													${rvo.modify_date}(수정됨)
+												</c:if>
+											</time>
+											<c:if test="${loginUser.midx eq rvo.midx}">
+												<span class="A_write" onclick="R_modifyFn(${rvo.sridx})">수정하기</span>
+												<span class="A_write" onclick="R_delFn(${rvo.sridx})">삭제하기</span>
+											</c:if>
+										</p>
+										<footer class="reply_item_footer">
+											<div style="position: absolute;top: 0px;">
+											<c:set var="star" value="${rvo.score}" />
+											<span class="sky">
+											<c:forEach begin="0" end="4" varStatus="status">
+												<c:if test="${status.index < star}">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+													<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+												</svg>
+												</c:if>
+											</c:forEach>
+											</span>
+											</div>
+										</footer>
+										
+									</article>
+									<div style="margin:30px 0px 0 20px;">
+									<c:if test="${not empty rvo.img_origin && rvo.img_origin ne ''}">
+										<div style="padding: 5px; width: 150px; height: 150px;"><img alt="" src="${rvo.img_origin}" style="width: 100%; height: 100%;border-radius: 5px;"> </div>
 									</c:if>
-								</footer>
-							</article>
-						</li>
-						<%-- </c:forEach> --%>
-					</ul>
+										<div style="padding: 10px;">${rvo.content}</div>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</section>
 				</div>
 				<div id="QnA_area_header">
 					<div>문의 <span>${vo.qna_cnt}</span></div>
@@ -204,14 +223,12 @@
 							<li class="qna_list_item">
 								<div>
 									<div>
-										<span class="qna_qa">Q</span> ${qna.writer} <span class="qna_day">${qna.w_day}</span>
+										<span class="qna_qa">Q</span> ${qna.writer} <span class="qna_day">${qna.write_date}</span>
 										<c:if test="${loginUser.grade eq 'A' && qna.answer eq 'N'}">
 											<span class="A_write" onclick="A_writeFn(this,${qna.sqidx})">답변하기</span>
 										</c:if>
 										<c:if test="${loginUser.midx eq qna.midx}">
 											<span class="A_write" onclick="Q_modifyFn(${qna.sqidx})">수정하기</span>
-										</c:if>
-										<c:if test="${loginUser.midx eq qna.midx}">
 											<span class="A_write" onclick="Q_delFn(${qna.sqidx})">삭제하기</span>
 										</c:if>
 									</div>
@@ -220,7 +237,7 @@
 								<c:if test="${qna.answer ne 'N'}">
 								<div class="qna_a_area">
 									<div>
-										<span class="qna_qa">A</span> ${qna.answer_writer} <span class="qna_day">${qna.a_day}</span>
+										<span class="qna_qa">A</span> ${qna.answer_writer} <span class="qna_day">${qna.answer_date}</span>
 										<c:if test="${loginUser.grade eq 'A'}">
 											<span class="A_write" onclick="A_modifyFn(this,${qna.sqidx})">수정하기</span>
 											<span class="A_write" onclick="A_delFn(${qna.sqidx})">삭제하기</span>

@@ -15,11 +15,17 @@ public interface Community_ReplyService {
 	//댓글 작성
 	int write(Community_ReplyVO vo) throws Exception;
 	
+	//댓글 작성시 카운트 1증가
+	int countUp(int cbidx) throws Exception;
+	
 	//댓글 수정
 	int modify(Community_ReplyVO vo) throws Exception;
 	
 	//댓글 삭제
 	int delete(int cbridx) throws Exception;
+	
+	//댓글 삭제시 카운트 1감소
+	int countDown(int cbidx) throws Exception;
 	
 	//답글 작성
 	int Reinsert(Community_ReplyVO vo) throws Exception;

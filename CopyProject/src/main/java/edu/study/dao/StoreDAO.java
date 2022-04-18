@@ -77,6 +77,24 @@ public class StoreDAO {
 		return sqlSession.insert(Namespace+".store_review_insert",vo);
 	}
 	
+	public StoreVO store_review_cnt(int spidx) throws Exception{
+		return sqlSession.selectOne(Namespace+".store_review_cnt",spidx);
+	}
+	public int store_review_change(StoreVO vo) throws Exception {
+		return sqlSession.update(Namespace+".store_review_change",vo);
+	}
+	public List<Store_reviewVO> store_reviewList(int spidx) throws Exception {
+		return sqlSession.selectList(Namespace+".store_reviewList",spidx);
+	}
+	public int store_review_del(int sridx) throws Exception {
+		return sqlSession.update(Namespace+".store_review_del",sridx);
+	}
+	public Store_reviewVO store_review_Detail(int sridx) throws Exception{
+		return sqlSession.selectOne(Namespace+".store_review_Detail",sridx);
+	}
+	public int store_review_modify(Store_reviewVO vo) throws Exception {
+		return sqlSession.update(Namespace+".store_review_modify",vo);
+	}
 	
 }
 

@@ -16,7 +16,7 @@
     <!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<title>회원 목록</title>
+	<title>회원 목록 - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -51,20 +51,23 @@
 			</select>
 			<input type="text" name="searchValue" id="sectionSearchValue" size="20" value="${memberPagingvo.searchValue}">
 			<input type="submit" id="sectionSearchButton" value="검색">
+			
+			<div id="cntPerPageArea">
+				<select id="cntPerPage" name="cntPerPage" onchange="selChange(${memberPagingvo.nowPage})">
+					<option value="5"
+						<c:if test="${memberPagingvo.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+					<option value="10"
+						<c:if test="${memberPagingvo.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+					<option value="15"
+						<c:if test="${memberPagingvo.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+					<option value="20"
+						<c:if test="${memberPagingvo.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+				</select>
+			</div> <!-- 옵션선택 끝 -->
+			
 		</form>
 		
-		<div id="cntPerPageArea">
-			<select id="cntPerPage" name="sel" onchange="selChange(${memberPagingvo.nowPage})">
-				<option value="5"
-					<c:if test="${memberPagingvo.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
-				<option value="10"
-					<c:if test="${memberPagingvo.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
-				<option value="15"
-					<c:if test="${memberPagingvo.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
-				<option value="20"
-					<c:if test="${memberPagingvo.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
-			</select>
-		</div> <!-- 옵션선택 끝 -->
+		
 		
 		<table class="table table-responsive memberTable">
 			<thead>
@@ -79,7 +82,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${memberPagingList}" var="list" varStatus="cnt">
-					<tr onclick="location.href='member_view.do?midx=${list.midx}&nowPage=${memberPagingvo.nowPage}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}'">
+					<tr onclick="location.href='member_view.do?midx=${list.midx}&nowPage=${memberPagingvo.nowPage}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&cntPerPage=${memberPagingvo.cntPerPage}'">
 						<td>${list.midx}</td>
 						<td>${list.id}</td>
 						<td>${list.membername}</td>
@@ -95,7 +98,7 @@
 		<!-- 페이징 처리 -->
 		<ul class="list-paginator">
 			<li>
-				<a class="list-paginator_first" href="member_list.do?nowPage=1&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+				<a class="list-paginator_first" href="member_list.do?nowPage=1&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&cntPerPage=${memberPagingvo.cntPerPage}">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
 						<path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 						<path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -104,7 +107,7 @@
 			</li>
 			<c:if test="${memberPagingvo.startPage != 1}">
 				<li>
-					<a class="list-paginator_prev" href="member_list.do?nowPage=${memberPagingvo.startPage - 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+					<a class="list-paginator_prev" href="member_list.do?nowPage=${memberPagingvo.startPage - 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&cntPerPage=${memberPagingvo.cntPerPage}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
 							<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 						</svg>
@@ -122,14 +125,14 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="member_list.do?nowPage=${num}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}" class="list-paginator_page sm">${num }</a>
+							<a href="member_list.do?nowPage=${num}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&cntPerPage=${memberPagingvo.cntPerPage}" class="list-paginator_page sm">${num }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${memberPagingvo.endPage != memberPagingvo.lastPage}">
 				<li>
-					<a class="list-paginator_next" href="member_list.do?nowPage=${memberPagingvo.endPage + 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+					<a class="list-paginator_next" href="member_list.do?nowPage=${memberPagingvo.endPage + 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&cntPerPage=${memberPagingvo.cntPerPage}">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
 							<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 						</svg>
@@ -137,7 +140,7 @@
 				</li>
 			</c:if>
 			<li>
-				<a class="list-paginator_last" href="member_list.do?nowPage=${memberPagingvo.lastPage }&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
+				<a class="list-paginator_last" href="member_list.do?nowPage=${memberPagingvo.lastPage }&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&cntPerPage=${memberPagingvo.cntPerPage}">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
 						<path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
 						<path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
@@ -145,6 +148,11 @@
 				</a>
 			</li>
 		</ul>
+		
+		<div id="buttonArea">
+			<input type="button" name="modifyButton" id="modifyButton" class="button" value="뒤로" 
+			onclick="location.href='management.do'">
+		</div>
 		
 	</section>
 

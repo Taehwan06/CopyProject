@@ -16,7 +16,7 @@
 	<!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<title>로그인 - 홈 프렌즈</title>   
+	<title>로그인 - 홈프렌즈</title>
 	 
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">

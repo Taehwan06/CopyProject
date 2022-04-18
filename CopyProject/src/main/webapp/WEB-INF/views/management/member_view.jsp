@@ -16,7 +16,7 @@
     <!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<title>회원 목록</title>
+	<title>회원 상세 정보 - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -210,16 +210,16 @@
 		
 		<div id="buttonArea">
 			<input type="button" name="modifyButton" id="modifyButton" class="button" value="수정" 
-			onclick="modifyFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}')">
+			onclick="modifyFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
 			<input type="button" name="listButton" id="listButton" class="button" value="목록" 
-			onclick="listFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}')">
+			onclick="listFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
 			<c:if test="${selectMember.del_yn eq 'N' }">
 				<input type="button" name="withdrawButton" id="withdrawButton" class="button" value="강제 탈퇴" 
-				onclick="withdrawFn(${selectMember.midx },'${selectMember.membername }',${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}')">
+				onclick="withdrawFn(${selectMember.midx },'${selectMember.membername }',${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
 			</c:if>
 			<c:if test="${selectMember.del_yn eq 'Y' }">
 				<input type="button" name="restoreButton" id="restoreButton" class="button" value="탈퇴 복구" 
-				onclick="restoreFn(${selectMember.midx },'${selectMember.membername }',${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}')">
+				onclick="restoreFn(${selectMember.midx },'${selectMember.membername }',${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
 			</c:if>
 		</div>
 		
@@ -228,6 +228,7 @@
 			<input type="hidden" name="nowPage" id="nowPage">
 			<input type="hidden" name="searchType" id="searchType">
 			<input type="hidden" name="searchValue" id="searchValue">
+			<input type="hidden" name="cntPerPage" id="cntPerPage">
 		</form>
 	
 	</section>

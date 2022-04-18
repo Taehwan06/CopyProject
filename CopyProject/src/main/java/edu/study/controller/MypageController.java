@@ -36,6 +36,7 @@ import edu.study.vo.MyQnaVO;
 import edu.study.vo.OrderListVO;
 import edu.study.vo.PayInfoVO;
 import edu.study.vo.SearchVO;
+import edu.study.vo.Store_reviewVO;
 
 /**
  * Handles requests for the application home page.
@@ -443,6 +444,39 @@ public class MypageController {
 		      
 	    }
 	}
+	
+	@RequestMapping(value = "/my_review.do", method = RequestMethod.GET)
+	public String my_review(Locale locale, Model model, SearchVO vo, HttpServletRequest request, Store_reviewVO cnt) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+		
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
+			    	  
+	    	MemberVO result = mypageService.detail(loginUser.getMidx());
+	  		model.addAttribute("vo", result);
+	  		
+	  		int Midx = loginUser.getMidx();
+	  		cnt.setMidx(Midx);
+	  		
+	  		int review_cnt =  mypageService.ReviewCount(cnt);
+	  		model.addAttribute("review_cnt", review_cnt);
+	  		
+	  		List<Store_reviewVO> Reviewlist = mypageService.myreview(cnt);
+	  		model.addAttribute("Reviewlist", Reviewlist);
+	  		
+	  		
+	  		return "mypage/my_review";
+		      
+	    }
+	}
+	
 	
 	
 	

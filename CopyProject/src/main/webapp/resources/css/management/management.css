@@ -1,0 +1,203 @@
+@charset "UTF-8";
+section{
+	margin: auto;
+	max-width: 1560px;
+	width: 100%;
+}
+.sectionTitle{
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+
+#buttonArea{
+	text-align: center;
+	margin-top: 100px;
+	margin-bottom: 200px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.button{
+	width: 300px;
+	height: 50px;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	background-color: white;
+	color: #ffb6c1;
+	font-weight: bold;
+	margin: 5px;
+	font-size: 20px;
+}
+.button:hover{
+	background-color: #ffb6c1;
+	color: white;
+	font-weight: bold;
+}
+#memberInfo{
+	margin-bottom: 20px;
+}
+
+
+/* 페이징 영역  CSS */
+/*========================================================================*/
+#cntPerPageArea{
+	text-align: right;
+}
+#cntPerPage{
+	width: 120px;
+	height: 30px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#cntPerPage:focus{
+	outline: 2px solid #ffb6c1;
+	border: 2px solid #ffb6c1;
+}
+
+.list-paginator{
+	text-align : center;
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
+.list-paginator a{
+	color: #ffb6c1;
+	font-weight: bold;
+}
+.list-paginator>li{
+	display : inline-block;
+	vertical-align : bottom;
+}
+.list-paginator_page, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
+	display: none;
+    min-width: 26px;
+    margin: 0 2px;
+    padding: 5.5px 5px;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    color: #424242;
+    transition: background-color .1s,color .1s;
+    text-decoration : none;
+}
+.list-paginator_page.sm, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
+	display : block;
+}
+.list-paginator_page.selected{
+	background-color : #ffb6c1;
+	color : white;
+	text-decoration : none;
+}
+
+
+/* 미디어 쿼리  CSS */
+/*========================================================================*/
+@media screen and (min-width: 1400px){
+	#headerDiv, .navbar, section, footer{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 15px;
+		width: 80%;
+		margin-left: 20px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 95%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv, .hiddenStory, .hiddenShop{
+		display: none;
+	}
+	.categoryDiv{
+		font-size: 12px;
+		width: 90%;
+		margin-left: 0px;
+	}
+	.categoryUl{
+		padding: 15px 0px 15px 10px;
+	}
+	.recent{
+		display: none;
+	}
+}
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.categoryDiv{
+		font-size: 10px;
+		width: 95%;
+		margin-left: 0px;
+	}
+	.sidebar_menu{
+		width: 400px;
+	}
+	.recent, .join{
+		display: none;
+	}
+}
+@media screen and (max-width: 575.99px){
+	#headerDiv, .navbar, section, footer{
+		width: 98%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	.sidebar_menu{
+		width: 100%;
+		max-width: 400px;
+	}
+	.recent, .join{
+		display: none;
+	}
+}

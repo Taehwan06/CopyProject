@@ -15,6 +15,22 @@ section{
 	display: inline-block;
 }
 .followingUser{
+	margin : auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-right: 30px;
+	padding-left: 30px;
+	height: auto;
+	width : 840px;
+}
+.recommend{
+	text-align : center;
+	font-size : 24px;
+	font-weight : bold;
+	margin : 10px 0;
+}
+.followingUsers{
+	margin : auto;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	padding-right: 30px;
@@ -30,7 +46,7 @@ section{
 .followingTextArea{
 	height: 62px;
 }
-.profile, .followingButtonArea{
+.followingButtonArea{
 	padding: 0px;
 	margin-top: auto;
 	margin-bottom: auto;
@@ -70,7 +86,7 @@ section{
 .followingButtonArea{
 	text-align: right;
 }
-.followingButton{
+.followingButton, .followingButton1{
 	height: 35px;
 	width: 80px;
 	font-size: 16px;
@@ -93,12 +109,36 @@ section{
 .followingImgDiv{
 	padding-left: 7px;
 	padding-right: 7px;
+	cursor : pointer;
 }
 .followingImg{
 	width: 100%;
 	height: auto;
 	border-radius: 5px;
 	cursor: pointer;
+}
+.community{
+	margin : auto;
+}
+.nick{
+	margin-left : 10px;
+	display : inline-block;
+}
+.com_title{
+	font-size : 28px;
+	font-weight : 900;
+	margin-left : 5px;
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+.com_content{
+	margin-top : 10px;
+	margin-bottom : 60px;
+	cursor : pointer;
+}
+.followingButton1{
+	clear : both;
+	float : right;
 }
 
 

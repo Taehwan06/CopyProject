@@ -199,6 +199,20 @@
 			margin-top:60px;
 		}
 		
+		.no_story{
+			height:130px;
+		}
+		
+		.no_story button{
+			margin-top:48px;
+			border:none;
+			height:60px;
+			color:#222222;
+			background-color:white;
+			font-size:0.9rem;
+			font-weight:bold;
+		}
+		
 		/*AllStory CSS*/
 		
 		.all_homestroy_img{

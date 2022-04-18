@@ -1,5 +1,7 @@
 package edu.study.vo;
 
+import java.util.List;
+
 public class MemberVO {
 	private int midx;
 	private String id;
@@ -35,6 +37,7 @@ public class MemberVO {
 	private String addr3;
 	private String addr4;
 	private String temp_number;
+	private List<Community_BoardVO> bvo;
 	
 	
 	
@@ -242,5 +245,11 @@ public class MemberVO {
 	}
 	public void setAddr4(String addr4) {
 		this.addr4 = addr4;
+	}
+	public List<Community_BoardVO> getBvo() {
+		return bvo;
+	}
+	public void setBvo(List<Community_BoardVO> bvo) {
+		this.bvo = bvo;
 	}
 }

@@ -18,6 +18,13 @@
         <typeAlias type="edu.study.vo.Store_qnaVO" alias="Store_qnaVO"/>
         <typeAlias type="edu.study.vo.PagingVO" alias="PagingVO"/>
         <typeAlias type="edu.study.vo.PayInfoVO" alias="PayInfoVO"/>
+        <typeAlias type="edu.study.vo.FollowVO" alias="FollowVO"/>
+        <typeAlias type="edu.study.vo.Store_reviewVO" alias="Store_reviewVO"/>
+        <typeAlias type="edu.study.vo.MyContentVO" alias="MyContentVO"/>
+        <typeAlias type="edu.study.vo.MemberPagingVO" alias="MemberPagingVO"/>
+        <typeAlias type="edu.study.vo.MyQnaVO" alias="MyQnaVO"/>
+        <typeAlias type="edu.study.vo.ManagementMemberVO" alias="ManagementMemberVO"/>
+        <typeAlias type="edu.study.vo.StatsVO" alias="StatsVO"/>
     </typeAliases>
 
 </configuration>

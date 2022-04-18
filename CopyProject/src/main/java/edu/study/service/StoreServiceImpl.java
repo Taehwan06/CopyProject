@@ -107,6 +107,42 @@ public class StoreServiceImpl implements StoreService {
 		return StoreDao.store_review_insert(vo);
 	}
 
+	@Override
+	public StoreVO store_review_cnt(int spidx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.store_review_cnt(spidx);
+	}
+
+	@Override
+	public int store_review_change(StoreVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.store_review_change(vo);
+	}
+
+	@Override
+	public List<Store_reviewVO> store_reviewList(int spidx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.store_reviewList(spidx);
+	}
+
+	@Override
+	public int store_review_del(int sridx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.store_review_del(sridx);
+	}
+
+	@Override
+	public Store_reviewVO store_review_Detail(int sridx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.store_review_Detail(sridx);
+	}
+
+	@Override
+	public int store_review_modify(Store_reviewVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.store_review_modify(vo);
+	}
+
 	
 	
 

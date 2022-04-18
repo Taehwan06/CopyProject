@@ -13,8 +13,15 @@ public class MemberPagingVO {
 	private String searchType;
 	private String searchValue;
 	private int midx;
+	private String period;
 	
-		
+	
+	public String getPeriod() {
+		return period;
+	}
+	public void setPeriod(String period) {
+		this.period = period;
+	}
 	public int getMidx() {
 		return midx;
 	}

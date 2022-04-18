@@ -7,6 +7,7 @@ import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
 import edu.study.vo.MyQnaVO;
 import edu.study.vo.SearchVO;
+import edu.study.vo.Store_reviewVO;
 import edu.study.vo.OrderListVO;
 
 public interface MypageService { 
@@ -21,6 +22,7 @@ public interface MypageService {
 	List<OrderListVO> detailOrder(OrderListVO vo) throws Exception;
 	List<MyContentVO> mycomment(MyContentVO vo) throws Exception;
 	List<MyQnaVO> myquestion(MyQnaVO vo) throws Exception;
+	List<Store_reviewVO> myreview(Store_reviewVO vo) throws Exception;
 	
 	
 	int update(MemberVO vo) throws Exception;
@@ -29,6 +31,7 @@ public interface MypageService {
 	int delete(MemberVO vo) throws Exception;
 	int insert(MemberVO vo) throws Exception;
 	int count(OrderListVO vo) throws Exception;
+	int ReviewCount(Store_reviewVO vo) throws Exception;
 	
 		
 	

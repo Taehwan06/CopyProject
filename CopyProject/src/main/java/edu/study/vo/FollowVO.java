@@ -1,30 +1,22 @@
 package edu.study.vo;
 
+import java.util.List;
+
 public class FollowVO {
 	
 	private int fidx;
-	private int activeUser;
-	private int passiveUser;
 	private String add_date;
 	private int fmidx;
 	private int midx;
+	private String fmidx_nick;
+	private String profile_system;
+	private List<Community_BoardVO> bvo;
+	
 	public int getFidx() {
 		return fidx;
 	}
 	public void setFidx(int fidx) {
 		this.fidx = fidx;
-	}
-	public int getActiveUser() {
-		return activeUser;
-	}
-	public void setActiveUser(int activeUser) {
-		this.activeUser = activeUser;
-	}
-	public int getPassiveUser() {
-		return passiveUser;
-	}
-	public void setPassiveUser(int passiveUser) {
-		this.passiveUser = passiveUser;
 	}
 	public String getAdd_date() {
 		return add_date;
@@ -45,5 +37,22 @@ public class FollowVO {
 		this.midx = midx;
 	}
 	
-	
+	public String getFmidx_nick() {
+		return fmidx_nick;
+	}
+	public void setFmidx_nick(String fmidx_nick) {
+		this.fmidx_nick = fmidx_nick;
+	}
+	public String getProfile_system() {
+		return profile_system;
+	}
+	public void setProfile_system(String profile_system) {
+		this.profile_system = profile_system;
+	}
+	public List<Community_BoardVO> getBvo() {
+		return bvo;
+	}
+	public void setBvo(List<Community_BoardVO> bvo) {
+		this.bvo = bvo;
+	}
 }

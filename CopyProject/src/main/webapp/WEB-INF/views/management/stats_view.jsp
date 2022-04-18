@@ -16,7 +16,7 @@
     <!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	
-	<title>회원 목록</title>
+	<title>회원별 주문 상세 - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -59,13 +59,6 @@
 			
 			<div class="col-12 borderDiv">
 				<div class="row">
-					<div class="col-4 data left">닉네임</div>
-					<div class="col-8 data right">${mvo.nick_name }</div>
-				</div>
-			</div>
-						
-			<div class="col-12 borderDiv">
-				<div class="row">
 					<div class="col-4 data left">이름</div>
 					<div class="col-8 data right">${mvo.membername }</div>
 				</div>
@@ -92,9 +85,9 @@
 					<th>주문 번호</th>
 					<th>아이디</th>
 					<th>구매 금액</th>
-					<th>수량</th>
+					<th class="detailNum">상품 분류</th>
 					<th class="spidx">상품 등록 번호</th>
-					<th class="detailNum">구매일</th>
+					<th class="buyingDate">구매일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -103,69 +96,19 @@
 						<td>${list.ordernumber}</td>
 						<td>${list.id}</td>
 						<td>${list.price}</td>
-						<td>${list.cnt}</td>
+						<td class="detailNum">${list.detail}</td>
 						<td class="spidx">${list.spidx}</td>
-						<td class="detailNum">${list.buying_date}</td>
+						<td class="buyingDate">${list.buying_date}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-
-
-		<!-- 페이징 처리 -->
-		<ul class="list-paginator">
-			<li>
-				<a class="list-paginator_first" href="stats.do?nowPage=1&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-						<path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-						<path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-					</svg>
-				</a>
-			</li>
-			<c:if test="${memberPagingvo.startPage != 1}">
-				<li>
-					<a class="list-paginator_prev" href="stats.do?nowPage=${memberPagingvo.startPage - 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-							<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-						</svg>
-					</a>
-				</li>
-			</c:if>
-			
-			<!-- 페이지 블럭 처음부터 마지막 블럭까지 1씩 증가하는 페이지 출력 -->
-			<c:forEach var="num" begin="${memberPagingvo.startPage }" end="${memberPagingvo.endPage }">
-				<c:choose>
-					<c:when test="${num == memberPagingvo.nowPage }">
-						<li>
-							<button class="list-paginator_page sm selected" type="button">${num }</button>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li>
-							<a href="stats.do?nowPage=${num}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}" class="list-paginator_page sm">${num }</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${memberPagingvo.endPage != memberPagingvo.lastPage}">
-				<li>
-					<a class="list-paginator_next" href="stats.do?nowPage=${memberPagingvo.endPage + 1}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-							<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-						</svg>
-					</a>
-				</li>
-			</c:if>
-			<li>
-				<a class="list-paginator_last" href="stats.do?nowPage=${memberPagingvo.lastPage }&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-						<path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-						<path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-					</svg>
-				</a>
-			</li>
-		</ul>
 		
+		<div id="buttonArea">
+			<input type="button" name="listButton" id="listButton" class="button" value="목록" 
+			onclick="location.href='stats.do?nowPage=${memberPagingvo.nowPage}&searchType=${memberPagingvo.searchType}&searchValue=${memberPagingvo.searchValue}&period=${memberPagingvo.period}&cntPerPage=${memberPagingvo.cntPerPage}'">
+		</div>
+
 	</section>
 
 

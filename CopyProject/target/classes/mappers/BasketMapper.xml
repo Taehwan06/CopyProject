@@ -47,6 +47,8 @@
 			shopping_basket
 		WHERE
 			midx = #{midx}
+		AND
+			del_yn = "N"
     </select>
     
     
@@ -167,6 +169,36 @@
 			spidx = #{spidx}
 	
     </select>
+    
+    
+    <insert id="insertPaymentInfo" parameterType="PayInfoVO">
+	    	INSERT INTO payment_info(
+				paynumber,
+				amount,
+				midx
+			) 
+			VALUES(
+				#{paynumber},
+				#{amount},
+				#{midx}
+			)
+    </insert>
+    
+    
+    <select id="payConfirm" resultType="PayInfoVO" parameterType="PayInfoVO">
+		SELECT
+			pidx
+		FROM
+			payment_info
+		WHERE
+			paynumber = #{paynumber}
+		AND
+			amount = #{amount}
+		AND
+			midx = #{midx}
+	
+    </select>
+    
    
     
 </mapper>

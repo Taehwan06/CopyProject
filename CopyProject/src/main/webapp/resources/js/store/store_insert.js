@@ -277,7 +277,7 @@ function readURL(input) {
 $(function() {
 	$("#imgUpload").on("change", function(){
 		
-		var form = $("#uploadForm")[0];
+		/*var form = $("#uploadForm")[0];
 	    var formData = new FormData(form);
 	    
 	    $.ajax({
@@ -309,7 +309,7 @@ $(function() {
 				
 				}
 			}
-	    });
+	    });*/
 	    readURL(this);
 	});
 });

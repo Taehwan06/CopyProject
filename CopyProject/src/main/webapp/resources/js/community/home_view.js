@@ -11,6 +11,36 @@ $(window).scroll(function(){
 	}
 });
 
+/* 팔로우 요청 */
+function follow(fmidx){
+	$.ajax({
+		type : 'post',
+		url : '/controller/follow/followC',
+		data : 'fmidx='+fmidx,
+		success : function(result){
+			if(result == "FollowOK"){
+				location.reload();
+				
+			}
+		}
+	})
+}
+
+/* 언팔로우 요청 */
+function unfollow(fmidx){
+	$.ajax({
+			type : 'post',
+			url : '/controller/follow/unfollowC',
+			data : 'fmidx='+fmidx,
+			success : function(result){
+				if(result == "UnFollowOK"){
+					location.reload();
+					
+				}
+			}	
+		});
+}
+
 /* 댓글 높이 조절 */
 var textEle = $('.reply_content_form_text');
 textEle.on('keyup', function() {

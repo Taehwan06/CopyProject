@@ -42,6 +42,22 @@ section{
 	color: #ffb6c1;
 	font-weight: bold;
 }
+#periodTitle{
+	display: inline-block;
+	margin-left: 100px;
+	margin-right: 10px;
+	font-size: 18px;
+}
+#period{
+	width: 130px;
+	height: 30px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#period:focus{
+	outline: 2px solid #ffb6c1;
+	border: 2px solid #ffb6c1;
+}
 
 
 .memberTable{
@@ -55,24 +71,6 @@ tbody td{
 	cursor: pointer;
 }
 
-.pink{
-	margin-top: 30px;
-}
-.pink a{
-	color: #ffb6c1;
-	background-color: white;
-	border: 2px solid #ffb6c1;
-	border-radius: 5px;
-}
-.pink a:hover{
-	color: white;
-	background-color: #ffb6c1;
-	border: 2px solid #ffb6c1;
-	border-radius: 5px;
-}
-.pink li{
-	margin: 3px;
-}
 
 /* 페이징 영역  CSS */
 /*========================================================================*/
@@ -93,7 +91,6 @@ tbody td{
 .list-paginator{
 	text-align : center;
 	margin-top: 30px;
-	margin-bottom: 50px;
 }
 .list-paginator a{
 	color: #ffb6c1;
@@ -128,6 +125,31 @@ tbody td{
 	color : white;
 	text-decoration : none;
 }
+
+
+/* 버튼 영역  CSS */
+#buttonArea{
+	text-align: right;
+	margin-bottom: 40px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.button{
+	width: 120px;
+	height: 30px;
+	border: 2px solid #ffb6c1;
+	border-radius: 5px;
+	background-color: #ffb6c1;
+	color: white;
+	font-weight: bold;
+	margin: 5px;
+}
+.button:hover{
+	background-color: white;
+	color: #ffb6c1;
+	font-weight: bold;
+}
+
 
 
 /* 미디어 쿼리  CSS */
@@ -216,7 +238,7 @@ tbody td{
 	.sidebar_menu{
 		width: 400px;
 	}
-	.recent, .join{
+	.recent, .detailNum{
 		display: none;
 	}
 }
@@ -234,7 +256,7 @@ tbody td{
 		width: 100%;
 		max-width: 400px;
 	}
-	.recent, .join{
+	.recent, .detailNum{
 		display: none;
 	}
 }

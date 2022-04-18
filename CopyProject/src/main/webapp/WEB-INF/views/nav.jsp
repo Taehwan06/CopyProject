@@ -59,8 +59,8 @@
 				</li>
 			</c:if>
 			<c:if test="${loginUser != null && (loginUser.grade eq 'A' or loginUser.grade eq 'M')}">
-				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/management/member_list.do'">
-					<img id="navProfileImg" src="/controller/image/${loginUser.profile_system}"> ${loginUser.nick_name}
+				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/management/management.do'">
+					회원 관리
 				</li>
 			</c:if>
 		</ul>

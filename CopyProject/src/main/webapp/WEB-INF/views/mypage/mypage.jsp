@@ -13,7 +13,7 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 
-	<title>마이페이지</title>
+	<title>마이페이지 - 홈프렌즈</title>
 
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -89,18 +89,29 @@
 				<div class="mydivtitle mydiv2-2">내 홈스토리</div>
 				<div id="mydiv2-2">	
 					<div>
-					<c:forEach items="${Storylist}" end="3" var="vo" varStatus="cnt">
-						<div class="my_homestroy" id="mystory${cnt.count}" >
-							<input type="hidden" value="${vo.cbidx}">
-							<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
-						</div>
-					</c:forEach>
+					<c:set var="length" value="${fn:length(Storylist)}" />
+					<c:choose>
+						<c:when test="${length eq 0}">
+							<div class="no_story">
+								<button onclick="location.href='${pageContext.request.contextPath}/community/home_insert.do'"><i class="bi bi-plus-lg"></i>&nbsp; 첫 번째 홈스토리를 올려보세요</button>
+							</div>
+						</c:when>
+						
+						<c:when test="${length ne 0}">
+							<c:forEach items="${Storylist}" end="3" var="vo" varStatus="cnt">
+								<div class="my_homestroy" id="mystory${cnt.count}" >
+									<input type="hidden" value="${vo.cbidx}">
+									<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
+								</div>
+							</c:forEach>
+						</c:when>
+					</c:choose>
 					</div>
 					<br>
 					<div id="mystory_btn">
 						<button onclick="location.href='${pageContext.request.contextPath}/mypage/mypage_allStory.do'">내가 쓴 글</button>
 						<button onclick="location.href='${pageContext.request.contextPath}/mypage/my_comment.do'">나의 댓글</button>
-						<button>나의 리뷰</button>
+						<button onclick="location.href='${pageContext.request.contextPath}/mypage/my_review.do'">나의 리뷰</button>
 						<button onclick="location.href='${pageContext.request.contextPath}/mypage/my_QnA.do'">나의 문의</button>
 					</div>
 				</div>

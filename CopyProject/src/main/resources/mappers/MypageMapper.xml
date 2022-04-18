@@ -71,7 +71,6 @@
     		addr =  CONCAT(#{addr1}," ",#{addr2}), 
     		profile_origin = #{profile_origin}, 
     		profile_system = #{profile_system} 
-    		
     	WHERE 
     		midx = #{midx}
     </update>
@@ -206,13 +205,13 @@
     <select id="mycomment" resultType="MyContentVO" parameterType="MyContentVO">
     	SELECT 
     		B.title, 
-    		B.writer,
-    		B.write_date, 
+    		B.writer, 
     		B.reply_cnt, 
     		B.hit_cnt,
     		B.img_system, 
     		B.img_origin,
     		B.cbidx,
+    		R.write_date,
     		R.content
   		FROM 
   		 	community_board B
@@ -224,6 +223,8 @@
 			R.midx = #{midx}
 		AND
     		R.del_yn = "N"
+    	ORDER BY 
+    		R.write_date DESC
     </select>
     
     <select id="myquestion" resultType="MyQnaVO" parameterType="MyQnaVO">
@@ -246,6 +247,41 @@
 			Q.midx = #{midx}
 		AND
     		Q.del_yn = "N"
+    	ORDER BY 
+    		Q.write_date DESC	
+    </select>
+    
+    <select id="ReviewCount" resultType="int" parameterType="Store_reviewVO">
+    	SELECT 
+    		count(*) 
+    	FROM 
+    		shopping_review 
+    	WHERE 
+    		midx = #{midx}
+    </select>
+    
+     <select id="myreview" resultType="Store_reviewVO" parameterType="Store_reviewVO">
+    	SELECT
+    		 R.content, 
+    		 R.write_date, 
+    		 R.del_yn, 
+    		 P.title,
+    		 P.img_system,
+    		 P.img_origin,
+    		 R.spidx,
+    		 R.score
+		FROM 
+			shopping_review R
+		INNER JOIN 
+			shopping_product P
+		ON 
+			R.spidx = P.spidx
+		WHERE 
+			R.midx = #{midx}
+    	AND
+    		R.del_yn = "N"
+    	ORDER BY 
+    		R.write_date DESC	
     </select>
     
     

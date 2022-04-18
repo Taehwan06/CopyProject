@@ -62,4 +62,16 @@ public class Community_ReplyServiceImpl implements Community_ReplyService {
 		
 		return replyDao.count(cbidx);
 	}
+
+	@Override
+	public int countUp(int cbidx) throws Exception {
+		
+		return replyDao.countUp(cbidx);
+	}
+
+	@Override
+	public int countDown(int cbidx) throws Exception {
+		
+		return replyDao.countDown(cbidx);
+	}
 }

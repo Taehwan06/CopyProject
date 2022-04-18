@@ -55,8 +55,15 @@ public class StatsVO {
 	private int buyingCnt;
 	private String amount;
 	private String recentBuying;
+	private String detail;
+		
 	
-	
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 	public String getAmount() {
 		return amount;
 	}

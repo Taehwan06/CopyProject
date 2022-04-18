@@ -40,12 +40,36 @@ public class ManagementController {
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
+	
+	@RequestMapping(value = "/management.do", method = RequestMethod.GET)
+	public String management(Locale locale, Model model, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession(); 
+	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+	   	
+		session.setAttribute("nowUri", null);
+	    
+		if(loginUser == null) {
+			return "redirect:/login/login.do";
+		}else if(!loginUser.getGrade().equals("A") && !loginUser.getGrade().equals("M")) {
+			return "redirect:/";
+		}else {
+		
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+			
+			return "management/management";
+		}
+	}
+			
 	@RequestMapping(value = "/member_list.do", method = RequestMethod.GET)
 	public String member_list(Locale locale, Model model, HttpServletRequest request, MemberPagingVO vo
 							, @RequestParam(value="nowPage", required=false)String nowPage
 							, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
-		
-		
+				
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 	   	
@@ -62,8 +86,7 @@ public class ManagementController {
 			List<HomeSearchVO> searchList = homeService.listSearchList();
 			
 			model.addAttribute("searchList", searchList);
-			
-			
+						
 			//페이징처리
 			int total = managementService.countMember(vo);
 			
@@ -81,13 +104,13 @@ public class ManagementController {
 	  	    int end = memberPagingvo.getEnd();
   	    	memberPagingvo.setSearchType(vo.getSearchType());
   	    	memberPagingvo.setSearchValue(vo.getSearchValue());
-	  	    
+  	    	memberPagingvo.setCntPerPage(Integer.parseInt(cntPerPage));
+  	    		  	    
 	  	    List<MemberVO> memberPagingList = managementService.selectPagingMember(memberPagingvo);
 	  	    model.addAttribute("memberPagingList", memberPagingList);
 	  	    model.addAttribute("memberPagingvo", memberPagingvo);
-					
-			return "management/member_list";
-			
+	  	    
+	  		return "management/member_list";
 		}
 	}
 	
@@ -318,6 +341,8 @@ public class ManagementController {
 	  	    int end = memberPagingvo.getEnd();
   	    	memberPagingvo.setSearchType(vo.getSearchType());
   	    	memberPagingvo.setSearchValue(vo.getSearchValue());
+  	    	memberPagingvo.setPeriod(vo.getPeriod());
+  	    	memberPagingvo.setCntPerPage(Integer.parseInt(cntPerPage));
 	  	    
   	    	List<StatsVO> statsList = managementService.selectPagingStats(memberPagingvo);
 	  	    model.addAttribute("statsList", statsList);

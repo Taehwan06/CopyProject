@@ -128,6 +128,9 @@ section{
 	color : gray;
 	font-weight : bold;
 }
+#footer_img_{
+	text-align : center;
+}
 .footer_profile{
 	width : 750px;
 	margin : auto;

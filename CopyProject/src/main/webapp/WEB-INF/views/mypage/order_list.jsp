@@ -13,7 +13,7 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
     
-	<title>주문배송조회</title>
+	<title>주문배송조회 - 홈프렌즈</title>
 	
 		
 	<link href="/controller/css/header.css" rel="stylesheet">
@@ -25,6 +25,8 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script> 
 	<script src="/controller/js/mypage/order_list.js"></script>
+	<!-- SweetAlert  -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -112,7 +114,17 @@
 									</div> 
 									<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 productBtn">
 										<button id="delTrack" onclick= "window.open('https://www.cjlogistics.com/ko/tool/parcel/tracking');">배송추적</button>
-										<button id="goReview">리뷰작성</button> 
+										<c:choose>
+											<c:when test = "${orderList2.review_registration eq 'N' && orderList2.progress eq '배송완료'}">
+												<input type="button" class="goReview" onclick="location.href='${pageContext.request.contextPath}/store/store_review_insert.do?spidx=${orderList2.spidx}'" value="리뷰작성">
+											</c:when>
+											<c:when test = "${orderList2.review_registration eq 'N' && orderList2.progress ne '배송완료'}">
+												<input type="button" class="goReview" onclick="yet();" value="리뷰작성">
+											</c:when>
+											<c:when test = "${orderList2.review_registration eq 'Y'}">
+												<input type="button" class="goReview"  onclick="already();" value="리뷰완료">
+											</c:when>
+										</c:choose>
 									</div> 
 								</div> 
 								<div class="row">
