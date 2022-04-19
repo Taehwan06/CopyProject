@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import edu.study.service.Community_BoardService;
 import edu.study.service.HomeService;
 import edu.study.service.StoreService;
+import edu.study.util.TwilioExample;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.HomeStoreVO;
 import edu.study.vo.HomeStoryVO;
-import edu.study.vo.MemberVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.StoreVO;
 
@@ -40,6 +40,7 @@ public class HomeController {
 	private Community_BoardService Community_boardService;
 	@Autowired
 	private StoreService storeService;
+	private TwilioExample twilioExample;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -220,5 +221,16 @@ public class HomeController {
 	    	return "recentView_none";
 	    }
 	}
+	
+	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
+	public String test(Locale locale, Model model, HttpServletRequest request) throws Exception {
+
+//		twilioExample.sendSMS("82","01094483099");
+//		System.out.println("send");
+		
+		return "test";
+	}
+	
+	
 	
 }

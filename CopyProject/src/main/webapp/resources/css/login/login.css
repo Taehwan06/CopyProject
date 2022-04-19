@@ -7,127 +7,16 @@
 body{
 	margin: auto;
 }
+#sectionTitle{
+	margin-bottom: 10px;
+	font-size: 18px;
+	color: #ffb6c1;
+	font-weight: bold;
+}
 
 #facebook, #kakao, #naver{
 	cursor: pointer;
 	margin: 10px;
-}
-
-@media screen and (min-width: 1400px){
-	#headerDiv,.navbar{
-		width: 80%;
-	}
-	#searchInput{
-		width: 90%;
-	}
-	#spaceDiv{
-		display: none;
-	}
-	
-	
-	#vacant1{
-		display: none;
-	}
-	
-	
-}
-@media screen and (min-width: 1200px) and (max-width: 1399.99px){
-	#headerDiv,.navbar{
-		width: 85%;
-	}
-	#searchInput{
-		width: 90%;
-	}
-	#spaceDiv{
-		display: none;
-	}
-	
-	#vacant1{
-		display: none;
-	}
-	
-	
-}
-@media screen and (min-width: 992px) and (max-width: 1199.99px){
-	#headerDiv,.navbar{
-		width: 90%;
-	}
-	#searchInput{
-		width: 90%;
-	}
-	#spaceDiv{
-		display: none;
-	}
-	
-	#vacant1{
-		display: none;
-	}			
-	
-}
-@media screen and (min-width: 768px) and (max-width: 991.99px){
-	#headerDiv,.navbar{
-		width: 100%;
-	}
-	#searchInput{
-		width: 89%;
-	}
-	#spaceDiv{
-		display: none;
-	}
-	
-	#vacant1{
-		display: none;
-	}
-	
-}
-@media screen and (min-width: 576px) and (max-width: 767.99px){
-	#headerDiv,.navbar{
-		width: 90%;
-	}
-	#searchFrm{
-		width: 55%;
-	}
-	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
-		display: none;
-	}
-	#menuComm{
-		border-right: 1px solid lightgray;
-	}
-	#smallMenu{
-		display: inline-block;
-	}
-	#subNav, #subNav2{
-		display : none;
-	}
-	
-	#vacant1{
-		display: none;
-	}
-	
-}
-@media screen and (max-width: 575.99px){
-	#headerDiv,.navbar{
-		width: 100%;
-	}
-	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
-		display: none;
-	}
-	#smallMenu{
-		display: inline-block;
-	}
-	
-	.login_logo{
-		display: none;
-	}
-	
-	nav{ 
-		display:none;
-	}
-	section{
-		border-top: 3px solid #ffb6c1; 
-	}
-
-	
 }
 
 
@@ -218,3 +107,116 @@ input[type=text]:hover,input[type=password]:hover{
 	margin-top: 10px;
 }
 
+
+@media screen and (min-width: 1400px){
+	#headerDiv,.navbar{
+		width: 80%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	
+	#vacant1{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#headerDiv,.navbar{
+		width: 85%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#headerDiv,.navbar{
+		width: 90%;
+	}
+	#searchInput{
+		width: 90%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 991.99px){
+	#headerDiv,.navbar{
+		width: 100%;
+	}
+	#searchInput{
+		width: 89%;
+	}
+	#spaceDiv{
+		display: none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 576px) and (max-width: 767.99px){
+	#headerDiv,.navbar{
+		width: 90%;
+	}
+	#searchFrm{
+		width: 55%;
+	}
+	#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+		display: none;
+	}
+	#menuComm{
+		border-right: 1px solid lightgray;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	#subNav, #subNav2{
+		display : none;
+	}
+	
+	#vacant1{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 575.99px){
+	#headerDiv,.navbar{
+		width: 100%;
+	}
+	#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+		display: none;
+	}
+	#smallMenu{
+		display: inline-block;
+	}
+	
+	.login_logo{
+		display: none;
+	}
+	
+	nav{ 
+		display:none;
+	}
+	section{
+		border-top: 3px solid #ffb6c1; 
+	}
+}

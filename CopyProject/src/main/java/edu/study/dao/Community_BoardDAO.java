@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.study.vo.Community_BoardVO;
-import edu.study.vo.MemberVO;
+import edu.study.vo.FollowVO;
 import edu.study.vo.SearchVO;
 
 @Repository
@@ -81,6 +81,12 @@ public class Community_BoardDAO {
 	public List<Community_BoardVO> blist() {
 		
 		return sqlSession.selectList(Namespace+".boardList");
+	}
+	
+	//팔로우 유무 조회
+	public int isFollow(FollowVO fvo) {
+		
+		return sqlSession.selectOne(Namespace+".isFollow", fvo);
 	}
 }
 

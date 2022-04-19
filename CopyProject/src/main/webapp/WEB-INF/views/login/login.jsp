@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	<!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<!-- facebook SDK -->
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 	
 	<title>로그인 - 홈프렌즈</title>
 	 
@@ -41,6 +43,11 @@
 			<div class="row">
 				<div class="col-8" style="float: none; margin:0 auto;">
 					<img class="login_logo" width="180px" src="/controller/image/mainLogo.png">
+					<c:if test="${facebookUser != null or kakaoUser != null or naverUser != null }">
+						<div id="sectionTitle">
+							회원가입 후 이용하실 수 있습니다.
+						</div>
+					</c:if>
 					<form name="loginFrm" id="loginFrm">
 						<div>
 							<input type="text" name="id" id="id" placeholder="  이메일" onkeyup="enterkey();">
@@ -61,7 +68,7 @@
 					<div> 
 						<p class="SNS_login">SNS계정으로 간편 로그인/회원가입</p>
 						<div>
-							<svg id="facebook" width="60" height="60" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+							<svg id="facebook" onclick="facebookLogin()" width="60" height="60" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
 								<g fill="none" fill-rule="evenodd">
 									<path fill="#3B5998" d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"></path><path fill="#FFF" d="M25.77 35V24h3.384v-3.385h-3.385v-2.538c-.012-.756.08-1.285 1.693-1.692h1.692V13h-3.385c-3.25 0-4.52 1.84-4.23 5.077v2.538H19V24h2.538v11h4.231z"></path>
 								</g>
@@ -86,7 +93,7 @@
 		</div>
 		<div class="login_vacant"></div>
 		
-		<form id="kakaoFrm" name="kakaoFrm">
+		<form id="subLoginFrm" name="subLoginFrm">
 			<input type="hidden" id="nick_name" name="nick_name" value="">
 		</form>
  	

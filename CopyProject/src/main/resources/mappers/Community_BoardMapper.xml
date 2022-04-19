@@ -12,7 +12,8 @@
          		scrap_cnt,
          		hit_cnt,
          		img_system,
-         		profile_system
+         		profile_system,
+         		c.midx
            FROM community_board c
            INNER JOIN member m
            ON c.midx = m.midx 
@@ -42,7 +43,8 @@
     		   title,
     		   writer,
     		   img_system,
-    		   profile_system
+    		   profile_system,
+    		   c.midx
     	FROM community_board c
         INNER JOIN member m
         ON c.midx = m.midx
@@ -152,6 +154,14 @@
     <select id="boardList" resultType="Community_boardVO">
     	SELECT *
     	  FROM community_board
-    	 WHERE 1=1
+    	 WHERE del_yn = 'N'
+    </select>
+    
+    <!-- 팔로우 유무 조회 -->
+    <select id="isFollow" resultType="int" parameterType="FollowVO">
+    	SELECT COUNT(*)
+    	  FROM follow
+    	 WHERE midx = #{midx}
+    	   AND fmidx = #{fmidx}
     </select>
 </mapper>

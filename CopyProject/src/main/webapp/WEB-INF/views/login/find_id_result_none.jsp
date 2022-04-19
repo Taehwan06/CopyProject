@@ -13,6 +13,10 @@
     <!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+	<!-- kakao SDK -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<!-- facebook SDK -->
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 	
 	<title>아이디 찾기 - 홈프렌즈</title>
 	

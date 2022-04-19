@@ -139,6 +139,7 @@ section{
 .followingButton1{
 	clear : both;
 	float : right;
+	margin-top : 12px;
 }
 
 
@@ -154,6 +155,9 @@ section{
 	}
 	#spaceDiv{
 		display: none;
+	}
+	.followingImg{
+		height : 120px;
 	}
 }
 @media screen and (min-width: 1200px) and (max-width: 1399.99px){

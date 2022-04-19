@@ -115,8 +115,9 @@ $(document).ready( function(){
 });
 
 
+//카카오 로그인 기본설정
 Kakao.init("473ca00dc030c2f1282ad75e7ce958a3");
-//카카오로그아웃
+//카카오 로그아웃
 function kakaoLogout() {
     if (Kakao.Auth.getAccessToken()) {
       Kakao.API.request({
@@ -131,4 +132,25 @@ function kakaoLogout() {
       Kakao.Auth.setAccessToken(undefined)
     }
     location.href="/controller/login/logout.do";
-  }
+}
+  
+  
+  
+//페이스북 (로그인) 기본 설정
+window.fbAsyncInit = function () {
+    //페이스북 로그인 기능 클라이언트 설정
+    FB.init({
+        appId: '1616647815383805',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v10.0'
+    });
+};
+
+//페이스북 (로그아웃)
+function facebookLogout() {
+    FB.logout((res)=>{
+        
+    });
+    location.href="/controller/login/logout.do";
+}

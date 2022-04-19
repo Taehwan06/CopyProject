@@ -32,9 +32,10 @@ public class ReplyController {
 	//댓글 작성
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	@ResponseBody
-	public String postWrite(Community_ReplyVO vo, HttpServletRequest request) throws Exception {
+	public String postWrite(Community_ReplyVO vo, HttpServletRequest request, int cbidx) throws Exception {
 		
 		replyService.write(vo);
+		replyService.countUp(cbidx);
 		
 		/* Gson 생성 */
 		Gson gson = new Gson();
@@ -74,9 +75,10 @@ public class ReplyController {
 	//댓글 삭제
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public String postDelete(int cbridx, Model model, Community_ReplyVO vo) throws Exception {
+	public String postDelete(int cbridx, Model model, Community_ReplyVO vo, int cbidx) throws Exception {
 		
 		replyService.delete(cbridx);
+		replyService.countDown(cbidx);
 		
 		model.addAttribute("cbridx", cbridx);
 		
@@ -96,9 +98,10 @@ public class ReplyController {
 	//답글 작성
 	@RequestMapping(value="/Reinsert", method = RequestMethod.POST)
 	@ResponseBody
-	public String postReinsert(Model model, Community_ReplyVO vo) throws Exception {
+	public String postReinsert(Model model, Community_ReplyVO vo, int cbidx) throws Exception {
 		
 		replyService.Reinsert(vo);
+		replyService.countUp(cbidx);
 		
 		/* 답글 작성 lvl 업데이트 */
 		replyService.lvlUp(vo);

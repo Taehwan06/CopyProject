@@ -363,8 +363,28 @@ public class LoginController {
 		
 		session.setAttribute("kakaoUser", kakaoUser);
 		
-		return "redirect: /controller/";
+		return "redirect: /controller/";		
+	}
+	
+	@RequestMapping(value = "/facebookLogin.do", method = RequestMethod.POST)
+	public String facebookLogin(Locale locale, Model model, HttpServletRequest request, MemberVO vo) throws Exception {
 		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		HttpSession session = request.getSession();
+		
+		
+		MemberVO facebookUser = new MemberVO();
+		facebookUser.setNick_name(vo.getNick_name());
+		facebookUser.setProfile_system("facebook.png");
+		
+		session.setAttribute("facebookUser", facebookUser);
+		
+		return "redirect: /controller/";		
 	}
 	
 }

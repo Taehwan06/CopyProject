@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	<!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<!-- facebook SDK -->
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 		
 	<title>홈 프렌즈에 오신걸 환영합니다.</title>
 	
