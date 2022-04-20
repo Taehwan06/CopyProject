@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.ScrapMapper">
+	<!-- 스크랩 1증가 -->
+	<update id="scrapUp" parameterType="int">
+		UPDATE community_board
+		   SET scrap_cnt = scrap_cnt+1
+		 WHERE cbidx = #{cbidx}
+	</update>
+	
+	<!-- 스크랩 1감소 -->
+	<update id="scrapDown" parameterType="int">
+		UPDATE community_board
+		   SET scrap_cnt = scrap_cnt-1
+		 WHERE cbidx = #{cbidx}
+	</update>
+	
+	<!-- 스크랩 하기 -->
+	<insert id="scrapOn" parameterType="ScrapVO">
+		INSERT INTO scrap(
+			cbidx,
+			midx
+		) VALUES (
+			#{cbidx},
+			#{midx}
+		)	
+	</insert>
+	
+	<!-- 스크랩 취소 -->
+	<delete id="scrapOff">
+		DELETE FROM scrap
+		 WHERE cbidx = #{cbidx}
+		   AND midx = #{midx}
+	</delete>
+	
+	<!-- 스크랩 리스트 -->
+	<select id="scrapList" resultType="ScrapVO">
+		SELECT cbidx
+		  FROM scrap
+		 WHERE midx = #{midx}
+	</select>
+</mapper>

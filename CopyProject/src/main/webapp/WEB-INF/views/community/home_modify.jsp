@@ -67,7 +67,7 @@
 			
 			<div id="butttonArea">
 				<input type="button" id="submitButton" value="수정" onclick="submitFn()">
-				<input type="button" id="calcelButton" value="취소" onclick="cancelFn('${vo.cbidx}')">
+				<input type="button" id="calcelButton" value="취소" onclick="cancelFn('${vo.cbidx}','${vo.midx }')">
 			</div>
 		</form>
 		

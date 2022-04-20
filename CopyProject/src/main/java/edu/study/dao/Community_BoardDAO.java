@@ -1,5 +1,6 @@
 package edu.study.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.FollowVO;
+import edu.study.vo.MemberVO;
+import edu.study.vo.ScrapVO;
 import edu.study.vo.SearchVO;
 
 @Repository
@@ -77,16 +80,46 @@ public class Community_BoardDAO {
 		return sqlSession.update(Namespace+".viewCount", cbidx);
 	}
 	
-	//midx로 조회하기
-	public List<Community_BoardVO> blist() {
-		
-		return sqlSession.selectList(Namespace+".boardList");
+	//팔로우 유저 게시판 목록
+	public List<Community_BoardVO> followlist(List<FollowVO> flist) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("flist", flist);
+		return sqlSession.selectList(Namespace+".boardList", map);
 	}
 	
 	//팔로우 유무 조회
 	public int isFollow(FollowVO fvo) {
 		
 		return sqlSession.selectOne(Namespace+".isFollow", fvo);
+	}
+	
+	//스크랩 유무 조회
+	public int isScrap(ScrapVO scrap) {
+		
+		return sqlSession.selectOne(Namespace+".isScrap", scrap);
+	}
+	
+	//스크랩 게시판 목록
+	public List<Community_BoardVO> scrapList(List<ScrapVO> scrapList) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("scrapList", scrapList);
+		return sqlSession.selectList(Namespace+".sList", map);
+	}
+	
+	//유저의 게시글 목록
+	public List<Community_BoardVO> boardlist() {
+		
+		return sqlSession.selectList(Namespace+".blist");
+	}
+
+	public List<Community_BoardVO> selectlist(SearchVO vo) {
+		
+		return sqlSession.selectList(Namespace+".Comm_selectList", vo);
+	}
+
+	public List<Community_BoardVO> list4(SearchVO vo) {
+		
+		return sqlSession.selectList(Namespace+".Comm_listBoard4", vo);
 	}
 }
 

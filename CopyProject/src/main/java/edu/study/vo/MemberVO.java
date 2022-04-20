@@ -8,40 +8,54 @@ public class MemberVO {
 	private String pass;
 	private String nick_name;
 	private String membername;
+	
 	private String birthday;
 	private String birth1;
 	private String birth2;
 	private String birth3;
+	
 	private String phone;
 	private String phone1;
 	private String phone2;
 	private String phone3;
+	
 	private String gender;
 	private String recommender;
 	private String mileage;
 	private String grade;
 	private String joinDate;
+	
 	private String del_yn;
 	private String del_cause;
 	private String del_date;
+	
 	private String black_yn;
 	private String black_cause;
 	private String black_date;
+	
 	private String follower_cnt;
 	private String profile_origin;
 	private String profile_system;
+	
 	private String post_code;
 	private String addr;
 	private String addr1;
 	private String addr2;
 	private String addr3;
 	private String addr4;
+	
 	private String temp_number;
 	private List<Community_BoardVO> bvo;
+	private String uid;
 	
+		
 	
-	
-	
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		uid = uid;
+	}
 	public String getTemp_number() {
 		return temp_number;
 	}

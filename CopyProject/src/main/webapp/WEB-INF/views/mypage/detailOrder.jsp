@@ -57,19 +57,20 @@
 								</div>
 							</div>
 						</div>
-						</c:forEach>
+						
 						<hr><!-- ====================================================================================== -->
 						<div class="number_order">
 							배송지정보
 						</div>
 						<hr>
 						<div class="row">
-							<div class="delInfo col-3">${vo.membername}</div> 
-							<div class="delInfo col-3">${vo.phone}</div>
-							<div class="delInfo col-3">${vo.addr}</div>
-							<div class="delInfo col-3">배송메모&#58;<br>문 앞에 놓아주세요</div>
+							<div class="delInfo col-3">${detailOrder.membername}</div> 
+							<div class="delInfo col-3">${detailOrder.phone}</div>
+							<div class="delInfo col-3">${detailOrder.addr}</div>
+							<div class="delInfo col-3">배송메모&#58;<br>${detailOrder.memo}</div>
 							<input type="hidden" value="spidx">
 						</div>
+						</c:forEach>
 					</div>
 				</div><!-- odrWrap  -->
 					<div class="aWrap">

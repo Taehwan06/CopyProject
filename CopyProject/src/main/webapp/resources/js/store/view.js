@@ -487,4 +487,110 @@ function Q_delFn(sqidx){
 function page_reload(){
 	location.reload();
 }
+
+function likeFn(likeYN){
+	if(likeYN==0){
+		if(!loginYN){
+			alert("로그인 후 이용하여 주세요.");
+		}
+		$.ajax({
+			type : "GET",
+			url : "likeIN",
+			data : "spidx="+spidx+"&midx="+midx,
+			success : function(res) {
+				if(res!=1){
+					console.log("오류오류");
+				}
+				if(res==100){
+					alert("로그인 후 이용하여 주세요");
+				}
+				var html="<div onclick='likeFn(1)'>"
+				html += "<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-heart-fill' viewBox='0 0 16 16'>";
+				html += "<path fill-rule='evenodd' d='M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z'/>";
+				html += "</svg>";			
+				html += "</div>";		
+				$(".like").html(html);
+			}
+		});
+	}else{
+		$.ajax({
+			type : "GET",
+			url : "likeDEL",
+			data : "spidx="+spidx+"&midx="+midx,
+			success : function(res) {
+				if(res!=1){
+					console.log("오류오류");
+				}
+				if(res==100){
+					alert("로그인 후 이용하여 주세요");
+				}
+				var html="<div onclick='likeFn(0)'>"
+				html += "<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-heart' viewBox='0 0 16 16'>";
+				html += "<path d='m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z'/>";
+				html += "</svg>";			
+				html += "</div>";		
+				$(".like").html(html);
+			}
+		});
+	}
+}
+
+
+//ajax페이징 실패(데이터담기까지 가능 하단 번호조정 실패)
+/*function review_paging(nowPage){
+	$.ajax({
+		type : "get",
+		url : "review_paging",
+		data : "spidx="+spidx+"&nowPage="+nowPage,
+		success : function(res) {
+			var jsondata = $.parseJSON(res);
+			var sethtml = "";
+			for(var i=0; i<jsondata.length; i++){
+				sethtml+= "<li class='reply_list_item'>";
+				sethtml+= "<article class='reply_item_'>";
+				sethtml+= "<p class='reply_item_content'>";
+				sethtml+= "<a class='reply_item_content_writer' href=''>"+jsondata[i].nick_name;
+				sethtml+= "<img class='reply_item_content_writer_image' src='/controller/image/"+jsondata[i].profile_system+"'>";
+				sethtml+= "</a>";
+				sethtml+= "<time class='reply_item_footer_time'>";
+				if(jsondata[i].modify_yn=='N'){
+					sethtml+= jsondata[i].write_date;
+				}
+				if(jsondata[i].modify_yn=='Y'){
+					sethtml+= jsondata[i].modify_date+"(수정됨)";
+				}
+				sethtml+= "</time>";
+				if(midx==jsondata[i].midx){
+				sethtml+= "<span class='A_write' onclick='R_modifyFn("+jsondata[i].sridx+")'>수정하기</span>";
+				sethtml+= "<span class='A_write' onclick='R_delFn("+jsondata[i].sridx+")'>삭제하기</span>";
+				}
+				sethtml+= "</p>";
+				sethtml+= "<footer class='reply_item_footer'>";
+				sethtml+= "<div style='position: absolute;top: 0px;'>";
+				sethtml+= "<c:set var='star' value='"+jsondata[i].score+"'/>";
+				sethtml+= "<span class='sky'>";
+				for(var a=0; a<jsondata[i].score;a++){
+				sethtml+= " <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-star-fill' viewBox='0 0 16 16'>";
+				sethtml+= "<path d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z'/>";
+				sethtml+= "</svg>";
+				}
+				sethtml+= "</span>";
+				sethtml+= "</div>";
+				sethtml+= "</footer>";
+				sethtml+= "</article>";	
+				sethtml+= "<div style='margin:30px 0px 0 20px;'>";
+				if(jsondata[i].img_origin!=null&&jsondata[i].img_origin!=""){
+				sethtml+= "<div style='padding: 5px; width: 150px; height: 150px;'><img alt='' src='"+jsondata[i].img_origin+"' style='width: 100%; height: 100%;border-radius: 5px;'> </div>";		
+				};
+				sethtml+= "<div style='padding: 10px;'>"+jsondata[i].content+"</div>";
+				sethtml+= "</div>";	
+				sethtml+= "</li>";												
+			}														
+										
+			$(".reply_list").html("");
+			$(".reply_list").html(sethtml);
+		}
+	});
+
+}*/
 			

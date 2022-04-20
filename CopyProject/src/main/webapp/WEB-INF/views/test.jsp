@@ -53,9 +53,14 @@
 		<ul>
 			<li>
 		      <!-- 아래와같이 아이디를 꼭 써준다. -->
-		      <a id="naverIdLogin_loginButton" href="#">
-		          <span>네이버 로그인</span>
-		      </a>
+		      <div id="naverIdLogin_loginButton">
+								<svg id="naver" width="60" height="60" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+									<g fill="none" fill-rule="evenodd">
+										<path fill="#00C63B" d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"></path><path fill="#FFF" d="M21 25.231V34h-7V15h7l6 8.769V15h7v19h-7l-6-8.769z"></path>
+									</g>
+								</svg>
+							</div>
+		      
 			</li>
 			<li onclick="naverLogout(); return false;">
 		      <a href="#">
@@ -91,6 +96,7 @@
 					var name = naverLogin.user.getName();
 					var nick_name = naverLogin.user.getNickName();
 					var profile_system = naverLogin.user.getProfileImage();
+					var Uid = naverLogin.user.getId();
 					
 		    		
 					console.log(naverLogin.user); 
@@ -102,7 +108,8 @@
 					console.log("mambername="+name); 
 					console.log("nick_name="+nick_name); 
 					console.log("profile_system="+profile_system); 
-					console.log("UID="+naverLogin.user.getId()); 
+					console.log("UID="+Uid); 
+					
 					
 		    		
 		            if( email == undefined || email == null) {

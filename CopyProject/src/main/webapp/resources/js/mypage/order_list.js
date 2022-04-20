@@ -3,9 +3,13 @@
 		var sel = document.getElementById("stateBar");
 		var delState = sel.options[sel.selectedIndex].value;
 		
-		location.href="/controller/mypage/state?progress="+delState;
 		
+		
+		location.href="/controller/mypage/state?progress="+delState;
+			
 	}
+	
+	
 
 	function already(){
 	
@@ -32,3 +36,5 @@
 	
 		
 	}
+
+	

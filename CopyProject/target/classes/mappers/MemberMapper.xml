@@ -6,17 +6,18 @@
 <mapper namespace="edu.study.mapper.memberMapper">
 
 	<insert id="insertMember" parameterType="MemberVO">
-    	INSERT INTO member(
-    		id,
-    		pass,
-    		nick_name,
-    		membername,
-    		birthday,
-    		gender,
-    		phone,
-    		post_code,
-    		addr,
-    		recommender
+    	INSERT INTO member( 
+    		id, 
+    		pass, 
+    		nick_name, 
+    		membername, 
+    		birthday, 
+    		gender, 
+    		phone, 
+    		post_code, 
+    		addr, 
+    		recommender, 
+    		uid 
     	) VALUES(
     		#{id},
     		SHA2(#{pass},512),
@@ -27,9 +28,42 @@
     		CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
     		#{addr1},
     		CONCAT(#{addr2}," ",#{addr3}),
-    		#{recommender}
+    		#{recommender}, 
+    		#{uid}
     	)
     </insert>
+    
+    
+    <insert id="insertNaverMember" parameterType="MemberVO">
+    	INSERT INTO member( 
+    		id, 
+    		pass, 
+    		nick_name, 
+    		membername, 
+    		birthday, 
+    		gender, 
+    		phone, 
+    		post_code, 
+    		addr, 
+    		recommender, 
+    		profile_system, 
+    		profile_origin 
+    	) VALUES(
+    		#{id},
+    		#{pass},
+    		#{nick_name},
+    		#{membername},
+    		#{birthday},
+    		#{gender},
+    		#{phone},
+    		#{post_code},
+    		#{addr},
+    		#{recommender}, 
+    		#{profile_system}, 
+    		#{profile_origin} 
+    	)
+    </insert>
+    
     
     <select id="loginMember" resultType="memberVO" parameterType="memberVO">
 		SELECT
@@ -58,6 +92,36 @@
 		AND
 			pass = SHA2(#{pass},512)
     </select>
+    
+    
+    <select id="loginNaverMember" resultType="memberVO" parameterType="memberVO">
+		SELECT 
+			midx,
+    		id,
+    		nick_name,
+    		membername,
+    		birthday,
+    		gender,
+    		phone,
+    		join_date,
+    		mileage,
+    		grade,
+    		del_yn,
+    		blacklist_yn,
+    		follower_cnt,
+    		post_code,
+    		addr,
+    		profile_system 
+		FROM 
+			member 
+		WHERE 
+			del_yn = "N" 
+		AND
+			id = #{id} 
+		AND
+			pass = #{pass} 
+    </select>
+    
     
     <select id="findIdMember" resultType="memberVO" parameterType="MemberVO">
 		SELECT
@@ -183,11 +247,27 @@
     
     <!-- 유저 목록 가져오기 -->
     <select id="memberList" parameterType="int" resultType="MemberVO">
-    	SELECT *
+    	SELECT midx,
+    		   nick_name,
+    		   profile_system
     	  FROM member
     	 WHERE 1=1
     	   AND del_yn = 'N'
+    	 LIMIT 10
     </select>
     
+    <!-- 팔로우 아닌 유저 목록 가져오기 -->
+    <select id="notfollowList" resultType="MemberVO" parameterType="FollowVO">
+    	SELECT midx,
+    		   nick_name,
+    		   profile_system
+    	  FROM member
+    	 WHERE del_yn = 'N'
+    	   AND NOT midx IN
+    	  <foreach item="midx" index="index" collection="flist" open="(" close=")" separator=",">
+          	  #{midx.midx}
+          </foreach>
+         LIMIT 10
+    </select>
     
 </mapper>

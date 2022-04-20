@@ -1,16 +1,19 @@
 package edu.study.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.study.vo.StoreVO;
-import edu.study.vo.SearchVO;
 import edu.study.vo.BasketVO;
+import edu.study.vo.SearchVO;
+import edu.study.vo.StorePagingVO;
+import edu.study.vo.StoreVO;
 import edu.study.vo.Store_qnaVO;
 import edu.study.vo.Store_reviewVO;
 
@@ -47,8 +50,13 @@ public class StoreDAO {
 		return sqlSession.insert(Namespace+".basketIn",vo);
 	}
 	
-	public List<Store_qnaVO> qnaList(int spidx) throws Exception {
-		return sqlSession.selectList(Namespace+".listqna",spidx);
+	public List<Store_qnaVO> qnaList(int spidx, int start, int end) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("spidx", spidx);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return sqlSession.selectList(Namespace+".listqna",map);
 	}
 	
 	public int qnaIn(Store_qnaVO vo) throws Exception {
@@ -96,6 +104,44 @@ public class StoreDAO {
 		return sqlSession.update(Namespace+".store_review_modify",vo);
 	}
 	
+	//페이징
+	public int review_count(int spidx) throws Exception{
+		return sqlSession.selectOne(Namespace+".review_count",spidx);
+	}
+	public List<Store_reviewVO> reviewList(int spidx, int start, int end) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("spidx", spidx);
+		map.put("start", start);
+		map.put("end", end);
+		return sqlSession.selectList(Namespace+".reviewList",map);
+	}
+	
+	
+	//좋아요여부
+	public int islikey(int midx, int spidx) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("spidx", spidx);
+		map.put("midx", midx);
+		return sqlSession.selectOne(Namespace+".islikey",map);
+	}
+	//좋아요하기
+	public int likeIN(int midx, int spidx) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("spidx", spidx);
+		map.put("midx", midx);
+		return sqlSession.insert(Namespace+".likeIN",map);
+	}
+	//좋아요취소
+	public int likeDEL(int midx, int spidx) throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("spidx", spidx);
+		map.put("midx", midx);
+		return sqlSession.delete(Namespace+".likeDEL",map);
+	}
+	//좋아요 상품 리스트
+	public List<StoreVO> likelist(int midx) throws Exception {
+		return sqlSession.selectList(Namespace+".likelist",midx);
+	}
 }
 
 

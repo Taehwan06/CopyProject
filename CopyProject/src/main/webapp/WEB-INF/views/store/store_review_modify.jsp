@@ -50,11 +50,12 @@
 		var content = "${rvo.content}";
 		content = content.replace(/(<br>|<brV>|<br V>)/g,'\r\n');
 		$(document).ready(function(){
-			$("#imgArea").css("background-color", "none");
+			if(${not empty rvo.img_origin}){
+				$("#imgArea").css("background-color", "none");
+				$("#imgText").css("display", "none");
+				$("#imgButton").css("display", "none");
+			}
 			$("#imgArea").css("background-image", "url('${rvo.img_origin}')");
-			$("#imgText").css("display", "none");
-			$("#imgButton").css("display", "none");
-			
 			$(":radio[name='score'][value='" + ${rvo.score} + "']").attr('checked', true);
 
 			$("#reviewContents").val(content);

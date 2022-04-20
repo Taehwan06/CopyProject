@@ -42,8 +42,12 @@
 							${vo.nick_name}
 						</div>
 						<div id="profile_follow">
-							<p>팔로워 <strong>100</strong> | 
-							   팔로잉 <strong>110</strong></p>
+							<p>	
+							<a href='${pageContext.request.contextPath}/mypage/myFollowing.do'>
+							   팔로워 <strong>${follower}</strong> | 
+							   팔로잉 <strong>${following}</strong>
+							</a>
+							</p> 
 						</div>
 						<div id="profile_btn">
 							<button onclick="location.href='${pageContext.request.contextPath}/mypage/member_modify.do'">설정</button>
@@ -84,12 +88,24 @@
 							<div class="col-8">
 								<p class="p1">
 									<i class="bi bi-question-circle-fill chat"></i>
-									<a href="/controller/store/store_view.do?spidx=${vo.spidx}">${vo.content}</a>
+									<a href="/controller/store/store_view.do?spidx=${vo.spidx}#QnAwrite">${vo.content}</a>
 								</p>
 								<p class="p3">
 									<strong>${vo.brand}</strong>&nbsp;
 									${vo.title} &nbsp;&#183;&nbsp;
 									${vo.write_date} 
+								</p>
+								<p class="p4">
+									<c:set var="state" value="${vo.answer}"/>
+									<c:choose>
+										<c:when test="${state eq 'Y'}">
+											<strong style="color:#87ceeb;">답변완료</strong>&nbsp;
+											<a href="/controller/store/store_view.do?spidx=${vo.spidx}#QnAwrite">${vo.answer_content}</a>
+										</c:when>
+										<c:when test="${state eq 'N'}">
+											<strong style="color:#ff8da1;">답변예정</strong>&nbsp;
+										</c:when>
+									</c:choose>
 								</p>	
 							</div>
 							<div class="col-4 comment2">

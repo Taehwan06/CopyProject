@@ -431,8 +431,10 @@ p{
 	top : 300px;
 	right : 200px;
 	cursor : pointer;
+	color : #ffb6c1;
 }
 .slide_bar_{
+	color : #ffb6c1;
 	position : fixed;
 	display : none;
 	top : 400px;

@@ -61,7 +61,7 @@
 		</div>
  -->			
 		<div class="row shopList">	
-				
+			
 			<c:forEach items="${storeList}" end="3" var="storeListvo" varStatus="cnt">	
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
 					<img src="${storeListvo.img_origin}" class="shopImg" onclick="">

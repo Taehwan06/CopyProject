@@ -39,8 +39,9 @@ footer{
 }
 .Top_btn{
 	visibility : hidden;
+    border-radius : 100%;
     border : none;
-    background : none;
+    background : white;
 }
 .Top_btn_, .Top_btn{
     position : fixed;

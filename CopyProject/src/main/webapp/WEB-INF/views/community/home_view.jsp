@@ -64,8 +64,11 @@
 				<div class="col-xl-5">
 				</div>
 				<div class="col-xl-3 follow_btn">
-					<c:if test="${(isFollow == 0 && loginUser.midx != vo.midx) || loginUser == null}">
+					<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 						<button onclick="follow(${vo.midx})">+ 팔로우</button>
+					</c:if>
+					<c:if test="${loginUser == null}">
+						<button onclick="ReNot()">+ 팔로우</button>
 					</c:if>
 					<c:if test="${isFollow != 0}">
 						<button onclick="unfollow(${vo.midx})">- 언팔로우</button>
@@ -103,8 +106,11 @@
 			<div class="footer_profile_img">
 				<img class="footer_writerImg" src="/controller/image/${vo.profile_system }">
 				${vo.writer }
-				<c:if test="${(isFollow == 0 && loginUser.midx != vo.midx) || loginUser == null}">
+				<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 					<button onclick="follow(${vo.midx})">팔로우</button>
+				</c:if>
+				<c:if test="${loginUser == null}">
+					<button onclick="ReNot()">팔로우</button>
 				</c:if>
 				<c:if test="${isFollow != 0}">
 					<button onclick="unfollow(${vo.midx})">언팔로우</button>
@@ -241,7 +247,7 @@
 		<!-- 페이징 처리 -->
 		<ul class="list-paginator">
 			<li>
-				<a class="list-paginator_first" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.startPage}#reply_area">
+				<a class="list-paginator_first" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.startPage}#reply_area">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 					  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -250,7 +256,7 @@
 			</li>
 			<c:if test="${pvo.nowPage != pvo.startPage}">
 				<li>
-					<a class="list-paginator_prev" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.nowPage-1}#reply_area">
+					<a class="list-paginator_prev" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.nowPage-1}#reply_area">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 						</svg>
@@ -267,14 +273,14 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="home_view.do?cbidx=${vo.cbidx }&nowPage=${num}#reply_area" class="list-paginator_page sm">${num }</a>
+							<a href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${num}#reply_area" class="list-paginator_page sm">${num }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${pvo.nowPage != pvo.lastPage}">
 				<li>
-					<a class="list-paginator_next" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.nowPage+1}#reply_area">
+					<a class="list-paginator_next" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.nowPage+1}#reply_area">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 						</svg>
@@ -282,7 +288,7 @@
 				</li>
 			</c:if>
 			<li>
-				<a class="list-paginator_last" href="home_view.do?cbidx=${vo.cbidx }&nowPage=${pvo.lastPage }#reply_area">
+				<a class="list-paginator_last" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.lastPage }#reply_area">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
 					  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
@@ -290,11 +296,27 @@
 				</a>
 			</li>
 		</ul>
-		<div class="slide_bar">
-			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark sideMenu" viewBox="0 0 16 16">
-			  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-			</svg>
-		</div>
+		<c:if test="${loginUser.midx != vo.midx && loginUser != null}">
+			<div class="slide_bar off" id="off" onclick="scrap(${vo.cbidx})">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark sideMenu" viewBox="0 0 16 16">
+				  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+				</svg>
+			</div>
+		</c:if>
+		<c:if test="${isScrap != 0}">
+			<div class="slide_bar on" onclick="unscrap(${vo.cbidx})">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+				  <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+				</svg>
+			</div>
+		</c:if>
+		<c:if test="${loginUser == null }">
+			<div class="slide_bar" onclick="ReNot()">
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark sideMenu" viewBox="0 0 16 16">
+				  <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+				</svg>
+			</div>
+		</c:if>
 		<div class="slide_bar_" onclick="focusOn()">
 			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
 			  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>

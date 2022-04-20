@@ -25,6 +25,10 @@
         <typeAlias type="edu.study.vo.MyQnaVO" alias="MyQnaVO"/>
         <typeAlias type="edu.study.vo.ManagementMemberVO" alias="ManagementMemberVO"/>
         <typeAlias type="edu.study.vo.StatsVO" alias="StatsVO"/>
+        <typeAlias type="edu.study.vo.ScrapVO" alias="ScrapVO"/>
+        <typeAlias type="edu.study.vo.StorePagingVO" alias="StorePagingVO"/>
+        <typeAlias type="edu.study.vo.MyFollowVO" alias="MyFollowVO"/>
+        <typeAlias type="edu.study.vo.NaverLoginVO" alias="NaverLoginVO"/>
     </typeAliases>
 
 </configuration>

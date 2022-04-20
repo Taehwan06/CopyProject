@@ -27,7 +27,6 @@
 	<script src="/controller/js/footer.js"></script>
 	<script>
 		var sort = "${param.sort}"
-		console.log(sort);
 	</script>
 </head>
 <body>
@@ -55,7 +54,7 @@
 			<div class="col-4 col-sm-2 col-md-2 list_all">전체${listCnt}</div>
 		</div>
 		<div class="row storyList">
-			<c:forEach items="${list}" var="vo" varStatus="cnt">
+			<c:forEach items="${selectlist}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 story">
 					<img src="/controller/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
 					<div class="storyText" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">

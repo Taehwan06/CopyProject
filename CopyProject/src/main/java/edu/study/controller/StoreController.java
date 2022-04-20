@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +27,13 @@ import com.google.gson.Gson;
 import edu.study.service.HomeService;
 import edu.study.service.StoreService;
 import edu.study.vo.BasketVO;
+import edu.study.vo.Community_ReplyVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
+import edu.study.vo.PagingVO;
+import edu.study.vo.ScrapVO;
 import edu.study.vo.SearchVO;
+import edu.study.vo.StorePagingVO;
 import edu.study.vo.StoreVO;
 import edu.study.vo.Store_qnaVO;
 import edu.study.vo.Store_reviewVO;
@@ -53,6 +58,12 @@ public class StoreController {
 	@RequestMapping(value = "/store.do", method = RequestMethod.GET)
 	public String store(HttpServletRequest request, Locale locale, Model model, SearchVO vo) throws Exception {
 		
+		String nowUri = request.getRequestURI();
+	      
+		HttpSession session = request.getSession();
+		session.setAttribute("nowUri", nowUri);
+		
+		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
@@ -60,7 +71,7 @@ public class StoreController {
 		model.addAttribute("searchList", searchList);
 			
 		List<List> list = new ArrayList<List>();
-		vo.setPage("store");
+		vo.setPage("limit");
 		vo.setDiscount("yes");
 		List<StoreVO> list1 = storeService.list(vo);
 		vo.setSell_cnt("yes");
@@ -205,11 +216,6 @@ public class StoreController {
 	    return json;
 	}
 	
-	
-	@RequestMapping(value="/test", method = RequestMethod.GET)
-	public @ResponseBody String test() throws Exception {
-	    return "asdf";
-	}
 	
 	@RequestMapping(value = "/store_modify.do", method = RequestMethod.GET)
 	public String store_modify(HttpServletRequest request, Locale locale, Model model, int spidx) throws Exception {
@@ -378,11 +384,11 @@ public class StoreController {
 	 */
 	
 	@RequestMapping(value = "/store_view.do", method = RequestMethod.GET)
-	public String store_view(Locale locale, Model model, int spidx, HttpServletResponse response, HttpServletRequest request) throws Exception {
+	public String store_view(Locale locale, Model model, int spidx,@RequestParam(value="nowPage", required = false, defaultValue="1") int nowPage, @RequestParam(value="qanowPage", required = false, defaultValue="1") int qanowPage, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		String nowUri = request.getRequestURI();
 	      
 		HttpSession session = request.getSession();
-		session.setAttribute("nowUri", nowUri);
+		session.setAttribute("nowUri", nowUri+"?spidx="+spidx);
 		
 		// 최근 본 상품 처리 영역
 		Cookie[] myCookies = request.getCookies();
@@ -422,16 +428,62 @@ public class StoreController {
 		selectOne.setQna_cnt(qna_cnt);
 		
 		model.addAttribute("vo",selectOne);
-		//문의글 가져오기
-		List<Store_qnaVO> qnaList = storeService.qnaList(spidx);
-		model.addAttribute("qnaList",qnaList);
-		//리뷰 가져오기
-		List<Store_reviewVO> reviewList = storeService.store_reviewList(spidx);
-		model.addAttribute("reviewList",reviewList);
+		
+		//문의페이징정보
+		int total = storeService.qna_cnt(spidx);
+		PagingVO pvo = new PagingVO(total,qanowPage,4);
+	    int start = pvo.getStart();
+	    int end = pvo.getEnd();
+	    List<Store_qnaVO> qnalist = storeService.qnaList(spidx, start, end);
+		model.addAttribute("qavo",qnalist);
+		model.addAttribute("qapvo", pvo);
 
+		//리뷰페이징정보
+		total = storeService.review_count(spidx);
+		PagingVO rpvo = new PagingVO(total,nowPage,4);
+  	    start = rpvo.getStart();
+  	    end = rpvo.getEnd();
+  	    List<Store_reviewVO> list = storeService.reviewList(spidx, start, end);
+		model.addAttribute("rvo",list);
+		model.addAttribute("pvo", rpvo);
+		
+		
+		session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		
+		//좋아요여부
+		int midx = 0;
+		if(member!=null) {
+			midx = member.getMidx();
+		}
+  	    
+  	    int islikey = storeService.islikey(midx,spidx);
+  	    
+  	    model.addAttribute("islikey", islikey);	
+		
+		
 		
 		return "store/store_view";
+		
+		
 	}
+	//실패-에이젝스로 해보려했지만 받고나서 하단 바 정보처리가 복잡하여 포기
+//	@RequestMapping(value="/review_paging", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+//	public @ResponseBody String paging(Locale locale, Model model,StorePagingVO vo) throws Exception {
+//		
+//		
+//		int total = storeService.review_count(vo.getSpidx());
+//  	    PagingVO pvo = new PagingVO(total,vo.getNowPage(), 4);
+//  	    int start = pvo.getStart();
+//  	    vo.setStart(start);
+//  	    int end = pvo.getEnd();
+//  	    vo.setEnd(end);
+//  	    List<Store_reviewVO> list = storeService.reviewList(vo);
+//  	    
+//		String json = new Gson().toJson(list);
+//	    return json;
+//	}
+		
 	
 	@RequestMapping(value = "/store_review_insert.do", method = RequestMethod.GET)
 	public String store_review_insert(HttpServletRequest request, Locale locale, Model model, int spidx) throws Exception {
@@ -500,13 +552,16 @@ public class StoreController {
 		MemberVO member = (MemberVO)session.getAttribute("loginUser");
 
 		if(member==null) {return "redirect:/login/login.do";}
-		if(!member.getGrade().equals("A")) {return "redirect:/store/store.do";}
 
 		StoreVO selectOne = storeService.detail(spidx);
+		
+		
 		
 		model.addAttribute("vo", selectOne);	
 		
 		Store_reviewVO selectReview = storeService.store_review_Detail(sridx);
+		
+		if(member.getMidx()!=selectReview.getMidx()) {return "redirect:/login/login.do";}
 		model.addAttribute("rvo",selectReview);
 			
 		return "store/store_review_modify";
@@ -738,7 +793,110 @@ public class StoreController {
 		return result+""; 
 	}
 	
+	@RequestMapping(value = "/likeIN", method = RequestMethod.GET)
+	public @ResponseBody String likeIN(HttpServletRequest request, Locale locale, Model model, int spidx, int midx) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		
+		if(member == null) {
+			return "100";
+		}
+		
+		if(member != null &&midx != member.getMidx()) {
+			midx=member.getMidx();
+		}
+		
+		int result = storeService.likeIN(midx,spidx);
+		
+		return result+"";
+	}
+	@RequestMapping(value = "/likeDEL", method = RequestMethod.GET)
+	public @ResponseBody String likeDEL(HttpServletRequest request, Locale locale, Model model, int spidx, int midx) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		
+		if(member == null) {
+			return "100";
+		}
+		
+		int result = storeService.likeDEL(midx,spidx);
+		
+		return result+"";
+	}
 	
+	@RequestMapping(value = "/likey.do", method = RequestMethod.GET)
+	public String likey(HttpServletRequest request, Locale locale, Model model, SearchVO vo) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO)session.getAttribute("loginUser");
+		
+		if(member == null) {return "redirect:/login/login.do";};
+
+		
+		
+		//쿠기에서 최근본 항목을 가져와 리스트로 가져옴
+		List<StoreVO> list ;
+		Cookie[] myCookies = request.getCookies();
+		String recentView = null;
+		vo.setPage("limit");
+		if(myCookies != null) {
+		    for(int i = 0; i < myCookies.length; i++) {
+		    	if(myCookies[i].getName().equals("recentView")) {
+		    		recentView = myCookies[i].getValue();
+		    	}
+		    }
+		    
+		    if(recentView != null) {
+			    String[] spidxAryDup = recentView.split("&"); 
+			    int size = spidxAryDup.length;
+			    
+				String[] reverseSpidxAry = new String[size];
+				
+				for (int i = size - 1, j = 0; i >= 0; i--, j++) {
+					reverseSpidxAry[j] = spidxAryDup[i];
+				}
+				LinkedHashSet<String> linkedHashSet = new LinkedHashSet<String>(Arrays.asList(reverseSpidxAry));
+				
+				String[] spidxAry = linkedHashSet.toArray(new String[0]);
+			
+				StoreVO selectOne = storeService.detail(Integer.parseInt(spidxAry[0]));
+				
+				vo.setDetail(selectOne.getDetail());
+				
+		    }
+			list = storeService.list(vo);
+	    }else {
+	    	list = storeService.list(vo);
+	    }
+
+		model.addAttribute("list", list);
+		//좋아요 리스트
+		List<StoreVO> likelist = storeService.likelist(member.getMidx());
+		
+		model.addAttribute("likelist",likelist);
+			
+		return "store/likey";
+	}
 	
 	@RequestMapping(value = "/recommend.do", method = RequestMethod.GET)
 	public String recommend(Locale locale, Model model, SearchVO vo) throws Exception {
@@ -752,17 +910,7 @@ public class StoreController {
 		return "store/recommend";
 	}
 	
-	@RequestMapping(value = "/likey.do", method = RequestMethod.GET)
-	public String likey(Locale locale, Model model, SearchVO vo) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-			
-		return "store/likey";
-	}
+	
 	
 	
 	

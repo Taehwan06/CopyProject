@@ -1,0 +1,216 @@
+@charset "UTF-8";
+
+
+		section{
+			margin: auto;
+			max-width: 1560px;
+		}
+		
+		.profile_image{
+			display:inline-block;
+			
+		}
+		
+		.profile_image img{
+			margin: 20px;
+			width: 60px;
+			height: 60px;
+			border-radius: 100px;
+			object-fit:cover
+		}
+
+		.nickname{
+			color: #222222;
+			font-weight: bold;
+			margin-bottom: 10px;
+			margin-top: 10px;
+
+		}
+
+
+		#mystory_btn button{
+			background-color: white;
+     		color: #6e6e6e;
+	    	border: 1px solid #dcdcdc;
+			height: 50px;
+			max-width: 200px;
+			border-radius: 4px;
+			font-size: 0.8rem;
+			font-weight: 600;
+			margin-bottom: 25px;
+			margin-left: 10px;
+			padding: 10px 15px;
+		}
+
+	
+		.title{
+			font-size:1.3rem;
+			font-weight:bold;
+			text-align:center;
+			color:#202020;
+			margin-bottom:15px;
+		}
+	
+		.vacant{
+			margin-bottom:45px;
+		}
+		
+		.do{
+			font-size:0.8rem;
+			text-align:center;
+			color: #808080;
+		}
+		
+		a{
+			text-decoration:none;
+			color:inherit;
+		}
+		
+		/*미디어쿼리*/
+		@media screen and (min-width: 1400px){
+			#headerDiv, .navbar, section, footer{
+				width: 100%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+			#spaceDiv{
+				display: none;
+			}
+			
+			
+			
+			
+			
+		}
+		@media screen and (min-width: 1200px) and (max-width: 1427px){
+			#headerDiv, .navbar, section, footer{
+				width: 95%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+			#spaceDiv{
+				display: none;
+			}
+
+
+		}
+		@media screen and (min-width: 992px) and (max-width: 1199.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 90%;
+			}
+			#searchInput{
+				width: 90%;
+			}
+
+			#spaceDiv, .hiddenStory, .hiddenShop{
+				display: none;
+			}
+
+			#spaceDiv{
+				display: none;
+			}
+
+			.categoryDiv{
+				font-size: 15px;
+				width: 80%;
+				margin-left: 20px;
+			}
+
+				
+		}
+		
+		@media screen and (min-width: 768px) and (max-width: 991.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 95%;
+			}
+			#searchInput{
+				width: 89%;
+			}
+			#spaceDiv, .hiddenStory, .hiddenShop{
+				display: none;
+			}
+			.categoryDiv{
+				font-size: 12px;
+				width: 90%;
+				margin-left: 0px;
+			}
+			.categoryUl{
+				padding: 15px 0px 15px 10px;
+			}
+		
+
+		
+		
+		
+			
+		}
+
+		@media screen and (min-width: 576px) and (max-width: 767.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 98%;
+			}
+			#searchFrm{
+				width: 55%;
+			}
+			#mypage, #delivery, #basket, #viewList, #menuLogin, #menuJoin, #spaceDiv{
+				display: none;
+			}
+			#menuComm{
+				border-right: 1px solid lightgray;
+			}
+			#smallMenu{
+				display: inline-block;
+			}
+			
+			.categoryDiv{
+				font-size: 10px;
+				width: 95%;
+				margin-left: 0px;
+			}
+			.sidebar_menu{
+				width: 400px;
+			}
+
+			#mystory3,#mystory4{
+				display: none;
+			}
+
+
+
+
+		}
+		@media screen and (max-width: 575.99px){
+			#headerDiv, .navbar, section, footer{
+				width: 98%;
+			}
+			#searchFrm, #mypage, #delivery, #basket, #viewList, #mainNavbar{
+				display: none;
+			}
+			#smallMenu{
+				display: inline-block;
+			}
+			.sidebar_menu{
+				width: 100%;
+				max-width: 400px;
+			}
+
+			nav{ 
+				display:none;
+			}
+			section{
+				border-top: 3px solid #ffb6c1; 
+			}
+			
+			.title{
+			font-size:1.1rem;
+			margin-top:35px;
+			margin-bottom:15px;
+			}
+		
+
+		}
+		
+		
+		

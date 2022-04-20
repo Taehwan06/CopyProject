@@ -1,11 +1,9 @@
 function follow(midx){
-	console.log(midx)
 	$.ajax({
 		type : 'post',
 		url : '/controller/community/follow',
 		data : 'midx='+midx,
 		success : function(result){
-			console.log("result = "+result);
 			if(result == "FollowOK"){
 				location.reload();
 				
@@ -21,7 +19,6 @@ function unfollow(midx){
 			url : '/controller/follow/unfollow',
 			data : 'midx='+midx,
 			success : function(result){
-				console.log("result = "+result);
 				if(result == "UnFollowOK"){
 					location.reload();
 					

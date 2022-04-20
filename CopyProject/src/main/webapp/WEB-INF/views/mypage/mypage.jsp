@@ -42,8 +42,12 @@
 							${vo.nick_name}
 						</div>
 						<div id="profile_follow">
-							<p>팔로워 <strong>100</strong> | 
-							   팔로잉 <strong>110</strong></p>
+							<p>	
+							<a href='${pageContext.request.contextPath}/mypage/myFollowing.do'>
+							   팔로워 <strong>${follower}</strong> | 
+							   팔로잉 <strong>${following}</strong>
+							</a>
+							</p> 
 						</div>
 						<div id="profile_btn">
 							<button onclick="location.href='${pageContext.request.contextPath}/mypage/member_modify.do'">설정</button>
@@ -101,7 +105,7 @@
 							<c:forEach items="${Storylist}" end="3" var="vo" varStatus="cnt">
 								<div class="my_homestroy" id="mystory${cnt.count}" >
 									<input type="hidden" value="${vo.cbidx}">
-									<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&nowPage=1"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
+									<a href="/controller/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx}&nowPage=1"><img class="my_homestroy_img" src="/controller/upload/${vo.img_system}"></a>
 								</div>
 							</c:forEach>
 						</c:when>

@@ -101,10 +101,10 @@
 		<div class="row storyList">
 			<div class="storyListTitle">
 				오늘의 스토리
-				<span class="moreview" onclick="location.href='community/home_list.do'">더보기</span>
+				<span class="moreview" onclick="location.href='community/home_list.do?&sort=recent'">더보기</span>
 				<div class="clear"></div>
 			</div>
-			<c:forEach items="${list}" end="3" var="vo" varStatus="cnt">
+			<c:forEach items="${list}" var="vo">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story" <c:if test="${cnt.last}">id="mdlg_display_none"</c:if>>
 					<img src="/controller/upload/${vo.img_system }" class="storyImg" onclick="location.href='/controller/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
 					<div class="storyText" onclick="location.href='/controller/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import edu.study.dao.MypageDAO;
 import edu.study.vo.BasketVO;
 import edu.study.vo.Community_BoardVO;
+import edu.study.vo.FollowVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
+import edu.study.vo.MyFollowVO;
 import edu.study.vo.MyQnaVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.Store_reviewVO;
@@ -133,6 +135,32 @@ public class MypageServiceImpl implements MypageService {
 		return result;
 	}
 
+	@Override
+	public int following_cnt(FollowVO vo) throws Exception {
+		int result = mypageDao.following_cnt(vo);
+		return result;
+	}
+
+	@Override
+	public int follower_cnt(FollowVO vo) throws Exception {
+		int result = mypageDao.follower_cnt(vo);
+		return result;
+	}
+
+	@Override
+	public List<MyFollowVO> myFollower(MyFollowVO vo) throws Exception {
+		List<MyFollowVO> result = mypageDao.myFollower(vo); 
+		return result;
+	}
+
+	@Override
+	public List<MyFollowVO> myFollowing(MyFollowVO vo) throws Exception {
+		List<MyFollowVO> result = mypageDao.myFollowing(vo); 
+		return result;
+	}
+
+	
+	
 
 	
 	

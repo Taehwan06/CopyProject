@@ -88,6 +88,20 @@
     </selectKey>
 	</insert>
 	
+	<!-- 댓글 작성시 카운트 1 증가 -->
+    <update id="countUp" parameterType="int">
+    	UPDATE community_board
+    	   SET reply_cnt = reply_cnt+1
+    	 WHERE cbidx = #{cbidx}
+    </update>
+    
+    <!-- 댓글 삭제시 카운트 1 감소 -->
+    <update id="countDown" parameterType="int">
+    	UPDATE community_board
+    	   SET reply_cnt = reply_cnt-1
+    	 WHERE cbidx = #{cbidx}
+    </update>
+	
 	<!-- 답글 작성 -->
 	<insert id="Rereply" parameterType="Community_ReplyVO">
 		INSERT INTO community_reply(

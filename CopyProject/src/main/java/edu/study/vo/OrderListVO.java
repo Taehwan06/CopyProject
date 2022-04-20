@@ -22,37 +22,11 @@ public class OrderListVO {
 	private String ordernumber;
 	private String paynumber;
 	
-	public OrderListVO(int olidx, int price, int cnt, int delivery_charge, String title, String free_delivery,
-			String img_origin, String img_system, String buying_date, String progress, String delivery_status,
-			String review_registration, int spidx, int midx, String ordernumber, String paynumber) {
-		super();
-		this.olidx = olidx;
-		this.price = price;
-		this.cnt = cnt;
-		this.delivery_charge = delivery_charge;
-		this.title = title;
-		this.free_delivery = free_delivery;
-		this.img_origin = img_origin;
-		this.img_system = img_system;
-		this.buying_date = buying_date;
-		this.progress = progress;
-		this.delivery_status = delivery_status;
-		this.review_registration = review_registration;
-		this.spidx = spidx;
-		this.midx = midx;
-		this.ordernumber = ordernumber;
-		this.paynumber = paynumber;
-	}
-
-
+	private String membername;
+	private String phone;
+	private String addr;
+	private String memo;
 	
-	public OrderListVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-
 	public int getOlidx() {
 		return olidx;
 	}
@@ -215,10 +189,45 @@ public class OrderListVO {
 		this.paynumber = paynumber;
 	}
 
-	
-	
-	
-	
-	
 
+	public String getMembername() {
+		return membername;
+	}
+
+
+	public void setMembername(String membername) {
+		this.membername = membername;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getAddr() {
+		return addr;
+	}
+
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+
+	public String getMemo() {
+		return memo;
+	}
+
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	
 }

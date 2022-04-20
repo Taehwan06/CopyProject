@@ -34,7 +34,7 @@
 			margin-top:50px;
 			height:90px;
 			font-weight:bold;
-			font-size:1rem;
+			font-size:1.1rem;
 			color:#222222;
 			
 		}
@@ -44,7 +44,7 @@
 			font-weight:bold;
 			margin-bottom:40px;
 			margin-top:30px;
-			font-size:1rem;
+			font-size:1.1rem;
 			color:#222222;
 		}
 		
@@ -67,6 +67,8 @@
 		.aWrap{
 			text-align:right;
 			margin-bottom:20px;
+			font-size:1.1rem;
+			font-weight:bold;
 		}
 		
 		
@@ -80,7 +82,7 @@
 			}
 			
 			section{
-				width:90%;
+				width:100%;
 			}
 			
 			#searchInput{

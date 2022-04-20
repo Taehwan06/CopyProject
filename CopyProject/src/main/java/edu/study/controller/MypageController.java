@@ -29,9 +29,11 @@ import edu.study.service.MemberService;
 import edu.study.service.MypageService;
 import edu.study.vo.BasketVO;
 import edu.study.vo.Community_BoardVO;
+import edu.study.vo.FollowVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.MyContentVO;
+import edu.study.vo.MyFollowVO;
 import edu.study.vo.MyQnaVO;
 import edu.study.vo.OrderListVO;
 import edu.study.vo.PayInfoVO;
@@ -59,7 +61,7 @@ public class MypageController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model,OrderListVO vo, HttpServletRequest request, Community_BoardVO list) throws Exception {
+	public String mypage(Locale locale, Model model,OrderListVO vo, HttpServletRequest request, Community_BoardVO list, FollowVO follow) throws Exception {
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -101,6 +103,17 @@ public class MypageController {
 	  		
 	  		List<Community_BoardVO> Storylist = mypageService.viewStory(list);
 	  		model.addAttribute("Storylist", Storylist);
+	  		
+	  		follow.setMidx(Midx);
+	  		int following = mypageService.following_cnt(follow);
+	  		model.addAttribute("following", following);
+	  		
+	  		int fmidx = loginUser.getMidx();
+	  		follow.setFmidx(fmidx);
+	  		
+	  		int follower = mypageService.follower_cnt(follow);
+	  		model.addAttribute("follower", follower);
+	  		
 	  		
 	        return "mypage/mypage";
 	      }  
@@ -359,7 +372,7 @@ public class MypageController {
 	
 	
 	@RequestMapping(value = "/mypage_allStory.do", method = RequestMethod.GET)
-	public String mypage_allStory(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,Community_BoardVO list) throws Exception {
+	public String mypage_allStory(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,Community_BoardVO list, FollowVO follow) throws Exception {
 
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -381,7 +394,55 @@ public class MypageController {
 	  		List<Community_BoardVO> Storylist = mypageService.viewStory(list);
 	  		model.addAttribute("Storylist", Storylist);
 	  		
+	  		follow.setMidx(Midx);
+	  		int following = mypageService.following_cnt(follow);
+	  		model.addAttribute("following", following);
+	  		
+	  		int fmidx = loginUser.getMidx();
+	  		follow.setFmidx(fmidx);
+	  		
+	  		int follower = mypageService.follower_cnt(follow);
+	  		model.addAttribute("follower", follower);
+	  		
 	  		return "mypage/mypage_allStory";
+		      
+	    }
+	}
+	
+	@RequestMapping(value = "/Member_page.do", method = RequestMethod.GET)
+	public String Member_page(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,Community_BoardVO list, FollowVO follow, int midx) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+		
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
+			    	  
+	    	MemberVO result = mypageService.detail(midx);
+	  		model.addAttribute("vo", result);
+	  		
+	  		//int Midx = loginUser.getMidx();
+			list.setMidx(midx);
+	  		
+	  		List<Community_BoardVO> Storylist = mypageService.viewStory(list);
+	  		model.addAttribute("Storylist", Storylist);
+	  		
+	  		follow.setMidx(midx);
+	  		int following = mypageService.following_cnt(follow);
+	  		model.addAttribute("following", following);
+	  		
+	  		int fmidx = midx;
+	  		follow.setFmidx(fmidx);
+	  		
+	  		int follower = mypageService.follower_cnt(follow);
+	  		model.addAttribute("follower", follower);
+	  		
+	  		return "mypage/Member_page";
 		      
 	    }
 	}
@@ -389,7 +450,7 @@ public class MypageController {
 	
 
 	@RequestMapping(value = "/my_comment.do", method = RequestMethod.GET)
-	public String my_comment(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,MyContentVO list) throws Exception {
+	public String my_comment(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,MyContentVO list, FollowVO follow) throws Exception {
 
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -411,6 +472,16 @@ public class MypageController {
 	  		List<MyContentVO> Commentlist = mypageService.mycomment(list);
 	  		model.addAttribute("Commentlist", Commentlist);
 	  		
+	  		follow.setMidx(Midx);
+	  		int following = mypageService.following_cnt(follow);
+	  		model.addAttribute("following", following);
+	  		
+	  		int fmidx = loginUser.getMidx();
+	  		follow.setFmidx(fmidx);
+	  		
+	  		int follower = mypageService.follower_cnt(follow);
+	  		model.addAttribute("follower", follower);
+	  		
 	  		return "mypage/my_comment";
 		      
 	    }
@@ -418,7 +489,7 @@ public class MypageController {
 	
 
 	@RequestMapping(value = "/my_QnA.do", method = RequestMethod.GET)
-	public String my_QnA(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,MyQnaVO list) throws Exception {
+	public String my_QnA(Locale locale, Model model, SearchVO vo, HttpServletRequest request ,MyQnaVO list, FollowVO follow) throws Exception {
 
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -440,13 +511,23 @@ public class MypageController {
 	  		List<MyQnaVO> QnAlist = mypageService.myquestion(list);
 	  		model.addAttribute("QnAlist", QnAlist);
 	  		
+	  		follow.setMidx(Midx);
+	  		int following = mypageService.following_cnt(follow);
+	  		model.addAttribute("following", following);
+	  		
+	  		int fmidx = loginUser.getMidx();
+	  		follow.setFmidx(fmidx);
+	  		
+	  		int follower = mypageService.follower_cnt(follow);
+	  		model.addAttribute("follower", follower);
+	  		
 	  		return "mypage/my_QnA";
 		      
 	    }
 	}
 	
 	@RequestMapping(value = "/my_review.do", method = RequestMethod.GET)
-	public String my_review(Locale locale, Model model, SearchVO vo, HttpServletRequest request, Store_reviewVO cnt) throws Exception {
+	public String my_review(Locale locale, Model model, SearchVO vo, HttpServletRequest request, Store_reviewVO cnt, FollowVO follow) throws Exception {
 
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -471,11 +552,51 @@ public class MypageController {
 	  		List<Store_reviewVO> Reviewlist = mypageService.myreview(cnt);
 	  		model.addAttribute("Reviewlist", Reviewlist);
 	  		
+	  		follow.setMidx(Midx);
+	  		int following = mypageService.following_cnt(follow);
+	  		model.addAttribute("following", following);
+	  		
+	  		int fmidx = loginUser.getMidx();
+	  		follow.setFmidx(fmidx);
+	  		
+	  		int follower = mypageService.follower_cnt(follow);
+	  		model.addAttribute("follower", follower);
+	  		
 	  		
 	  		return "mypage/my_review";
 		      
 	    }
 	}
+	
+	@RequestMapping(value = "/myFollowing.do", method = RequestMethod.GET)
+	public String myFollowing(Locale locale, Model model, SearchVO vo, HttpServletRequest request, MyFollowVO follow) throws Exception {
+
+		HttpSession session = request.getSession(); 
+		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+
+	    if(loginUser == null) {
+	         return "redirect:/login/login.do";
+	    }else {
+			int deleteResult = homeService.deleteSearchList();
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			model.addAttribute("searchList", searchList);
+			
+			int fmidx = loginUser.getMidx();
+			follow.setFmidx(fmidx);
+			List<MyFollowVO> followList = mypageService.myFollower(follow);
+			model.addAttribute("followList", followList);
+			
+			
+			int Midx = loginUser.getMidx();
+			follow.setMidx(Midx);
+			List<MyFollowVO> followingList = mypageService.myFollowing(follow);
+			model.addAttribute("followingList", followingList);
+		
+				
+			return "mypage/myFollowing";
+	    }
+	}
+	
 	
 	
 	

@@ -14,7 +14,15 @@ body{
 	font-weight: bold;
 }
 
-#facebook, #kakao, #naver{
+#facebook, #kakao{
+	cursor: pointer;
+	margin: 10px;
+}
+
+#naver_id_login{
+	display: inline-block;
+	border: none;
+	border-radius: 50px;
 	cursor: pointer;
 	margin: 10px;
 }

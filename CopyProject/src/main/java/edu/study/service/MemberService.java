@@ -2,6 +2,7 @@ package edu.study.service;
 
 import java.util.List;
 
+import edu.study.vo.FollowVO;
 import edu.study.vo.MemberVO;
 
 public interface MemberService {
@@ -18,4 +19,7 @@ public interface MemberService {
 	MemberVO refreshMember(MemberVO vo) throws Exception;
 	MemberVO inquiryOfUserByMidx(int midx) throws Exception;
 	List<MemberVO> mlist() throws Exception;
+	List<MemberVO> notfollowlist(List<FollowVO> flist) throws Exception;
+	MemberVO loginNaverMember(MemberVO vo) throws Exception;
+	int insertNaverMember(MemberVO vo) throws Exception;
 }

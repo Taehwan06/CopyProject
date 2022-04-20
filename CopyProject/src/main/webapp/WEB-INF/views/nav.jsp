@@ -43,7 +43,7 @@
 				<li class="col-md-2 mainMenu" id="menuLogout" onclick="location.href='${pageContext.request.contextPath}/login/logout.do'">로그아웃</li>
 			</c:if>
 			<c:if test="${naverUser != null}">
-				<li class="col-md-2 mainMenu" id="menuLogout" onclick="naverLogout();">로그아웃</li>
+				<li class="col-md-2 mainMenu" id="menuLogout" onclick="location.href='${pageContext.request.contextPath}/login/logout.do'">로그아웃</li>
 			</c:if>
 			<c:if test="${kakaoUser != null}">
 				<li class="col-md-2 mainMenu" id="menuLogout" onclick="kakaoLogout();">로그아웃</li>
@@ -156,7 +156,7 @@
 		<ul class="row navbar list-unstyled" id="subNavbar2">
 			<li class="col-sm-2 col-md-2 subMenu" id="community" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">홈 스토리</li>
 			<li class="col-sm-2 col-md-2 subMenu" id="following" onclick="location.href='${pageContext.request.contextPath}/community/following.do'">팔로잉</li>
-			<li class="col-md-2 subMenu" id="scrab" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">스크랩</li>
+			<li class="col-md-2 subMenu" id="scrab" onclick="location.href='${pageContext.request.contextPath}/community/scrap.do'">스크랩</li>
 			<li class="col-md-2 subMenu" id="QnA" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">질문 &amp; 답변</li>
 			<li class="col-sm-2 col-md-2 subMenu"></li>
 			<li class="col-sm-2 col-md-2 subMenu"></li>

@@ -10,6 +10,9 @@ public class MyQnaVO {
 	private String img_system;
 	private String img_origin;
 	
+	private String answer_content;
+	private String answer;
+	
 	private int spidx;
 	private int midx;
 	
@@ -18,8 +21,9 @@ public class MyQnaVO {
 		
 	}
 
+
 	public MyQnaVO(String content, String write_date, String del_yn, String title, String brand, String img_system,
-			String img_origin, int spidx, int midx) {
+			String img_origin, String answer_content, String answer, int spidx, int midx) {
 		super();
 		this.content = content;
 		this.write_date = write_date;
@@ -28,9 +32,14 @@ public class MyQnaVO {
 		this.brand = brand;
 		this.img_system = img_system;
 		this.img_origin = img_origin;
+		this.answer_content = answer_content;
+		this.answer = answer;
 		this.spidx = spidx;
 		this.midx = midx;
 	}
+
+
+
 
 	public String getContent() {
 		return content;
@@ -102,6 +111,22 @@ public class MyQnaVO {
 
 	public void setMidx(int midx) {
 		this.midx = midx;
+	}
+
+	public String getAnswer_content() {
+		return answer_content;
+	}
+
+	public void setAnswer_content(String answer_content) {
+		this.answer_content = answer_content;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	
 	

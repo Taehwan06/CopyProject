@@ -31,6 +31,7 @@
 		var price=${vo.sale_price};
 		var loginYN=${!empty loginUser};
 		var midx = "${loginUser.midx}";
+		
 	</script>
 	
 	<style>
@@ -80,13 +81,21 @@
 				</div>
 				<div class="row">
 					<div class="col-12 col-sm-10 col-md-10 shop_subject">${vo.title}</div>
-					<div class="col-sm-2 col-md-2">
-					<!--좋아요기능 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-					  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-					</svg>
-					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-					  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-					</svg> -->
+					<div class="col-sm-2 col-md-2 like">
+						<div onclick="likeFn(${islikey})">
+							<c:choose>
+								<c:when test="${islikey eq 0}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+									  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+									</svg>
+								</c:when>
+								<c:otherwise>
+									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+									</svg>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</div>
 				</div>
 				<div class="row price">
@@ -159,14 +168,12 @@
 				</div>
 				<div id="review_area_header">
 					<div>리뷰 <span>${vo.review_cnt}</span></div>
-					<div id="reviewwrite" onclick="location.href='store_review_insert.do?spidx=${vo.spidx}'">리뷰쓰기</div>
+					<!-- <div id="reviewwrite" onclick="location.href='store_review_insert.do?spidx=${vo.spidx}'">리뷰쓰기</div> -->
 				</div>
 				<div id="review_area">							
 					<section id="reply_area">
-
-					
 						<ul class="reply_list">
-							<c:forEach items="${reviewList}" var="rvo">
+							<c:forEach items="${rvo}" var="rvo">
 								<li class="reply_list_item">
 									<article class="reply_item_">
 										<p class="reply_item_content">
@@ -211,6 +218,59 @@
 								</li>
 							</c:forEach>
 						</ul>
+						
+						<!-- 페이징 처리 -->
+						<ul class="list-paginator">
+							<li>
+								<a class="list-paginator_first" href="store_view.do?spidx=${vo.spidx }&nowPage=${pvo.startPage}#review_area_header">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+									  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+									</svg>
+								</a>
+							</li>
+							<c:if test="${pvo.nowPage != pvo.startPage}">
+								<li>
+									<a class="list-paginator_prev" href="store_view.do?spidx=${vo.spidx }&nowPage=${pvo.nowPage-1}#review_area_header">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+										</svg>
+									</a>
+								</li>
+							</c:if>
+							<!-- 페이지 블럭 처음부터 마지막 블럭까지 1씩 증가하는 페이지 출력 -->
+							<c:forEach var="num" begin="${pvo.startPage }" end="${pvo.endPage }">
+								<c:choose>
+									<c:when test="${num == pvo.nowPage }">
+										<li>
+											<a class="list-paginator_page sm selected" type="button">${num }</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="store_view.do?spidx=${vo.spidx }&nowPage=${num}#review_area_header" class="list-paginator_page sm">${num }</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${pvo.nowPage != pvo.lastPage}">
+								<li>
+									<a class="list-paginator_next" href="store_view.do?spidx=${vo.spidx }&nowPage=${pvo.nowPage+1}#review_area_header">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+										</svg>
+									</a>
+								</li>
+							</c:if>
+							<li>
+								<a class="list-paginator_last" href="store_view.do?spidx=${vo.spidx }&nowPage=${pvo.lastPage }#review_area_header">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+									  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+									</svg>
+								</a>
+							</li>
+						</ul>
 					</section>
 				</div>
 				<div id="QnA_area_header">
@@ -219,7 +279,7 @@
 				</div>
 				<div id="QnA_area">
 					<ul class="qna_list">
-						<c:forEach items="${qnaList}" var="qna">
+						<c:forEach items="${qavo}" var="qna">
 							<li class="qna_list_item">
 								<div>
 									<div>
@@ -249,6 +309,60 @@
 							</li>
 						</c:forEach>
 					</ul>
+					<!-- 페이징 처리 -->
+					<c:if test ="${vo.qna_cnt ne 0}">
+						<ul class="list-paginator">
+							<li>
+								<a class="list-paginator_first" href="store_view.do?spidx=${vo.spidx }&qanowPage=${qapvo.startPage}#QnA_area_header">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+									  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+									</svg>
+								</a>
+							</li>
+							<c:if test="${qapvo.nowPage != qapvo.startPage}">
+								<li>
+									<a class="list-paginator_prev" href="store_view.do?spidx=${vo.spidx }&qanowPage=${qapvo.nowPage-1}#QnA_area_header">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+										</svg>
+									</a>
+								</li>
+							</c:if>
+							<!-- 페이지 블럭 처음부터 마지막 블럭까지 1씩 증가하는 페이지 출력 -->
+							<c:forEach var="num" begin="${qapvo.startPage }" end="${qapvo.endPage }">
+								<c:choose>
+									<c:when test="${num == qapvo.nowPage }">
+										<li>
+											<a class="list-paginator_page sm selected" type="button">${num }</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="store_view.do?spidx=${vo.spidx }&qanowPage=${num}#QnA_area_header" class="list-paginator_page sm">${num }</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${qapvo.nowPage != qapvo.lastPage}">
+								<li>
+									<a class="list-paginator_next" href="store_view.do?spidx=${vo.spidx }&qanowPage=${qapvo.nowPage+1}#QnA_area_header">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+										</svg>
+									</a>
+								</li>
+							</c:if>
+							<li>
+								<a class="list-paginator_last" href="store_view.do?spidx=${vo.spidx }&qanowPage=${qapvo.lastPage }#QnA_area_header">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+									  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+									  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+									</svg>
+								</a>
+							</li>
+						</ul>
+						</c:if>
 				</div>
 				<div id="delivery_area_header">
 					<div>배송</div>

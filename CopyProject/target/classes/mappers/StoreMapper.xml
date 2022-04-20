@@ -61,7 +61,7 @@
            	<if test='order != null and order != "" and order=="priceDown"'>
            		ORDER BY sale_price 
            	</if>
-           	<if test='page != null and page != "" and page.equals("store")'>
+           	<if test='page != null and page != "" and page.equals("limit")'>
            		Limit 4 
            	</if>
            	
@@ -179,7 +179,9 @@
     </insert>
     
     <select id="listqna" resultType="Store_qnaVO" parameterType="int">
-         SELECT sqidx
+         SELECT qna.* FROM
+         (SELECT @rownum := @rownum+1 as rownum
+         		,sqidx
          		,content
          		,writer
          		,date_format(write_date, '%Y-%m-%d') write_date
@@ -190,10 +192,14 @@
          		,answer_writer
          		,date_format(answer_date, '%Y-%m-%d') answer_date
          		,spidx
-           FROM shopping_qna
+         		,midx
+           FROM shopping_qna, (SELECT @rownum:=0) rn
           WHERE 1=1
             AND del_yn = 'N' 
            	AND spidx = #{spidx}
+          ORDER BY sqidx DESC) qna
+         WHERE rownum BETWEEN #{start} AND #{end};
+         
     </select>
     
     <select id="qna_detail" resultType="Store_qnaVO" parameterType="int">
@@ -288,7 +294,7 @@
 		FROM shopping_review sr
 		INNER JOIN member m
 		ON sr.midx = m.midx
-		where sr.spidx = #{spidx} and sr.del_yn='N';
+		where sr.spidx = #{spidx} and sr.del_yn='N'
     </select>
     
     <!-- 단일리뷰 조회 -->
@@ -298,6 +304,7 @@
     			,sr.img_origin
     			,sr.score
     			,sr.spidx
+    			,sr.midx
 		FROM shopping_review sr 
 		where sr.sridx = #{sridx} and sr.del_yn='N';
     </select>
@@ -368,5 +375,79 @@
 		WHERE sridx=#{sridx}
     </update>
     
+    <!-- 페이징을 위한 쿼리들 -->
+    <!-- 데이터 카운트 쿼리 -->
+    <select id="review_count" resultType="int" parameterType="int">
+    	SELECT count(*) 
+		FROM shopping_review
+		where spidx = #{spidx} and del_yn='N';
+    </select>
     
+    <select id="reviewList" resultType="Store_reviewVO" parameterType="int">
+    	SELECT review.* FROM
+		(SELECT @rownum := @rownum+1 as rownum
+				,sr.sridx 
+				,sr.content 
+				,sr.writer 
+				,date_format(sr.write_date, '%Y-%m-%d') as write_date 
+				,sr.modify_yn 
+				,date_format(sr.modify_date, '%Y-%m-%d') as modify_date 
+				,sr.img_origin 
+				,sr.score 
+				,sr.spidx 
+				,sr.midx 
+				,m.profile_origin 
+				,m.profile_system 
+				,m.nick_name 
+		FROM shopping_review sr INNER JOIN member m ON sr.midx = m.midx 
+				,(SELECT @rownum:=0) rn
+		where sr.spidx = #{spidx} 
+				and sr.del_yn='N'
+		ORDER BY sridx desc) review
+		WHERE rownum BETWEEN #{start} AND #{end};
+		
+    </select>
+    
+    <!-- 좋아요 여부확인 -->
+    <select id="islikey" resultType="int" parameterType="int">
+    	SELECT count(*) 
+		FROM likey
+		where spidx = #{spidx} and midx = #{midx};
+    </select>
+    <!-- 좋아요추가 -->
+    <insert id="likeIN" parameterType="int">
+    	INSERT INTO likey(
+	    		spidx,
+	    		midx
+	    	) VALUES(
+	    		#{spidx},
+	    		#{midx}
+	    	)
+    </insert>
+    <!-- 좋아요 삭제 -->
+    <delete id="likeDEL" parameterType="int">
+    	DELETE FROM likey WHERE spidx = #{spidx} AND midx = #{midx}
+    </delete>
+    
+    <!-- 좋아요 상품 리스트 -->
+    <select id="likelist" resultType="StoreVO" parameterType="int">
+    	SELECT s.spidx
+         		,s.title
+         		,s.content
+         		,s.product_name
+         		,s.sale_price
+         		,s.brand
+         		,s.score
+         		,s.discount
+         		,s.review_cnt
+         		,s.img_origin
+         		,s.category
+         		,s.detail 
+    	FROM likey l 
+    	INNER JOIN shopping_product s 
+    	ON l.spidx = s.spidx 
+    	WHERE l.midx= #{midx}
+    	ORDER BY l.lidx DESC;
+    
+    </select>
 </mapper>

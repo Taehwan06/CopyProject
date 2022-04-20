@@ -109,6 +109,15 @@
 			font-size: 0.85rem;
 			color: #222222;
 		}
+		
+		#profile_follow a{
+			text-decoration:none;
+			color:inherit;
+		}
+		
+		#profile_follow:hover{
+			color:#ffb6c1; 
+		}
 
 		#profile_btn button{
 			border: 1px solid #dcdcdc;

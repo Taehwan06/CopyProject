@@ -179,26 +179,29 @@
     </select>
     
      <select id="detailOrder" resultType="OrderListVO" parameterType="OrderListVO">
-    	SELECT 
-    		midx,
-    		olidx,
-    		title,
-    		price,
-    		cnt,
-    		free_delivery,
-    		progress,
-    		img_origin,
-    		buying_date,
-    		review_registration,
-    		spidx,
-    		ordernumber
-    	FROM
-    		order_list
+    	SELECT 	
+    		M.midx,
+    		O.olidx,
+    		O.title,
+    		O.cnt,
+    		O.free_delivery,
+    		O.progress,
+    		O.img_origin,
+    		O.buying_date,
+    		O.review_registration,
+    		O.spidx,
+    		O.ordernumber,
+    		M.membername,
+    		M.addr,
+    		M.phone,
+    		O.memo
+    	FROM order_list O
+    	INNER JOIN member M
+		ON M.midx = O.midx
     	WHERE
-    		spidx = #{spidx}
+    		O.spidx = #{spidx}
     	AND
-			midx = #{midx}
-    
+			M.midx = #{midx}
     </select>
     
    
@@ -236,7 +239,9 @@
     		P.brand,
     		P.img_system, 
     		P.img_origin,
-    		Q.spidx
+    		Q.spidx,
+    		Q.answer_content,
+    		Q.answer
   		FROM 
   		 	shopping_product P
   		INNER JOIN 
@@ -269,6 +274,7 @@
     		 P.img_system,
     		 P.img_origin,
     		 R.spidx,
+    		 R.sridx,
     		 R.score
 		FROM 
 			shopping_review R
@@ -283,6 +289,62 @@
     	ORDER BY 
     		R.write_date DESC	
     </select>
+    
+    <!-- 팔로잉 -->
+    <select id="following_cnt" resultType="int" parameterType="FollowVO">
+   	 	SELECT 
+   	 		count(*) 
+   	 	FROM 
+   	 		follow 
+   	 	WHERE 
+   	 		midx = #{midx}
+    </select>
+    
+    <!-- 팔로워 -->
+    <select id="follower_cnt" resultType="int" parameterType="FollowVO">
+   	 	SELECT 
+   	 		count(*) 
+   	 	FROM 
+   	 		follow 
+   	 	WHERE 
+   	 		fmidx = #{fmidx}
+    </select>
+    
+    <!--  나를 팔로잉 한 사람 목록 보기(팔로워) -->
+    <select id="myFollower" resultType="MyFollowVO" parameterType="MyFollowVO">
+	    SELECT 
+	    	M.profile_origin, 
+	    	M.profile_system, 
+	    	M.nick_name, 
+	    	F.midx, 
+	    	M.midx, 
+	    	F.fmidx
+		FROM 
+			member M
+		INNER JOIN 
+			follow F
+		ON 
+			M.midx = F.midx
+		WHERE 
+			F.fmidx = #{fmidx}
+		ORDER BY
+			F.add_date DESC
+		
+    </select>
+    
+	<!-- 내가 팔로잉 한 사람 목록 보기(팔로잉) -->
+	   <select id="myFollowing" resultType="MyFollowVO" parameterType="MyFollowVO">
+		SELECT	F.midx, 
+	    		M.midx,
+			 	F.fmidx,
+				M.nick_name,
+				M.profile_system
+		  FROM follow F
+		  LEFT OUTER JOIN member M
+		    ON F.fmidx = M.midx
+		 WHERE F.midx = #{midx}
+		 ORDER BY add_date desc
+   	 </select>
     
     
 </mapper>

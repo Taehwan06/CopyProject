@@ -162,6 +162,10 @@ article{
 	height: 500px;
 	overflow: hidden;
 }
+
+.like{
+	color: #ffb6c1;
+}
 /*상품 상세보기 더보기*/
 .moreview{
 	position: absolute;
@@ -627,6 +631,39 @@ p{
 	margin-right : 10px;
 }
 
+/*페이징css*/
+.list-paginator{
+	text-align : center;
+}
+.list-paginator>li{
+	display : inline-block;
+	vertical-align : bottom;
+}
+.list-paginator_page, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
+	display: none;
+    min-width: 26px;
+    margin: 0 2px;
+    padding: 5.5px 5px;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    color: #424242;
+    transition: background-color .1s,color .1s;
+    text-decoration : none;
+}
+.list-paginator_page.sm, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
+	display : block;
+}
+.list-paginator_page.selected{
+	background-color : #ffb6c1;
+	color : white;
+	text-decoration : none;
+}
 
 /*미디어쿼리*/
 @media screen and (min-width: 1400px){

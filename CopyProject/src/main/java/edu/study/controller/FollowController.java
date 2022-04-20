@@ -44,8 +44,6 @@ public class FollowController {
         HttpSession session = req.getSession();
         session.setAttribute("nowUri", nowUri);
 		
-		System.out.println("/followC/" + fmidx + " : 팔로우 요청");
-		
 		Object object = session.getAttribute("loginUser");
 		MemberVO activeUser = (MemberVO)object;
 		MemberVO passiveUser = memberService.inquiryOfUserByMidx(fmidx);
@@ -56,41 +54,31 @@ public class FollowController {
 		
 		followService.follow(follow);
 		
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		
-		if(loginUser == null) {
-           return "redirect:/login/login.do";
-        }else {
-           return "FollowOK";
-        }
+        return "FollowOK";
 	}
 	
 	//언팔로우 요청
-		@RequestMapping(value="/unfollowC", method = RequestMethod.POST)
-		@ResponseBody
-		public String unfollowC(int fmidx, HttpSession session, Model model) throws Exception {
-			
-			System.out.println("/unfollowC/" + fmidx + " : 언팔로우 요청");
-			
-			Object object = session.getAttribute("loginUser");
-			MemberVO activeUser = (MemberVO)object;
-			MemberVO passiveUser = memberService.inquiryOfUserByMidx(fmidx);
-			
-			FollowVO follow = new FollowVO();
-			follow.setMidx(activeUser.getMidx());
-			follow.setFmidx(passiveUser.getMidx());
-			
-			followService.unfollow(follow);
-			
-			return "UnFollowOK";
-		}
+	@RequestMapping(value="/unfollowC", method = RequestMethod.POST)
+	@ResponseBody
+	public String unfollowC(int fmidx, HttpSession session, Model model) throws Exception {
+		
+		Object object = session.getAttribute("loginUser");
+		MemberVO activeUser = (MemberVO)object;
+		MemberVO passiveUser = memberService.inquiryOfUserByMidx(fmidx);
+		
+		FollowVO follow = new FollowVO();
+		follow.setMidx(activeUser.getMidx());
+		follow.setFmidx(passiveUser.getMidx());
+		
+		followService.unfollow(follow);
+		
+		return "UnFollowOK";
+	}
 	
 	//언팔로우 요청
 	@RequestMapping(value="/unfollow", method = RequestMethod.POST)
 	@ResponseBody
 	public String unfollow(int midx, HttpSession session, Model model) throws Exception {
-		
-		System.out.println("/unfollow/" + midx + " : 언팔로우 요청");
 		
 		Object object = session.getAttribute("loginUser");
 		MemberVO activeUser = (MemberVO)object;

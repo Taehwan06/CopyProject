@@ -52,7 +52,7 @@
 		</c:if>
 		<!-- 이벤트 베너 -->
 		<div class="row">
-			<img class="col-12" src="/controller/image/store_vn_image.png">
+			<img class="col-12" src="/controller/image/store_van.jpg">
 		</div>
 
 		<!-- 상품 카테고리 -->

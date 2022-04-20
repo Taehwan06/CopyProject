@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.study.dao.MemberDAO;
+import edu.study.vo.FollowVO;
 import edu.study.vo.MemberVO;
 
 @Service
@@ -76,6 +77,24 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> mlist() throws Exception {
 		
 		return memberDao.mlist();
+	}
+
+	@Override
+	public List<MemberVO> notfollowlist(List<FollowVO> flist) throws Exception {
+		
+		return memberDao.notfollowlist(flist);
+	}
+
+	@Override
+	public MemberVO loginNaverMember(MemberVO vo) throws Exception {
+		
+		return memberDao.loginNaverMember(vo);
+	}
+
+	@Override
+	public int insertNaverMember(MemberVO vo) throws Exception {
+		
+		return memberDao.insertNaverMember(vo);
 	}
 
 

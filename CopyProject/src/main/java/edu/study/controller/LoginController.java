@@ -7,6 +7,8 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -14,7 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import edu.study.service.HomeService;
 import edu.study.service.MemberService;
@@ -22,6 +27,7 @@ import edu.study.util.RandomNumber;
 import edu.study.util.RandomPass;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
+import edu.study.vo.NaverLoginVO;
 
 /**
  * Handles requests for the application home page.
@@ -39,6 +45,7 @@ public class LoginController {
 	private HomeService homeService;
 	private RandomNumber randomNumber;
 	private RandomPass randomPass;
+	private String apiResult = null;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -73,13 +80,24 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) throws Exception {
+	public String login(Locale locale, Model model, HttpSession session) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
+		
+		NaverLoginVO naverLoginVO = new NaverLoginVO();
+		
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginVO클래스의 getAuthorizationUrl메소드 호출 */
+		String naverAuthUrl = naverLoginVO.getAuthorizationUrl(session);
+		
+		//https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+		//redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+		
+		//네이버
+		model.addAttribute("url", naverAuthUrl);
 		
 		return "login/login";
 	}
@@ -357,11 +375,9 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		
 		
-		MemberVO kakaoUser = new MemberVO();
-		kakaoUser.setNick_name(vo.getNick_name());
-		kakaoUser.setProfile_system("kakao.png");
+		vo.setProfile_system("kakao.png");
 		
-		session.setAttribute("kakaoUser", kakaoUser);
+		session.setAttribute("kakaoUser", vo);
 		
 		return "redirect: /controller/";		
 	}
@@ -378,13 +394,86 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		
 		
-		MemberVO facebookUser = new MemberVO();
-		facebookUser.setNick_name(vo.getNick_name());
-		facebookUser.setProfile_system("facebook.png");
+		vo.setProfile_system("facebook.png");
 		
-		session.setAttribute("facebookUser", facebookUser);
+		session.setAttribute("facebookUser", vo);
 		
 		return "redirect: /controller/";		
 	}
+		
+	//네이버 로그인 성공시 callback호출 메소드
+	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
+	public String callback(Model model, @RequestParam String code, NaverLoginVO naverLoginVO, 
+			@RequestParam String state, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession(); 
+		
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginVO.getAccessToken(session, code, state);
+		
+		//1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginVO.getUserProfile(oauthToken); //String형식의 json데이터
+		/** apiResult json 구조
+		{"resultcode":"00",
+		"message":"success",
+		"response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
+		**/
+		
+		//2. String형식인 apiResult를 json형태로 바꿈
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		
+		//3. 데이터 파싱
+		//Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+		
+		//response의 nickname값 파싱
+		String nickname = (String)response_obj.get("nickname");
+		String email = (String)response_obj.get("email");
+		String id = (String)response_obj.get("id");
+		String mobile = (String)response_obj.get("mobile");
+		String gender = (String)response_obj.get("gender");
+		String birthday = (String)response_obj.get("birthday");
+		String birthyear = (String)response_obj.get("birthyear");
+		String name = (String)response_obj.get("name");
+		String profile_image = (String)response_obj.get("profile_image");
+		String[] birthdayAry = birthday.split("-");
+		
+		model.addAttribute("result", apiResult);
+						
+		MemberVO naverUser = new MemberVO();
+		
+		naverUser.setNick_name(nickname);
+		naverUser.setId(email);
+		naverUser.setPass(id);
+		naverUser.setUid(id);
+		naverUser.setPhone(mobile);
+		naverUser.setBirthday(birthyear+"년 "+birthdayAry[0]+"월 "+birthdayAry[1]+"일");
+		naverUser.setGender(gender);
+		naverUser.setMembername(name);
+		naverUser.setProfile_origin(profile_image);
+		naverUser.setProfile_system("naver.png");
+		naverUser.setPost_code("00000");
+		naverUser.setAddr("주소를 등록해주세요");
+		
+		MemberVO naverLoginUser = memberService.loginNaverMember(naverUser);
+		
+		if(naverLoginUser != null) {
+			session.setAttribute("loginUser",naverLoginUser);
+			
+			return "redirect: /controller/";	
+		}else {
+			memberService.insertNaverMember(naverUser);
+			
+			MemberVO loginUser = memberService.loginNaverMember(naverUser);
+			
+			session.setAttribute("loginUser",loginUser);
+			
+			return "redirect: /controller/";
+		}
+		
+	}
+	
 	
 }

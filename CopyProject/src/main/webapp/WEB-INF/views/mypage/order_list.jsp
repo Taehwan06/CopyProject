@@ -74,13 +74,13 @@
 						<div id="OList2"><!-- 주문 배송 조회 박스 -->
 				<!-- =============================================== -->
 							<div class="filter"><!-- 필터 -->
-								<select name="day" class="selectgood">
+								<!-- <select name="day" class="selectgood">
 									<option value="not">----</option>
 									<option value="month">한달</option>
 									<option value="3months">3개월</option>
 									<option value="6months">6개월</option>
 									<option value="1year">1년</option>
-								</select>
+								</select> -->
 								<select id ="stateBar" name="stateBar" class="selectgood" onchange="stateFn()">
 									<option value="default">----</option>
 									<option value="pay">결제완료</option>
@@ -88,6 +88,7 @@
 									<option value="ing">배송중</option>
 									<option value="complete">배송완료</option>
 								</select>
+								<input type="button" id="Go_reset" value="초기화" onclick="location.href='/controller/mypage/order_list.do'">
 							</div>
 				<!-- =============================================== -->		
 							<div class="product">

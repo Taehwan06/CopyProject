@@ -103,7 +103,7 @@
 		<div class="row storyList">
 			<div class="storyListTitle">
 				오늘의 스토리
-				<span id="moreview" onclick="location.href='home_list.do'">더보기</span>
+				<span id="moreview" onclick="location.href='home_list.do?&sort=recent'">더보기</span>
 				<div id="clear"></div>
 			</div>
 			<c:forEach items="${list}" var="vo" varStatus="cnt">

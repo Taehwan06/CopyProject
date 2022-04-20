@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import edu.study.dao.Community_BoardDAO;
 import edu.study.vo.Community_BoardVO;
 import edu.study.vo.FollowVO;
+import edu.study.vo.MemberVO;
+import edu.study.vo.ScrapVO;
 import edu.study.vo.SearchVO;
 
 @Service
@@ -72,14 +74,44 @@ public class Community_BoardServiceImpl implements Community_BoardService {
 	}
 
 	@Override
-	public List<Community_BoardVO> blist() throws Exception {
+	public List<Community_BoardVO> followlist(List<FollowVO> flist) throws Exception {
 		
-		return Community_boardDao.blist();
+		return Community_boardDao.followlist(flist);
 	}
 
 	@Override
 	public int isFollow(FollowVO fvo) throws Exception {
 		
 		return Community_boardDao.isFollow(fvo);
+	}
+
+	@Override
+	public int isScrap(ScrapVO scrap) throws Exception {
+		
+		return Community_boardDao.isScrap(scrap);
+	}
+
+	@Override
+	public List<Community_BoardVO> scrapList(List<ScrapVO> scrapList) throws Exception {
+		
+		return Community_boardDao.scrapList(scrapList);
+	}
+
+	@Override
+	public List<Community_BoardVO> boardlist() throws Exception {
+		
+		return Community_boardDao.boardlist();
+	}
+
+	@Override
+	public List<Community_BoardVO> selectlist(SearchVO vo) throws Exception {
+		
+		return Community_boardDao.selectlist(vo);
+	}
+
+	@Override
+	public List<Community_BoardVO> list4(SearchVO vo) throws Exception {
+		
+		return Community_boardDao.list4(vo);
 	}
 }

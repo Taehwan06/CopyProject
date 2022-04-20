@@ -29,16 +29,44 @@ function follow(fmidx){
 /* 언팔로우 요청 */
 function unfollow(fmidx){
 	$.ajax({
-			type : 'post',
-			url : '/controller/follow/unfollowC',
-			data : 'fmidx='+fmidx,
-			success : function(result){
-				if(result == "UnFollowOK"){
-					location.reload();
-					
-				}
-			}	
-		});
+		type : 'post',
+		url : '/controller/follow/unfollowC',
+		data : 'fmidx='+fmidx,
+		success : function(result){
+			if(result == "UnFollowOK"){
+				location.reload();
+				
+			}
+		}	
+	});
+}
+
+/* 좋아요 요청 */
+function scrap(cbidx){
+	$.ajax({
+		type : 'post',
+		url : '/controller/scrap/scrapUp',
+		data : 'cbidx='+cbidx,
+		success  : function(result){
+			if(result == "ScrapOK"){
+				location.reload();
+			}
+		}
+	});
+}
+
+/* 좋아요 취소 */
+function unscrap(cbidx){
+	$.ajax({
+		type : 'post',
+		url : '/controller/scrap/scrapDown',
+		data : 'cbidx='+cbidx,
+		success : function(result){
+			if(result == "UnScrapOK"){
+				location.reload();
+			}
+		}
+	})
 }
 
 /* 댓글 높이 조절 */
