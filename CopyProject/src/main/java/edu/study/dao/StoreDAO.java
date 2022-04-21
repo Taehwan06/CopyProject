@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.study.vo.BasketVO;
+import edu.study.vo.EventVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.StorePagingVO;
 import edu.study.vo.StoreVO;
@@ -141,6 +142,14 @@ public class StoreDAO {
 	//좋아요 상품 리스트
 	public List<StoreVO> likelist(int midx) throws Exception {
 		return sqlSession.selectList(Namespace+".likelist",midx);
+	}
+	//이벤트 리스트
+	public List<EventVO> eventlist() throws Exception {
+		return sqlSession.selectList(Namespace+".eventlist");
+	}
+	//이벤트 디테일
+	public EventVO event_detail(int eidx) throws Exception {
+		return sqlSession.selectOne(Namespace+".event_detail",eidx);
 	}
 }
 

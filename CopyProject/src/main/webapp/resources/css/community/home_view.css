@@ -147,6 +147,10 @@ section{
 	width : 70px;
 	height : 70px;
 	margin-right : 15px;
+	cursor : pointer;
+}
+#footer_writerImg_span{
+	cursor: pointer;
 }
 .footer_profile_img button{
 	margin-left : 15px;
@@ -361,9 +365,6 @@ p{
 	padding : 0;
 	margin-left : 20px;
 	font-weight : bold;
-}
-.reply_item_footer_reply-btn1{
-	display : none;
 }
 .Re{
 	width: 99%;

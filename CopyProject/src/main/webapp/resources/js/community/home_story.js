@@ -109,6 +109,11 @@ $(window).resize(function() {
 	}
 });
 function writeFn(){
-	alert("로그인 후 이용 가능합니다.");
-	location.href='home_insert.do';
+	swal({
+		text : "로그인 후 이용 가능합니다.",
+		button : "확인",
+		closeOnClickOutside : false
+	}).then(function(){
+		location.href='home_insert.do';
+	});
 }

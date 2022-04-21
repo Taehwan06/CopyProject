@@ -13,6 +13,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
+	<!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<!-- kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <!-- naver SDK -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+	
 	<title>홈 스토리 - 홈프렌즈 </title>
 	
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
@@ -44,17 +54,17 @@
 	</c:if>
 	<section id="story_area">
 		<div class="row" id="storyimg">
-			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
-				<img src="/controller/upload/${CommMain.img_system}" id="MainImg">
+			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area">
+				<img src="/controller/upload/${CommMain.img_system}" id="MainImg" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 				<div id="absolute_">
-					<div id="story_title">
+					<div id="story_title" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 						${CommMain.title}
 					</div>
-					<div id="profile">
+					<div id="profile" onclick="location.href='/controller/mypage/Member_page.do?midx=${CommMain.midx}'">
 						<img class="writerImg" src="/controller/image/${CommMain.profile_system }">${CommMain.writer}
 					</div>
 				</div>
-				<div id="btn_absolute">
+				<div id="btn_absolute" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 					<button>보러가기</button>
 				</div>
 			</div>
@@ -109,10 +119,10 @@
 			<c:forEach items="${list}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
 					<img src="/controller/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
-					<div class="storyText" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+					<div class="storyText">
 						<!-- ${vo.title} -->
-						<div class="storyTitle">${vo.title }</div>
-						<div class="storyWriter">
+						<div class="storyTitle" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
+						<div class="storyWriter" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
 							<img class="writerImg" src="/controller/image/${vo.profile_system }" onclick="">${vo.writer }
 						</div>
 					</div>

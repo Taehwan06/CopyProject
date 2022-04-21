@@ -3,6 +3,7 @@ package edu.study.service;
 import java.util.List;
 
 import edu.study.vo.BasketVO;
+import edu.study.vo.EventVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.StorePagingVO;
 import edu.study.vo.StoreVO;
@@ -39,4 +40,6 @@ public interface StoreService {
 	int likeIN(int midx,int spidx) throws Exception;
 	int likeDEL(int midx,int spidx) throws Exception;
 	List<StoreVO> likelist(int midx) throws Exception;
+	List<EventVO> eventlist() throws Exception;
+	EventVO event_detail(int eidx) throws Exception;
 }

@@ -53,12 +53,6 @@ public class Community_ReplyDAO {
 		
 	}
 	
-	//댓글 삭제시 카운트 1감소
-	public int countDown(int cbidx) throws Exception {
-		
-		return sqlSession.update(Namespace+".countDown", cbidx);
-	}
-	
 	//답글 작성
 	public int Reinsert(Community_ReplyVO vo) throws Exception {
 		
@@ -75,5 +69,22 @@ public class Community_ReplyDAO {
 	public int count(int cbidx) throws Exception { 
 		
 		return sqlSession.selectOne(Namespace + ".countReplies", cbidx); 
+	}
+	
+	//댓글 복구
+	public int redistribution(int cbridx) {
+		
+		return sqlSession.update(Namespace+".redistribution", cbridx);
+	}
+	
+	//함수 제거
+	public Object delfnc() {
+		
+		return sqlSession.delete(Namespace+".delfnc");
+	}
+
+	public Object intofnc(int cbidx) {
+		
+		return sqlSession.insert(Namespace+".intofnc", cbidx);
 	}
 }

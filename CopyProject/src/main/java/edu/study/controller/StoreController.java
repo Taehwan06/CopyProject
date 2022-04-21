@@ -1,7 +1,12 @@
 package edu.study.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.google.gson.Gson;
@@ -28,6 +34,7 @@ import edu.study.service.HomeService;
 import edu.study.service.StoreService;
 import edu.study.vo.BasketVO;
 import edu.study.vo.Community_ReplyVO;
+import edu.study.vo.EventVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
 import edu.study.vo.PagingVO;
@@ -155,7 +162,8 @@ public class StoreController {
 		return "store/store_insert";
 	}
 	@RequestMapping(value = "/store_insert.do", method = RequestMethod.POST)
-	public @ResponseBody String store_insertOK(HttpServletRequest request, Locale locale, Model model, StoreVO vo, @RequestParam String img_style) throws Exception {
+	public String store_insertOK(HttpServletRequest request, Locale locale, Model model,
+			StoreVO vo/* , @RequestParam String img_style */) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -163,22 +171,24 @@ public class StoreController {
 //		
 //		model.addAttribute("searchList", searchList);
 			
-		int idx1 = img_style.indexOf("url(");
-		int idx2 = img_style.lastIndexOf("\"");
-		String new_img_style = img_style.substring(idx1+5, idx2);
-		vo.setImg_origin(new_img_style);
-		vo.setImg_system(new_img_style);
-		StringTokenizer st = new StringTokenizer(vo.getDetail(), ",");
-		String remain = "";
-		while(st.hasMoreTokens()) {
-		   String cur = st.nextToken();
-		   if (cur.equals("0")) {
-		       continue;
-		    } 
-		   remain = cur;
-		   break;
-		}
-		vo.setDetail(remain);
+	
+//		int idx1 = img_style.indexOf("url("); 
+//		int idx2 = img_style.lastIndexOf("\"");
+//		String new_img_style = img_style.substring(idx1+5, idx2);
+//		vo.setImg_origin(new_img_style); 
+//		vo.setImg_system(new_img_style);
+		 
+//		StringTokenizer st = new StringTokenizer(vo.getDetail(), ",");
+//		String remain = "";
+//		while(st.hasMoreTokens()) {
+//		   String cur = st.nextToken();
+//		   if (cur.equals("0")) {
+//		       continue;
+//		    } 
+//		   remain = cur;
+//		   break;
+//		}
+//		vo.setDetail(remain);
 		if(vo.getFree_delivery()!="N") {
 			vo.setDelivery_charge("0");
 		}
@@ -193,10 +203,11 @@ public class StoreController {
 		vo.setMidx(member.getMidx());
 		vo.setWriter(member.getMembername());
 		
+		System.out.println(vo.getContent());
 		
 		storeService.insert(vo);
 
-		return vo.getSpidx()+"";
+		return "redirect:store_view.do?spidx=" + vo.getSpidx();
 		
 	}
 	
@@ -236,7 +247,8 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value = "/store_modify.do", method = RequestMethod.POST)
-	public @ResponseBody String store_modifyOK(HttpServletRequest request, Locale locale, Model model, StoreVO vo, @RequestParam String img_style) throws Exception {
+	public @ResponseBody String store_modifyOK(HttpServletRequest request, Locale locale, Model model,
+			StoreVO vo/* , @RequestParam String img_style */) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -244,11 +256,11 @@ public class StoreController {
 //		
 //		model.addAttribute("searchList", searchList);
 			
-		int idx1 = img_style.indexOf("url(");
-		int idx2 = img_style.lastIndexOf("\"");
-		String new_img_style = img_style.substring(idx1+5, idx2);
-		vo.setImg_origin(new_img_style);
-		vo.setImg_system(new_img_style);
+		/*
+		 * int idx1 = img_style.indexOf("url("); int idx2 = img_style.lastIndexOf("\"");
+		 * String new_img_style = img_style.substring(idx1+5, idx2);
+		 * vo.setImg_origin(new_img_style); vo.setImg_system(new_img_style);
+		 */
 		StringTokenizer st = new StringTokenizer(vo.getDetail(), ",");
 		String remain = "";
 		while(st.hasMoreTokens()) {
@@ -507,20 +519,21 @@ public class StoreController {
 		return "store/store_review_insert";
 	}
 	@RequestMapping(value = "/store_review_insert.do", method = RequestMethod.POST)
-	public @ResponseBody String store_review_insertOK(HttpServletRequest request, Locale locale, Model model, Store_reviewVO vo,  @RequestParam String img_style) throws Exception {
+	public @ResponseBody String store_review_insertOK(HttpServletRequest request, Locale locale, Model model,
+			Store_reviewVO vo/* , @RequestParam String img_style */) throws Exception {
 	
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
-		if(img_style != null && !img_style.equals("") && !img_style.equals("undefined")) {
-			int idx1 = img_style.indexOf("url(");
-			int idx2 = img_style.lastIndexOf("\"");
-			String new_img_style = img_style.substring(idx1+5, idx2);
-			vo.setImg_origin(new_img_style);
-			vo.setImg_system(new_img_style);
-		}
+//		if(img_style != null && !img_style.equals("") && !img_style.equals("undefined")) {
+//			int idx1 = img_style.indexOf("url(");
+//			int idx2 = img_style.lastIndexOf("\"");
+//			String new_img_style = img_style.substring(idx1+5, idx2);
+//			vo.setImg_origin(new_img_style);
+//			vo.setImg_system(new_img_style);
+//		}
 		
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("loginUser");
@@ -568,7 +581,8 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value = "/store_review_modify.do", method = RequestMethod.POST)
-	public @ResponseBody String store_store_modifyOK(HttpServletRequest request, Locale locale, Model model, Store_reviewVO vo, @RequestParam String img_style) throws Exception {
+	public @ResponseBody String store_store_modifyOK(HttpServletRequest request, Locale locale, Model model,
+			Store_reviewVO vo/* , @RequestParam String img_style */) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -576,11 +590,11 @@ public class StoreController {
 //		
 //		model.addAttribute("searchList", searchList);
 			
-		int idx1 = img_style.indexOf("url(");
-		int idx2 = img_style.lastIndexOf("\"");
-		String new_img_style = img_style.substring(idx1+5, idx2);
-		vo.setImg_origin(new_img_style);
-		vo.setImg_system(new_img_style);
+//		int idx1 = img_style.indexOf("url(");
+//		int idx2 = img_style.lastIndexOf("\"");
+//		String new_img_style = img_style.substring(idx1+5, idx2);
+//		vo.setImg_origin(new_img_style);
+//		vo.setImg_system(new_img_style);
 		
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO)session.getAttribute("loginUser");
@@ -912,31 +926,81 @@ public class StoreController {
 	
 	
 	
+	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+	@ResponseBody
+	public String fileUpload(Locale locale, Model model, HttpServletRequest request, @RequestParam("imgFile") MultipartFile imgFile) throws Exception {
+		
+		//String savePath = "C://Users//lth-m//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";  // 파일이 저장될 프로젝트 안의 폴더 경로
+		//String savePath = request.getServletContext().getRealPath("/resources/image");  // 파일이 저장될 프로젝트 안의 폴더 경로
+		String savePath ="C://Users//MYCOM//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";
+		
+	    String originalFilename = imgFile.getOriginalFilename(); // fileName.jpg
+	    String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName
+	    String extension = originalFilename.substring(originalFilename.indexOf(".")); // .jpg
+	     
+	    String rename = onlyFileName + "_" + getCurrentDayTime() + extension; // fileName_20150721-14-07-50.jpg
+	    String fullPath = savePath + "//" + rename;
+	    
+	    String extension3 = extension.trim();
+	    String extension2 = extension3.toLowerCase();
+	    
+	    if(!extension2.equals(".png") && !extension2.equals(".jfif") && !extension2.equals(".bmp") && !extension2.equals(".rle")
+	    		 && !extension2.equals(".dib") && !extension2.equals(".jpg") && !extension2.equals(".gif") && !extension2.equals(".tif")
+	    		 && !extension2.equals(".tiff") && !extension2.equals(".raw") && !extension2.equals(".webp")) {
+	    	return "fail1";
+	    }else if (!imgFile.isEmpty()) {
+	    	String result = "";
+	        try {
+	            byte[] bytes = imgFile.getBytes();
+	            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(fullPath)));
+	            stream.write(bytes);
+	            stream.close();
+	           	
+	            result = originalFilename+","+"/controller/image/"+rename;
+	        } catch (Exception e) {
+	        	result = "fail2";
+	        }
+	        
+	        return result;
+	    } else {
+	    	return "fail3";
+	    }
+	}
 	
-	
-	
+	public String getCurrentDayTime(){
+	    long time = System.currentTimeMillis();
+	    SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+	    return dayTime.format(new Date(time));
+	}
 	
 	
 	@RequestMapping(value = "/event.do", method = RequestMethod.GET)
-	public String event(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String event(Locale locale, Model model) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
+		
+		List<EventVO> elist = storeService.eventlist();
+		model.addAttribute("elist", elist);
+		
 			
 		return "store/event";
 	}
 	
 	@RequestMapping(value = "/event_view.do", method = RequestMethod.GET)
-	public String event_view(Locale locale, Model model, SearchVO vo) throws Exception {
+	public String event_view(Locale locale, Model model, int eidx) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
 		model.addAttribute("searchList", searchList);
+		
+		EventVO evo = storeService.event_detail(eidx);
+		model.addAttribute("evo",evo);
 			
 		return "store/event_view";
 	}

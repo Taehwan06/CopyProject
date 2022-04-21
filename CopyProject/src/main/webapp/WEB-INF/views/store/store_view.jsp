@@ -26,6 +26,14 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/store/view.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	<script>
 		var spidx=${vo.spidx};
 		var price=${vo.sale_price};
@@ -168,7 +176,7 @@
 				</div>
 				<div id="review_area_header">
 					<div>리뷰 <span>${vo.review_cnt}</span></div>
-					<!-- <div id="reviewwrite" onclick="location.href='store_review_insert.do?spidx=${vo.spidx}'">리뷰쓰기</div> -->
+					<div id="reviewwrite" onclick="location.href='store_review_insert.do?spidx=${vo.spidx}'">리뷰쓰기</div>
 				</div>
 				<div id="review_area">							
 					<section id="reply_area">
@@ -220,6 +228,7 @@
 						</ul>
 						
 						<!-- 페이징 처리 -->
+						<c:if test ="${vo.review_cnt ne 0}">
 						<ul class="list-paginator">
 							<li>
 								<a class="list-paginator_first" href="store_view.do?spidx=${vo.spidx }&nowPage=${pvo.startPage}#review_area_header">
@@ -271,6 +280,7 @@
 								</a>
 							</li>
 						</ul>
+						</c:if>
 					</section>
 				</div>
 				<div id="QnA_area_header">
@@ -514,17 +524,33 @@
 				});
 			}else{
 				alert("로그인 후 이용가능 합니다.");
+				location.href="/controller/login/login.do"
 			}
 		}
 		
 		function paymentInFn(){
-			console.log(${spidx});
-			if(${!empty loginUser}){
-				location.href="/controller/mypage/directPayment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
-			}else{
-				alert("로그인 후 이용가능 합니다.");
-			}
-		}
+	         
+	         console.log(${spidx});
+	         if(${!empty loginUser}){
+	            var postCode = ${loginUser.post_code};
+	            if(postCode == 0){
+	               swal({
+	                  text: "주소 등록 후 구매 가능합니다.",
+	                  button: "확인",
+	                  icon: "warning",
+	                  closeOnClickOutside : false
+	               }).then(function(){
+	                  location.href="/controller/mypage/addr_modify.do";
+	               });
+	               
+	            }else{
+	               location.href="/controller/mypage/directPayment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
+	            }
+	            
+	         }else{
+	            alert("로그인 후 이용가능 합니다.");
+	         }
+	      }
 	
 	</script>
 	

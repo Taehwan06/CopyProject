@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <!-- JSTL사용하기위한 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +25,15 @@
 	<link href="/controller/css/footer.css" rel="stylesheet">
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<script src="/controller/js/nav.js"></script>
+	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/footer.js"></script>
-
+<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
 		
 
@@ -37,30 +46,12 @@
 	<section>
 		<div id="contentTitle">EVENT</div>
 		<div class="row">
+			<c:forEach items="${elist}" var="evo" varStatus="cnt">
 			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="#"><img class="img100" alt="" src="/controller/image/eventBanner1-1.jpeg"></a>
+				<a href="/controller/store/event_view.do?eidx=${evo.eidx}"><img class="img100" alt="" src="${evo.main_img}"></a>
 			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="#"><img class="img100" alt="" src="/controller/image/eventBanner2-1.jpeg"></a>
-			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="#"><img class="img100" alt="" src="/controller/image/eventBanner3-1(m).jpeg"></a>
-			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="#"><img class="img100" alt="" src="/controller/image/eventBanner1-1.jpeg"></a>
-			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="#"><img class="img100" alt="" src="/controller/image/eventBanner2-1.jpeg"></a>
-			</div>
-			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="#"><img class="img100" alt="" src="/controller/image/eventBanner3-1(m).jpeg"></a>
-			</div>
+			</c:forEach>
 		</div>
-		
-		
-		
-		
-		
 	</section>
 
 

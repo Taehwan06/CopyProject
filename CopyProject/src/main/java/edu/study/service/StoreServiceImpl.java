@@ -10,6 +10,7 @@ import edu.study.vo.StoreVO;
 import edu.study.vo.Store_qnaVO;
 import edu.study.vo.Store_reviewVO;
 import edu.study.vo.BasketVO;
+import edu.study.vo.EventVO;
 import edu.study.vo.SearchVO;
 import edu.study.vo.StorePagingVO;
 
@@ -178,6 +179,18 @@ public class StoreServiceImpl implements StoreService {
 	public List<StoreVO> likelist(int midx) throws Exception {
 		// TODO Auto-generated method stub
 		return StoreDao.likelist(midx);
+	}
+
+	@Override
+	public List<EventVO> eventlist() throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.eventlist();
+	}
+
+	@Override
+	public EventVO event_detail(int eidx) throws Exception {
+		// TODO Auto-generated method stub
+		return StoreDao.event_detail(eidx);
 	}
 
 	

@@ -14,6 +14,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
+	<!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<!-- kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <!-- naver SDK -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+	
 	<title>홈 스토리 글 상세보기 - 홈프렌즈</title>
 	<script src="/controller/js/jquery-3.6.0.min.js"></script>
 	<link href="/controller/css/header.css" rel="stylesheet">
@@ -44,7 +54,7 @@
 				<div class="comm_category">홈 스토리</div>
 				<div class="comm_title">${vo.title }</div>
 				<div class="col-xl-4 storyWriter">
-					<div class="profile">
+					<div class="profile" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
 						<div class="profile_img">
 							<img class="writerImg" src="/controller/image/${vo.profile_system }">
 						</div>
@@ -61,9 +71,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-5">
-				</div>
-				<div class="col-xl-3 follow_btn">
+				<div class="col-xl-8 follow_btn">
 					<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 						<button onclick="follow(${vo.midx})">+ 팔로우</button>
 					</c:if>
@@ -87,7 +95,7 @@
 			</div>
 		</div>
 		<div class="btn_area">
-			<button type="button" onclick="location.href='home_list.do'">목록</button>
+			<button type="button" onclick="location.href='home_list.do?&sort=recent'">목록</button>
 		<c:if test="${loginUser.midx == vo.midx }">
 			<button type="button" onclick="location.href='home_modify.do?cbidx='+${vo.cbidx}">수정</button>
 			<button type="button" onclick="del()">삭제</button>
@@ -104,8 +112,8 @@
 		</div>
 		<div class="footer_profile">
 			<div class="footer_profile_img">
-				<img class="footer_writerImg" src="/controller/image/${vo.profile_system }">
-				${vo.writer }
+				<img class="footer_writerImg" src="/controller/image/${vo.profile_system }" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
+				<span id="footer_writerImg_span" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">${vo.writer }</span>
 				<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 					<button onclick="follow(${vo.midx})">팔로우</button>
 				</c:if>
@@ -128,7 +136,7 @@
 		<!-- 댓글 등록 -->
 		<c:if test="${loginUser != null}">
 			<form id="replyFrm" name="replyFrm" method="post">
-				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
+				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="0">
 				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
 				<input type="hidden" id="midx" name="midx" value="${loginUser.midx }">
 				<input type="hidden" name="writer" value="${loginUser.nick_name }">
@@ -152,12 +160,10 @@
 			<form id="replyFrm_">
 				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
 				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
-				<input type="hidden" id="midx" name="midx" value="">
-				<input type="hidden" name="writer" value="">
 				<div class="reply_writer">
 					<img src="/controller/image/kakao_profile_basic.png">
 				</div>
-				<div class="reply_input">
+				<div class="reply_input" onclick="ReNot()">
 					<div class="reply_content">
 						<div class="reply_content_input">
 							<textarea name="content" class="reply_content_input_text reply_content_form_text" placeholder="로그인 후 이용 가능합니다." readonly></textarea>
@@ -175,7 +181,7 @@
 				<input type="hidden" name="origin_cbridx" value="${reply.cbridx }">
 				<input type="hidden" name="cbridx" value="${reply.cbridx }">
 				<c:if test="${reply.depth != 0 }">
-					<div class="reply reply${reply.depth }">
+					<div class="reply reply${reply.depth } " style="margin-left : calc(${reply.depth-1}*65px);">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						</svg>
@@ -184,30 +190,58 @@
 				<li class="reply_list_item reply_list_item${reply.depth }" style="margin-left : calc(${reply.depth}*65px);">
 					<article class="reply_item_">
 						<p class="reply_item_content reply_item_content${reply.cbridx }">
-							<a class="reply_item_content_writer" href="">${reply.writer }
+							<a class="reply_item_content_writer" href="/controller/mypage/Member_page.do?midx=${reply.midx }">${reply.writer }
 								<img class="reply_item_content_writer_image" src="/controller/image/${reply.profile_system }">
 							</a>
-							<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">${reply.content }</span>
+							<c:if test="${reply.del_yn == 'N' || loginUser.grade == 'A' }">
+								<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">${reply.content }</span>
+							</c:if>
+							<c:if test="${reply.del_yn == 'Y' && loginUser.grade != 'A' }">
+								<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">삭제된 글 입니다.</span>
+							</c:if>
 						</p>
 						<footer class="reply_item_footer reply_item_footer${reply.depth } reply_item_footer${reply.cbridx }">
 							<time class="reply_item_footer_time">
-								<c:if test="${reply.modify_yn == 'N' }">
+								<c:if test="${reply.modify_yn == 'N' && reply.del_yn == 'N' && reply.del_date == null}">
 									${reply.write_date }
 								</c:if>
-								<c:if test="${reply.modify_yn ==  'Y'}">
+								<c:if test="${reply.modify_yn ==  'Y' && reply.del_yn == 'N'}">
 									${reply.modify_date }(수정됨)
 								</c:if>
+								<c:if test="${reply.del_yn == 'Y' }">
+									${reply.del_date }(삭제됨)
+								</c:if>
+								<c:if test="${reply.del_yn == 'N' && reply.del_date != null }">
+									${reply.del_date }(복구됨)
+								</c:if>
 							</time>
-							<c:if test="${loginUser == null }">
+							<c:if test="${loginUser == null && reply.del_yn == 'N'}">
 								<button class="reply_item_footer_reply-btn reply_item_footer_reply-btn${reply.depth }" type="button" onclick="ReNot()">답글 달기</button>
 							</c:if>
-							<c:if test="${loginUser != null }">
+							<c:if test="${loginUser != null && reply.del_yn == 'N'}">
 								<button class="reply_item_footer_reply-btn reply_item_footer_reply-btn${reply.depth }" type="button" onclick="Re('${reply.cbridx}')">답글 달기</button>
 							</c:if>
-							<c:if test="${loginUser.midx == reply.midx }">
+							<c:if test="${loginUser.midx == reply.midx}">
 								<div class="mfdel">
-									<button class="replyUpdate" type="button" onclick="replymodify('${reply.cbridx}','${reply.profile_system }')">수정</button>
-									<button class="replyDelete" type="button" onclick="replydel('${reply.cbridx}')">삭제</button>
+									<c:if test="${reply.del_yn == 'N' }">
+										<button class="replyUpdate" type="button" onclick="replymodify('${reply.cbridx}','${reply.profile_system }')">수정</button>
+										<button class="replyDelete" type="button" onclick="replydel('${reply.cbridx}')">삭제</button>
+									</c:if>
+								</div>
+								<!-- 댓글 삭제 -->
+								<form id="replydelfrm${reply.cbridx }" name="replydelfrm" method="post">
+									<input type="hidden" name="cbridx" value="${reply.cbridx }">
+									<input type="hidden" name="cbidx" value="${vo.cbidx }">
+								</form>
+							</c:if>
+							<c:if test="${loginUser.grade == 'A' }">
+								<div class="mfdel">
+									<c:if test="${reply.del_yn == 'N' }">
+										<button class="replyDelete" type="button" onclick="replydel('${reply.cbridx}')">삭제</button>
+									</c:if>
+									<c:if test="${reply.del_yn == 'Y' }">
+										<button class="replyRedistribution" onclick="replyRedistribution('${reply.cbridx}')">복구</button>
+									</c:if>
 								</div>
 								<!-- 댓글 삭제 -->
 								<form id="replydelfrm${reply.cbridx }" name="replydelfrm" method="post">
@@ -220,7 +254,7 @@
 						
 						<!-- 답글 작성 -->
 						<form class="reply_Frm" id="reply_Frm${reply.cbridx}" name="reply_Frm" method="post">
-							<input type="hidden" name="origin_cbridx" value="${reply.origin_cbridx}">
+							<input type="hidden" name="origin_cbridx" value="${reply.cbridx}">
 							<input type="hidden" name="cbidx" value="${vo.cbidx }">
 							<input type="hidden" name="midx" value="${loginUser.midx }">
 							<input type="hidden" name="writer" value="${loginUser.nick_name }">

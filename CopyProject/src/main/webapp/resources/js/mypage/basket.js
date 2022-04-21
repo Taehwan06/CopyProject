@@ -201,35 +201,45 @@ function plusFn(obj,sbidx,price,delivery){
 
 
 function payFn(){
-	var checkedSbidx = [];
-	var sbidxStr = "";
-	var len = $("input[name='Selection']:checked").length;
 	
-	if(len > 0){
-	    $("input[name='Selection']:checked").each(function(e){
-	        var value = $(this).val();
-	        var valueAry = value.split(",");
-			var sbidx = valueAry[0];
-			
-			checkedSbidx.push(sbidx);
-			sbidxStr += sbidx+",";
-	    })
-	}
-	
-	$("#sbidxStr").val(checkedSbidx);
-	
-	if(checkedSbidx.length == 0){
+	if(postCode == 0){
 		swal({
-			  text: "구매하실 상품을 선택해주세요.",
-			  button: "확인",
-			});
+			text: "주소 등록 후 구매 가능합니다.",
+			button: "확인",
+			icon: "warning",
+			closeOnClickOutside : false
+		}).then(function(){
+			location.href="/controller/mypage/addr_modify.do";
+		});
+		
 	}else{
-		document.payFrm.method = "post";
-		document.payFrm.action = "payment.do";
-		document.payFrm.submit();
+		
+		var checkedSbidx = [];
+		var sbidxStr = "";
+		var len = $("input[name='Selection']:checked").length;
+		
+		if(len > 0){
+		    $("input[name='Selection']:checked").each(function(e){
+		        var value = $(this).val();
+		        var valueAry = value.split(",");
+				var sbidx = valueAry[0];
+				
+				checkedSbidx.push(sbidx);
+				sbidxStr += sbidx+",";
+		    })
+		}
+		
+		$("#sbidxStr").val(checkedSbidx);
+		
+		if(checkedSbidx.length == 0){
+			swal({
+				text: "구매하실 상품을 선택해주세요.",
+				button: "확인",
+				});
+		}else{
+			document.payFrm.method = "post";
+			document.payFrm.action = "payment.do";
+			document.payFrm.submit();
+		}
 	}
 }
-
-
-
-

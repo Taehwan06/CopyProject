@@ -99,13 +99,6 @@
 		
 		<form id="subLoginFrm" name="subLoginFrm">
 			<input type="hidden" id="nick_name" name="nick_name" value="">
-			<input type="hidden" id="id" name="id" value="">
-			<input type="hidden" id="membername" name="membername" value="">
-			<input type="hidden" id="gender" name="gender" value="">
-			<input type="hidden" id="phone" name="phone" value="">
-			<input type="hidden" id="brithday" name="brithday" value="">
-			<input type="hidden" id="profile_origin" name="profile_origin" value="">
-			<input type="hidden" id="Uid" name="Uid" value="">
 		</form>
  	
 	</section>

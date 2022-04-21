@@ -37,7 +37,12 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/store/store_insert.js"></script>
 	<script src="/controller/js/footer.js"></script>
-	
+	<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
 	<!-- 썸머노트 -->
 	<script src="/controller/js/summernote/summernote-lite.js"></script>
@@ -78,12 +83,12 @@
 			</div>
 		</form>
 				
-		<form id="insertFrm" name="insertFrm" method="post">	
+		<form id="insertFrm" name="insertFrm" action="store_insert.do" method="post" enctype="multipart/form-data">	
 			
 			<iuput type="hidden" name="midx" value="">
-			<input type="hidden" name="profile_origin" id="profile_origin" value="">
-			<input type="hidden" name="profile_system" id="profile_system" value="">
-			
+			<input type="hidden" name="img_origin" id="img_origin" value="">
+			<input type="hidden" name="img_system" id="img_system" value="">
+			<input type="hidden" name="detail" id="detail" value="">
 			<div id="titleArea">
 				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요.">
 				<label for="title">
@@ -157,7 +162,7 @@
 			</div>
 			
 			<div id="detailArea1" class="detailArea area">
-				<select id="detailSelect1" name="detail" class="detailSelect select">
+				<select id="detailSelect1" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="11">소파</option>
 					<option value="12">수납장</option>
@@ -172,7 +177,7 @@
 			</div>
 			
 			<div id="detailArea2" class="detailArea area">
-				<select id="detailSelect2" name="detail" class="detailSelect select">
+				<select id="detailSelect2" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="21">LED</option>
 					<option value="22">단 스텐드</option>
@@ -186,7 +191,7 @@
 			</div>
 			
 			<div id="detailArea3" class="detailArea area">
-				<select id="detailSelect3" name="detail" class="detailSelect select">
+				<select id="detailSelect3" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="31">베개</option>
 					<option value="32">이불</option>
@@ -200,7 +205,7 @@
 			</div>
 			
 			<div id="detailArea4" class="detailArea area">
-				<select id="detailSelect4" name="detail" class="detailSelect select">
+				<select id="detailSelect4" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="41">냉장고</option>
 					<option value="42">TV</option>
@@ -214,7 +219,7 @@
 			</div>
 			
 			<div id="detailArea5" class="detailArea area">
-				<select id="detailSelect5" name="detail" class="detailSelect select">
+				<select id="detailSelect5" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="51">그릇 & 접시</option>
 					<option value="52">냄비 & 팬</option>
@@ -229,7 +234,7 @@
 			</div>
 			
 			<div id="detailArea6" class="detailArea area">
-				<select id="detailSelect6" name="detail" class="detailSelect select">
+				<select id="detailSelect6" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="61">욕실 용품</option>
 					<option value="62">수건</option>

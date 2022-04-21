@@ -17,6 +17,10 @@
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<!-- facebook SDK -->
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<!-- naver SDK -->
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+	<!-- sweet alert SDK -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<title>회원 상세 정보 - 홈프렌즈</title>
 	
@@ -211,15 +215,20 @@
 		</div>
 		
 		<div id="buttonArea">
-			<input type="button" name="modifyButton" id="modifyButton" class="button" value="수정" 
-			onclick="modifyFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
+			<c:if test="${selectMember.grade ne 'A'}">
+				<input type="button" name="modifyButton" id="modifyButton" class="button" value="수정" 
+				onclick="modifyFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
+			</c:if>			
+			
 			<input type="button" name="listButton" id="listButton" class="button" value="목록" 
 			onclick="listFn(${selectMember.midx },${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
-			<c:if test="${selectMember.del_yn eq 'N' }">
+			
+			<c:if test="${selectMember.grade ne 'A' && selectMember.del_yn eq 'N' }">
 				<input type="button" name="withdrawButton" id="withdrawButton" class="button" value="강제 탈퇴" 
 				onclick="withdrawFn(${selectMember.midx },'${selectMember.membername }',${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
 			</c:if>
-			<c:if test="${selectMember.del_yn eq 'Y' }">
+			
+			<c:if test="${selectMember.grade ne 'A' && selectMember.del_yn eq 'Y' }">
 				<input type="button" name="restoreButton" id="restoreButton" class="button" value="탈퇴 복구" 
 				onclick="restoreFn(${selectMember.midx },'${selectMember.membername }',${memberPagingvo.nowPage},'${memberPagingvo.searchType}','${memberPagingvo.searchValue}',${memberPagingvo.cntPerPage})">
 			</c:if>

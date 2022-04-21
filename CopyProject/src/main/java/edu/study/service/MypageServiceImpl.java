@@ -159,6 +159,30 @@ public class MypageServiceImpl implements MypageService {
 		return result;
 	}
 
+	@Override
+	public int stroyCnt(int midx) throws Exception {
+		int result = mypageDao.stroyCnt(midx);
+		return result; 
+	}
+
+	@Override
+	public int likeCnt(int midx) throws Exception {
+		int result = mypageDao.likeCnt(midx); 
+		return result; 
+	}
+
+	@Override
+	public int allstoryCnt(int midx) throws Exception {
+		int result = mypageDao.allstoryCnt(midx); 
+		return result; 
+	}
+
+	@Override
+	public List<Community_BoardVO> pagingStory(Community_BoardVO vo) throws Exception {
+		List<Community_BoardVO> result = mypageDao.pagingStory(vo); 
+		return result;
+	}
+
 	
 	
 

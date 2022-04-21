@@ -226,16 +226,16 @@ function submitFn(){
 	}
 	
 	if(result){
-		var img_style = $("#imgArea").attr("style");
+		/*var img_style = $("#imgArea").attr("style");*/
 		/*img_style= img_style.replace(/&/g,"%26");*/
-		img_style= img_style.replace(/\+/g,"%2B");
+		/*img_style= img_style.replace(/\+/g,"%2B");*/
 		/*img_style= img_style.replace(/=/g,"%3D");*/
 		/*
 		console.log($("#insertFrm").serialize());*/
 		$.ajax({
 			type : "POST",
 			url : "store_modify.do",
-			data : $("#insertFrm").serialize()+"&img_style="+img_style+"&spidx="+thisSpidx,
+			data : $("#insertFrm").serialize()+"&spidx="+thisSpidx,
 			success : function(res) {
 				
 				console.log(res);
@@ -252,19 +252,64 @@ function submitFn(){
 
 $(function() {
 	$("#imgUpload").on("change", function(){
-	readURL(this);
+		
+		var form = $("#uploadForm")[0];
+	    var formData = new FormData(form);
+	    
+	    $.ajax({
+			url: "fileUpload",
+			type: "post",
+			data: formData,
+			enctype: "multipart/form-data",
+			contentType: false,
+			processData: false,
+			success: function(data){
+				var result = data.trim();
+				
+				if(result == "fail1"){
+					alert("이미지 파일만 등록할 수 있습니다");
+					
+				}else if(result == "fail2"){
+					alert("이미지 변경에 실패했습니다");
+					
+				}else if(result == "fail3"){
+					alert("변경할 이미지를 선택해 주세요");
+					
+				}else{
+					var resultAry = result.split(",")
+					var img_origin = resultAry[1];
+					var img_system = resultAry[0];
+					
+					$("#img_origin").val(img_origin);
+					$("#img_system").val(img_system);
+				
+				}
+			}
+	    });
+	    readURL(this);
 	});
 });
+
 function readURL(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			$("#imgArea").css("background-color", "none");
-			$("#imgArea").css("background-image", "url('"+e.target.result+"')");
-			$("#imgText").css("display", "none");
-			$("#imgButton").css("display", "none");
+	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
+	
+	var fileValue = document.getElementById("imgUpload").value;
+	
+	var fileNameAry = fileValue.split("\\");
+	var fileNameBe = fileNameAry[2];
+	var fileName = fileNameBe.toLowerCase();
+	
+	if(regex.test(fileName)){
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("#imgArea").css("background-color", "none");
+				$("#imgArea").css("background-image", "url('"+e.target.result+"')");
+				$("#imgText").css("display", "none");
+				$("#imgButton").css("display", "none");
+			}
+			reader.readAsDataURL(input.files[0]);
 		}
-		reader.readAsDataURL(input.files[0]);
 	}
 }
 

@@ -243,16 +243,54 @@ let match = {10:"가구", 11:"가구 > 소파", 12:"가구 > 수납장", 13:"가
 			60:"생활", 61:"생활 > 욕실", 62:"생활 > 수건", 63:"생활 > 청소", 64:"생활 > 세탁", 65:"생활 > 생활잡화"};
 
 function delFn(){
-	var isCancel = false;
+	
+	swal({
+	      text: "상품을 삭제하시겠습니까?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          swal({
+				      text: "확인을 누르면 상품이 삭제됩니다.",
+				      icon: "warning",
+				      buttons: [" 취소 ", " 확인 "],
+				      dangerMode: false,
+				   })
+				   .then((willDelete) => {
+					      if (willDelete) {
+					         swal({
+						         text: "상품이 삭제되었습니다.",
+						         button: "확인",
+						         closeOnClickOutside : false
+						      }).then(function(){
+						         location.href = "store_del.do?spidx="+spidx;
+						      });
+					   } else {
+					      
+					   }
+					});
+		   } else {
+		      
+		   }
+		});
+	/*var isCancel = false;
 	var tx1 = confirm("상품을 삭제하시겠습니까?");
 	if(tx1){
 		isCancel = confirm("확인을 누르면 상품이 삭제됩니다.");
 	}
 	
 	if(isCancel){
-		alert("상품이 삭제되었습니다.");
-		location.href = "store_del.do?spidx="+spidx;
-	}
+		swal({
+	         text: "상품이 삭제되었습니다.",
+	         button: "확인",
+	         closeOnClickOutside : false
+	      }).then(function(){
+	         location.href = "store_del.do?spidx="+spidx;
+	      });
+		
+	}*/
 }	
 
 //textarea크기 자동조절
@@ -293,7 +331,14 @@ function R_modifyFn(sridx){
 	if(loginYN){
 		location.href="store_review_modify.do?spidx="+spidx+"&sridx="+sridx;
 	}else{
-		alert("로그인 후 이용하여 주세요.");
+		swal({
+	         text: "로그인 후 이용하여 주세요.",
+	         button: "확인",
+	         closeOnClickOutside : false
+	      }).then(function(){
+	         location.href="/controller/login/login.do";
+	      });
+		
 	}
 }
 
@@ -313,8 +358,13 @@ function R_delFn(sridx){
 			success : function(res) {
 				console.log(res);
 				if(res>0){
-					alert("리뷰가 삭제되었습니다.");
-					location.reload();
+					swal({
+				         text: "리뷰가 삭제되었습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.reload();
+				      });
 				}else{
 					alert("실행오류");
 				}
@@ -330,14 +380,26 @@ function qnaInFn(){
 	if(loginYN){
 		location.href="store_qna_insert.do?spidx="+spidx;
 	}else{
-		alert("로그인 후 이용하여 주세요.");
+		swal({
+	         text: "로그인 후 이용하여 주세요.",
+	         button: "확인",
+	         closeOnClickOutside : false
+	      }).then(function(){
+	         location.href="/controller/login/login.do";
+	      });
 	}
 }
 function Q_modifyFn(sqidx){
 	if(loginYN){
 		location.href="store_qna_modify.do?spidx="+spidx+"&sqidx="+sqidx;
 	}else{
-		alert("로그인 후 이용하여 주세요.");
+		swal({
+	         text: "로그인 후 이용하여 주세요.",
+	         button: "확인",
+	         closeOnClickOutside : false
+	      }).then(function(){
+	         location.href="/controller/login/login.do";
+	      });
 	}
 }
 
@@ -425,8 +487,13 @@ function A_insert(sqidx){
 				
 				console.log(res);
 				if(res>0){
-					alert("답변이 등록되었습니다.");
-					location.reload();
+					swal({
+				         text: "답변이 등록되었습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.reload();
+				      });
 				}else{
 					alert("실행오류");
 				}
@@ -451,8 +518,13 @@ function A_delFn(sqidx){
 			success : function(res) {
 				console.log(res);
 				if(res>0){
-					alert("답변이 삭제되었습니다.");
-					location.reload();
+					swal({
+				         text: "답변이 삭제되었습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.reload();
+				      });
 				}else{
 					alert("실행오류");
 				}
@@ -475,8 +547,13 @@ function Q_delFn(sqidx){
 			success : function(res) {
 				console.log(res);
 				if(res>0){
-					alert("문의가 삭제되었습니다.");
-					location.reload();
+					swal({
+				         text: "로그인 후 이용하여 주세요.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.reload();
+				      });
 				}else{
 					alert("실행오류");
 				}
@@ -491,7 +568,13 @@ function page_reload(){
 function likeFn(likeYN){
 	if(likeYN==0){
 		if(!loginYN){
-			alert("로그인 후 이용하여 주세요.");
+			swal({
+		         text: "로그인 후 이용하여 주세요.",
+		         button: "확인",
+		         closeOnClickOutside : false
+		      }).then(function(){
+		         location.href="/controller/login/login.do";
+		      });
 		}
 		$.ajax({
 			type : "GET",
@@ -502,7 +585,13 @@ function likeFn(likeYN){
 					console.log("오류오류");
 				}
 				if(res==100){
-					alert("로그인 후 이용하여 주세요");
+					swal({
+				         text: "로그인 후 이용하여 주세요.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.href="/controller/login/login.do";
+				      });
 				}
 				var html="<div onclick='likeFn(1)'>"
 				html += "<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-heart-fill' viewBox='0 0 16 16'>";
@@ -522,7 +611,13 @@ function likeFn(likeYN){
 					console.log("오류오류");
 				}
 				if(res==100){
-					alert("로그인 후 이용하여 주세요");
+					swal({
+				         text: "로그인 후 이용하여 주세요.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.href="/controller/login/login.do";
+				      });
 				}
 				var html="<div onclick='likeFn(0)'>"
 				html += "<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='currentColor' class='bi bi-heart' viewBox='0 0 16 16'>";

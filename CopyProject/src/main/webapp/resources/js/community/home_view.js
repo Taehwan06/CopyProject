@@ -132,34 +132,46 @@ function focusOn(){
 }
 /* 본문 삭제 */
 function del(){
-	if(confirm("정말 삭제 하시겠습니까?") == true){
-		document.delfrm.submit();
-	}else{
-		return;
-	}
-	
+	swal({
+       text: "정말 삭제 하시겠습니까?",
+       icon: "warning",
+       buttons: [" 취소 ", " 확인 "],
+       dangerMode: false,
+	}).then((willDelete) => {
+       if (willDelete) {
+         document.delfrm.submit();
+	   } else {
+	      return;
+	   }
+	});
 }
 /* 댓글 삭제 */
 function replydel(cbridx){
-	
-	if(confirm("정말 삭제하시겠습니까??") == true){
-		var form = $("#replydelfrm"+cbridx);
-		var formdata = form.serialize();
+	swal({
+       text: "정말 삭제 하시겠습니까?",
+       icon: "warning",
+       buttons: [" 취소 ", " 확인 "],
+       dangerMode: false,
+	}).then((willDelete) => {
+       if (willDelete) {
+         var form = $("#replydelfrm"+cbridx);
+		 var formdata = form.serialize();
 		
-		$.ajax({
-			url : "/controller/reply/delete",
-			type : "post",
-			data : formdata,
-			success : function(data){
-				location.reload();
-			},
-			error : function(data){
-				console.log("error");
-			}
-		});
-	}else{
-		return;
-	}
+		 $.ajax({
+			 url : "/controller/reply/delete",
+			 type : "post",
+			 data : formdata,
+			 success : function(data){
+				 location.reload();
+			 },
+			 error : function(data){
+				 console.log("error");
+			 }
+		 });
+	   } else {
+	     return;
+	   }
+	});
 }
 
 
@@ -182,6 +194,22 @@ function replymodify(cbridx, img){
 	$(".Re").css("overflow", "hidden");
 	p.css("width", "100%");
 }
+
+/* 댓글 복구 */
+function replyRedistribution(cbridx){
+	
+	$.ajax({
+		url : "/controller/reply/redistribution",
+		type : "post",
+		data : "cbridx="+cbridx,
+		success : function(result){
+			console.log(result)
+			if(result == "redistributionOK"){
+				location.reload();
+			}
+		}
+	});
+}
 /* 댓글 수정 등록 */
 function Resubmit(){
 	var formdata = $("form[name='RereplyFrm']").serialize();
@@ -202,17 +230,29 @@ function Resubmit(){
 }
 /* 댓글 수정 취소 */
 function Recancle(){
-	if(confirm("작성을 취소하시겠습니까?") == true){
-		location.reload();
-	}else{
-		return;
-	}
+	swal({
+       text: "작성을 취소하시겠습니까?",
+       icon: "warning",
+       buttons: [" 취소 ", " 확인 "],
+       dangerMode: false,
+	}).then((willDelete) => {
+       if (willDelete) {
+         location.reload();
+	   } else {
+	      return;
+	   }
+	});
 }
 
 /* 비로그인시 답글 버튼 */
 function ReNot(){
-	alert("로그인 후 이용 가능합니다.");
-	location.href = "/controller/login/login.do"
+	swal({
+		text : "로그인 후 이용 가능합니다.",
+		button : "확인",
+		closeOnClickOutside : false
+	}).then(function(){
+		location.href = "/controller/login/login.do"
+	});
 }
 
 /* 답글하기 visible*/

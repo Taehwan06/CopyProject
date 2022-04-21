@@ -114,20 +114,6 @@ public class ManagementController {
 		}
 	}
 	
-	/*
-	 * @RequestMapping(value = "/report_list.do", method = RequestMethod.GET) public
-	 * String report_list(Locale locale, Model model, SearchVO vo,
-	 * HttpServletRequest request) throws Exception {
-	 * 
-	 * int deleteResult = homeService.deleteSearchList();
-	 * 
-	 * List<HomeSearchVO> searchList = homeService.listSearchList();
-	 * 
-	 * model.addAttribute("searchList", searchList);
-	 * 
-	 * return "management/report_list"; }
-	 */
-	
 	@RequestMapping(value = "/member_view.do", method = RequestMethod.GET)
 	public String member_view(Locale locale, Model model, MemberPagingVO memberPagingvo, HttpServletRequest request) throws Exception {
 		
@@ -321,9 +307,6 @@ public class ManagementController {
 			
 			model.addAttribute("searchList", searchList);
 			
-			
-			
-			
 			//페이징처리
 			int total = managementService.countStats(vo);
 			
@@ -384,6 +367,4 @@ public class ManagementController {
 			return "management/stats_view";
 		}
 	}
-	
-	
 }

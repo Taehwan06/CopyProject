@@ -322,6 +322,12 @@ public class CommunityController {
 		PagingVO pvo = new PagingVO(total, nowPage, 10);
 		int start = pvo.getStart();
 		int end = pvo.getEnd();
+		
+		//함수 제거
+		replyService.delfnc();
+		//함수 생성
+		replyService.intofnc(cbidx);
+		
 		List<Community_ReplyVO> reply = replyService.list(cbidx, start, end);
 		model.addAttribute("reply", reply);
 		model.addAttribute("pvo", pvo);
@@ -390,12 +396,12 @@ public class CommunityController {
 		
 		List<Community_BoardVO> followlist = null;
 		List<MemberVO> memberlist = null;
+		
+		//비로그인시
 		if(flist == null) {
 			followlist = null;
 			memberlist = null;
 			
-			model.addAttribute("memberlist", mlist);
-			
 			for(int i=0; i<mlist.size(); i++) {
 				int mmidx = mlist.get(i).getMidx();
 				List<Community_BoardVO> temp = new ArrayList<>();
@@ -406,13 +412,13 @@ public class CommunityController {
 				}
 				mlist.get(i).setBvo(temp);
 			}
-			model.addAttribute("mlist", mlist);
+			model.addAttribute("memberlist", mlist);
+			
+		//로그인, 팔로우가 없을시
 		}else if(flist.isEmpty()) {
 			followlist = null;
 			memberlist = null;
 			
-			model.addAttribute("memberlist", mlist);
-			
 			for(int i=0; i<mlist.size(); i++) {
 				int mmidx = mlist.get(i).getMidx();
 				List<Community_BoardVO> temp = new ArrayList<>();
@@ -423,7 +429,9 @@ public class CommunityController {
 				}
 				mlist.get(i).setBvo(temp);
 			}
-			model.addAttribute("mlist", mlist);
+			model.addAttribute("memberlist", mlist);
+			
+		//로그인, 팔로우유저가 있을시
 		}else {
 			followlist = Community_boardService.followlist(flist);
 			
@@ -433,7 +441,6 @@ public class CommunityController {
 			
 			memberlist = memberService.notfollowlist(flist);
 			
-			model.addAttribute("memberlist", memberlist);
 			model.addAttribute("followlist", followlist);
 			
 			for(int i=0; i<memberlist.size(); i++) {
@@ -446,7 +453,7 @@ public class CommunityController {
 				}
 				memberlist.get(i).setBvo(temp);
 			}
-			model.addAttribute("mlist", memberlist);
+			model.addAttribute("memberlist", memberlist);
 		}
 		return "community/following";
 	}

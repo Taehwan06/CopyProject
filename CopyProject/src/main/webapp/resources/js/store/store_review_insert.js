@@ -22,11 +22,11 @@ function submitFn(){
 	}
 	
 	if(result){
-		var img_style = $("#imgArea").attr("style");
+		/*var img_style = $("#imgArea").attr("style");*/
 		/*img_style= img_style.replace(/&/g,"%26");*/
-		if(img_style != "" && img_style != null){
+		/*if(img_style != "" && img_style != null){
 			img_style= img_style.replace(/\+/g,"%2B");
-		}
+		}*/
 		/*img_style= img_style.replace(/=/g,"%3D");*/
 		/*
 		console.log($("#insertFrm").serialize());*/
@@ -36,13 +36,18 @@ function submitFn(){
 		$.ajax({
 			type : "POST",
 			url : "store_review_insert.do",
-			data : "content="+content+"&score="+score+"&img_style="+img_style+"&spidx="+spidx,
+			data : $("#myform").serialize()+"&spidx="+spidx,
 			success : function(res) {
 				
 				console.log(res);
 				if(res>0){
-					alert("리뷰가 등록되었습니다.");
-					location.href="store_view.do?spidx="+spidx;
+					swal({
+				         text: "리뷰가 등록되었습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.href="store_view.do?spidx="+spidx;
+				      });
 				}else{
 					alert("실행오류");
 				}
@@ -50,6 +55,46 @@ function submitFn(){
 		});
 	}
 }
+
+$(function() {
+	$("#imgUpload").on("change", function(){
+		
+		var form = $("#uploadForm")[0];
+	    var formData = new FormData(form);
+	    
+	    $.ajax({
+			url: "fileUpload",
+			type: "post",
+			data: formData,
+			enctype: "multipart/form-data",
+			contentType: false,
+			processData: false,
+			success: function(data){
+				var result = data.trim();
+				
+				if(result == "fail1"){
+					alert("이미지 파일만 등록할 수 있습니다");
+					
+				}else if(result == "fail2"){
+					alert("이미지 변경에 실패했습니다");
+					
+				}else if(result == "fail3"){
+					alert("변경할 이미지를 선택해 주세요");
+					
+				}else{
+					var resultAry = result.split(",")
+					var img_origin = resultAry[1];
+					var img_system = resultAry[0];
+					
+					$("#img_origin").val(img_origin);
+					$("#img_system").val(img_system);
+				
+				}
+			}
+	    });
+	    readURL(this);
+	});
+});
 
 function readURL(input) {
 	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
@@ -73,51 +118,12 @@ function readURL(input) {
 		}
 	}
 }
+
+
 function resize(obj) {
     obj.style.height = '1px';
     obj.style.height = (12 + obj.scrollHeight) + 'px';
 }
-
-$(function() {
-	$("#imgUpload").on("change", function(){
-		
-		var form = $("#uploadForm")[0];
-	    var formData = new FormData(form);
-	    
-	    $.ajax({
-			url: "/controller/mypage/fileUpload",
-			type: "post",
-			data: formData,
-			enctype: "multipart/form-data",
-			contentType: false,
-			processData: false,
-			datatype : 'json',
-			success: function(data){
-				var result = data.trim();
-				
-				if(result == "fail1"){
-					alert("이미지 파일만 등록할 수 있습니다");
-					
-				}else if(result == "fail2"){
-					alert("이미지 변경에 실패했습니다");
-					
-				}else if(result == "fail3"){
-					alert("변경할 이미지를 선택해 주세요");
-					
-				}else{
-					var resultAry = result.split(",")
-					var profile_origin = resultAry[0];
-					var profile_system = resultAry[1];
-					
-					$("#profile_origin").val(profile_origin);
-					$("#profile_system").val(profile_system);
-				
-				}
-			}
-	    });
-	    readURL(this);
-	});
-});
 
 function cancelFn(){
    var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");

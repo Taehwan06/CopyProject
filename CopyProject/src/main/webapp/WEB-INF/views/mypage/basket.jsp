@@ -13,6 +13,10 @@
     <!-- Bootstrap icon CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+    
+    <!-- sweet alert SDK -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
 	<title>장바구니 - 홈프렌즈</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
@@ -27,8 +31,7 @@
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/mypage/basket.js"></script>
 	<script src="/controller/js/footer.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
+	<script>var postCode = ${loginUser.post_code};</script>
 
 </head>
 <body>

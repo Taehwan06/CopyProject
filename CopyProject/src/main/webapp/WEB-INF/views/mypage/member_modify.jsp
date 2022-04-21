@@ -121,21 +121,11 @@
 									<input type="text" id="AddrInput1" value="${vo.post_code}" name="post_code" readonly>
 								</div>
 							</div>
-							<div class="edit_dummy2">
-								<div class="Edit edit_member_info">
-								</div> 
-									<c:set var = "addrInfo" value = "${vo.addr}"/>
-									<c:set var = "addr1" value = "${fn:substringBefore(addrInfo,'구')}"/>
-									<c:set var = "addr2" value = "${fn:substringAfter(addrInfo,'구')}"/>	
-								<div class="Edit edit_member_form">
-									<input type="text" id="AddrInput2" value="${addr1}구" name="addr1" readonly>
-								</div>
-							</div>
 							<div class="edit_dummy">
 								<div class="Edit edit_member_info">
 								</div>
 								<div class="Edit edit_member_form">
-									<input type="text" id="AddrInput3" value="${addr2}" name="addr2" readonly>
+									<input type="text" id="AddrInput3" value="${vo.addr}" name="addr" readonly>
 								</div>
 							</div>
 							

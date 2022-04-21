@@ -121,7 +121,22 @@ public class MypageDAO {
 		return sqlSession.selectList(Namespace+".myFollowing",vo);
 	}
 	
+	public int stroyCnt(int midx) throws Exception{ 
+		return sqlSession.selectOne(Namespace+".stroyCnt",midx);
+	}
 	
+	public int likeCnt(int midx) throws Exception{ 
+		return sqlSession.selectOne(Namespace+".likeCnt",midx);
+	}
+	
+	public int allstoryCnt(int midx) throws Exception{ 
+		return sqlSession.selectOne(Namespace+".allstoryCnt",midx);
+	}
+	
+	public List<Community_BoardVO> pagingStory(Community_BoardVO vo) throws Exception{ 
+		return sqlSession.selectList(Namespace+".pagingStory",vo);
+	}
+
 }
 
 

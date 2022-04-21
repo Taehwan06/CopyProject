@@ -24,9 +24,6 @@ public interface Community_ReplyService {
 	//댓글 삭제
 	int delete(int cbridx) throws Exception;
 	
-	//댓글 삭제시 카운트 1감소
-	int countDown(int cbidx) throws Exception;
-	
 	//답글 작성
 	int Reinsert(Community_ReplyVO vo) throws Exception;
 	
@@ -35,4 +32,11 @@ public interface Community_ReplyService {
 	
 	//댓글 카운트
 	int count(int cbidx) throws Exception;
+	
+	//댓글 복구
+	int redistribution(int cbridx) throws Exception;
+
+	Object delfnc() throws Exception;
+
+	Object intofnc(int cbidx) throws Exception;
 }

@@ -30,6 +30,12 @@
 	<script src="/controller/js/home.js"></script>
 	<script src="/controller/js/store/store.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
 	
 </head>
@@ -133,7 +139,7 @@
 		<div id="deal">
 			<div class="row shopList">
 				<div class="storyListTitle">
-		        Bast
+		        Best
 			        <span class="moreview" onClick="location.href='store_list.do?type=sell_cnt'">더보기</span>
 			        <div class="clear"></div>
 		        </div>
@@ -169,8 +175,8 @@
 			        <span class="moreview" onClick="location.href='store_list.do?type=select'">더보기</span>
 			        <div class="clear"></div>
 		        </div>
-				 <c:forEach items="${list.get(2)}" var="vo" end="3" varStatus="cnt">
-				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop" <c:if test="${cnt.last}">id="mdlg_display_none"</c:if> onClick="location.href='/controller/store/store_view.do?spidx=${vo.spidx}'">
+				 <c:forEach items="${list.get(2)}" var="vo" end="3" varStatus="status">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop" <c:if test="${status.count==4}">id="mdlg_display_none"</c:if> onClick="location.href='/controller/store/store_view.do?spidx=${vo.spidx}'">
 					<img src="${vo.img_origin}" class="shopImg" onClick="">
 					<div class="shopText" onClick="">
 						<div class="shopTitle">

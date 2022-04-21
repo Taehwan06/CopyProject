@@ -37,12 +37,19 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/store/store_review_modify.js"></script>
 	<script src="/controller/js/footer.js"></script>
-	
+	<!-- sweet alert SDK -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<!-- 썸머노트 -->
 	<script src="/controller/js/summernote/summernote-lite.js"></script>
 	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
+	<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	<script>
 		var spidx = ${rvo.spidx};
 		var sridx = ${rvo.sridx};
@@ -106,6 +113,9 @@
 		
 		
 		<form class="mb-3" name="myform" id="myform" method="post">
+			<input type="hidden" name="img_origin" id="img_origin" value="${rvo.img_origin}">
+			<input type="hidden" name="img_system" id="img_system" value="${rvo.img_origin}">
+			
 			<fieldset>
 				<span class="text-bold">별점을 선택해주세요</span>
 				<input type="radio" name="score" value="5" id="rate1"><label

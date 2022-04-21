@@ -78,7 +78,6 @@ public class ReplyController {
 	public String postDelete(int cbridx, Model model, Community_ReplyVO vo, int cbidx) throws Exception {
 		
 		replyService.delete(cbridx);
-		replyService.countDown(cbidx);
 		
 		model.addAttribute("cbridx", cbridx);
 		
@@ -93,6 +92,16 @@ public class ReplyController {
 	    String jsonString = gson.toJson(map);
 	                
 	    return jsonString;
+	}
+	
+	//댓글 복구
+	@RequestMapping(value="/redistribution", method = RequestMethod.POST)
+	@ResponseBody
+	public String redistribution(int cbridx, Model model, Community_ReplyVO vo) throws Exception {
+		
+		replyService.redistribution(cbridx);
+		
+		return "redistributionOK";
 	}
 	
 	//답글 작성

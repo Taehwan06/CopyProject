@@ -5,37 +5,103 @@
  
 <mapper namespace="edu.study.mapper.Community_replyMapper">
 	
+	<!-- 함수 제거 -->
+	<delete id="delfnc">
+		DROP FUNCTION IF EXISTS fnc_hierarchi
+	</delete>
+	
+	<!-- 함수 생성 -->
+	<insert id="intofnc">
+		CREATE FUNCTION  fnc_hierarchi() RETURNS INT
+		 
+		NOT DETERMINISTIC
+		 
+		READS SQL DATA
+		 
+		BEGIN
+		 
+		    DECLARE v_cbridx INT;
+		    DECLARE v_origin_cbridx INT;    
+		    DECLARE CONTINUE HANDLER FOR NOT FOUND SET @cbridx = null;
+		 
+		    SET v_origin_cbridx = @cbridx;
+		    SET v_cbridx = -1;
+		 
+		    IF @cbridx IS NULL THEN
+		        RETURN NULL;
+		    END IF;
+		 
+		    LOOP
+		    
+		    SELECT MIN(cbridx)
+		      INTO @cbridx
+		      FROM community_reply
+		     WHERE origin_cbridx = v_origin_cbridx
+		       AND cbridx > v_cbridx
+			   AND cbidx=#{cbidx};
+			
+		    IF (@cbridx IS NOT NULL) OR (v_origin_cbridx = @start_with) THEN
+		       SET @level = @level + 1;
+		    RETURN @cbridx;
+		    END IF;
+		    
+		    SET @level := @level - 1;
+		 
+		    SELECT cbridx, origin_cbridx
+		      INTO v_cbridx , v_origin_cbridx 
+		        FROM community_reply
+		       WHERE cbridx = v_origin_cbridx;
+		   
+		    END LOOP;
+		 
+		END
+	</insert>
+	
 	<!-- 댓글 조회 -->
 	<select id="replyList" parameterType="int" resultType="Community_replyVO">
 	<![CDATA[
-		SELECT c.*
-		FROM (
-		SELECT @rownum := @rownum+1 as rownum,
-			  cbridx, content, writer,
-		CASE
-			WHEN TIMESTAMPDIFF(MINUTE, r.write_date, NOW()) <= 0 THEN '방금 전'
-			WHEN TIMESTAMPDIFF(MINUTE, r.write_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, r.write_date, Now()), '분 전')
-			WHEN TIMESTAMPDIFF(HOUR, r.write_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, r.write_date, Now()), '시간 전')
-			WHEN TIMESTAMPDIFF(DAY, r.write_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, r.write_date, Now()), '일 전')
-			ELSE CONCAT(TIMESTAMPDIFF(MONTH, r.write_date, NOW()), '달 전')
-		END AS write_date, modify_yn, 
-		CASE
-			WHEN TIMESTAMPDIFF(MINUTE, r.modify_date, NOW()) <= 0 THEN '방금 전'
-			WHEN TIMESTAMPDIFF(MINUTE, r.modify_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, r.modify_date, Now()), '분 전')
-			WHEN TIMESTAMPDIFF(HOUR, r.modify_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, r.modify_date, Now()), '시간 전')
-			WHEN TIMESTAMPDIFF(DAY, r.modify_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, r.modify_date, Now()), '일 전')
-			ELSE CONCAT(TIMESTAMPDIFF(MONTH, r.modify_date, NOW()), '달 전')
-		END AS modify_date, r.del_yn, r.del_date, origin_cbridx, depth, lvl, cbidx, r.midx, profile_system
-		 FROM community_reply r
-		INNER JOIN member m
-		ON r.midx = m.midx, (
-	   SELECT @rownum := 0) rn
-		WHERE r.del_yn = 'N'
-		  AND cbidx = #{cbidx}
-		  AND cbridx>0
-		ORDER BY origin_cbridx DESC,
-				 lvl ASC) c
-		WHERE rownum BETWEEN #{start} AND #{end}
+		SELECT B.* 
+		FROM (SELECT @rownum := @rownum+1 as rownum, A.*
+		FROM (SELECT CASE WHEN LEVEL-1 > 0 then CONCAT(CONCAT(REPEAT('', level  - 1)), r.content)
+		            ELSE r.content
+		       END AS content
+		     , r.cbridx
+		     , r.writer
+		     , CASE
+				 WHEN TIMESTAMPDIFF(MINUTE, r.write_date, NOW()) <= 0 THEN '방금 전'
+				 WHEN TIMESTAMPDIFF(MINUTE, r.write_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, r.write_date, Now()), '분 전')
+				 WHEN TIMESTAMPDIFF(HOUR, r.write_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, r.write_date, Now()), '시간 전')
+				 WHEN TIMESTAMPDIFF(DAY, r.write_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, r.write_date, Now()), '일 전')
+				 ELSE CONCAT(TIMESTAMPDIFF(MONTH, r.write_date, NOW()), '달 전')
+			   END AS write_date, r.modify_yn 
+		     , CASE
+					WHEN TIMESTAMPDIFF(MINUTE, r.modify_date, NOW()) <= 0 THEN '방금 전'
+					WHEN TIMESTAMPDIFF(MINUTE, r.modify_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, r.modify_date, Now()), '분 전')
+					WHEN TIMESTAMPDIFF(HOUR, r.modify_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, r.modify_date, Now()), '시간 전')
+					WHEN TIMESTAMPDIFF(DAY, r.modify_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, r.modify_date, Now()), '일 전')
+					ELSE CONCAT(TIMESTAMPDIFF(MONTH, r.modify_date, NOW()), '달 전')
+			   END AS modify_date, r.del_yn
+			 , CASE
+					WHEN TIMESTAMPDIFF(MINUTE, r.del_date, NOW()) <= 0 THEN '방금 전'
+					WHEN TIMESTAMPDIFF(MINUTE, r.del_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, r.del_date, Now()), '분 전')
+					WHEN TIMESTAMPDIFF(HOUR, r.del_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, r.del_date, Now()), '시간 전')
+					WHEN TIMESTAMPDIFF(DAY, r.del_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, r.del_date, Now()), '일 전')
+					ELSE CONCAT(TIMESTAMPDIFF(MONTH, r.del_date, NOW()), '달 전')
+			   END AS del_date
+		     , r.origin_cbridx
+		     , r.cbidx
+		     , r.depth
+		     , r.midx
+		     , m.profile_system
+		     , fnc.level
+		  FROM
+		     (SELECT fnc_hierarchi() AS cbridx, @level AS level, cbidx
+		        FROM (SELECT @start_with:=0, @cbridx:=@start_with, @level:=0) vars
+		          JOIN community_reply
+		         WHERE @cbridx IS NOT NULL) fnc
+		  JOIN community_reply r ON fnc.cbridx = r.cbridx inner join member m ON m.midx=r.midx
+		  	 , (SELECT @rownum := 0) rn) A) B 
+		  	 WHERE rownum BETWEEN #{start} AND #{end}
 	]]>	
 	</select>
 	
@@ -94,13 +160,6 @@
     	   SET reply_cnt = reply_cnt+1
     	 WHERE cbidx = #{cbidx}
     </update>
-    
-    <!-- 댓글 삭제시 카운트 1 감소 -->
-    <update id="countDown" parameterType="int">
-    	UPDATE community_board
-    	   SET reply_cnt = reply_cnt-1
-    	 WHERE cbidx = #{cbidx}
-    </update>
 	
 	<!-- 답글 작성 -->
 	<insert id="Rereply" parameterType="Community_ReplyVO">
@@ -142,6 +201,14 @@
 	<update id="replyDel" parameterType="int">
 		UPDATE community_reply
 		   SET del_yn = 'Y',
+		   	   del_date = now()
+		 WHERE cbridx = #{cbridx}
+	</update>
+	
+	<!-- 댓글 복구 -->
+	<update id="redistribution" parameterType="int">
+		UPDATE community_reply
+		   SET del_yn = 'N',
 		   	   del_date = now()
 		 WHERE cbridx = #{cbridx}
 	</update>

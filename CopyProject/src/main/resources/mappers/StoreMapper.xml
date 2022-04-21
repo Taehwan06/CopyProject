@@ -8,7 +8,6 @@
 	<select id="listStore" resultType="StoreVO" parameterType="SearchVO">
          SELECT spidx
          		,title
-         		,content
          		,product_name
          		,sale_price
          		,brand
@@ -449,5 +448,16 @@
     	WHERE l.midx= #{midx}
     	ORDER BY l.lidx DESC;
     
+    </select>
+    
+    <select id="eventlist" resultType="EventVO">
+    	SELECT eidx
+    			,e.main_img
+    	FROM event_view e
+    </select>
+    <select id="event_detail" resultType="EventVO" parameterType="int">
+    	SELECT *
+    	FROM event_view e
+    	WHERE e.eidx=#{eidx}
     </select>
 </mapper>

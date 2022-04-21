@@ -64,10 +64,17 @@ section{
 .storyImg{
 	height : 27vh;
 }
-.storyText, .shopText{
+.shopText{
 	width: 100%;
 	padding: 15px;
 	cursor: pointer;
+}
+.storyText{
+	width: 100%;
+	padding: 15px;
+}
+.storyTitle, .storyWriter{
+	cursor : pointer;
 }
 .storyTitle{
 	font-size: 19px;

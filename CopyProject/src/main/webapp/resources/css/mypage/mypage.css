@@ -110,7 +110,7 @@
 			color: #222222;
 		}
 		
-		#profile_follow a{
+		#profile_follow a, .profile_icon a{
 			text-decoration:none;
 			color:inherit;
 		}
@@ -263,6 +263,45 @@
 		}
 		
 		
+		/*페이징*/
+		.paging{
+			margin-top:70px;
+			text-align:center;
+		}
+		
+		.list-paginator>li{
+			display : inline-block;
+			vertical-align : bottom;
+		}
+		.list-paginator_page, .list-paginator_last, .list-paginator_first{
+			display: none;
+		    min-width: 26px;
+		    margin: 0 2px;
+		    padding: 5.5px 5px;
+		    box-sizing: border-box;
+		    border: none;
+		    background-color: transparent;
+		    border-radius: 100px;
+		    font-family: inherit;
+		    font-size: 0.8rem;
+		    font-weight: bold;
+		    line-height: 1;
+		    color: #ffb6c1;
+		    transition: background-color .1s,color .1s;
+		    text-decoration : none;
+		}
+		.list-paginator_page.sm, .list-paginator_next, .list-paginator_prev, .list-paginator_last, .list-paginator_first{
+			display : block;
+		}
+		.list-paginator_page.selected{
+			background-color : #ffb6c1;
+			color : white;
+			text-decoration : none;
+		}
+		
+		.list-paginator_page:hover, .list-paginator_last:hover, .list-paginator_first:hover{
+			color:#dcdcdc;	
+		}
 		
 		/*미디어쿼리*/
 		@media screen and (min-width: 1400px){

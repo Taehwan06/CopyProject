@@ -27,6 +27,7 @@ public interface MypageService {
 	List<Store_reviewVO> myreview(Store_reviewVO vo) throws Exception;
 	List<MyFollowVO> myFollower(MyFollowVO vo) throws Exception;
 	List<MyFollowVO> myFollowing(MyFollowVO vo) throws Exception;
+	List<Community_BoardVO> pagingStory(Community_BoardVO vo) throws Exception;
 	
 	int update(MemberVO vo) throws Exception;
 	int updatePwd(MemberVO vo) throws Exception;
@@ -37,7 +38,9 @@ public interface MypageService {
 	int ReviewCount(Store_reviewVO vo) throws Exception;
 	int following_cnt(FollowVO vo) throws Exception;
 	int follower_cnt(FollowVO vo) throws Exception;
-	
+	int stroyCnt(int midx) throws Exception;
+	int likeCnt(int midx) throws Exception;
+	int allstoryCnt(int midx) throws Exception;
 		
 	
 	

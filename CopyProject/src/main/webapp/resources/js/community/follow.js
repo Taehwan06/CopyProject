@@ -28,6 +28,11 @@ function unfollow(midx){
 }
 
 function login(){
-	alert("로그인 후 이용 가능합니다.");
-	location.href="/controller/login/login.do"
+	swal({
+		text : "로그인 후 이용 가능합니다.",
+		button : "확인",
+		closeOnClickOutside : false
+	}).then(function(){
+		location.href="/controller/login/login.do"
+	})
 }

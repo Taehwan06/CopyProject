@@ -176,6 +176,38 @@
     			img_origin is not null
     	ORDER BY
     			cbidx DESC
+   
+    </select>
+    
+     <select id = "pagingStory" resultType="Community_BoardVO" parameterType="Community_BoardVO">
+        
+		SELECT 
+			B.* 
+		FROM 
+			(SELECT 
+				@ROWNUM := @ROWNUM + 1 AS RN, 
+				A.* 
+			FROM 
+				(SELECT 
+					cbidx,
+    				img_system,
+    				title
+				FROM 
+					community_board
+				WHERE 
+					midx = #{midx}
+				AND
+    				del_yn = "N"
+    			AND
+    				img_origin is not null
+    			ORDER BY
+    				cbidx DESC
+				) A, 
+				(SELECT @ROWNUM := 0) R
+			) B
+		WHERE 
+			RN BETWEEN #{start} AND #{end}
+		
     </select>
     
      <select id="detailOrder" resultType="OrderListVO" parameterType="OrderListVO">
@@ -346,5 +378,37 @@
 		 ORDER BY add_date desc
    	 </select>
     
+    <!-- 내가 스크랩한 홈스토리 숫자 -->
+    <select id="stroyCnt" resultType="int" parameterType="int">
+    SELECT 
+    	count(*) 
+    FROM 
+    	scrap 
+    WHERE 
+    	midx = #{midx}
+    </select>
+    
+    <!-- 내가 좋아요한 스토어 상품 숫자 -->
+    <select id="likeCnt" resultType="int" parameterType="int">
+     SELECT 
+    	count(*) 
+   	 FROM 
+    	likey 
+     WHERE 
+    	midx = #{midx}
+    </select>
+    
+    <select id="allstoryCnt" resultType="int">
+    SELECT 
+    	count(*) 
+   	FROM
+    	community_board
+    WHERE
+    	midx = #{midx}
+    AND
+    	del_yn = "N"
+    AND
+    	img_origin is not null
+    </select>
     
 </mapper>

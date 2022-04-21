@@ -29,6 +29,7 @@
         <typeAlias type="edu.study.vo.StorePagingVO" alias="StorePagingVO"/>
         <typeAlias type="edu.study.vo.MyFollowVO" alias="MyFollowVO"/>
         <typeAlias type="edu.study.vo.NaverLoginVO" alias="NaverLoginVO"/>
+        <typeAlias type="edu.study.vo.EventVO" alias="EventVO"/>
     </typeAliases>
 
 </configuration>

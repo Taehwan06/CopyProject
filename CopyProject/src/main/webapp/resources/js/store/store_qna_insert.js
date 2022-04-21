@@ -25,8 +25,14 @@ function submitFn(){
 				
 				console.log(res);
 				if(res>0){
-					alert("상품문의가 등록되었습니다.");
-					location.href="store_view.do?spidx="+spidx;
+					swal({
+				         text: "상품문의가 등록되었습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.href="store_view.do?spidx="+spidx;
+				      });
+					
 				}else{
 					alert("실행오류");
 				}

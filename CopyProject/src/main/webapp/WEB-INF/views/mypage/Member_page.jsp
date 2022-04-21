@@ -47,7 +47,7 @@
 							   팔로워 <strong>${follower}</strong> | 
 							   팔로잉 <strong>${following}</strong>
 							
-							</p> 
+							</p><br><br> 
 						</div>
 						<%-- <div id="profile_btn">
 							<button onclick="location.href='${pageContext.request.contextPath}/mypage/member_modify.do'">설정</button>
@@ -69,7 +69,7 @@
 <!-- ===============================================================프로필영역================================================================ -->
 <!-- ==================================================================================================================================== -->
 			<div class="col-12 col-lg-9 mydiv2">
-				<div class="mydivtitle mydiv2-2">${vo.nick_name}의 홈스토리</div>
+				<div class="mydivtitle mydiv2-2">${vo.nick_name}님의 홈스토리</div>
 				<br><br>
 				<c:set var="length" value="${fn:length(Storylist)}" />
 				<c:choose>

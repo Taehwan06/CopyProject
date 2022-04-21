@@ -465,6 +465,20 @@ function joinSubmitFn(){
 		document.joinFrm.method = "post";
 		document.joinFrm.action = "join.do";
 		document.joinFrm.submit();
+	}else if(!result){
+		swal({
+			text: "입력하신 정보가 올바르지 않습니다.",
+			button: "확인",
+			icon: "warning",
+			closeOnClickOutside : false
+		});
+	}else if(!emailCheck){
+		swal({
+			text: "인증번호를 다시 확인해주세요.",
+			button: "확인",
+			icon: "warning",
+			closeOnClickOutside : false
+		});
 	}
 }
 

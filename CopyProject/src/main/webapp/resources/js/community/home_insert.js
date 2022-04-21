@@ -147,7 +147,11 @@ $(document).ready(function() {
 				upload = uploadfilename.val(filePath);
 			},
 			error : function(data){
-				alert("이미지 파일이 아닙니다.");
+				swal({
+					text : "이미지 파일이 아닙니다.",
+					button : "확인",
+					closeOnClickOutside : false
+				})
 			}
 		});
 		
@@ -160,13 +164,23 @@ $(document).ready(function() {
 	function fileCheck(fileName, fileSize){
 
 		if(fileSize >= maxSize){
-			alert("파일 사이즈 초과");
-			return false;
+			swal({
+				text : "파일 사이즈 초과",
+				button : "확인",
+				closeOnClickOutside : false
+			}).then(function(){
+				return false;
+			});
 		}
 			  
 		if(!regex.test(fileName)){
-			alert("해당 종류의 파일은 업로드할 수 없습니다.");
-			return false;
+			swal({
+				text : "해당 종류의 파일은 업로드할 수 없습니다.",
+				button : "확인",
+				closeOnClickOutside : false
+			}).then(function(){
+				return false;
+			});
 		}
 		
 		return true;		

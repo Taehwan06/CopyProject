@@ -32,42 +32,7 @@
 	<section>
 	<div class="container-fluid align-items-center" >
 		<div class="row">
-			<div class="col-12 col-lg-3 mydiv1">
-				<div id="mypage_profile_box" class="row">
-					<div class="col-3 col-lg-12" id="profile_image">
-						<img src="/controller/image/${vo.profile_system}">
-					</div>
-					<div class="col-9 col-lg-12" id="profile_id">
-						<div id="profile_name">
-							${vo.nick_name}
-						</div>
-						<div id="profile_follow">
-							<p>	
-							<a href='${pageContext.request.contextPath}/mypage/myFollowing.do'>
-							   팔로워 <strong>${follower}</strong> | 
-							   팔로잉 <strong>${following}</strong>
-							</a>
-							</p> 
-						</div>
-						<div id="profile_btn">
-							<button onclick="location.href='${pageContext.request.contextPath}/mypage/member_modify.do'">설정</button>
-						</div>
-					</div>
-					<hr>
-					<div class="col-12 col-lg-12" id="profile_etc">
-						<div class="profile_icon">
-							<i class="bi bi-bookmark icon-pointer"></i><br>스크랩<br>
-							<strong>10</strong>
-						</div>
-						<div class="profile_icon">
-							<i class="bi bi-heart icon-pointer"></i><br>좋아요<br>
-							<strong>20</strong>
-						</div> 
-					</div>
-				</div>
-			</div>
-<!-- ===============================================================프로필영역================================================================ -->
-<!-- ==================================================================================================================================== -->
+			<%@ include file="./mypage_nav.jsp" %>
 			<div class="col-12 col-lg-9 mydiv2">
 				<div class="mydivtitle mydiv2-2">나의 댓글</div>
 				<div class="mydivVacant"></div>

@@ -36,6 +36,12 @@
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/store/store_modify.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
 	
 	<!-- 썸머노트 -->
@@ -93,29 +99,35 @@
 	<!-- 본문 영역 -->
 	<section>
 		
-		<form id="insertFrm" name="insertFrm" method="post">
-			<iuput type="hidden" name="midx" value="">
-			
-			<div class="center">
-				<label for="imgUpload" id="imgLabel">
-					<div id="imgArea">
-						<label for="imgUpload" id="imgLabel">
-							<span id="imgText">커버 사진을 추가해주세요.<br>(1:1 비율 권장)</span>
-						</label><br>
-						<label for="imgUpload" id="imgLabel">
-							<span id="imgButton">커버 사진 등록</span>
-							
-						</label>
-					</div>
-				</label>
-			</div>
-			
-			<label for="imgUpload">
-				<div id="imgUploadInfo" class="info">필수 입력 항목입니다.</div>
+		<div class="center">
+			<label for="imgUpload" id="imgLabel">
+				<div id="imgArea">
+					<label for="imgUpload" id="imgLabel">
+						<span id="imgText">커버 사진을 추가해주세요.<br>(1:1 비율 권장)</span>
+					</label><br>
+					<label for="imgUpload" id="imgLabel">
+						<span id="imgButton">커버 사진 등록</span>
+						
+					</label>
+				</div>
 			</label>
+		</div>
+		
+		<label for="imgUpload">
+			<div id="imgUploadInfo" class="info">필수 입력 항목입니다.</div>
+		</label>
+		
+		<form name="uploadForm" id="uploadForm" enctype="multipart/form-data">
 			<div id="imgUploadArea" class="area">
-				<input type="file" id="imgUpload" name="imgUpload">
+				<input type="file" id="imgUpload" name="imgFile">
 			</div>
+		</form>
+				
+		<form id="insertFrm" name="insertFrm" method="post">	
+			
+			<iuput type="hidden" name="midx" value="">
+			<input type="hidden" name="img_origin" id="img_origin" value="${vo.img_origin}">
+			<input type="hidden" name="img_system" id="img_system" value="${vo.img_system}">
 			
 			<div id="titleArea">
 				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${vo.title}">

@@ -1,6 +1,6 @@
 package edu.study.vo;
 
-public class Community_BoardVO {
+public class Community_BoardVO extends PagingVO {
 	private int cbidx;
 	private String title;
 	private String content;
@@ -19,6 +19,8 @@ public class Community_BoardVO {
 	private int listCnt;
 	private String profile_system;
 	private String cbridx;
+	private int start;
+	private int end;
 	
 	/* 경로 */
 	private String uploadPath;
@@ -155,4 +157,18 @@ public class Community_BoardVO {
 	public void setCbridx(String cbridx) {
 		this.cbridx = cbridx;
 	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getEnd() {
+		return end;
+	}
+	public void setEnd(int end) {
+		this.end = end;
+	}
+	
+	
 }

@@ -34,11 +34,18 @@
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/footer.js"></script>
 	<script src="/controller/js/store/store_qna_modify.js"></script>
-	
+	<!-- sweet alert SDK -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- 썸머노트 -->
 	<script src="/controller/js/summernote/summernote-lite.js"></script>
 	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
+	<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	<script>
 		var spidx = "${param.spidx}";
 		var sqidx = "${qna_vo.sqidx}";

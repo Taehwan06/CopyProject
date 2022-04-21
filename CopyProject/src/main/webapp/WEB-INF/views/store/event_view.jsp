@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!-- JSTL사용하기위한 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	
-	<title>이벤트 목록</title>
+	<title>이벤트</title>
 	
 	<link href="/controller/css/header.css" rel="stylesheet">
 	<link href="/controller/css/nav.css" rel="stylesheet">
@@ -24,6 +26,12 @@
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/footer.js"></script>
+	<!-- kakao SDK -->
+   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   <!-- facebook SDK -->
+   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+   <!-- naver SDK -->
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
 
 		
@@ -36,22 +44,7 @@
 	<!-- 본문 영역 -->
 	<section>
 		<div class="row padding_event">
-			<div class="col-12">
-				<img class="img100" alt="" src="/controller/image/eventBanner2-1.jpeg">
-			</div>
-			<div class="col-12">
-				<img class="img100" alt="" src="/controller/image/eventBanner2-2.jpeg">
-			</div>
-			<div class="col-12">
-				<img class="img100" alt="" src="/controller/image/eventBanner2-3.jpeg">
-			</div>
-			<div class="col-12">
-				<img class="img100" alt="" src="/controller/image/eventBanner2-4.jpeg">
-			</div>
-			<div class="col-12">
-				<img class="img100" alt="" src="/controller/image/eventBanner2-5.jpeg">
-			</div>
-			
+			${evo.content}
 		</div>
 		
 		

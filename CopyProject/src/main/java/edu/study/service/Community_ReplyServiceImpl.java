@@ -62,16 +62,30 @@ public class Community_ReplyServiceImpl implements Community_ReplyService {
 		
 		return replyDao.count(cbidx);
 	}
-
+	
+	//댓글 등록시 카운트 증가
 	@Override
 	public int countUp(int cbidx) throws Exception {
 		
 		return replyDao.countUp(cbidx);
 	}
+	
+	//댓글 복구
+	@Override
+	public int redistribution(int cbridx) throws Exception {
+		
+		return replyDao.redistribution(cbridx);
+	}
 
 	@Override
-	public int countDown(int cbidx) throws Exception {
+	public Object delfnc() throws Exception {
 		
-		return replyDao.countDown(cbidx);
+		return replyDao.delfnc();
+	}
+
+	@Override
+	public Object intofnc(int cbidx) throws Exception {
+		
+		return replyDao.intofnc(cbidx);
 	}
 }

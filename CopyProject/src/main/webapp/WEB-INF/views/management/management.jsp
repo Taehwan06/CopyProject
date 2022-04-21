@@ -17,6 +17,8 @@
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<!-- facebook SDK -->
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<!-- naver SDK -->
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
 	<title>회원 관리 - 홈프렌즈</title>
 	
