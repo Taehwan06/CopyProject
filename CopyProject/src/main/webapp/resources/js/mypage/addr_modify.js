@@ -60,24 +60,26 @@ function checkSubmitFn(){
 	
 	}else{
 		
-		alert("회원정보가 수정되었습니다");
+		swal({
+         text: "회원정보가 수정되었습니다.",
+         button: "확인",
+         closeOnClickOutside : false
+      }).then(function(){
+      	document.AddrmodifyFrm.method = "post";
+		document.AddrmodifyFrm.action = "addr_modify.do";
+		document.AddrmodifyFrm.submit();
+      });
+		
+		/*alert("회원정보가 수정되었습니다");
 		
 		document.AddrmodifyFrm.method = "post";
 		document.AddrmodifyFrm.action = "addr_modify.do";
-		document.AddrmodifyFrm.submit();
+		document.AddrmodifyFrm.submit();*/
 		
 		
 	}
     
-	/*
-	if(result){
-		
-		alert("회원정보가 수정되었습니다");
-		
-		document.AddrmodifyFrm.method = "post";
-		document.AddrmodifyFrm.action = "addr_modify.do";
-		document.AddrmodifyFrm.submit();
-	}*/
+
 }
 
 

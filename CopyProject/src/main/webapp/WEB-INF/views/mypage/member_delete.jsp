@@ -11,7 +11,6 @@
 	<!-- Bootstrap icon CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
-	
 	<title>회원탈퇴 - 홈프렌즈</title>
 
 	<link href="/controller/css/header.css" rel="stylesheet">
@@ -23,7 +22,8 @@
 	<script src="/controller/js/header.js"></script>
 	<script src="/controller/js/nav.js"></script>
 	<script src="/controller/js/mypage/member_delete.js"></script>
-	<script src="/controller/js/login/join1.js"></script>
+	<!-- SweetAlert  -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -74,7 +74,7 @@
 						<textarea name="del_cause" placeholder="자세한 내용을 남겨주시면 서비스 개선에 큰 도움이 됩니다."></textarea>
 					</div>
 					<div class="del deleteBtn">
-						<button id="delApply" onclick = "goOutFn()">탈퇴하기</button>
+						<button type="button" id="delApply" onclick = "goOutFn()">탈퇴하기</button>
 						<button type="button" id="delCancel" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">취소하기</button>
 					</div>
 					</form>
