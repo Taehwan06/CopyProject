@@ -344,33 +344,49 @@ function R_modifyFn(sridx){
 
 
 function R_delFn(sridx){
-	var isCancel = false;
-	var tx1 = confirm("리뷰를 삭제하시겠습니까?");
-	if(tx1){
-		isCancel = confirm("확인을 누르면 리뷰가 삭제됩니다.");
-	}
-	
-	if(isCancel){
-		$.ajax({
-			type : "POST",
-			url : "store_review_del.do",
-			data : "sridx="+sridx+"&spidx="+spidx+"&midx="+midx,
-			success : function(res) {
-				console.log(res);
-				if(res>0){
-					swal({
-				         text: "리뷰가 삭제되었습니다.",
-				         button: "확인",
-				         closeOnClickOutside : false
-				      }).then(function(){
-				         location.reload();
-				      });
-				}else{
-					alert("실행오류");
-				}
-			}
+	swal({
+	      text: "리뷰를 삭제하시겠습니까?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          swal({
+				      text: "확인을 누르면 리뷰가 삭제됩니다.",
+				      icon: "warning",
+				      buttons: [" 취소 ", " 확인 "],
+				      dangerMode: false,
+				   })
+				   .then((willDelete) => {
+					      if (willDelete) {
+					         $.ajax({
+								type : "POST",
+								url : "store_review_del.do",
+								data : "sridx="+sridx+"&spidx="+spidx+"&midx="+midx,
+								success : function(res) {
+									console.log(res);
+									if(res>0){
+										swal({
+									         text: "리뷰가 삭제되었습니다.",
+									         button: "확인",
+									         closeOnClickOutside : false
+									      }).then(function(){
+									         location.reload();
+									      });
+									}else{
+										alert("실행오류");
+									}
+								}
+							});
+					   } else {
+					      
+					   }
+					});
+		   } else {
+		      
+		   }
 		});
-	}
 }
 
 
@@ -500,66 +516,108 @@ function A_insert(sqidx){
 			}
 		});
 	}else{
-		alert("공백은 등록할수 없습니다..");
+		swal({
+	         text: "공백은 등록할수 없습니다.",
+	         button: "확인",
+	         closeOnClickOutside : false
+	      }).then(function(){
+		
+	      });
 	}
 }
 function A_delFn(sqidx){
-	var isCancel = false;
-	var tx1 = confirm("답변을 삭제하시겠습니까?");
-	if(tx1){
-		isCancel = confirm("확인을 누르면 답변이 삭제됩니다.");
-	}
-	
-	if(isCancel){
-		$.ajax({
-			type : "POST",
-			url : "store_qna_a_del.do",
-			data : "sqidx="+sqidx,
-			success : function(res) {
-				console.log(res);
-				if(res>0){
-					swal({
-				         text: "답변이 삭제되었습니다.",
-				         button: "확인",
-				         closeOnClickOutside : false
-				      }).then(function(){
-				         location.reload();
-				      });
-				}else{
-					alert("실행오류");
-				}
-			}
+	swal({
+	      text: "답변을 삭제하시겠습니까?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          swal({
+				      text: "확인을 누르면 답변이 삭제됩니다.",
+				      icon: "warning",
+				      buttons: [" 취소 ", " 확인 "],
+				      dangerMode: false,
+				   })
+				   .then((willDelete) => {
+					      if (willDelete) {
+					        $.ajax({
+								type : "POST",
+								url : "store_qna_a_del.do",
+								data : "sqidx="+sqidx,
+								success : function(res) {
+									console.log(res);
+									if(res>0){
+										swal({
+									         text: "답변이 삭제되었습니다.",
+									         button: "확인",
+									         closeOnClickOutside : false
+									      }).then(function(){
+									         location.reload();
+									      });
+									}else{
+										alert("실행오류");
+									}
+								}
+							});
+					   } else {
+					      
+					   }
+					});
+		   } else {
+		      
+		   }
 		});
-	}
+	
 }
 function Q_delFn(sqidx){
-	var isCancel = false;
-	var tx1 = confirm("문의를 삭제하시겠습니까?");
-	if(tx1){
-		isCancel = confirm("확인을 누르면 문의가 삭제됩니다.");
-	}
 	
-	if(isCancel){
-		$.ajax({
-			type : "POST",
-			url : "store_qna_q_del.do",
-			data : "sqidx="+sqidx+"&midx="+midx,
-			success : function(res) {
-				console.log(res);
-				if(res>0){
-					swal({
-				         text: "로그인 후 이용하여 주세요.",
-				         button: "확인",
-				         closeOnClickOutside : false
-				      }).then(function(){
-				         location.reload();
-				      });
-				}else{
-					alert("실행오류");
-				}
-			}
+	swal({
+	      text: "문의를 삭제하시겠습니까?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          swal({
+				      text: "확인을 누르면 문의가 삭제됩니다.",
+				      icon: "warning",
+				      buttons: [" 취소 ", " 확인 "],
+				      dangerMode: false,
+				   })
+				   .then((willDelete) => {
+					      if (willDelete) {
+					        $.ajax({
+								type : "POST",
+								url : "store_qna_q_del.do",
+								data : "sqidx="+sqidx+"&midx="+midx,
+								success : function(res) {
+									console.log(res);
+									if(res>0){
+										swal({
+									         text: "문의가 삭제되었습니다.",
+									         button: "확인",
+									         closeOnClickOutside : false
+									      }).then(function(){
+									         location.reload();
+									      });
+									}else{
+										alert("실행오류");
+									}
+								}
+							});
+					   } else {
+					      
+					   }
+					});
+		   } else {
+		      
+		   }
 		});
-	}
+	
+	
 }
 function page_reload(){
 	location.reload();

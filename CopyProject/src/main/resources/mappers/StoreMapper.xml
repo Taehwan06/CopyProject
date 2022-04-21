@@ -203,7 +203,7 @@
     
     <select id="qna_detail" resultType="Store_qnaVO" parameterType="int">
          SELECT sqidx
-         		,cotent
+         		,content
          		,writer
          		,date_format(write_date, '%Y-%m-%d') as write_date
          		,modify_yn

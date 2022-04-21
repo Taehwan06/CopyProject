@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,9 @@ public class ManagementController {
 	 */
 	
 	@RequestMapping(value = "/management.do", method = RequestMethod.GET)
-	public String management(Locale locale, Model model, HttpServletRequest request) throws Exception {
+	public String management(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -67,8 +70,10 @@ public class ManagementController {
 			
 	@RequestMapping(value = "/member_list.do", method = RequestMethod.GET)
 	public String member_list(Locale locale, Model model, HttpServletRequest request, MemberPagingVO vo
-							, @RequestParam(value="nowPage", required=false)String nowPage
+							, @RequestParam(value="nowPage", required=false)String nowPage, HttpServletResponse response
 							, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 				
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -115,7 +120,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/member_view.do", method = RequestMethod.GET)
-	public String member_view(Locale locale, Model model, MemberPagingVO memberPagingvo, HttpServletRequest request) throws Exception {
+	public String member_view(Locale locale, Model model, MemberPagingVO memberPagingvo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -145,7 +153,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/member_modify.do", method = RequestMethod.POST)
-	public String member_modify(Locale locale, Model model, MemberPagingVO memberPagingvo, HttpServletRequest request) throws Exception {
+	public String member_modify(Locale locale, Model model, MemberPagingVO memberPagingvo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -175,7 +186,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/withdrawMember.do", method = RequestMethod.POST)
-	public String withdrawMember(Locale locale, Model model, MemberPagingVO vo, HttpServletRequest request) throws Exception {
+	public String withdrawMember(Locale locale, Model model, MemberPagingVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -202,7 +216,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/restoreMember.do", method = RequestMethod.POST)
-	public String restoreMember(Locale locale, Model model, MemberPagingVO vo, HttpServletRequest request) throws Exception {
+	public String restoreMember(Locale locale, Model model, MemberPagingVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -229,7 +246,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/modifyMember.do", method = RequestMethod.POST)
-	public String modifyMember(Locale locale, Model model, ManagementMemberVO Mvo, MemberPagingVO vo, HttpServletRequest request) throws Exception {
+	public String modifyMember(Locale locale, Model model, ManagementMemberVO Mvo, MemberPagingVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -257,7 +277,10 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value = "/imgDelMember.do", method = RequestMethod.POST)
-	public String imgDelMember(Locale locale, Model model, ManagementMemberVO Mvo, MemberPagingVO vo, HttpServletRequest request) throws Exception {
+	public String imgDelMember(Locale locale, Model model, ManagementMemberVO Mvo, MemberPagingVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -286,9 +309,11 @@ public class ManagementController {
 	
 	@RequestMapping(value = "/stats.do", method = RequestMethod.GET)
 	public String stats(Locale locale, Model model, MemberPagingVO vo 
-						, HttpServletRequest request, StatsVO statsvo 
+						, HttpServletRequest request, StatsVO statsvo , HttpServletResponse response
 						, @RequestParam(value="nowPage", required=false)String nowPage
 						, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -337,7 +362,10 @@ public class ManagementController {
 	
 	
 	@RequestMapping(value = "/stats_view.do", method = RequestMethod.GET)
-	public String stats_view(Locale locale, Model model, MemberPagingVO vo, HttpServletRequest request) throws Exception {
+	public String stats_view(Locale locale, Model model, MemberPagingVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");

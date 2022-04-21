@@ -32,14 +32,13 @@ function submitFn(){
 		console.log($("#insertFrm").serialize());*/
 		var content =$("#reviewContents").val();
 		content = content.replace(/(\n|\r\n)/g,'<br>');
+		$("#content").val(content);
 		var score = $("input:radio[name='score']:checked").val( );
 		$.ajax({
 			type : "POST",
 			url : "store_review_insert.do",
 			data : $("#myform").serialize()+"&spidx="+spidx,
 			success : function(res) {
-				
-				console.log(res);
 				if(res>0){
 					swal({
 				         text: "리뷰가 등록되었습니다.",

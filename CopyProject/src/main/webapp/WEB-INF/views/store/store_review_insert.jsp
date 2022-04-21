@@ -114,8 +114,9 @@
 			</fieldset>
 			<div id="starInfo">필수 입력 항목입니다.</div>
 			<div>
-				<textarea name="content" class="col-auto form-control" type="text" id="reviewContents" onkeydown="resize(this)" onkeyup="resize(this)"
+				<textarea name="content1" class="col-auto form-control" type="text" id="reviewContents" onkeydown="resize(this)" onkeyup="resize(this)"
 						  placeholder="상품평을 남겨주세요."></textarea>
+				<input type="hidden" name="content" id="content">
 			</div>
 			<div id="contentInfo">필수 입력 항목입니다.</div>
 			

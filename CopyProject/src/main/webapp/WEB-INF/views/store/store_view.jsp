@@ -515,16 +515,34 @@
 					data : "midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt="+cnt,
 					success : function(result) {
 						if(result > 0){
-							alert("장바구니에 담겼습니다.");
+							swal({
+				                  text: "장바구니에 담겼습니다.",
+				                  button: "확인",
+				                  closeOnClickOutside : false
+				               }).then(function(){
+				                
+				               });
 						}else{
-							alert("장바구니에 담기지 못했습니다.");
+							swal({
+				                  text: "장바구니에 담기지 못했습니다.",
+				                  button: "확인",
+				                  closeOnClickOutside : false
+				               }).then(function(){
+				                
+				               });
 						}
 						
 					}
 				});
 			}else{
-				alert("로그인 후 이용가능 합니다.");
-				location.href="/controller/login/login.do"
+				swal({
+	                  text: "로그인 후 이용가능 합니다.",
+	                  button: "확인",
+	                  closeOnClickOutside : false
+	               }).then(function(){
+	            	   location.href="/controller/login/login.do"
+	               });
+				
 			}
 		}
 		
