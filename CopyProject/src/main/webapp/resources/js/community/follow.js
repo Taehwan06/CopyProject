@@ -1,7 +1,7 @@
 function follow(midx){
 	$.ajax({
 		type : 'post',
-		url : '/controller/community/follow',
+		url : contextPath+'/community/follow',
 		data : 'midx='+midx,
 		success : function(result){
 			if(result == "FollowOK"){
@@ -16,7 +16,7 @@ function follow(midx){
 function unfollow(midx){
 	$.ajax({
 			type : 'post',
-			url : '/controller/follow/unfollow',
+			url : contextPath+'/follow/unfollow',
 			data : 'midx='+midx,
 			success : function(result){
 				if(result == "UnFollowOK"){
@@ -33,6 +33,11 @@ function login(){
 		button : "확인",
 		closeOnClickOutside : false
 	}).then(function(){
-		location.href="/controller/login/login.do"
+		location.href=contextPath+"/login/login.do"
 	})
 }
+
+$(document).ready(function(){
+	var img = document.getElementsByTagName("img");
+	$(".com_content").children().find(img).css("width", "100%");
+});

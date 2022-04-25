@@ -24,18 +24,21 @@
     <!-- naver SDK -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
+	
 	<title>홈 스토리 글 상세보기 - 홈프렌즈</title>
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<link href="/controller/css/community/home_view.css" rel="stylesheet">
-	<script src="/controller/js/community/home_story.js"></script>
-	<script src="/controller/js/community/home_view.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/footer.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/home.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/community/home_view.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/community/home_story.js"></script>
+	<script src="${pageContext.request.contextPath}/js/community/home_view.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	
 	
 </head>
 <body>
@@ -44,19 +47,19 @@
 	
 	<!-- 본문 영역 -->
 	<div class="row MainImg">
-		<img src="/controller/upload/${vo.img_system }">
+		<img src="${pageContext.request.contextPath}/upload/${vo.img_system }">
 	</div>
 	<section id="story_area">
-		<div class="comm_area">
+		<div class="comm_area col-10 col-sm-10 col-md-8 col-lg-8">
 			<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
 			<input type="hidden" name="fmidx" value="${vo.midx }">
 			<div class="row comm_area_">
 				<div class="comm_category">홈 스토리</div>
 				<div class="comm_title">${vo.title }</div>
-				<div class="col-xl-4 storyWriter">
-					<div class="profile" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
+				<div class="col-8 col-sm-8 storyWriter">
+					<div class="profile" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
 						<div class="profile_img">
-							<img class="writerImg" src="/controller/image/${vo.profile_system }">
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }">
 						</div>
 						<div class="profile_name">
 							${vo.writer }
@@ -71,7 +74,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-8 follow_btn">
+				<div class="col-4 follow_btn">
 					<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 						<button onclick="follow(${vo.midx})">+ 팔로우</button>
 					</c:if>
@@ -86,15 +89,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="row content_area">
+		<div class="row content_area col-10 col-sm-10 col-md-8 col-lg-8">
 			<div class="row content_img">
 				${vo.content }
 				<div id="footer_img_">
-					<img src="/controller/image/footer_img.PNG">
+					<img src="${pageContext.request.contextPath}/image/footer_img.PNG">
 				</div>
 			</div>
 		</div>
-		<div class="btn_area">
+		<div class="btn_area col-11 col-sm-10 col-md-8 col-lg-8">
 			<button type="button" onclick="location.href='home_list.do?&sort=recent'">목록</button>
 		<c:if test="${loginUser.midx == vo.midx }">
 			<button type="button" onclick="location.href='home_modify.do?cbidx='+${vo.cbidx}">수정</button>
@@ -105,15 +108,15 @@
 		</c:if>
 			
 		</div>
-		<div class="content_stats">
+		<div class="content_stats col-10 col-sm-10 col-md-8 col-lg-8">
 			<div>스크랩<span>${vo.scrap_cnt }</span></div>
 			<div>댓글<span>${vo.reply_cnt }</span></div>
 			<div>조회<span>${vo.hit_cnt }</span></div>
 		</div>
-		<div class="footer_profile">
+		<div class="footer_profile col-10 col-sm-10 col-md-8 col-lg-8">
 			<div class="footer_profile_img">
-				<img class="footer_writerImg" src="/controller/image/${vo.profile_system }" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
-				<span id="footer_writerImg_span" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">${vo.writer }</span>
+				<img class="footer_writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
+				<span id="footer_writerImg_span" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">${vo.writer }</span>
 				<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 					<button onclick="follow(${vo.midx})">팔로우</button>
 				</c:if>
@@ -129,7 +132,7 @@
 		</div>
 	</section>
 	<!-- 댓글 영역 -->
-	<section id="reply_area">
+	<section id="reply_area" class="col-10 col-sm-10 col-md-8 col-lg-6">
 		<h1 class="reply_area">
 			댓글&nbsp;<span>${vo.reply_cnt }</span>
 		</h1>
@@ -141,7 +144,7 @@
 				<input type="hidden" id="midx" name="midx" value="${loginUser.midx }">
 				<input type="hidden" name="writer" value="${loginUser.nick_name }">
 				<div class="reply_writer">
-					<img src="/controller/image/${loginUser.profile_system }">
+					<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }">
 				</div>
 				<div class="reply_input">
 					<div class="reply_content">
@@ -161,7 +164,7 @@
 				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
 				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
 				<div class="reply_writer">
-					<img src="/controller/image/kakao_profile_basic.png">
+					<img src="${pageContext.request.contextPath}/image/kakao_profile_basic.png">
 				</div>
 				<div class="reply_input" onclick="ReNot()">
 					<div class="reply_content">
@@ -181,7 +184,7 @@
 				<input type="hidden" name="origin_cbridx" value="${reply.cbridx }">
 				<input type="hidden" name="cbridx" value="${reply.cbridx }">
 				<c:if test="${reply.depth != 0 }">
-					<div class="reply reply${reply.depth } " style="margin-left : calc(${reply.depth-1}*65px);">
+					<div class="reply reply${reply.depth } " style="margin-left : calc(${reply.depth-1}*65px + 15px);">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						</svg>
@@ -190,8 +193,8 @@
 				<li class="reply_list_item reply_list_item${reply.depth }" style="margin-left : calc(${reply.depth}*65px);">
 					<article class="reply_item_">
 						<p class="reply_item_content reply_item_content${reply.cbridx }">
-							<a class="reply_item_content_writer" href="/controller/mypage/Member_page.do?midx=${reply.midx }">${reply.writer }
-								<img class="reply_item_content_writer_image" src="/controller/image/${reply.profile_system }">
+							<a class="reply_item_content_writer" href="${pageContext.request.contextPath}/mypage/Member_page.do?midx=${reply.midx }">${reply.writer }
+								<img class="reply_item_content_writer_image" src="${pageContext.request.contextPath}/image/${reply.profile_system }">
 							</a>
 							<c:if test="${reply.del_yn == 'N' || loginUser.grade == 'A' }">
 								<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">${reply.content }</span>
@@ -261,12 +264,12 @@
 							<input type="hidden" name="depth" value="${reply.depth }">
 							<input type="hidden" name="lvl" value="${reply.lvl }">
 							<div class="reply_writer">
-								<img src="/controller/image/${loginUser.profile_system }">
+								<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }">
 							</div>
 							<div class="reply_input_">
 								<div class="reply_content">
 									<div class="reply_content_input">
-										<span>@${reply.writer }</span><textarea name="content" class="reply_content_input_text_ reply_content_form_text_${reply.cbridx}" onkeyup="adjust_Height('${reply.cbridx}')"></textarea>
+										<div class="reply_writer_ reply_writer_${reply.depth }">@${reply.writer }</div><textarea name="content" class="reply_content_input_text_ reply_content_form_text_${reply.cbridx}" onkeyup="adjust_Height('${reply.cbridx}')"></textarea>
 									</div>
 								</div>
 								<div class="reply_action">
@@ -278,19 +281,20 @@
 				</li>
 			</c:forEach>
 		</ul>
+		<c:if test="${vo.reply_cnt != 0 }">
 		<!-- 페이징 처리 -->
 		<ul class="list-paginator">
 			<li>
-				<a class="list-paginator_first" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.startPage}#reply_area">
+				<a class="list-paginator_first" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=1#reply_area">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 					  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 					</svg>
 				</a>
 			</li>
-			<c:if test="${pvo.nowPage != pvo.startPage}">
+			<c:if test="${pvo.nowPage != 1 && pvo.nowPage > 5}">
 				<li>
-					<a class="list-paginator_prev" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.nowPage-1}#reply_area">
+					<a class="list-paginator_prev" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.startPage-5}#reply_area">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 						</svg>
@@ -312,9 +316,9 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<c:if test="${pvo.nowPage != pvo.lastPage}">
+			<c:if test="${pvo.nowPage != pvo.lastPage && pvo.endPage != pvo.lastPage}">
 				<li>
-					<a class="list-paginator_next" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.nowPage+1}#reply_area">
+					<a class="list-paginator_next" href="home_view.do?cbidx=${vo.cbidx }&fmidx=${vo.midx }&nowPage=${pvo.endPage+1}#reply_area">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 						</svg>
@@ -330,6 +334,7 @@
 				</a>
 			</li>
 		</ul>
+		</c:if>
 		<c:if test="${loginUser.midx != vo.midx && loginUser != null}">
 			<div class="slide_bar off" id="off" onclick="scrap(${vo.cbidx})">
 				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark sideMenu" viewBox="0 0 16 16">

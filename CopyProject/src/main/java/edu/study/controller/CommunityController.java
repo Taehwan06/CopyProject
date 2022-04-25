@@ -93,10 +93,11 @@ public class CommunityController {
 
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String uploadAjaxActionPOST(MultipartFile uploadFile, Model model, Community_BoardVO boardVO)
+	public String uploadAjaxActionPOST(MultipartFile uploadFile, Model model, Community_BoardVO boardVO, HttpServletRequest request)
 			throws Exception {
 
-		String uploadFolder = "C:\\Users\\82102\\git\\TeamProject2022\\HomeFriends\\src\\main\\webapp\\resources\\upload";
+		String uploadFolder = request.getServletContext().getRealPath("/resources/upload");
+		//String uploadFolder = "C://Users//MYCOM//git//TeamProject2022//HomeFriends//src//main//webapp//resources//upload";
 
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -319,7 +320,7 @@ public class CommunityController {
 
 		// 페이징처리
 		int total = replyService.count(cbidx);
-		PagingVO pvo = new PagingVO(total, nowPage, 10);
+		PagingVO pvo = new PagingVO(total, nowPage, 8);
 		int start = pvo.getStart();
 		int end = pvo.getEnd();
 		
@@ -496,7 +497,7 @@ public class CommunityController {
 		List<Community_BoardVO> boardlist = Community_boardService.boardlist();
 
 		model.addAttribute("boardlist", boardlist);
-
+		
 		int midx = 0;
 		
 		List<ScrapVO> scrapList = null;
@@ -515,41 +516,5 @@ public class CommunityController {
 		}
 		model.addAttribute("slist", slist);
 		return "community/scrap";
-	}
-
-	@RequestMapping(value = "/qna.do", method = RequestMethod.GET)
-	public String qna(Locale locale, Model model, SearchVO vo) throws Exception {
-
-		int deleteResult = homeService.deleteSearchList();
-
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-
-		model.addAttribute("searchList", searchList);
-
-		return "community/qna";
-	}
-
-	@RequestMapping(value = "/qna_insert.do", method = RequestMethod.GET)
-	public String qna_insert(Locale locale, Model model, SearchVO vo) throws Exception {
-
-		int deleteResult = homeService.deleteSearchList();
-
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-
-		model.addAttribute("searchList", searchList);
-
-		return "community/qna_insert";
-	}
-
-	@RequestMapping(value = "/qna_modify.do", method = RequestMethod.GET)
-	public String qna_modify(Locale locale, Model model, SearchVO vo) throws Exception {
-
-		int deleteResult = homeService.deleteSearchList();
-
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-
-		model.addAttribute("searchList", searchList);
-
-		return "community/qna_modify";
 	}
 }

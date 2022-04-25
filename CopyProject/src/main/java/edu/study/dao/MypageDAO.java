@@ -136,6 +136,21 @@ public class MypageDAO {
 	public List<Community_BoardVO> pagingStory(Community_BoardVO vo) throws Exception{ 
 		return sqlSession.selectList(Namespace+".pagingStory",vo);
 	}
+	
+	//팔로우 하기
+	public int follow(FollowVO follow) throws Exception {
+			return sqlSession.insert(Namespace+".follow", follow);
+	}
+		
+	//언팔로우 하기
+	public int unfollow(FollowVO follow) throws Exception {
+			return sqlSession.delete(Namespace+".unfollow", follow);
+	}
+	
+	//팔로유 유무
+	public int isFollow(FollowVO follow) throws Exception {
+		return sqlSession.selectOne(Namespace+".isFollow", follow);
+	}
 
 }
 

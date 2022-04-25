@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -23,6 +24,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import edu.study.service.HomeService;
 import edu.study.service.MemberService;
+import edu.study.service.testService;
 import edu.study.util.RandomNumber;
 import edu.study.util.RandomPass;
 import edu.study.vo.HomeSearchVO;
@@ -46,6 +48,9 @@ public class LoginController {
 	private RandomNumber randomNumber;
 	private RandomPass randomPass;
 	private String apiResult = null;
+	
+	@Autowired
+	private testService testService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -72,11 +77,30 @@ public class LoginController {
 		
 		model.addAttribute("searchList", searchList);
 		
+		String phone = vo.getPhone();
+		String phone1 = phone.substring(0, 3);
+		String phone2 = phone.substring(3, 7);
+		String phone3 = phone.substring(7);
+		
+		vo.setPhone1(phone1);
+		vo.setPhone2(phone2);
+		vo.setPhone3(phone3);
+		
 		int result = memberService.insert(vo);
 		
 		model.addAttribute("vo", vo);
 		
 		return "login/join_result";
+	}
+	
+	@RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
+	@ResponseBody 
+	public String sendSMS(@RequestParam("phone") String userPhoneNumber) throws Exception { // 휴대폰 문자보내기 
+		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성 
+		
+		testService.certifiedPhoneNumber(userPhoneNumber,randomNumber); 
+		
+		return Integer.toString(randomNumber);
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
@@ -125,13 +149,13 @@ public class LoginController {
 				session.setAttribute("nowUri", null);
 				return "redirect: "+nowUri;
 			}else {
-				return "redirect: /controller/";
+				return "redirect:/";
 			}
 		}
 	}
 	
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-	public String logout(Locale locale, Model model, HttpSession session) throws Exception {
+	public String logout(Locale locale, Model model, HttpSession session, HttpServletRequest request) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -141,7 +165,7 @@ public class LoginController {
 		
 		session.invalidate();
 		
-		return "redirect: /controller/";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/join_result.do", method = RequestMethod.GET)
@@ -169,7 +193,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/find_id.do", method = RequestMethod.POST)
-	public String find_id(Locale locale, Model model, MemberVO vo) throws Exception {
+	public String find_id(Locale locale, Model model, MemberVO vo, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -189,7 +215,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/find_id_result.do", method = RequestMethod.GET)
-	public String find_id_result(Locale locale, Model model) throws Exception {
+	public String find_id_result(Locale locale, Model model, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -198,18 +226,6 @@ public class LoginController {
 		model.addAttribute("searchList", searchList);
 		
 		return "login/find_id_result";
-	}
-	
-	@RequestMapping(value = "/find_pwd_result.do", method = RequestMethod.GET)
-	public String find_pwd_result(Locale locale, Model model) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		return "login/find_pwd_result";
 	}
 	
 	@RequestMapping(value = "/find_pwd.do", method = RequestMethod.GET)
@@ -225,7 +241,10 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/find_pwd.do", method = RequestMethod.POST)
-	public String find_pwd(Locale locale, Model model, MemberVO vo, HttpServletRequest request) throws Exception {
+	public String find_pwd(Locale locale, Model model, MemberVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -235,8 +254,10 @@ public class LoginController {
 		
 		MemberVO user = memberService.findPwd(vo);
 		
+		System.out.println("user="+user);
+		
 		if(user == null) {
-			return "login/find_pwd_result_none";
+			return "redirect:/login/find_pwd_result_none.do";
 		}else {	
 			String ranPass = randomPass.random();
 			user.setPass(ranPass);
@@ -245,6 +266,9 @@ public class LoginController {
 			model.addAttribute("user", user);
 			
 			if(result>0) {
+				
+				HttpSession session = request.getSession(); 
+			    session.setAttribute("user", user);
 				
 				String setfrom = "testmaillth@gmail.com";
 				String tomail = user.getId(); // 받는 사람 이메일
@@ -263,23 +287,67 @@ public class LoginController {
 
 					mailSender.send(message);
 					
-					return "login/find_pwd_result";
+					return "redirect:/login/find_pwd_result.do";
 					
 				} catch (Exception e) {
 					System.out.println(e);
 				}
 				
-				return "login/find_pwd_result_none";
+				return "redirect:/login/find_pwd_result_fail.do";
 				
 			}else {
-				return "login/find_pwd_result_fail";
+				return "redirect:/login/find_pwd_result_fail.do";	
 			}
 		}
 	}
 	
-	@RequestMapping(value = "/send_number", method = RequestMethod.POST)
+	@RequestMapping(value = "/find_pwd_result.do", method = RequestMethod.GET)
+	public String find_pwd_result(Locale locale, Model model, MemberVO vo
+			, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
+		
+		HttpSession session = request.getSession(); 
+	    MemberVO user = (MemberVO)session.getAttribute("user");
+	    model.addAttribute("user", user);
+	    session.setAttribute("user", null);
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+			
+		return "login/find_pwd_result";
+	}
+	
+	@RequestMapping(value = "/find_pwd_result_none.do", method = RequestMethod.GET)
+	public String find_pwd_result_none(Locale locale, Model model, MemberVO vo, HttpServletRequest request) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		return "login/find_pwd_result_none";
+	}
+	
+	@RequestMapping(value = "/find_pwd_result_fail.do", method = RequestMethod.GET)
+	public String find_pwd_result_fail(Locale locale, Model model, MemberVO vo, HttpServletRequest request) throws Exception {
+		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		return "login/find_pwd_result_fail";
+	}
+	
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String send_number(Locale locale, Model model, HttpServletRequest request) throws Exception {
+	public String idCheck(Locale locale, Model model, HttpServletRequest request) throws Exception {
 		
 		int deleteResult = homeService.deleteSearchList();
 		
@@ -295,73 +363,82 @@ public class LoginController {
 			return "idCheckFail";
 			
 		}else {
-			memberService.deleteTempNum(id);
-			
-			String ranNum = randomNumber.random();
-			
-			MemberVO tempVo = new MemberVO();
-			tempVo.setId(id);
-			tempVo.setTemp_number(ranNum);
-			
-			int result = memberService.insertTempNum(tempVo);
-						
-			if(result > 0) {
-				
-				String setfrom = "testmaillth@gmail.com";
-				String tomail = id; // 받는 사람 이메일
-				String title = "[홈 프렌즈] 이메일 인증 번호입니다."; // 제목
-				String content = "이메일 인증 번호는 "+ranNum+" 입니다."; // 내용
-
-				try {
-					MimeMessage message = mailSender.createMimeMessage();
-					MimeMessageHelper messageHelper = new MimeMessageHelper(message,
-							true, "UTF-8");
-
-					messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-					messageHelper.setTo(tomail); // 받는사람 이메일
-					messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-					messageHelper.setText(content); // 메일 내용
-
-					mailSender.send(message);
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-				
-				return "success";
-				
-			}else {
-				return "fail";
-			}
-		}	
-	}
-	
-	@RequestMapping(value = "/temp_num_check", method = RequestMethod.POST)
-	@ResponseBody
-	public String temp_num_check(Locale locale, Model model, HttpServletRequest request) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		String id = request.getParameter("id");
-		String temp_number = request.getParameter("temp_number");
-		
-		MemberVO vo = new MemberVO();
-		
-		vo.setId(id);
-		vo.setTemp_number(temp_number);
-		
-		MemberVO tempCheck = memberService.tempNumCheck(vo);
-		
-		if(tempCheck != null) {
-			return "success";
-		
-		}else {
-			return "fail";
+			return "idCheckSuccess";
 		}
 	}
+	
+	/*
+	 * @RequestMapping(value = "/send_number", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String send_number(Locale locale, Model model,
+	 * HttpServletRequest request) throws Exception {
+	 * 
+	 * int deleteResult = homeService.deleteSearchList();
+	 * 
+	 * List<HomeSearchVO> searchList = homeService.listSearchList();
+	 * 
+	 * model.addAttribute("searchList", searchList);
+	 * 
+	 * String id = request.getParameter("id");
+	 * 
+	 * MemberVO idCheck = memberService.idCheckMember(id);
+	 * 
+	 * if(idCheck != null) { return "idCheckFail";
+	 * 
+	 * }else { memberService.deleteTempNum(id);
+	 * 
+	 * String ranNum = randomNumber.random();
+	 * 
+	 * MemberVO tempVo = new MemberVO(); tempVo.setId(id);
+	 * tempVo.setTemp_number(ranNum);
+	 * 
+	 * int result = memberService.insertTempNum(tempVo);
+	 * 
+	 * if(result > 0) {
+	 * 
+	 * String setfrom = "testmaillth@gmail.com"; String tomail = id; // 받는 사람 이메일
+	 * String title = "[홈 프렌즈] 이메일 인증 번호입니다."; // 제목 String content =
+	 * "이메일 인증 번호는 "+ranNum+" 입니다."; // 내용
+	 * 
+	 * try { MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
+	 * messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+	 * 
+	 * messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+	 * messageHelper.setTo(tomail); // 받는사람 이메일 messageHelper.setSubject(title); //
+	 * 메일제목은 생략이 가능하다 messageHelper.setText(content); // 메일 내용
+	 * 
+	 * mailSender.send(message); } catch (Exception e) { System.out.println(e); }
+	 * 
+	 * return "success";
+	 * 
+	 * }else { return "fail"; } } }
+	 */
+	
+	/*
+	 * @RequestMapping(value = "/temp_num_check", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String temp_num_check(Locale locale, Model model,
+	 * HttpServletRequest request) throws Exception {
+	 * 
+	 * int deleteResult = homeService.deleteSearchList();
+	 * 
+	 * List<HomeSearchVO> searchList = homeService.listSearchList();
+	 * 
+	 * model.addAttribute("searchList", searchList);
+	 * 
+	 * String id = request.getParameter("id"); String temp_number =
+	 * request.getParameter("temp_number");
+	 * 
+	 * MemberVO vo = new MemberVO();
+	 * 
+	 * vo.setId(id); vo.setTemp_number(temp_number);
+	 * 
+	 * MemberVO tempCheck = memberService.tempNumCheck(vo);
+	 * 
+	 * if(tempCheck != null) { return "success";
+	 * 
+	 * }else { return "fail"; } }
+	 */
 	
 	@RequestMapping(value = "/kakaoLogin.do", method = RequestMethod.POST)
 	public String kakaoLogin(Locale locale, Model model, HttpServletRequest request, MemberVO vo) throws Exception {
@@ -379,7 +456,7 @@ public class LoginController {
 		
 		session.setAttribute("kakaoUser", vo);
 		
-		return "redirect: /controller/";		
+		return "redirect:/";	
 	}
 	
 	@RequestMapping(value = "/facebookLogin.do", method = RequestMethod.POST)
@@ -398,7 +475,7 @@ public class LoginController {
 		
 		session.setAttribute("facebookUser", vo);
 		
-		return "redirect: /controller/";		
+		return "redirect:/";
 	}
 		
 	//네이버 로그인 성공시 callback호출 메소드
@@ -462,7 +539,7 @@ public class LoginController {
 		if(naverLoginUser != null) {
 			session.setAttribute("loginUser",naverLoginUser);
 			
-			return "redirect: /controller/";	
+			return "redirect:/";
 		}else {
 			memberService.insertNaverMember(naverUser);
 			
@@ -470,9 +547,38 @@ public class LoginController {
 			
 			session.setAttribute("loginUser",loginUser);
 			
-			return "redirect: /controller/";
+			return "redirect:/";
 		}
+	}
+	
+	@RequestMapping(value = "/phoneCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public String phoneCheck(Locale locale, Model model, HttpServletRequest request) throws Exception {
 		
+		int deleteResult = homeService.deleteSearchList();
+		
+		List<HomeSearchVO> searchList = homeService.listSearchList();
+		
+		model.addAttribute("searchList", searchList);
+		
+		String phone = request.getParameter("phone");
+		String phone1 = phone.substring(0, 3);
+		String phone2 = phone.substring(3, 7);
+		String phone3 = phone.substring(7);
+		
+		MemberVO vo = new MemberVO();
+		vo.setPhone1(phone1);
+		vo.setPhone2(phone2);
+		vo.setPhone3(phone3);
+		
+		MemberVO phoneCheck = memberService.phoneCheckMember(vo);
+		
+		if(phoneCheck != null) {
+			return "CheckFail";
+			
+		}else {
+			return "CheckSuccess";
+		}
 	}
 	
 	

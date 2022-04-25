@@ -97,5 +97,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.insertNaverMember(vo);
 	}
 
+	@Override
+	public MemberVO phoneCheckMember(MemberVO vo) throws Exception {
+		
+		return memberDao.phoneCheckMember(vo);
+	}
+
 
 }

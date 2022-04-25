@@ -10,8 +10,6 @@
 	var ordernumber = "";
 	ordernumber += ${payInfovo.paynumber};
 	
-	console.log("ordernumber="+ordernumber);
-	
 	<c:forEach items="${basketList}" var="basketListvo" varStatus="cnt">
 		totalPrice += (${basketListvo.price}) * (${basketListvo.cnt});
 		totalDelivery += ${basketListvo.delivery_charge};
@@ -36,11 +34,11 @@
 	
 	window.onload = function(){
 		var productAmount = document.getElementById("productAmount");
-		productAmount.value = totalPrice;
+		productAmount.value = totalPrice.toLocaleString();
 		var deliveryCharge = document.getElementById("deliveryCharge");
-		deliveryCharge.value = totalDelivery;
+		deliveryCharge.value = totalDelivery.toLocaleString();
 		var amount = document.getElementById("amount");
-		amount.value = totalPay;
+		amount.value = totalPay.toLocaleString();
 	}
 	
 	function iamport(){

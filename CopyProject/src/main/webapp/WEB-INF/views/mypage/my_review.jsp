@@ -10,19 +10,31 @@
 	<!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Bootstrap icon CSS-->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+    <!-- kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- naver SDK -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <!-- facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 
 	<title>나의 리뷰 - 홈프렌즈</title>
 
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/mypage/my_review.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/mypage/my_review.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
 	
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/my_review.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	
 </head>
 <body>
 	<%@ include file="../header.jsp" %>
@@ -45,7 +57,7 @@
 				<div id="mycomment">	
 					<div class="row">
 					<div class="col-8">
-						<p class="p1"><a href="/controller/store/store_view.do?spidx=${vo.spidx}">${vo.title}</a></p>
+						<p class="p1"><a href="${pageContext.request.contextPath}/store/store_view.do?spidx=${vo.spidx}">${vo.title}</a></p>
 						<p class="p2"><!-- ★ 평점 -->
 							<c:set var="star" value="${vo.score}" />
 							<c:forEach begin="0" end="4" varStatus="status">
@@ -59,12 +71,13 @@
 						<p class="p3">
 							<strong>${vo.write_date}&nbsp;에 남긴 리뷰</strong>
 							<br><br>
-							<a href="/controller/store/store_view.do?spidx=${vo.spidx}#review_area_header">${vo.content}</a>&nbsp;&#183; 
-							<a id="pinky" style="color:#87ceeb;" href="/controller/store/store_review_modify.do?spidx=${vo.spidx}&sridx=${vo.sridx}">수정</a>
+							<a href="${pageContext.request.contextPath}/store/store_view.do?spidx=${vo.spidx}#review_area_header">${vo.content}</a>&nbsp;
+							<a id="pinky" style="color:#87ceeb;" href="${pageContext.request.contextPath}/store/store_review_modify.do?spidx=${vo.spidx}&sridx=${vo.sridx}">수정&nbsp;&#183; </a>
+							<span class="del_review" style="color:#87ceeb;" onclick="R_delFn(${vo.sridx},${vo.spidx},${vo.midx})">삭제</span>
 						</p>	
 					</div>
 					<div class="col-4 comment2">
-						<a href="/controller/store/store_view.do?spidx=${vo.spidx}"><img src="${vo.img_origin}"></a>
+						<a href="${pageContext.request.contextPath}/store/store_view.do?spidx=${vo.spidx}"><img src="${pageContext.request.contextPath}/image/${vo.img_system}"></a>
 					</div>
 					<div class="mydivVacant"></div>
 					</div>

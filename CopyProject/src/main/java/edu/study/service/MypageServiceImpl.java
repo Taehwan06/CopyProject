@@ -183,6 +183,22 @@ public class MypageServiceImpl implements MypageService {
 		return result;
 	}
 
+	//팔로우 버튼 관련 
+	@Override
+	public int follow(FollowVO follow) throws Exception {
+		return mypageDao.follow(follow);
+	}
+
+	@Override
+	public int unfollow(FollowVO follow) throws Exception {
+		return mypageDao.unfollow(follow);
+	} 
+
+	@Override
+	public int isFollow(FollowVO follow) throws Exception {
+		return mypageDao.isFollow(follow);
+	}
+
 	
 	
 

@@ -26,28 +26,34 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 	-->
-	
-	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/store/store_insert.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/store/store_insert.js"></script>
-	<script src="/controller/js/footer.js"></script>
 	<!-- kakao SDK -->
    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
    <!-- facebook SDK -->
    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
    <!-- naver SDK -->
    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   <!-- 페이지 경로가져오기 -->
+   <script>var contextPath = "${pageContext.request.contextPath}"</script>
+   <!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_insert.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/store/store_insert.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	
 	
 	<!-- 썸머노트 -->
-	<script src="/controller/js/summernote/summernote-lite.js"></script>
-	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
-	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
+	<script src="${pageContext.request.contextPath}/js/summernote/summernote-lite.js"></script>
+	<script src="${pageContext.request.contextPath}/js/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/summernote/summernote-lite.css">
+	
+	
 	
 </head>
 

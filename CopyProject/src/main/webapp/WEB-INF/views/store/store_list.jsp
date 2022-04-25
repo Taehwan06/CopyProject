@@ -14,23 +14,27 @@
 	<!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
-	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<link href="/controller/css/store/store_list.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/home.js"></script>
-	<script src="/controller/js/store/store_list.js"></script>
 	<!-- kakao SDK -->
-   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-   <!-- facebook SDK -->
-   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-   <!-- naver SDK -->
-   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <!-- naver SDK -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <!-- 페이지 경로가져오기 -->
+    <script>var contextPath = "${pageContext.request.contextPath}"</script>
+	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_common.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_list.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/home.js"></script>
+	<script src="${pageContext.request.contextPath}/js/store/store_list.js"></script>
+	
+   
 	<script>
 		var category="${param.category}";
 		var detail="${param.detail}";	
@@ -53,7 +57,8 @@
 				<div class="accordion accordion-flush" id="accordionFlushExample">
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingOne">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+				      <button class="abtn accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+				      onclick="colorFn(this)" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
 				        <span class="category_link" id="furniture">가구</span>
 				      </button>
 				    </h2>
@@ -72,7 +77,8 @@
 				  </div>
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingTwo">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+				      <button class="abtn accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+				      onclick="colorFn(this)" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
 				        <span class="category_link" id="light">조명</span>
 				      </button>
 				    </h2>
@@ -90,7 +96,8 @@
 				  </div>
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingThree">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+				      <button class="abtn accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+				      onclick="colorFn(this)" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
 				        <span class="category_link" id="bedding">침구</span>
 				      </button>
 				    </h2>
@@ -108,7 +115,8 @@
 				  </div>
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingFour">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+				      <button class="abtn accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+				      onclick="colorFn(this)" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
 				        <span class="category_link" id="appliances">가전제품</span>
 				      </button>
 				    </h2>
@@ -126,7 +134,8 @@
 				  </div>
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingFive">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+				      <button class="abtn accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+				      onclick="colorFn(this)" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
 				        <span class="category_link" id="kitchen">주방용품</span>
 				      </button>
 				    </h2>
@@ -145,7 +154,8 @@
 				  </div>
 				  <div class="accordion-item">
 				    <h2 class="accordion-header" id="flush-headingSix">
-				      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+				      <button class="abtn accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+				      onclick="colorFn(this)" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
 				        <span class="category_link" id="daily">생활용품</span>
 				      </button>
 				    </h2>
@@ -246,15 +256,16 @@
 				<div id="deal">
 					<div class="row shopList">
 						<c:forEach items="${list}" var="vo" varStatus="cnt">
-						<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop" onClick="location.href='/controller/store/store_view.do?spidx=${vo.spidx}'">
-							<img src="${vo.img_origin}" class="shopImg">
+						<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop" onClick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${vo.spidx}'">
+							<img src="${pageContext.request.contextPath}/image/${vo.img_system}" class="shopImg">
 							<div class="shopText">
 								<div class="shopTitle">
 									<div class="brand">${vo.brand}</div>
 									${vo.title}
 								</div>
-								<div class="shopPrice">
-									<span class="red">${vo.discount}%</span> ${vo.sale_price}원
+								<div class="shopPrice row">
+									<div class="discount_area col-4"><span class="red discount">${vo.discount}%</span></div><div class="price_area col-8"><span class="origin">${vo.origin_price}원</span><br>
+									${vo.view_price}원</div>
 								</div>
 								<span class="sky">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">

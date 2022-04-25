@@ -5,16 +5,19 @@
  
 <mapper namespace="edu.study.mapper.storeMapper">
 
+	<!-- 상품리스트 -->
 	<select id="listStore" resultType="StoreVO" parameterType="SearchVO">
          SELECT spidx
          		,title
          		,product_name
+         		,FORMAT(origin_price,0) as origin_price
          		,sale_price
+         		,FORMAT(sale_price,0) as view_price
          		,brand
          		,score
          		,discount
          		,review_cnt
-         		,img_origin
+         		,img_system
          		,category
          		,detail
            FROM shopping_product
@@ -66,16 +69,34 @@
            	
     </select>
 	
+	<!-- 상품 상세정보 -->
 	<select id="detailStore" resultType="StoreVO" parameterType="int">
 		<!-- <![CDATA[...]] 쿼리문의 >,< 등을 구분해주기 위해-->
 		<![CDATA[
-			SELECT 
-				  *
+			SELECT spidx
+         		,title
+         		,product_name
+         		,origin_price
+         		,FORMAT(origin_price,0) as oview_price
+         		,sale_price
+         		,FORMAT(sale_price,0) as view_price
+         		,brand
+         		,content
+         		,free_delivery
+         		,delivery_charge
+         		,score
+         		,discount
+         		,review_cnt
+         		,img_origin
+         		,img_system
+         		,category
+         		,detail
 			FROM shopping_product
 			WHERE spidx = #{spidx}
 		]]>
 	</select>
     
+    <!-- 상품등록 -->
     <insert id="insertStore" parameterType="StoreVO">
 	    <![CDATA[
 	    	INSERT INTO shopping_product(
@@ -118,6 +139,7 @@
 	    </selectKey>
     </insert>
     
+    <!-- 상품수정 -->
     <update id="updateStore" parameterType="StoreVO">
 	    <![CDATA[
 	    	UPDATE shopping_product
@@ -142,6 +164,7 @@
           ]]>
     </update>
     
+    <!-- 상품삭제 -->
     <update id="deleteStore" parameterType="int">
 	    <![CDATA[
 	    	UPDATE shopping_product
@@ -151,6 +174,7 @@
           ]]>
     </update>
     
+    <!-- 장바구니 저장 -->
     <insert id="basketIn" parameterType="BasketVO">
     	 <![CDATA[
 	    	INSERT INTO shopping_basket(
@@ -284,6 +308,7 @@
     			,sr.modify_yn
     			,date_format(sr.modify_date, '%Y-%m-%d') as modify_date
     			,sr.img_origin
+    			,sr.img_system
     			,sr.score
     			,sr.spidx
     			,sr.midx
@@ -301,6 +326,7 @@
     	SELECT sr.sridx
     			,sr.content
     			,sr.img_origin
+    			,sr.img_system
     			,sr.score
     			,sr.spidx
     			,sr.midx
@@ -381,7 +407,7 @@
 		FROM shopping_review
 		where spidx = #{spidx} and del_yn='N';
     </select>
-    
+    <!-- 리뷰 리스트 -->
     <select id="reviewList" resultType="Store_reviewVO" parameterType="int">
     	SELECT review.* FROM
 		(SELECT @rownum := @rownum+1 as rownum
@@ -392,6 +418,7 @@
 				,sr.modify_yn 
 				,date_format(sr.modify_date, '%Y-%m-%d') as modify_date 
 				,sr.img_origin 
+				,sr.img_system
 				,sr.score 
 				,sr.spidx 
 				,sr.midx 
@@ -434,12 +461,15 @@
          		,s.title
          		,s.content
          		,s.product_name
+         		,FORMAT(s.origin_price,0) as origin_price
          		,s.sale_price
+         		,FORMAT(s.sale_price,0) as view_price
          		,s.brand
          		,s.score
          		,s.discount
          		,s.review_cnt
          		,s.img_origin
+         		,s.img_system
          		,s.category
          		,s.detail 
     	FROM likey l 

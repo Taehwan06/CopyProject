@@ -208,10 +208,18 @@
     
     <!-- 팔로우 유저 게시판 리스트 가져오기 -->
     <select id="boardList" resultType="Community_boardVO" parameterType="FollowVO">
+    <![CDATA[
     	SELECT cbidx,
          		title,
          		content,
          		writer,
+         	CASE
+			    WHEN TIMESTAMPDIFF(MINUTE, write_date, NOW()) <= 0 THEN '방금 전'
+			    WHEN TIMESTAMPDIFF(MINUTE, write_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, write_date, NOW()), '분 전')
+			    WHEN TIMESTAMPDIFF(HOUR, write_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, write_date, NOW()), '시간 전')
+			    WHEN TIMESTAMPDIFF(DAY, write_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, write_date, NOW()), '일 전')
+		    	ELSE CONCAT(TIMESTAMPDIFF(MONTH, write_date, NOW()), '달 전')
+			END AS write_date,
          		img_system,
          		profile_system,
          		c.midx
@@ -219,12 +227,14 @@
           INNER JOIN member m
              ON c.midx = m.midx 
           WHERE 1=1
+     ]]>
             AND c.del_yn = 'N'
             AND c.midx IN
             <foreach item="midx" index="index" collection="flist" open="(" close=")" separator=",">
           	    #{midx.midx}
             </foreach>
           ORDER BY write_date DESC
+   
     </select>
     
     <!-- 팔로우 유무 조회 -->

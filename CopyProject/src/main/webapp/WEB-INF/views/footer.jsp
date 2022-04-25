@@ -24,22 +24,22 @@
 	<div class="row footerImgRow" >
 		<div class="col-6 col-md-3 footerImgDiv">
 			<a href="http://www.kolsa.or.kr/neopress/index.php" target="_blank">
-				<img class="footerImg" src="/controller/image/footer-img-logo-2.png">
+				<img class="footerImg" src="${pageContext.request.contextPath}/image/footer-img-logo-2.png">
 			</a>
 		</div>
 		<div class="col-6 col-md-3 footerImgDiv">
 			<a href="https://www.hometax.go.kr/websquare/websquare.html?w2xPath=/ui/pp/index.xml" target="_blank">
-				<img class="footerImg" src="/controller/image/footer-img-logo-3.png">
+				<img class="footerImg" src="${pageContext.request.contextPath}/image/footer-img-logo-3.png">
 			</a>
 		</div>
 		<div class="col-6 col-md-3 footerImgDiv">
 			<a href="http://upss.gs1kr.org/home/comm/main.gs1" target="_blank">
-				<img class="footerImg" src="/controller/image/footer-img-logo-4.png">
+				<img class="footerImg" src="${pageContext.request.contextPath}/image/footer-img-logo-4.png">
 			</a>
 		</div>
 		<div class="col-6 col-md-3 footerImgDiv">
 			<a href="https://107.relaycall.or.kr/user/main" target="_blank">
-				<img class="footerImg" src="/controller/image/footer-img-logo-5.png">
+				<img class="footerImg" src="${pageContext.request.contextPath}/image/footer-img-logo-5.png">
 			</a>
 		</div>
 	</div>

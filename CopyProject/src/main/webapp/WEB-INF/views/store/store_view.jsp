@@ -13,19 +13,6 @@
 	<!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
-	
-	<title>${vo.title} - 홈프렌즈</title>
-	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<link href="/controller/css/store/view.css" rel="stylesheet">
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/store/view.js"></script>
-	<script src="/controller/js/footer.js"></script>
 	<!-- sweet alert SDK -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- kakao SDK -->
@@ -34,6 +21,20 @@
    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
    <!-- naver SDK -->
    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+	
+	<title>${vo.title} - 홈프렌즈</title>
+	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_common.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<link href="${pageContext.request.contextPath}/css/store/view.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/store/view.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	
 	<script>
 		var spidx=${vo.spidx};
 		var price=${vo.sale_price};
@@ -41,9 +42,10 @@
 		var midx = "${loginUser.midx}";
 		
 	</script>
-	
+	<!-- 페이지 경로가져오기 -->
+   <script>var contextPath = "${pageContext.request.contextPath}"</script>
 	<style>
-	
+		
 	</style>
 </head>
 <body>
@@ -65,7 +67,7 @@
 	<section id="Shop_area">
 		<c:if test="${loginUser.grade eq 'A'}">
 			<div id="sv_md">
-				<button onClick="location.href='/controller/store/store_modify.do?spidx=${vo.spidx}'">상품수정</button>
+				<button onClick="location.href='${pageContext.request.contextPath}/store/store_modify.do?spidx=${vo.spidx}'">상품수정</button>
 				<button onClick="delFn()">상품삭제</button>
 			</div>
 		</c:if>
@@ -81,7 +83,7 @@
 		</div>
 		<div class="row" id="shop_content">
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-				<img src= "${vo.img_origin}" class="shopImg" onClick="">
+				<img src= "${pageContext.request.contextPath}/image/${vo.img_system}" class="shopImg" onClick="">
 			</div>
 			<div class="col-sm-11 col-md-5 col-lg-5 col-xl-5 content">
 				<div class="row">
@@ -108,7 +110,7 @@
 				</div>
 				<div class="row price">
 					<div class="col-sm-4 col-md-4 col-lg-3 discount">${vo.discount}%</div>
-					<div class="col-sm-7 col-md-7 original_price"> ${vo.sale_price}원</div>
+					<div class="col-sm-7 col-md-7 original_price"> <div class="origin">${vo.oview_price}</div>${vo.view_price}원</div>
 				</div>
 				<div class="row delivery">
 					<div class="col-sm-2 col-md-2 delivery_">배송</div>
@@ -125,14 +127,14 @@
 				</div>
 				<div class="row selectbox">
 					<select class="form-select form-select-lg">
-						<option value="00" selected>상품을 선택하세요.</option>
-						<option value="01" data-image="/shop05.webp" onClick="">${vo.product_name}</option>
+						<option value="0" selected>상품을 선택하세요.</option>
+						<option value="${vo.spidx}" data-image="/shop05.webp" onClick="">${vo.product_name}</option>
 					</select>
 				</div>
 				
 				<div class="row order_price">
 					<div class="col-sm-6 col-md-6 order_price_">
-						<select id="selectCnt" class="form-control" style="width: 70px; text-align: center;" onChange="cntFn()">
+						<select id="selectCnt" class="form-control selectCnt" style="width: 70px; text-align: center;" >
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -144,9 +146,9 @@
 							<option value="9">9</option>
 							<option value="10">10+</option>
 						</select>
-						<input class="hiddenCnt" type="number" value="1" style="width: 70px; text-align: center;" onChange="cntFn2()">
+						<input class="hiddenCnt" type="number" value="10" min="1" max="100" style="width: 70px; text-align: center;" >
 					</div>
-					<div class="col-sm-6 col-md-6 order_price__">주문금액:<span class="sum_price">${vo.sale_price}</span>원</div>
+					<div class="col-sm-6 col-md-6 order_price__">주문금액:<span class="sum_price">0</span>원</div>
 				</div>
 				<div class="row btn_area">
 					<div class="col-6 col-sm-6 col-md-6"><button id="basket_btn" onClick="basketInFn()">장바구니</button></div>
@@ -185,8 +187,8 @@
 								<li class="reply_list_item">
 									<article class="reply_item_">
 										<p class="reply_item_content">
-											<a class="reply_item_content_writer" href="">${rvo.nick_name}
-												<img class="reply_item_content_writer_image" src="/controller/image/${rvo.profile_system }">
+											<a class="reply_item_content_writer" href="javascript:void(0)">${rvo.nick_name}
+												<img class="reply_item_content_writer_image" src="${pageContext.request.contextPath}/image/${rvo.profile_system }">
 											</a>
 											<time class="reply_item_footer_time">
 												<c:if test="${rvo.modify_yn == 'N' }">
@@ -219,7 +221,7 @@
 									</article>
 									<div style="margin:30px 0px 0 20px;">
 									<c:if test="${not empty rvo.img_origin && rvo.img_origin ne ''}">
-										<div style="padding: 5px; width: 150px; height: 150px;"><img alt="" src="${rvo.img_origin}" style="width: 100%; height: 100%;border-radius: 5px;"> </div>
+										<div style="padding: 5px; width: 150px; height: 150px;"><img alt="" src="${pageContext.request.contextPath}/image/${rvo.img_system}" style="width: 100%; height: 100%;border-radius: 5px;"> </div>
 									</c:if>
 										<div style="padding: 10px;">${rvo.content}</div>
 									</div>
@@ -486,17 +488,33 @@
 				<div class="buy_area_">
 					<div class="selectbox_">
 						<select class="form-select form-select-lg">
-							<option value="00" selected>상품을 선택하세요.</option>
-							<option value="01">${vo.product_name}</option>
+							<option value="0" selected>상품을 선택하세요.</option>
+							<option value="${vo.spidx}">${vo.product_name}</option>
 						</select>
 					</div>
-					<div class="hidden_area"></div>
+					<div class="hidden_area"><br>
+						<select id="selectCnt2" class="form-control selectCnt" style="width: 70px; text-align: center;">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10+</option>
+						</select>
+						
+						<input class="hiddenCnt" type="number" value="10" min="1" max="100" style="width: 70px; text-align: center;">
+					
+					</div>
 					<div class="price___">
-						주문금액<span>0원</span>
+						주문금액<span class="sum_price">0</span><span>원</span>
 					</div>
 					<div class="buy_btn_area">
 						<button id="basket_btn2" onClick="basketInFn()">장바구니</button>
-						<button id="buy_btn2" onClick="">바로구매</button>
+						<button id="buy_btn2" onClick="paymentInFn()">바로구매</button>
 					</div>
 				</div>
 			</div>
@@ -507,66 +525,91 @@
 	
 	<script>
 		var cnt=1;
+		var select_spidx= 0;
 		function basketInFn(){
 			if(${!empty loginUser}){
-				$.ajax({
-					type : "GET",
-					url : "basketIn.do",
-					data : "midx="+${vo.midx}+"&spidx="+${vo.spidx}+"&cnt="+cnt,
-					success : function(result) {
-						if(result > 0){
-							swal({
-				                  text: "장바구니에 담겼습니다.",
-				                  button: "확인",
-				                  closeOnClickOutside : false
-				               }).then(function(){
-				                
-				               });
-						}else{
-							swal({
-				                  text: "장바구니에 담기지 못했습니다.",
-				                  button: "확인",
-				                  closeOnClickOutside : false
-				               }).then(function(){
-				                
-				               });
+				if(select_spidx!=0){
+					$.ajax({
+						type : "GET",
+						url : "basketIn.do",
+						data : "midx="+${vo.midx}+"&spidx="+select_spidx+"&cnt="+cnt,
+						success : function(result) {
+							if(result > 0){
+								swal({
+					                  text: "장바구니에 담겼습니다.",
+					                  button: "확인",
+					                  closeOnClickOutside : false
+					               }).then(function(){
+					                
+					               });
+							}else{
+								swal({
+					                  text: "장바구니에 담기지 못했습니다.",
+					                  button: "확인",
+					                  closeOnClickOutside : false
+					               }).then(function(){
+					                
+					               });
+							}
+							
 						}
-						
-					}
-				});
+					});
+				}else{
+					swal({
+		                  text: "상품을 선택하여주세요.",
+		                  button: "확인",
+		                  closeOnClickOutside : false
+		               }).then(function(){
+		                
+		               });
+				}
 			}else{
 				swal({
 	                  text: "로그인 후 이용가능 합니다.",
 	                  button: "확인",
 	                  closeOnClickOutside : false
 	               }).then(function(){
-	            	   location.href="/controller/login/login.do"
+	            	   location.href="${pageContext.request.contextPath}/login/login.do"
 	               });
 				
 			}
 		}
 		
 		function paymentInFn(){
-	         
-	         console.log(${spidx});
+	    	
 	         if(${!empty loginUser}){
-	            var postCode = ${loginUser.post_code};
-	            if(postCode == 0){
-	               swal({
-	                  text: "주소 등록 후 구매 가능합니다.",
+	        	 if(select_spidx!=0){
+		            var postCode = "${loginUser.post_code}";
+		            if(postCode == 0){
+		               swal({
+		                  text: "주소 등록 후 구매 가능합니다.",
+		                  button: "확인",
+		                  icon: "warning",
+		                  closeOnClickOutside : false
+		               }).then(function(){
+		                  location.href="${pageContext.request.contextPath}/mypage/addr_modify.do";
+		               });
+		               
+		            }else{
+		               location.href="${pageContext.request.contextPath}/mypage/directPayment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
+		            }
+	            }else{
+	            	swal({
+		                  text: "상품을 선택하여주세요.",
+		                  button: "확인",
+		                  closeOnClickOutside : false
+		               }).then(function(){
+		                
+		               });
+	            }
+	         }else{
+	        	 swal({
+	                  text: "로그인 후 이용가능 합니다.",
 	                  button: "확인",
-	                  icon: "warning",
 	                  closeOnClickOutside : false
 	               }).then(function(){
-	                  location.href="/controller/mypage/addr_modify.do";
+	            	   location.href="${pageContext.request.contextPath}/login/login.do"
 	               });
-	               
-	            }else{
-	               location.href="/controller/mypage/directPayment.do"+"?midx="+"${loginUser.midx}"+"&spidx="+${vo.spidx}+"&cnt="+cnt;
-	            }
-	            
-	         }else{
-	            alert("로그인 후 이용가능 합니다.");
 	         }
 	      }
 	

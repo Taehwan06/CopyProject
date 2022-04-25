@@ -9,7 +9,7 @@ public class PagingVO {
 	private int lastPage;
 	private int start;
 	private int end;
-	private int cntPage = 10;
+	private int cntPage = 5;
 	
 	public PagingVO() {
 		

@@ -27,7 +27,7 @@ public class NaverLoginVO {
 	
 	private final static String CLIENT_ID = "s1bTLaA8BW2sgPEscAbW";
 	private final static String CLIENT_SECRET = "GxYedLYh1g";
-	private final static String REDIRECT_URI = "http://localhost:8080/controller/login/naverCallback";
+	private final static String REDIRECT_URI = "http://jjezen.cafe24.com/HomeFriends/login/naverCallback";
 	private final static String SESSION_STATE = "oauth_state";
 	
 	/* 프로필 조회 API URL */

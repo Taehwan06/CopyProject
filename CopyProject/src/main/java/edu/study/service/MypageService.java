@@ -42,7 +42,12 @@ public interface MypageService {
 	int likeCnt(int midx) throws Exception;
 	int allstoryCnt(int midx) throws Exception;
 		
-	
+	//팔로우 하기
+	int follow(FollowVO follow) throws Exception;
+	//언팔로우 하기
+	int unfollow(FollowVO follow) throws Exception;
+	//팔로우 유무
+	int isFollow(FollowVO follow) throws Exception;
 	
 	 
 }

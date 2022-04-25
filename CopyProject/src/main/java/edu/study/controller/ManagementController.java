@@ -238,7 +238,7 @@ public class ManagementController {
 			
 			model.addAttribute("memberPagingvo", vo);
 			int result = managementService.restoreMember(vo);
-					
+			
 			return "redirect:/management/member_view.do?midx="+vo.getMidx()+"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+"&searchValue="+vo.getSearchValue();
 		}
 	}

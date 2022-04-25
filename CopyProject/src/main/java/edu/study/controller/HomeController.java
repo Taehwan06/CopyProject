@@ -88,10 +88,16 @@ public class HomeController {
 		String nowUri = request.getRequestURI();
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("nowUri", nowUri);
+		session.setAttribute("nowUri", null);
 		
 		int insertResult = homeService.insertSearchList(vo);
 		int deleteResult = homeService.deleteSearchList();
+		
+		String searchValue = vo.getSearch_value();
+		
+		String[] searchValueAry = searchValue.split(" ");
+		
+		vo.setSearchValueAry(searchValueAry);
 		
 		List<HomeSearchVO> searchList = homeService.listSearchList();
 		
@@ -117,52 +123,17 @@ public class HomeController {
 		if(storyList.size() > 0 || storeList.size() > 0) {
 			return "search_result";
 		}else {
+			SearchVO searchvo = new SearchVO();
+		    searchvo.setReview_cnt("yes");
+		    searchvo.setPage("limit");
+		    
+		    List<StoreVO> storeListN = storeService.list(searchvo);
+		    
+		    model.addAttribute("storeList",storeListN);
+			
 			return "search_result_none";
 		}
 	}
-	
-	@RequestMapping(value = "/search_result.do", method = RequestMethod.GET)
-	public String search_result(Locale locale, Model model, HttpServletRequest request) throws Exception {
-
-		String nowUri = request.getRequestURI();
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("nowUri", nowUri);
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		return "search_result";
-	}
-	
-	@RequestMapping(value = "/search_result_none.do", method = RequestMethod.GET)
-	public String search_result_none(Locale locale, Model model, HttpServletRequest request) throws Exception {
-		
-		String nowUri = request.getRequestURI();
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("nowUri", nowUri);
-		
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		SearchVO searchvo = new SearchVO();
-	    searchvo.setReview_cnt("yes");
-	    searchvo.setPage("limit");
-	    List<StoreVO> storeList = storeService.list(searchvo);
-	    
-	    model.addAttribute("storeList",storeList);
-		
-		return "search_result_none";
-	}
-		
 	
 	@RequestMapping(value = "/recentView.do", method = RequestMethod.GET)
 	public String recentView(Locale locale, Model model, HttpServletResponse response, HttpServletRequest request, HomeStoreVO vo) throws Exception {

@@ -22,15 +22,16 @@
 	
 	<title>회원 목록 - 홈프렌즈</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/management/member_list.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/management/member_list.js"></script>
-	<script src="/controller/js/footer.js"></script>
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/management/member_list.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/management/member_list.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 
 </head>
 <body>

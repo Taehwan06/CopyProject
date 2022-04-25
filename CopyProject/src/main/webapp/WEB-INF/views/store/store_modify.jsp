@@ -26,35 +26,41 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 	-->
-	
-	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/store/store_insert.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/store/store_modify.js"></script>
-	<script src="/controller/js/footer.js"></script>
 	<!-- kakao SDK -->
    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
    <!-- facebook SDK -->
    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
    <!-- naver SDK -->
    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   <!-- 페이지 경로가져오기 -->
+   <script>var contextPath = "${pageContext.request.contextPath}"</script>
+   <!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_insert.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/store/store_modify.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	
 	
 	
 	<!-- 썸머노트 -->
-	<script src="/controller/js/summernote/summernote-lite.js"></script>
-	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
-	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
+	<script src="${pageContext.request.contextPath}/js/summernote/summernote-lite.js"></script>
+	<script src="${pageContext.request.contextPath}/js/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/summernote/summernote-lite.css">
+	
 	
 	
 	<script>
+		//페이지 입장시 상품정보 보이기
 		var thisSpidx = ${vo.spidx};
 		$(document).ready(function(){
 			$("#imgArea").css("background-color", "none");
-			$("#imgArea").css("background-image", "url('${vo.img_origin}')");
+			$("#imgArea").css("background-image", "url('"+contextPath+"/image/${vo.img_system}')");
 			$("#imgText").css("display", "none");
 			$("#imgButton").css("display", "none");
 			
@@ -85,7 +91,8 @@
 				default:
 					alert( "어떤 값인지 파악이 되지 않습니다." );
 			}
-			$('select[name="detail"]').find('option[value="${vo.detail}"]').attr("selected",true);
+			$('select[name="detail_temp"]').find('option[value="${vo.detail}"]').attr("selected",true);
+			$('#detail').val(${vo.detail});
 
 		});
 	</script>
@@ -123,11 +130,12 @@
 			</div>
 		</form>
 				
-		<form id="insertFrm" name="insertFrm" method="post">	
+		<form id="insertFrm" name="insertFrm" action="store_modify.do" method="post">	
 			
-			<iuput type="hidden" name="midx" value="">
+			<input type="hidden" name="spidx" value="${vo.spidx}">
 			<input type="hidden" name="img_origin" id="img_origin" value="${vo.img_origin}">
 			<input type="hidden" name="img_system" id="img_system" value="${vo.img_system}">
+			<input type="hidden" name="detail" id="detail" value="${vo.detail}">
 			
 			<div id="titleArea">
 				<input type="text" id="title" name="title" placeholder="제목을 입력해주세요." value="${vo.title}">
@@ -202,7 +210,7 @@
 			</div>
 			
 			<div id="detailArea1" class="detailArea area">
-				<select id="detailSelect1" name="detail" class="detailSelect select">
+				<select id="detailSelect1" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="11">소파</option>
 					<option value="12">수납장</option>
@@ -217,7 +225,7 @@
 			</div>
 			
 			<div id="detailArea2" class="detailArea area">
-				<select id="detailSelect2" name="detail" class="detailSelect select">
+				<select id="detailSelect2" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="21">LED</option>
 					<option value="22">단 스텐드</option>
@@ -231,7 +239,7 @@
 			</div>
 			
 			<div id="detailArea3" class="detailArea area">
-				<select id="detailSelect3" name="detail" class="detailSelect select">
+				<select id="detailSelect3" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="31">베개</option>
 					<option value="32">이불</option>
@@ -245,7 +253,7 @@
 			</div>
 			
 			<div id="detailArea4" class="detailArea area">
-				<select id="detailSelect4" name="detail" class="detailSelect select">
+				<select id="detailSelect4" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="41">냉장고</option>
 					<option value="42">TV</option>
@@ -259,7 +267,7 @@
 			</div>
 			
 			<div id="detailArea5" class="detailArea area">
-				<select id="detailSelect5" name="detail" class="detailSelect select">
+				<select id="detailSelect5" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="51">그릇 & 접시</option>
 					<option value="52">냄비 & 팬</option>
@@ -274,7 +282,7 @@
 			</div>
 			
 			<div id="detailArea6" class="detailArea area">
-				<select id="detailSelect6" name="detail" class="detailSelect select">
+				<select id="detailSelect6" name="detail_temp" class="detailSelect select">
 					<option value="0">상품 분류를 선택하세요</option>
 					<option value="61">욕실 용품</option>
 					<option value="62">수건</option>

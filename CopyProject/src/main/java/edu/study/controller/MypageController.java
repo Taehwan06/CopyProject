@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,9 @@ import edu.study.service.BasketService;
 import edu.study.service.HomeService;
 import edu.study.service.MemberService;
 import edu.study.service.MypageService;
+import edu.study.service.StoreService;
 import edu.study.vo.BasketVO;
 import edu.study.vo.Community_BoardVO;
-import edu.study.vo.Community_ReplyVO;
 import edu.study.vo.FollowVO;
 import edu.study.vo.HomeSearchVO;
 import edu.study.vo.MemberVO;
@@ -40,6 +41,7 @@ import edu.study.vo.OrderListVO;
 import edu.study.vo.PagingVO;
 import edu.study.vo.PayInfoVO;
 import edu.study.vo.SearchVO;
+import edu.study.vo.StoreVO;
 import edu.study.vo.Store_reviewVO;
 
 /**
@@ -47,7 +49,7 @@ import edu.study.vo.Store_reviewVO;
  */  
 @RequestMapping(value="/mypage")
 @Controller
-public class MypageController {
+public class MypageController { 
 	
 	@Autowired 
 	private MypageService mypageService;
@@ -57,16 +59,20 @@ public class MypageController {
 	private BasketService basketService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private StoreService storeService;
 	 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mypage.do", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model,OrderListVO vo, HttpServletRequest request, Community_BoardVO list, FollowVO follow) throws Exception {
+	public String mypage(Locale locale, Model model,OrderListVO vo, HttpServletRequest request, Community_BoardVO list, FollowVO follow, HttpServletResponse response) throws Exception {
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+	    
+	    response.setHeader("Cache-Control","no-store");
 	    
 	    String nowUri = request.getRequestURI();
 		
@@ -122,13 +128,16 @@ public class MypageController {
 	  		int likeCnt = mypageService.likeCnt(Midx);
 	  		model.addAttribute("likeCnt", likeCnt);
 	  		
+	  		
+	  		
 	        return "mypage/mypage";
 	      }  
 	}
 	
 	@RequestMapping(value = "/member_modify.do", method = RequestMethod.GET)
-	public String member_modify(Locale locale, Model model, HttpServletRequest request) throws Exception {
+	public String member_modify(Locale locale, Model model, HttpServletRequest request,HttpServletResponse response) throws Exception {
 
+		response.setHeader("Cache-Control","no-store");
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
@@ -170,7 +179,7 @@ public class MypageController {
 		      
 		    session.setAttribute("loginUser", loginUser);
 		
-			return "redirect: /controller/mypage/mypage.do";
+		    return "redirect:/mypage/mypage.do";
 	    }
 	}
 	
@@ -262,14 +271,16 @@ public class MypageController {
 		      
 		    session.setAttribute("loginUser", loginUser);
 			
-		    return "redirect: /controller/mypage/mypage.do";
+		    return "redirect:/mypage/mypage.do";
 	    }
 	}
 	
 	
 	@RequestMapping(value = "/order_list.do", method = RequestMethod.GET)
-	public String order_list(Locale locale, Model model,OrderListVO vo, HttpServletRequest request) throws Exception {
+	public String order_list(Locale locale, Model model,OrderListVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+
+		response.setHeader("Cache-Control","no-store");
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
@@ -444,34 +455,92 @@ public class MypageController {
 	    if(loginUser == null) {
 	         return "redirect:/login/login.do";
 	    }else {
-		
 			int deleteResult = homeService.deleteSearchList();
 			List<HomeSearchVO> searchList = homeService.listSearchList();
 			model.addAttribute("searchList", searchList);
-			    	  
+			
+			//멤버정보
 	    	MemberVO result = mypageService.detail(midx);
 	  		model.addAttribute("vo", result);
 	  		
-	  		//int Midx = loginUser.getMidx();
-			list.setMidx(midx);
-	  		
+			//멤버가 작성한 글 
+	  		list.setMidx(midx);
 	  		List<Community_BoardVO> Storylist = mypageService.viewStory(list);
 	  		model.addAttribute("Storylist", Storylist);
 	  		
+	  		//멤버의 팔로잉 수
 	  		follow.setMidx(midx);
 	  		int following = mypageService.following_cnt(follow);
 	  		model.addAttribute("following", following);
 	  		
+	  		//멤버의 팔로워 수
 	  		int fmidx = midx;
 	  		follow.setFmidx(fmidx);
 	  		
 	  		int follower = mypageService.follower_cnt(follow);
 	  		model.addAttribute("follower", follower);
 	  		
+	  		//팔로우체크
+			FollowVO fvo = new FollowVO();
+			
+			fvo.setMidx(loginUser.getMidx());
+			fvo.setFmidx(midx); 
+
+			int isFollow = mypageService.isFollow(fvo);
+
+			model.addAttribute("isFollow", isFollow);
+			
+			//로그인유저의 midx
+			int login_midx = loginUser.getMidx();
+			model.addAttribute("login_midx", login_midx);
+	  		
 	  		return "mypage/Member_page";
 		      
 	    }
 	}
+	
+	@RequestMapping(value="/followC", method = RequestMethod.POST)
+	@ResponseBody
+	public String followC(int fmidx, HttpServletRequest req, Model model) throws Exception {
+		
+		String nowUri = req.getRequestURI();
+	      
+        HttpSession session = req.getSession();
+        session.setAttribute("nowUri", nowUri);
+        
+		//MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
+		
+		Object object = session.getAttribute("loginUser");
+		MemberVO activeUser = (MemberVO)object;
+		MemberVO passiveUser = memberService.inquiryOfUserByMidx(fmidx);
+		
+		FollowVO follow = new FollowVO();
+		follow.setMidx(activeUser.getMidx());
+		follow.setFmidx(passiveUser.getMidx());
+		
+		mypageService.follow(follow);
+		
+        return "FollowOK";
+	}
+	
+	//언팔로우 요청
+		@RequestMapping(value="/unfollowC", method = RequestMethod.POST)
+		@ResponseBody
+		public String unfollowC(int fmidx, HttpSession session, Model model) throws Exception {
+			
+			Object object = session.getAttribute("loginUser");
+			MemberVO activeUser = (MemberVO)object;
+			MemberVO passiveUser = memberService.inquiryOfUserByMidx(fmidx);
+			
+			FollowVO follow = new FollowVO();
+			follow.setMidx(activeUser.getMidx());
+			follow.setFmidx(passiveUser.getMidx());
+			
+			mypageService.unfollow(follow);
+			
+			return "UnFollowOK";
+		}
+	
 	
 	
 
@@ -647,8 +716,10 @@ public class MypageController {
 	
 	
 	@RequestMapping(value = "/detailOrder.do", method = RequestMethod.GET)
-	public String detailOrder(Locale locale, Model model, SearchVO vo, HttpServletRequest request, OrderListVO orderlist) throws Exception {
-
+	public String detailOrder(Locale locale, Model model, SearchVO vo, HttpServletRequest request, OrderListVO orderlist, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
+		
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
@@ -667,8 +738,8 @@ public class MypageController {
 			List<OrderListVO> detailOrder = mypageService.detailOrder(orderlist);
 			model.addAttribute("detailOrder", detailOrder);
 			
-			MemberVO result = mypageService.detail(midx); 
-			model.addAttribute("vo", result);
+			//MemberVO result = mypageService.detail(midx); 
+			//model.addAttribute("vo", result);
 	  	
 	  		return "mypage/detailOrder";
 		      
@@ -679,8 +750,9 @@ public class MypageController {
 	
 	
 	@RequestMapping(value = "/payment.do", method = RequestMethod.GET)
-	public String payment(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
-
+	public String payment(Locale locale, Model model, SearchVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
@@ -739,8 +811,10 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/basket.do", method = RequestMethod.GET)
-	public String basket(Locale locale, Model model, SearchVO vo, HttpServletRequest request) throws Exception {
+	public String basket(Locale locale, Model model, SearchVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		response.setHeader("Cache-Control","no-store");
+		
 		HttpSession session = request.getSession(); 
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
 
@@ -864,7 +938,8 @@ public class MypageController {
 		  	int result = mypageService.updatePwd(vo);
 				
 			session.setAttribute("loginUser", null);
-			return "redirect: /controller/login/login.do";
+	
+			return "redirect:"+request.getContextPath()+"/login/login.do";
 	    }
 	}
 	
@@ -888,6 +963,42 @@ public class MypageController {
 			return "mypage/review_list";
 	    }
 	}
+		
+	
+	//리뷰삭제
+		@RequestMapping(value = "/mypage_review_del.do", method = RequestMethod.POST)
+		public @ResponseBody String mypage_review_delOK(HttpServletRequest request, Locale locale, Model model,int spidx, int sridx, int midx) throws Exception {
+			
+			int deleteResult = homeService.deleteSearchList();
+			
+			List<HomeSearchVO> searchList = homeService.listSearchList();
+			
+			model.addAttribute("searchList", searchList);
+			
+			HttpSession session = request.getSession();
+			MemberVO member = (MemberVO)session.getAttribute("loginUser");
+			
+			int result=0;
+			if(member==null) {return "redirect:/login/login.do";}
+			if(member.getMidx() == midx) {
+				result = storeService.store_review_del(sridx);
+			}
+			
+			//상품 별점 및 리뷰갯수 갱신
+			StoreVO svo = new StoreVO();
+			svo = storeService.store_review_cnt(spidx);
+			svo.setSpidx(spidx);
+			double score = svo.getScore()/svo.getReview_cnt();
+			
+			score = Math.round(score * 10) / 10.0;
+
+			svo.setScore(score);
+			storeService.store_review_change(svo);
+			//--
+			
+			
+			return result+"";
+		}
 		
 	
 	
@@ -992,7 +1103,9 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/payment.do", method = RequestMethod.POST)
-	public String payment(Locale locale, Model model, BasketVO vo, HttpServletRequest request) throws Exception {
+	public String payment(Locale locale, Model model, BasketVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -1235,8 +1348,9 @@ public class MypageController {
 	public String fileUpload(Locale locale, Model model, HttpServletRequest request, @RequestParam("imgFile") MultipartFile imgFile) throws Exception {
 		
 		//String savePath = "C://Users//lth-m//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";  // 파일이 저장될 프로젝트 안의 폴더 경로
-		//String savePath = request.getServletContext().getRealPath("/resources/image");  // 파일이 저장될 프로젝트 안의 폴더 경로
-		String savePath ="C://Users//MYCOM//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";
+		String savePath = request.getServletContext().getRealPath("/resources/image");  // 파일이 저장될 프로젝트 안의 폴더 경로
+		//String savePath ="C://Users//MYCOM//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";
+		String savePath2 ="C://Users//MYCOM//git//TeamProject2022//HomeFriends//src//main//webapp//resources//image";
 		
 	    String originalFilename = imgFile.getOriginalFilename(); // fileName.jpg
 	    String onlyFileName = originalFilename.substring(0, originalFilename.indexOf(".")); // fileName

@@ -23,18 +23,20 @@
     <!-- naver SDK -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
+	
 	<title>홈 스토리 - 홈프렌즈 </title>
 	
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<link href="/controller/css/community/home_story.css" rel="stylesheet">
-	<script src="/controller/js/community/home_story.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/footer.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/home.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/community/home_story.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/community/home_story.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
 		
 </head>
 <body>
@@ -55,13 +57,13 @@
 	<section id="story_area">
 		<div class="row" id="storyimg">
 			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area">
-				<img src="/controller/upload/${CommMain.img_system}" id="MainImg" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
+				<img src="${pageContext.request.contextPath}/upload/${CommMain.img_system}" id="MainImg" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 				<div id="absolute_">
 					<div id="story_title" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 						${CommMain.title}
 					</div>
-					<div id="profile" onclick="location.href='/controller/mypage/Member_page.do?midx=${CommMain.midx}'">
-						<img class="writerImg" src="/controller/image/${CommMain.profile_system }">${CommMain.writer}
+					<div id="profile" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${CommMain.midx}'">
+						<img class="writerImg" src="${pageContext.request.contextPath}/image/${CommMain.profile_system }">${CommMain.writer}
 					</div>
 				</div>
 				<div id="btn_absolute" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
@@ -85,22 +87,22 @@
 					</div>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="/controller/image/slide01.webp" class="d-block w-100" alt="...">
+							<img src="${pageContext.request.contextPath}/image/slide01.webp" class="d-block w-100" alt="...">
 						</div>
 						<div class="carousel-item">
-							<img src="/controller/image/slide02.webp" class="d-block w-100" alt="...">
+							<img src="${pageContext.request.contextPath}/image/slide02.webp" class="d-block w-100" alt="...">
 						</div>
 						<div class="carousel-item">
-							<img src="/controller/image/slide03.webp" class="d-block w-100" alt="...">
+							<img src="${pageContext.request.contextPath}/image/slide03.webp" class="d-block w-100" alt="...">
 						</div>
 						<div class="carousel-item">
-							<img src="/controller/image/slide04.webp" class="d-block w-100" alt="...">
+							<img src="${pageContext.request.contextPath}/image/slide04.webp" class="d-block w-100" alt="...">
 						</div>
 						<div class="carousel-item">
-							<img src="/controller/image/slide05.webp" class="d-block w-100" alt="...">
+							<img src="${pageContext.request.contextPath}/image/slide05.webp" class="d-block w-100" alt="...">
 						</div>
 						<div class="carousel-item">
-							<img src="/controller/image/slide06.webp" class="d-block w-100" alt="...">
+							<img src="${pageContext.request.contextPath}/image/slide06.webp" class="d-block w-100" alt="...">
 						</div>
 					</div>
 				</div>
@@ -118,12 +120,12 @@
 			</div>
 			<c:forEach items="${list}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-					<img src="/controller/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+					<img src="${pageContext.request.contextPath}/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
 					<div class="storyText">
 						<!-- ${vo.title} -->
 						<div class="storyTitle" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
-						<div class="storyWriter" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
-							<img class="writerImg" src="/controller/image/${vo.profile_system }" onclick="">${vo.writer }
+						<div class="storyWriter" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" onclick="">${vo.writer }
 						</div>
 					</div>
 				</div>

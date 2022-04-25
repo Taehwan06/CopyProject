@@ -9,7 +9,7 @@ public class MemberPagingVO {
 	private int lastPage;
 	private int start;
 	private int end;
-	private int cntPage = 10;
+	private int cntPage = 5;
 	private String searchType;
 	private String searchValue;
 	private int midx;

@@ -22,16 +22,16 @@
 	
 	<title>회원별 주문 상세 - 홈프렌즈</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/management/stats_view.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/management/stats_view.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	
-	<script src="/controller/js/footer.js"></script>
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/management/stats_view.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/management/stats_view.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 
 </head>
 <body>
@@ -86,9 +86,8 @@
 		<table class="table table-responsive statsTable">
 			<thead>
 				<tr>
-					<th>주문 번호</th>
-					<th>아이디</th>
-					<th>구매 금액</th>
+					<th>주문 번호</th>	
+					<th>구매 금액</th>	
 					<th class="detailNum">상품 분류</th>
 					<th class="spidx">상품 등록 번호</th>
 					<th class="buyingDate">구매일</th>
@@ -98,7 +97,6 @@
 				<c:forEach items="${orderList}" var="list" varStatus="cnt">
 					<tr>
 						<td>${list.ordernumber}</td>
-						<td>${list.id}</td>
 						<td>${list.price}</td>
 						<td class="detailNum">${list.detail}</td>
 						<td class="spidx">${list.spidx}</td>

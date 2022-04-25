@@ -22,16 +22,16 @@
 		
 	<title>홈 프렌즈에 오신걸 환영합니다.</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/home.js"></script>
-	<script src="/controller/js/footer.js"></script>
-	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/home.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/home.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 
 </head>
 <body>
@@ -67,22 +67,22 @@
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="/controller/image/home01.jpg" class="d-block w-100" alt="...">
+					<img src="${pageContext.request.contextPath}/image/home01.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="/controller/image/home02.jpg" class="d-block w-100" alt="...">
+					<img src="${pageContext.request.contextPath}/image/home02.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="/controller/image/home03.jpg" class="d-block w-100" alt="...">
+					<img src="${pageContext.request.contextPath}/image/home03.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="/controller/image/home04.jpg" class="d-block w-100" alt="...">
+					<img src="${pageContext.request.contextPath}/image/home04.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="/controller/image/home05.jpg" class="d-block w-100" alt="...">
+					<img src="${pageContext.request.contextPath}/image/home05.jpg" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
-					<img src="/controller/image/home06.png" class="d-block w-100" alt="...">
+					<img src="${pageContext.request.contextPath}/image/home06.png" class="d-block w-100" alt="...">
 				</div>
 		
 			</div>
@@ -106,13 +106,13 @@
 				<span class="moreview" onclick="location.href='community/home_list.do?&sort=recent'">더보기</span>
 				<div class="clear"></div>
 			</div>
-			<c:forEach items="${list}" var="vo">
-				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story" <c:if test="${cnt.last}">id="mdlg_display_none"</c:if>>
-					<img src="/controller/upload/${vo.img_system }" class="storyImg" onclick="location.href='/controller/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+			<c:forEach items="${list}" var="vo" varStatus="cnt">
+				<div id="storyList${cnt.count }" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
+					<img src="${pageContext.request.contextPath}/upload/${vo.img_system }" class="storyImg" onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
 					<div class="storyText">
-						<div class="storyTitle" onclick="location.href='/controller/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
-						<div class="storyWriter" onclick="location.href='/controller/mypage/Member_page.do?midx=${vo.midx}'">
-							<img class="writerImg" src="/controller/image/${vo.profile_system }">${vo.writer }
+						<div class="storyTitle" onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
+						<div class="storyWriter" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }">${vo.writer }
 						</div>
 					</div>
 				</div>
@@ -125,14 +125,14 @@
 		<div class="row shopList">
 			<div class="shopListTitle">
 				추천 상품
-				<span class="moreview" onclick="location.href='/controller/store/store_list.do?type=review_cnt'">더보기</span>
+				<span class="moreview" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?type=review_cnt'">더보기</span>
 				<div class="clear"></div>
 			</div>
 		
 			<c:forEach items="${storeList}" end="3" var="storeListvo" varStatus="cnt">
-				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop" <c:if test="${cnt.last}">id="mdlg_display_none_"</c:if>>
-					<img src="${storeListvo.img_origin}" class="shopImg" onclick="location.href='/controller/store/store_view.do?spidx=${storeListvo.spidx}'">
-					<div class="shopText" onclick="location.href='/controller/store/store_view.do?spidx=${storeListvo.spidx}'">
+				<div id="storeList${cnt.count }" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
+					<img src="${pageContext.request.contextPath}/image/${storeListvo.img_system }" class="shopImg" onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${storeListvo.spidx}'">
+					<div class="shopText" onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${storeListvo.spidx}'">
 						<div class="shopTitle">
 							<div class="brand">${storeListvo.brand}</div>
 							${storeListvo.title}

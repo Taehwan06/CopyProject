@@ -22,16 +22,16 @@
 	
 	<title>회원별 주문 통계 - 홈프렌즈</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/management/stats.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/management/stats.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	
-	<script src="/controller/js/footer.js"></script>
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/management/stats.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/management/stats.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>	
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>	
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 
 </head>
 <body>
@@ -88,7 +88,7 @@
 					<th>아이디</th>
 					<th>구매 횟수</th>
 					<th>총 구매 금액</th>
-					<th class="detailNum">상품 분류</th>
+					<th class="detailNum">가입일</th>
 					<th class="recent">마지막 구매일</th>
 				</tr>
 			</thead>
@@ -99,7 +99,7 @@
 						<td>${list.id}</td>
 						<td>${list.buyingCnt}</td>
 						<td>${list.amount}</td>
-						<td class="detailNum">${list.detail}</td>
+						<td class="detailNum">${list.join_date}</td>
 						<td class="recent">${list.recentBuying}</td>
 					</tr>
 				</c:forEach>

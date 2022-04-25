@@ -8,7 +8,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">
-					<img class="col-4" id="modalLogo" src="/controller/image/mainLogo.png" alt="메인 로고" 
+					<img class="col-4" id="modalLogo" src="${pageContext.request.contextPath}/image/mainLogo.png" alt="메인 로고" 
 					onclick="location.href='${pageContext.request.contextPath}'">
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -62,7 +62,7 @@
 					</c:if>
 					<c:if test="${loginUser != null}">
 						<div class="" id="modalProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-							<img id="modalProfileImg" src="/controller/image/${loginUser.profile_system}"> ${loginUser.nick_name}
+							<img id="modalProfileImg" src="${pageContext.request.contextPath}/image/${loginUser.profile_system}"> ${loginUser.nick_name}
 						</div>
 					</c:if>		
 				</div>
@@ -75,7 +75,8 @@
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item">
 						<h2 class="accordion-header" id="headingOne">
-							<button class="accordion-button modalTextMenu" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							<button id="abtn1" class="abtn accordion-button modalTextMenu" type="button" data-bs-toggle="collapse" 
+							onclick="colorFn(this)" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 								스토어
 							</button>
 						</h2>
@@ -93,7 +94,8 @@
 					</div>
 					<div class="accordion-item">
 						<h2 class="accordion-header" id="headingTwo">
-							<button class="accordion-button collapsed modalTextMenu" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							<button id="abtn2" class="abtn accordion-button collapsed modalTextMenu" type="button" data-bs-toggle="collapse" 
+							onclick="colorFn(this)" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 								홈 스토리
 							</button>
 						</h2>
@@ -102,8 +104,7 @@
 								<ul class="list-unstyled">
 									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">홈 스토리</li>
 									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/community/following.do'">팔로잉</li>
-									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">스크랩</li>
-									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">질문 & 답변</li>
+									<li class="detailMenu" onclick="location.href='${pageContext.request.contextPath}/community/scrap.do'">스크랩</li>
 								</ul>
 							</div>
 						</div>
@@ -128,7 +129,7 @@
 	<div class="row" id="headerDiv">
 		
 		<div class="col-4" id="spaceDiv"></div>
-		<img class="col-4 col-pull-4 col-md-2 col-sm-3" id="logo" src="/controller/image/mainLogo.png" alt="메인 로고" 
+		<img class="col-4 col-pull-4 col-md-2 col-sm-3" id="logo" src="${pageContext.request.contextPath}/image/mainLogo.png" alt="메인 로고" 
 		onclick="location.href='${pageContext.request.contextPath}'">
 		<div class="col-2" id="spaceDiv"></div>
 		

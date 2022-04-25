@@ -22,4 +22,5 @@ public interface MemberService {
 	List<MemberVO> notfollowlist(List<FollowVO> flist) throws Exception;
 	MemberVO loginNaverMember(MemberVO vo) throws Exception;
 	int insertNaverMember(MemberVO vo) throws Exception;
+	MemberVO phoneCheckMember(MemberVO vo) throws Exception;
 }

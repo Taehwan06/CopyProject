@@ -56,22 +56,22 @@
 			</c:if>
 			<c:if test="${loginUser != null && loginUser.grade ne 'A' && loginUser.grade ne 'M'}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="/controller/image/${loginUser.profile_system}"> ${loginUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${loginUser.profile_system}"> ${loginUser.nick_name}
 				</li>
 			</c:if>
 			<c:if test="${naverUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="/controller/image/${naverUser.profile_system}"> ${naverUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${naverUser.profile_system}"> ${naverUser.nick_name}
 				</li>
 			</c:if>
 			<c:if test="${kakaoUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="/controller/image/${kakaoUser.profile_system}"> ${kakaoUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${kakaoUser.profile_system}"> ${kakaoUser.nick_name}
 				</li>
 			</c:if>
 			<c:if test="${facebookUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="/controller/image/${facebookUser.profile_system}"> ${facebookUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${facebookUser.profile_system}"> ${facebookUser.nick_name}
 				</li>
 			</c:if>
 			<c:if test="${loginUser != null && (loginUser.grade eq 'A' or loginUser.grade eq 'M')}">
@@ -157,9 +157,9 @@
 			<li class="col-sm-2 col-md-2 subMenu" id="community" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">홈 스토리</li>
 			<li class="col-sm-2 col-md-2 subMenu" id="following" onclick="location.href='${pageContext.request.contextPath}/community/following.do'">팔로잉</li>
 			<li class="col-md-2 subMenu" id="scrab" onclick="location.href='${pageContext.request.contextPath}/community/scrap.do'">스크랩</li>
-			<li class="col-md-2 subMenu" id="QnA" onclick="location.href='${pageContext.request.contextPath}/community/home_story.do'">질문 &amp; 답변</li>
-			<li class="col-sm-2 col-md-2 subMenu"></li>
-			<li class="col-sm-2 col-md-2 subMenu"></li>
+			<li class="col-md-2 subMenu2" id="QnA"></li>
+			<li class="col-sm-2 col-md-2 subMenu2"></li>
+			<li class="col-sm-2 col-md-2 subMenu2"></li>
 		</ul>
 	</div>
 </nav>

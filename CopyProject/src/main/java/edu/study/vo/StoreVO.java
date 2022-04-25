@@ -9,6 +9,8 @@ public class StoreVO {
 	private String product_name;
 	private String origin_price;
 	private String sale_price;
+	private String oview_price;
+	private String view_price;
 	
 	private String brand;
 	private double score;
@@ -238,6 +240,24 @@ public class StoreVO {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+	
+	
+	//도트넣은 금액
+	public String getView_price() {
+		return view_price;
+	}
+
+	public void setView_price(String view_price) {
+		this.view_price = view_price;
+	}
+
+	public String getOview_price() {
+		return oview_price;
+	}
+
+	public void setOview_price(String oview_price) {
+		this.oview_price = oview_price;
 	}
 
 

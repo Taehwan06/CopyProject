@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
     
 <div class="col-12 col-lg-3 mydiv1">
 	<div id="mypage_profile_box" class="row">
 		<div class="col-3 col-lg-12" id="profile_image">
-			<img src="/controller/image/${vo.profile_system}">
+			<img src="${pageContext.request.contextPath}/image/${vo.profile_system}">
 		</div>
 		<div class="col-9 col-lg-12" id="profile_id">
 			<div id="profile_name">

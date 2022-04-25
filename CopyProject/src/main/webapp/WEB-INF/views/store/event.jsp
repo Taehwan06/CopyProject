@@ -15,27 +15,31 @@
 	<!-- Bootstrap icon CSS-->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
-	
-	<title>이벤트 목록</title>
-	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/store/event.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/home.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/footer.js"></script>
-<!-- kakao SDK -->
+	<!-- kakao SDK -->
    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
    <!-- facebook SDK -->
    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
    <!-- naver SDK -->
    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   <!-- sweet alert SDK -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-		
+	<!-- 페이지 경로가져오기 -->
+   <script>var contextPath = "${pageContext.request.contextPath}"</script>
+	
+	<title>이벤트 목록</title>
+	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_common.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/event.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/home.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	
 
 </head>
 <body>
@@ -48,7 +52,7 @@
 		<div class="row">
 			<c:forEach items="${elist}" var="evo" varStatus="cnt">
 			<div class="col-sm-12 col-md-6 col-lg-4 eventBanner">
-				<a href="/controller/store/event_view.do?eidx=${evo.eidx}"><img class="img100" alt="" src="${evo.main_img}"></a>
+				<a href="${pageContext.request.contextPath}/store/event_view.do?eidx=${evo.eidx}"><img class="img100" alt="" src="${evo.main_img}"></a>
 			</div>
 			</c:forEach>
 		</div>

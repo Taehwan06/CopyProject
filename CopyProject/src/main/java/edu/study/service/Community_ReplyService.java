@@ -35,8 +35,10 @@ public interface Community_ReplyService {
 	
 	//댓글 복구
 	int redistribution(int cbridx) throws Exception;
-
+	
+	//함수 제거
 	Object delfnc() throws Exception;
-
+	
+	//함수 추가
 	Object intofnc(int cbidx) throws Exception;
 }

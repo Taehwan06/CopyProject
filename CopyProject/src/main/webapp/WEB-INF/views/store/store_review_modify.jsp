@@ -26,30 +26,34 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 	-->
-	
-	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/store/store_review_insert.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/store/store_review_modify.js"></script>
-	<script src="/controller/js/footer.js"></script>
-	<!-- sweet alert SDK -->
-   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
-	<!-- 썸머노트 -->
-	<script src="/controller/js/summernote/summernote-lite.js"></script>
-	<script src="/controller/js/summernote/lang/summernote-ko-KR.js"></script>
-	<link rel="stylesheet" href="/controller/css/summernote/summernote-lite.css">
 	<!-- kakao SDK -->
    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
    <!-- facebook SDK -->
    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
    <!-- naver SDK -->
    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+   <!-- 페이지 경로가져오기 -->
+   <script>var contextPath = "${pageContext.request.contextPath}"</script>
+   <!-- sweet alert SDK -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_review_insert.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/store/store_review_modify.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	
+	
+	<!-- 썸머노트 -->
+	<script src="${pageContext.request.contextPath}/js/summernote/summernote-lite.js"></script>
+	<script src="${pageContext.request.contextPath}/js/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/summernote/summernote-lite.css">
+	
+   
 	<script>
 		var spidx = ${rvo.spidx};
 		var sridx = ${rvo.sridx};
@@ -59,10 +63,11 @@
 		$(document).ready(function(){
 			if(${not empty rvo.img_origin}){
 				$("#imgArea").css("background-color", "none");
+				
 				$("#imgText").css("display", "none");
 				$("#imgButton").css("display", "none");
 			}
-			$("#imgArea").css("background-image", "url('${rvo.img_origin}')");
+			$("#imgArea").css("background-image", "url('"+contextPath+"/image/${rvo.img_system}')");
 			$(":radio[name='score'][value='" + ${rvo.score} + "']").attr('checked', true);
 
 			$("#reviewContents").val(content);
@@ -81,7 +86,7 @@
 	<section>
 		<div id="product_page">
 			<div id="product_information" class="row">
-				<img id="product_img" class="col-3 col-md-3" alt="" src="${vo.img_origin}">
+				<img id="product_img" class="col-3 col-md-3" alt="" src="${pageContext.request.contextPath}/image/${vo.img_system}">
 				<div id="product_title" class="col-8 col-md-8"><c:out value="${vo.product_name}"/></div>
 			</div>
 			<h2 id="page_sub_title">상품리뷰 수정하기</h2>
@@ -114,7 +119,7 @@
 		
 		<form class="mb-3" name="myform" id="myform" method="post">
 			<input type="hidden" name="img_origin" id="img_origin" value="${rvo.img_origin}">
-			<input type="hidden" name="img_system" id="img_system" value="${rvo.img_origin}">
+			<input type="hidden" name="img_system" id="img_system" value="${rvo.img_system}">
 			
 			<fieldset>
 				<span class="text-bold">별점을 선택해주세요</span>

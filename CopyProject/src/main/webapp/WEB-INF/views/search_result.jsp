@@ -22,17 +22,16 @@
 	
 	<title>검색 결과 - 홈프렌즈</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/home.css" rel="stylesheet">
-	<link href="/controller/css/search_result.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/footer.js"></script>
-	
-	
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/home.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/search_result.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>	
 
 </head>
 <body>
@@ -56,7 +55,7 @@
 			<div class="row">
 				<div class="searchType bold col-8">홈 스토리</div>
 				<div class="col-4 moreButtonDiv">
-					<span class="moreview" onclick="location.href='/controller/community/home_list.do?searchValue=${searchvo.search_value}'">더보기</span>
+					<span class="moreview" onclick="location.href='${pageContext.request.contextPath}/community/home_list.do?searchValue=${searchvo.search_value}'">더보기</span>
 		           	<div class="clear"></div>
 				</div>
 			</div>
@@ -64,12 +63,12 @@
 			<div class="row storyList">
 				<c:forEach items="${storyList}" end="7" var="storyListVO" varStatus="cnt">
 					<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-						<img src="/controller/upload/${storyListVO.img_system}" class="storyImg" 
-						onclick="location.href='/controller/community/home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
-						<div class="storyText" onclick="/controller/community/location.href='home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
+						<img src="${pageContext.request.contextPath}/upload/${storyListVO.img_system}" class="storyImg" 
+						onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
+						<div class="storyText" onclick="${pageContext.request.contextPath}/community/location.href='home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
 							<div class="storyTitle">${storyListVO.title}</div>
 							<div class="storyWriter">
-								<img class="writerImg" src="/controller/image/${storyListVO.profile_system}">${storyListVO.writer}
+								<img class="writerImg" src="${pageContext.request.contextPath}/image/${storyListVO.profile_system}">${storyListVO.writer}
 							</div>
 						</div>
 					</div>
@@ -86,7 +85,7 @@
 			<div class="row">
 				<div class="searchType bold col-8">스토어</div>
 				<div class="col-4 moreButtonDiv">
-					<span class="moreview" onclick="location.href='/controller/store/store_list.do?searchValue=${searchvo.search_value}'">더보기</span>
+					<span class="moreview" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?searchValue=${searchvo.search_value}'">더보기</span>
 		           	<div class="clear"></div>
 				</div>
 			</div>
@@ -94,9 +93,9 @@
 				<div class="row shopList">
 					<c:forEach items="${storeList}" end="7" var="storeListVO" varStatus="cnt">
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
-							<img src="${storeListVO.img_origin}" class="shopImg" 
-							onclick="location.href='/controller/store/store_view.do?spidx=${storeListVO.spidx}'">
-							<div class="shopText" onclick="location.href='/controller/store/store_view.do?spidx=${storeListVO.spidx}'">
+							<img src="${pageContext.request.contextPath}/image/${storeListVO.img_system }" class="shopImg" 
+							onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${storeListVO.spidx}'">
+							<div class="shopText" onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${storeListVO.spidx}'">
 								<div class="shopTitle">
 									<div class="brand">${storeListVO.brand}</div>
 									${storeListVO.title}

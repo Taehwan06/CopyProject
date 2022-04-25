@@ -15,8 +15,6 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
 	<!-- kakao SDK -->
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<!-- facebook SDK -->
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 	<!-- naver SDK -->
 	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 	<!-- sweet alert SDK -->
@@ -24,15 +22,16 @@
 	
 	<title>회원 가입 - 홈프렌즈</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/login/join.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/login/join1.js"></script>
-	<script src="/controller/js/footer.js"></script>
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/login/join.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/login/join1.js"></script>
+	<script src="${pageContext.request.contextPath}/js/footer.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
 
 
 </head>
@@ -54,15 +53,15 @@
 					<div name="idHead" id="idHead" class="head">아이디</div>
 				</label>
 				<input type="text" name="id" id="id" class="input value" onblur="onBlurFn(this)" placeholder="예) IU@hanmail.net">
-				<input type="button" name="idbtn" id="idbtn" class="idbtn button" value="인증메일 발송" onclick="sendMailFn()">
+				<input type="button" name="idbtn" id="idbtn" class="idbtn button" value="중복 확인" onclick="idCheck()">
 			</div>
 			
 			<label for="id">
 				<div id="idFoot" class="foot">아이디를 입력하세요</div>
 			</label>
 			
-			<!-- 인증번호 입력 -->
-			<div class="emailArea border">
+			<!-- 이메일 인증번호 입력 -->
+			<!-- <div class="emailArea border">
 				<label for="emailcheck" class="label">
 					<div name="emailcheckHead" id="emailcheckHead" class="head">인증번호</div>
 				</label>
@@ -72,8 +71,33 @@
 			
 			<label for="emailcheck">
 				<div id="emailFoot" class="foot">이메일로 발송된 인증번호를 입력해주세요</div>
+			</label> -->				
+			
+			<!-- 휴대폰 번호 -->
+			<div class="mobileNo border phoneArea"> 
+				<label for="phone" class="label">
+					<div name="phoneHead" id="phoneHead" class="head">휴대폰 번호</div>
+				</label>
+				<input name="phone" id="phone" type="text" class="input value" title="전화번호 입력" onblur="onBlurFn(this)" placeholder="숫자만 입력하세요 예) 01012345678" required/> 
+				<input id="phoneChk" class="doubleChk button" type="button" value="인증번호 발송" onclick="phoneCheckFn()">
+			</div>
+						
+			<label for="phone">
+				<div class="foot" id="phoneFoot">휴대폰 번호를 입력하세요</div>
 			</label>
-	
+			
+			<!-- 인증번호 입력 -->
+			<div class="border">
+				<label for="phoneCheck" class="label">
+					<div class="head">인증번호</div>
+				</label>
+				<input name="phoneCheck" id="phoneCheck" type="text" class="input value" title="인증번호 입력" required/> 
+				<input id="phoneChk2" class="doubleChk button" type="button" value="인증번호 확인" onclick="checkphone2()">
+			</div>
+			
+			<label for="phoneCheck">
+				<div id="phoneCheckFoot" class="foot successPhoneChk">인증번호를 입력해주세요</div>
+			
 			<!-- 비밀번호 -->
 			<div class="pwdArea border">
 				<label for="pwd" class="label">
@@ -132,15 +156,13 @@
 			<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
 			<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 			</div>
-	
-			
-			
+		
 			<label for="addrbtn">
 				<div id="addrFoot" class="foot">우편번호 찾기를 이용하세요</div>
 			</label>
 	
 			<!-- 연락처 -->
-			<div class="phoneArea border">
+			<!-- <div class="phoneArea border">
 				<label for="phone2" class="label">
 					<div name="phoneHead" id="phoneHead" class="head">연락처</div>
 				</label>
@@ -158,7 +180,7 @@
 			</div>
 			<label for="phone2">
 				<div class="foot" id="phoneFoot">연락처를 입력하세요</div>
-			</label>
+			</label> -->
 	
 			<!-- 생년월일 -->
 			<div class="birthArea border">
@@ -212,13 +234,13 @@
 					<a href="${pageContext.request.contextPath}/login/login.do">로그인</a>
 				</div>
 			</div>
-		</form>	
+		</form>
 		
 	</section>
 	
 	<!-- 우편번호 찾기 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="/controller/js/login/join2.js"></script>
+	<script src="${pageContext.request.contextPath}/js/login/join2.js"></script>
 
 	<%@ include file="../footer.jsp" %>
 	

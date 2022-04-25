@@ -21,11 +21,15 @@
 		WHERE
 			c.del_yn = "N"
 		AND	(
+		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
 			title like CONCAT("%",#{search_value},"%")
+		</foreach>
+		OR
+		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
+			content like CONCAT("%",#{search_value},"%")
+		</foreach>			
 		OR	
 			writer like CONCAT("%",#{search_value},"%")
-		OR
-			content like CONCAT("%",#{search_value},"%")
 		)
     </select>
     
@@ -47,13 +51,21 @@
 		WHERE
 			del_yn = "N"
 		AND	(
+		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
 			title like CONCAT("%",#{search_value},"%")
+		</foreach>
 		OR	
+		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
 			brand like CONCAT("%",#{search_value},"%")
-		OR
+		</foreach>
+		OR 
+		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
 			content like CONCAT("%",#{search_value},"%")
-		OR
+		</foreach>	
+		OR 
+		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
 			product_name like CONCAT("%",#{search_value},"%")
+		</foreach>
 		)
     </select>
     

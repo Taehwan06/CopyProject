@@ -12,19 +12,27 @@
 	<!-- Bootstrap icon CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.0/font/bootstrap-icons.css" />
+    <!-- kakao SDK -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- naver SDK -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <!-- facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script>var contextPath = "${pageContext.request.contextPath}"</script>
+	<!-- sweet alert SDK -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<title>회원정보수정 - 홈프렌즈</title>
 	
-	<link href="/controller/css/header.css" rel="stylesheet">
-	<link href="/controller/css/nav.css" rel="stylesheet">
-	<link href="/controller/css/mypage/member_modify.css" rel="stylesheet">
-	<link href="/controller/css/footer.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/mypage/member_modify.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
 	
-	<script src="/controller/js/jquery-3.6.0.min.js"></script>
-	<script src="/controller/js/header.js"></script>
-	<script src="/controller/js/nav.js"></script>
-	<script src="/controller/js/mypage/member_modify.js"></script>
-
+	<script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
+	<script src="${pageContext.request.contextPath}/js/nav.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/member_modify.js"></script>	
 
 </head>
 <body>
@@ -62,7 +70,7 @@
 									닉네임
 								</div>
 								<div class="Edit edit_member_form">
-									<input type="text" id="nickInput" value="${vo.nick_name}" name="nick_name" onchange="guide('nickname')" pattern="^[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$">
+									<input type="text" id="nickInput" value="${vo.nick_name}" name="nick_name" onchange="guide('nickname')" pattern="[가-힣0-9a-zA-Z]{1,20}$">
 								</div>
 								<div class="text-span">
 									<div class="Edit vacantSpan"></div><span id="guideSpan">&nbsp;&nbsp;</span>
@@ -95,8 +103,8 @@
 										<option value="011" <c:if test="${phone1 == '011'}">selected</c:if>>011</option>
 										<option value="016" <c:if test="${phone1 == '016'}">selected</c:if>>016</option>
 									</select>
-									<input type="text" class="phoneInput" name="phone2" id="phone2" maxlength="4" value="${phone2}" onchange="guide('phone')"  pattern="[0-9]+">
-									<input type="text" class="phoneInput" name="phone3" id="phone3" maxlength="4" value="${phone3}" onchange="guide('phone')"  pattern="[0-9]+">
+									<input type="text" class="phoneInput" name="phone2" id="phone2" maxlength="4" value="${phone2}" onchange="guide('phone')"  pattern="^[0-9]+">
+									<input type="text" class="phoneInput" name="phone3" id="phone3" maxlength="4" value="${phone3}" onchange="guide('phone')"  pattern="^[0-9]+">
 								</div>
 								<div class="text-span">
 									<div class="Edit vacantSpan"></div><span id="guideSpan2">&nbsp; 가이드스판2</span>
@@ -128,9 +136,10 @@
 									<input type="text" id="AddrInput3" value="${vo.addr}" name="addr" readonly>
 								</div>
 							</div>
-							
+							 
 							<input type="hidden" name="profile_origin" id="profile_origin" value="">
 							<input type="hidden" name="profile_system" id="profile_system" value="">
+							<input type="hidden" name="profile_prev" id="profile_prev" value="${vo.profile_system}">
 							<input type="hidden" value="${vo.midx}" name="midx">
 							
 							<div class="edit_dummy">
@@ -142,7 +151,7 @@
 								<label for="imgUpload" id="imgLabel">
 									<div id="imgArea" class="Edit edit_member_form imageDiv">
 										<img id="coverImg" name="coverImg" alt="" onclick="imgValCheckFn()"
-										src="/controller/image/${vo.profile_system}" width="180px">
+										src="${pageContext.request.contextPath}/image/${vo.profile_system}" width="180px">
 									</div>
 								</label>
 								
@@ -168,7 +177,7 @@
 	
 	</section>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="/controller/js/login/join2.js"></script>
+	<script src="${pageContext.request.contextPath}/js/login/join2.js"></script>
 	
 	<%@ include file="../footer.jsp" %>
 	<!-- 부트스트랩 -->	

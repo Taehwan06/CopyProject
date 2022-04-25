@@ -86,6 +86,10 @@ public class MemberDAO {
 		return sqlSession.insert(Namespace+".insertNaverMember",vo);
 	}
 	
+	public MemberVO phoneCheckMember(MemberVO vo) throws Exception{
+		return sqlSession.selectOne(Namespace+".phoneCheckMember",vo);
+	}
+	
 }
 
 

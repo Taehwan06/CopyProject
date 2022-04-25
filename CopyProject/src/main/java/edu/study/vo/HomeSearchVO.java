@@ -5,8 +5,15 @@ public class HomeSearchVO {
 	private String searchType;
 	private String search_value;
 	private int cnt;
+	private String[] searchValueAry;
 	
 	
+	public String[] getSearchValueAry() {
+		return searchValueAry;
+	}
+	public void setSearchValueAry(String[] searchValueAry) {
+		this.searchValueAry = searchValueAry;
+	}
 	public int getCnt() {
 		return cnt;
 	}

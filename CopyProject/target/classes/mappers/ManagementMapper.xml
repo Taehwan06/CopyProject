@@ -284,7 +284,7 @@
 		    		o.spidx, 
 		    		m.midx, 
 		    		m.id, 
-		    		m.join_date, 
+		    		DATE_FORMAT(m.join_date, "%Y-%m-%d") AS join_date, 
 		    		FORMAT(SUM(o.price*o.cnt), 0) AS amount, 
 					MAX(o.buying_date) AS recentBuying, 
 					CASE 
@@ -363,7 +363,7 @@
 				AND 
 					del_yn = #{searchValue} 
 			</if>
-			<if test="period == null or period.equals('1week')">
+			<if test="period == null or period.equals('1week') or period.equals('')">
 				AND 
 					o.buying_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) 
 			</if>
