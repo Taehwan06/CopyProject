@@ -46,12 +46,12 @@
 		<div id="carouselExampleIndicators" class="carousel slide mainCarousel carousel-fade" data-bs-ride="carousel">
 			<div class="carousel-indicators">
 				
-				<button class="carButton" id="pause">
+				<button class="carButton" id="pause" onclick="pauseFn()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
 						<path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
 					</svg>
 				</button>
-				<button class="carButton" id="cycle">
+				<button class="carButton" id="cycle" onclick="cycleFn()">
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
 						<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
 					</svg>
@@ -108,11 +108,11 @@
 			</div>
 			<c:forEach items="${list}" var="vo" varStatus="cnt">
 				<div id="storyList${cnt.count }" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-					<img src="${pageContext.request.contextPath}/upload/${vo.img_system }" class="storyImg" onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+					<img src="${pageContext.request.contextPath}/upload/${vo.img_system }" class="storyImg" onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'" alt="${vo.title }">
 					<div class="storyText">
 						<div class="storyTitle" onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
 						<div class="storyWriter" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
-							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }">${vo.writer }
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" alt="게시글 작성자 사진">${vo.writer }
 						</div>
 					</div>
 				</div>
@@ -137,8 +137,9 @@
 							<div class="brand">${storeListvo.brand}</div>
 							${storeListvo.title}
 						</div>
-						<div class="shopPrice">
-							<span class="red">${storeListvo.discount}%</span> ${storeListvo.sale_price}
+						<div class="shopPrice row">
+							<div class="discount_area col-4"><span class="red discount">${storeListvo.discount}%</span></div><div class="price_area col-8"><span class="origin">${storeListvo.origin_price}원</span><br>
+							${storeListvo.view_price}원</div>
 						</div>
 						<span class="sky">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -149,7 +150,6 @@
 					</div>
 				</div>
 			</c:forEach>
-			
 		</div>
 		
 	</section>

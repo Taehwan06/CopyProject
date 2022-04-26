@@ -7,11 +7,12 @@
 
 	<select id="searchStory" resultType="homeStoryVO" parameterType="homeSearchVO">
 		SELECT
-			cbidx,
-			writer,
-			title,
-			img_system,
-			profile_system
+			c.cbidx,
+			c.writer,
+			c.title,
+			c.img_system,
+			m.profile_system, 
+			c.midx 
 		FROM
 			community_board c
         INNER JOIN 
@@ -41,11 +42,13 @@
 			midx,
 			img_system,
 			brand,
-			origin_price,
 			sale_price,
+			origin_price, 
 			score,
 			discount,
-			review_cnt
+			review_cnt, 
+			FORMAT(sale_price,0) as view_price, 
+			FORMAT(origin_price,0) as oview_price 
 		FROM
 			shopping_product
 		WHERE
@@ -116,7 +119,9 @@
 			sale_price,
 			score,
 			discount,
-			review_cnt
+			review_cnt, 
+			FORMAT(sale_price,0) as view_price, 
+			FORMAT(origin_price,0) as oview_price 
 		FROM
 			shopping_product
 		WHERE

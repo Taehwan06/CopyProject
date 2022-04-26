@@ -1,21 +1,84 @@
 /* 사이드 메뉴 바 */
-$(window).scroll(function(){
-	if ($(this).scrollTop() > 700){
-		$('.slide_bar').css({"display" : "block"});
-		$('.slide_bar_').css({"display" : "block"});
-		$('.slide_bar').show();
-		$('.slide_bar_').show();
-	} else{
-		$('.slide_bar').hide();
-		$('.slide_bar_').hide();
-	}
-});
+if($(window).width() > 1400){
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 700){
+			$('.slide_bar').css({"display" : "block"});
+			$('.slide_bar_').css({"display" : "block"});
+			$('.slide_bar').show();
+			$('.slide_bar_').show();
+		} else{
+			$('.slide_bar').hide();
+			$('.slide_bar_').hide();
+		}
+	});	
+}else if($(window).width() > 1200){
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 550){
+			$('.slide_bar').css({"display" : "block"});
+			$('.slide_bar_').css({"display" : "block"});
+			$('.slide_bar').show();
+			$('.slide_bar_').show();
+		} else{
+			$('.slide_bar').hide();
+			$('.slide_bar_').hide();
+		}
+	});	
+}else if($(window).width() > 992){
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 400){
+			$('.slide_bar').css({"display" : "block"});
+			$('.slide_bar_').css({"display" : "block"});
+			$('.slide_bar').show();
+			$('.slide_bar_').show();
+		} else{
+			$('.slide_bar').hide();
+			$('.slide_bar_').hide();
+		}
+	});	
+}else if($(window).width() > 768){
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 300){
+			$('.slide_bar').css({"display" : "block"});
+			$('.slide_bar_').css({"display" : "block"});
+			$('.slide_bar').show();
+			$('.slide_bar_').show();
+		} else{
+			$('.slide_bar').hide();
+			$('.slide_bar_').hide();
+		}
+	});	
+}else if($(window).width() > 576){
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 220){
+			$('.slide_bar').css({"display" : "block"});
+			$('.slide_bar_').css({"display" : "block"});
+			$('.slide_bar').show();
+			$('.slide_bar_').show();
+		} else{
+			$('.slide_bar').hide();
+			$('.slide_bar_').hide();
+		}
+	});	
+}else{
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 100){
+			$('.slide_bar').css({"display" : "block"});
+			$('.slide_bar_').css({"display" : "block"});
+			$('.slide_bar').show();
+			$('.slide_bar_').show();
+		} else{
+			$('.slide_bar').hide();
+			$('.slide_bar_').hide();
+		}
+	});	
+}
+
 
 /* 팔로우 요청 */
 function follow(fmidx){
 	$.ajax({
 		type : 'post',
-		url : '/controller/follow/followC',
+		url : contextPath+'/follow/followC',
 		data : 'fmidx='+fmidx,
 		success : function(result){
 			if(result == "FollowOK"){
@@ -30,7 +93,7 @@ function follow(fmidx){
 function unfollow(fmidx){
 	$.ajax({
 		type : 'post',
-		url : '/controller/follow/unfollowC',
+		url : contextPath+'/follow/unfollowC',
 		data : 'fmidx='+fmidx,
 		success : function(result){
 			if(result == "UnFollowOK"){
@@ -45,7 +108,7 @@ function unfollow(fmidx){
 function scrap(cbidx){
 	$.ajax({
 		type : 'post',
-		url : '/controller/scrap/scrapUp',
+		url : contextPath+'/scrap/scrapUp',
 		data : 'cbidx='+cbidx,
 		success  : function(result){
 			if(result == "ScrapOK"){
@@ -59,7 +122,7 @@ function scrap(cbidx){
 function unscrap(cbidx){
 	$.ajax({
 		type : 'post',
-		url : '/controller/scrap/scrapDown',
+		url : contextPath+'/scrap/scrapDown',
 		data : 'cbidx='+cbidx,
 		success : function(result){
 			if(result == "UnScrapOK"){
@@ -158,7 +221,7 @@ function replydel(cbridx){
 		 var formdata = form.serialize();
 		
 		 $.ajax({
-			 url : "/controller/reply/delete",
+			 url : contextPath+"/reply/delete",
 			 type : "post",
 			 data : formdata,
 			 success : function(data){
@@ -182,7 +245,7 @@ function replymodify(cbridx, img){
 	var contents = "<form id='RereplyFrm' name='RereplyFrm' method='post'>"
 				+ "<input type='hidden' name='cbridx' value="+cbridx+">"
 				+ "<div class='reply_writer'>"
-				+ "<img class='reply_item_content_writer_image' src='/controller/image/"+img+"'></div>"
+				+ "<img class='reply_item_content_writer_image' src='"+contextPath+"/image/"+img+"'></div>"
 				+ "<textarea name='content' class='Re' onkeyup='adjustHeight_()'>"+content+"</textarea>"
 				+ "<div class='mfdel_'><button type='button' class='Rereply_submit' onclick='Resubmit()'>등록</button>"
 				+ "<button type='button' onclick='Recancle()'>취소</button></div>"
@@ -199,7 +262,7 @@ function replymodify(cbridx, img){
 function replyRedistribution(cbridx){
 	
 	$.ajax({
-		url : "/controller/reply/redistribution",
+		url : contextPath+"/reply/redistribution",
 		type : "post",
 		data : "cbridx="+cbridx,
 		success : function(result){
@@ -216,7 +279,7 @@ function Resubmit(){
 	formdata = decodeURIComponent(formdata);
 	
 	$.ajax({
-		url : "/controller/reply/modify",
+		url : contextPath+"/reply/modify",
 		type : "post",
 		data : formdata,
 		success : function(data){
@@ -251,7 +314,7 @@ function ReNot(){
 		button : "확인",
 		closeOnClickOutside : false
 	}).then(function(){
-		location.href = "/controller/login/login.do"
+		location.href = contextPath+"/login/login.do"
 	});
 }
 
@@ -273,7 +336,7 @@ function Reinsert(orincbridx){
 	formdata = decodeURIComponent(formdata);
 	
 	$.ajax({
-		url : "/controller/reply/Reinsert",
+		url : contextPath+"/reply/Reinsert",
 		type : "post",
 		data : formdata,
 		success : function(data){
@@ -287,21 +350,32 @@ function Reinsert(orincbridx){
 
 /* 댓글 작성 */
 $(document).ready(function(){
-	
 	$(".reply_submit").on("click", function(){
 		
-		var formdata = $("form[name='replyFrm']").serialize();
-		
-		$.ajax({
-			url : "/controller/reply/write",
-			type : "post",
-			data : formdata,
-			success : function(data){
-				location.reload();
-			},
-			error : function(data){
-				console.log("error");
-			}
-		});
+		if(!$(".reply_content_input_text").val().replace(/(^\s*)|(\s*$)/gi, "")){
+			swal({
+				text : "내용을 입력하세요.",
+				button : "확인",
+				closeOnClickOutside : false
+			}).then(function(){
+				$(".reply_content_input_text").focus();
+				return;
+			});
+		}else{
+			var formdata = $("form[name='replyFrm']").serialize();
+			$.ajax({
+				url : contextPath+"/reply/write",
+				type : "post",
+				data : formdata,
+				success : function(data){
+					location.reload();
+				},
+				error : function(data){
+					console.log("error");
+				}
+			});	
+		}
 	});
+	var img = document.getElementsByTagName("img");
+	$(".content_img").children().find(img).css("width", "100%");
 });

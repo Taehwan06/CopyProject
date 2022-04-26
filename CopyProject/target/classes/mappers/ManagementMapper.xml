@@ -408,6 +408,7 @@
 			o.midx, 
 			o.ordernumber, 
 			m.id, 
+			FORMAT(o.price, 0) as view_price,  
 			CASE 
 				WHEN s.detail = "11" THEN "소파" 
 				WHEN s.detail = "12" THEN "수납장" 

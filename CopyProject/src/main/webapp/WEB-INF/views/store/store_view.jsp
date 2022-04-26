@@ -380,7 +380,7 @@
 					<div>배송</div>
 				</div>
 				<div id="delivery_area">
-					<table id="delivery_table">
+					<table id="delivery_table" class="delivery_area_table">
 						<tbody>
 							<tr>
 								<td>배송</td>
@@ -418,7 +418,7 @@
 					<div>교환/환불</div>
 				</div>
 				<div id="change_area">
-					<table id="change_table">
+					<table id="change_table" class="delivery_area_table">
 						<tr>
 							<td>반품배송비</td>
 							<td>5,000원 (최초 배송비가 무료인 경우 10,000원 부과)</td>

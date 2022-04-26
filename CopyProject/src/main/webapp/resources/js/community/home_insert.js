@@ -35,10 +35,18 @@ function submitFn(){
 	
 }
 function cancelFn(){
-	var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");
-	if(isCancel){
-		location.href = "home_list.do"
-	}
+	swal({
+       text: "이 페이지를 나가면 수정된 사항이 모두 유실됩니다!\n 그래도 나가시겠어요?",
+       icon: "warning",
+       buttons: [" 취소 ", " 확인 "],
+       dangerMode: false,
+	}).then((willDelete) => {
+       if (willDelete) {
+         location.href= "home_list.do";
+	   } else {
+	      return
+	   }
+	});
 }
 /* 이미지 업로드 */
 
@@ -78,8 +86,6 @@ $(function() {
 	});
 });
 
-
-
 $(document).ready(function() {
 	
 	$('#summernote').summernote({
@@ -91,7 +97,7 @@ $(document).ready(function() {
 		lang: "ko-KR",					// 한글 설정
 		placeholder: '내용을 입력해주세요.',	//placeholder 설정
 		
-		 toolbar: [
+		toolbar: [
 			    // [groupName, [list of button]]
 			    ['fontname', ['fontname']],
 			    ['fontsize', ['fontsize']],
@@ -101,9 +107,20 @@ $(document).ready(function() {
 			    ['height', ['height']],
 			    ['insert',['picture']]
 			  ],
-			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-
+		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+		callbacks: {
+			onImageUpload: function(image) {
+				var file = image[0];
+				var reader = new FileReader();
+				reader.onloadend = function() {
+					var image = $('<img>').attr('src',  reader.result);
+					image.attr('width','100%');
+					$('#summernote').summernote("insertNode", image[0]);
+				}
+				reader.readAsDataURL(file);
+			}
+		}
 	});
 	
 	$("input[type=file]").on("change", function(e){
@@ -141,7 +158,6 @@ $(document).ready(function() {
 				    uuid = this["uuid"]
 				});
 				var filePath = uploadPath + "/" + uuid + "_" + fileName;
-
 			    
 				ornval = orinfilename.val(fileName);
 				upload = uploadfilename.val(filePath);
@@ -186,4 +202,8 @@ $(document).ready(function() {
 		return true;		
 		
 	}
+	
+	$(".note-editor").css({"width" : "auto", "max-width" : "750px" , "min-width" : "500px"});
+	
+	
 });

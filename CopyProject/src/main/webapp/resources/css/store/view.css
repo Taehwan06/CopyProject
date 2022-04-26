@@ -53,9 +53,15 @@ body{
 	line-height : 40px;
 }
 .discount{
+	padding-top:20px;
 	width : 100px;
 	color : #ffb6c1;
 	font-size : 30px;
+}
+.origin{
+	font-size: 0.8em;
+	text-decoration:line-through;
+	color: gray;
 }
 .price{
 	margin-top : 15px;
@@ -247,7 +253,7 @@ article{
 }
 .hidden_area{
 	width : 100%;
-	height : 55vh;
+	height : 40vh;
 }
 .buy_area{
 	max-width : 33%;
@@ -285,7 +291,7 @@ article{
 	font-size : 20px;
 	font-weight : bold;
 }
-._product, ._review, ._QnA, ._change{
+._product, ._review, ._QnA, ._change, #QnAwrite, #reviewwrite{
 	cursor : pointer;
 }
 #buy_btn2{
@@ -303,11 +309,16 @@ article{
 	width : 100%;
 	font-weight : bold;
 	margin-bottom : 20px;
+	text-align: right;
 }
+
 .price___ span {
-	float : right;
 	font-size : 24px;
 }
+/* .price___ span {
+	float : right;
+	font-size : 24px;
+} */
 .Top_btn_{
 	position : fixed;
 	bottom : 30px;
@@ -334,7 +345,14 @@ article{
 	color : white;
 	border : none;
 }
-
+a {
+	cursor:default;
+	text-decoration: none;
+	color: black;
+}
+a:hover{
+	color: black;
+}
 .hiddenCnt{
 	display: none;
 }
@@ -664,6 +682,9 @@ p{
 	color : white;
 	text-decoration : none;
 }
+.delivery_area_table{
+	width: 100%;
+}
 
 /*미디어쿼리*/
 @media screen and (min-width: 1400px){
@@ -739,6 +760,9 @@ p{
 	.buy_area{
 		display: none;
 	}
+	.content{
+		margin-left : 20px;
+	}
 }
 @media screen and (max-width: 575.99px){
 	#hiddenDiv{
@@ -753,5 +777,8 @@ p{
 	}
 	.buy_area{
 		display: none;
+	}
+	.content{
+		margin-left : 20px;
 	}
 }

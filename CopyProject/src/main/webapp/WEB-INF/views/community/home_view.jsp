@@ -46,7 +46,7 @@
 	<%@ include file="../nav.jsp" %>
 	
 	<!-- 본문 영역 -->
-	<div class="row MainImg">
+	<div class="MainImg">
 		<img src="${pageContext.request.contextPath}/upload/${vo.img_system }">
 	</div>
 	<section id="story_area">
@@ -59,7 +59,7 @@
 				<div class="col-8 col-sm-8 storyWriter">
 					<div class="profile" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
 						<div class="profile_img">
-							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }">
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" alt="게시글 작성자 프로필 사진">
 						</div>
 						<div class="profile_name">
 							${vo.writer }
@@ -93,7 +93,7 @@
 			<div class="row content_img">
 				${vo.content }
 				<div id="footer_img_">
-					<img src="${pageContext.request.contextPath}/image/footer_img.PNG">
+					<img src="${pageContext.request.contextPath}/image/footer_img.PNG" alt="저작권 경고 사진">
 				</div>
 			</div>
 		</div>
@@ -115,7 +115,7 @@
 		</div>
 		<div class="footer_profile col-10 col-sm-10 col-md-8 col-lg-8">
 			<div class="footer_profile_img">
-				<img class="footer_writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
+				<img class="footer_writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'" alt="게시글 작성자 사진">
 				<span id="footer_writerImg_span" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">${vo.writer }</span>
 				<c:if test="${isFollow == 0 && loginUser.midx != vo.midx && loginUser != null}">
 					<button onclick="follow(${vo.midx})">팔로우</button>
@@ -144,7 +144,7 @@
 				<input type="hidden" id="midx" name="midx" value="${loginUser.midx }">
 				<input type="hidden" name="writer" value="${loginUser.nick_name }">
 				<div class="reply_writer">
-					<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }">
+					<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }" alt="게시글 작성자 사진">
 				</div>
 				<div class="reply_input">
 					<div class="reply_content">
@@ -164,7 +164,7 @@
 				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
 				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
 				<div class="reply_writer">
-					<img src="${pageContext.request.contextPath}/image/kakao_profile_basic.png">
+					<img src="${pageContext.request.contextPath}/image/kakao_profile_basic.png" alt="게시글 작성자 기본 사진">
 				</div>
 				<div class="reply_input" onclick="ReNot()">
 					<div class="reply_content">
@@ -264,7 +264,7 @@
 							<input type="hidden" name="depth" value="${reply.depth }">
 							<input type="hidden" name="lvl" value="${reply.lvl }">
 							<div class="reply_writer">
-								<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }">
+								<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }" alt="게시글 작성자 사진">
 							</div>
 							<div class="reply_input_">
 								<div class="reply_content">

@@ -300,7 +300,7 @@ public class StoreController {
 //		vo.setDetail(remain);
 		
 		//무료배송여부
-		if(vo.getFree_delivery()!="Y") {
+		if(vo.getFree_delivery().equals("Y")) {
 			vo.setDelivery_charge("0");
 		}
 		
@@ -310,7 +310,7 @@ public class StoreController {
 		MemberVO member = (MemberVO)session.getAttribute("loginUser");
 		
 		
-		//작성자 변경
+		//로그인한 유저로 작성자 변경
 		vo.setMidx(member.getMidx());
 		vo.setWriter(member.getMembername());
 		
@@ -478,7 +478,7 @@ public class StoreController {
 		
 		model.addAttribute("vo",selectOne);
 		
-		//문의페이징정보
+		//문의페이징
 		int total = storeService.qna_cnt(spidx);
 		PagingVO pvo = new PagingVO(total,qanowPage,4);
 	    int start = pvo.getStart();
@@ -487,7 +487,7 @@ public class StoreController {
 		model.addAttribute("qavo",qnalist);
 		model.addAttribute("qapvo", pvo);
 
-		//리뷰페이징정보
+		//리뷰페이징
 		total = storeService.review_count(spidx);
 		PagingVO rpvo = new PagingVO(total,nowPage,4);
   	    start = rpvo.getStart();

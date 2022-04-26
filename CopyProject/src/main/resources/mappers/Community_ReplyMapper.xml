@@ -125,10 +125,9 @@
 	
 	<!-- 댓글 개수 조회 -->
 	<select id="countReplies" resultType="int">
-		SELECT COUNT(cbidx) 
+		SELECT COUNT(cbridx) 
 		FROM community_reply 
 		WHERE cbidx = #{cbidx}
-		AND del_yn = 'N'
 	</select>
 	
 	<!-- 댓글 작성 -->

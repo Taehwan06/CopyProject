@@ -85,7 +85,7 @@ section{
 	display: inline-block;
 	border-radius: 5px;
 }
-.emailbtn, .idbtn{
+.emailbtn, .idbtn, .doubleChk{
 	border: none;
 	height: 25px;
 	width: 90px;
@@ -304,7 +304,7 @@ section{
 		font-size: 13px;
 	}
 	.foot{
-		margin-left: 140px;
+		margin-left: 30px;
 		font-size: 12px;		
 	}
 	.addr{
@@ -335,6 +335,13 @@ section{
 	.genderArea{
 		font-size: 14px;
 	}
+	.button{
+		top: 35px;
+    	right: 0px;
+	}
+	.border {
+		position: relative;
+	}
 }
 @media screen and (max-width: 575.99px){
 	#headerDiv, .navbar, section, footer{
@@ -364,7 +371,7 @@ section{
 		font-size: 12px;
 	}
 	.foot{
-		margin-left: 100px;
+		margin-left: 10px;
 		font-size: 10px;
 		display: block;
 	}			
@@ -416,5 +423,12 @@ section{
 	}
 	.genderArea{
 		font-size: 11px;
+	}
+	.button{
+		top: 35px;
+    	right: 0px;
+	}
+	.border {
+		position: relative;
 	}
 }

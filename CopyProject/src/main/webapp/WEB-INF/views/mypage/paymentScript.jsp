@@ -22,7 +22,7 @@
 	if(totalDelivery == 0){
 		totalDelivery = "무료배송";
 	}else{
-		totalDelivery = totalDelivery+"원";
+		totalDelivery = totalDelivery.toLocaleString()+"원";
 	}
 	
 	if(size > 2){

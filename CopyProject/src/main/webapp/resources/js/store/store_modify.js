@@ -232,6 +232,10 @@ function submitFn(){
 		/*img_style= img_style.replace(/=/g,"%3D");*/
 		/*
 		console.log($("#insertFrm").serialize());*/
+		
+		document.insertFrm.submit();
+		
+		/*
 		$.ajax({
 			type : "POST",
 			url : "store_modify.do",
@@ -240,13 +244,26 @@ function submitFn(){
 				
 				console.log(res);
 				if(res>0){
-					alert("상품이 수정되었습니다.");
-					location.href="store_view.do?spidx="+thisSpidx;
+					swal({
+				         text: "상품이 수정되었습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         location.href="store_view.do?spidx="+thisSpidx;
+				      });
+					
 				}else{
-					alert("실행오류");
+					swal({
+				         text: "실행 오류.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         
+				      });
 				}
 			}
 		});
+		*/
 	}
 }
 
@@ -267,18 +284,36 @@ $(function() {
 				var result = data.trim();
 				
 				if(result == "fail1"){
-					alert("이미지 파일만 등록할 수 있습니다");
+					swal({
+				         text: "이미지 파일만 등록할 수 있습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         
+				      });
 					
 				}else if(result == "fail2"){
-					alert("이미지 변경에 실패했습니다");
+					swal({
+				         text: "이미지 변경에 실패했습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				        
+				      });
 					
 				}else if(result == "fail3"){
-					alert("변경할 이미지를 선택해 주세요");
+					aswal({
+				         text: "변경할 이미지를 선택해 주세요.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				        
+				      });
 					
 				}else{
 					var resultAry = result.split(",")
-					var img_origin = resultAry[1];
-					var img_system = resultAry[0];
+					var img_origin = resultAry[0];
+					var img_system = resultAry[1];
 					
 					$("#img_origin").val(img_origin);
 					$("#img_system").val(img_system);
@@ -314,10 +349,19 @@ function readURL(input) {
 }
 
 function cancelFn(){
-   var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");
-   if(isCancel){
-      location.href = "store_view.do?spidx="+thisSpidx;
-   }
+  swal({
+	      text: "이 페이지를 나가면 수정된 사항이 모두 유실됩니다!\n그래도 나가시겠어요?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          location.href = "store_view.do?spidx="+thisSpidx;
+		   } else {
+		      
+		   }
+		});
 }
 
 function adjustHeight() {
@@ -355,8 +399,30 @@ $(document).ready(function() {
              ['insert',['picture']]
            ],
          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+         fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+		 callbacks: {
+	         onImageUpload: function(image) {
+	            var file = image[0];
+	            var reader = new FileReader();
+	            reader.onloadend = function() {
+	               var image = $('<img>').attr('src',  reader.result);
+	               image.attr('width','100%');
+	               $('#summernote').summernote("insertNode", image[0]);
+	            }
+	            reader.readAsDataURL(file);
+	         }
+	      }
 
    });
+
+	//썸머노트 반응형
+    $(".note-editor").css({"width" : "auto", "max-width" : "100%" , "min-width" : "500px"});
+
+
+   //디테일값 등록
+	$(".detailSelect").on("change",function(){
+		var detail = $(this).val();
+		$("#detail").val(detail);
+	});
 	  
 });

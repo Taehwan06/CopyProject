@@ -110,8 +110,6 @@ public class HomeController {
 			vo.setSearch_value(searchValueSplit);
 		}		
 		
-		model.addAttribute("searchvo", vo);
-		
 		List<HomeStoryVO> storyList = homeService.searchStory(vo);
 		
 		model.addAttribute("storyList", storyList);
@@ -119,6 +117,10 @@ public class HomeController {
 		List<HomeStoreVO> storeList = homeService.searchStore(vo);
 		
 		model.addAttribute("storeList", storeList);
+		
+		int cnt = storyList.size() + storeList.size();
+		vo.setCnt(cnt);
+		model.addAttribute("searchvo", vo);
 		
 		if(storyList.size() > 0 || storeList.size() > 0) {
 			return "search_result";
@@ -197,7 +199,7 @@ public class HomeController {
 	    }else {
 	    	SearchVO searchvo = new SearchVO();
 	 	    searchvo.setReview_cnt("yes");
-	 	   searchvo.setPage("limit");
+	 	    searchvo.setPage("limit");
 	 	    List<StoreVO> storeList = storeService.list(searchvo);
 	 	    
 	 	    model.addAttribute("storeList",storeList);

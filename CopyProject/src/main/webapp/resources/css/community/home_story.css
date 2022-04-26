@@ -1,4 +1,7 @@
 @charset "UTF-8";
+body, section{
+	overflow-x : hidden;
+}
 .write_btn{
 	text-align : center;
 	margin-top : auto;

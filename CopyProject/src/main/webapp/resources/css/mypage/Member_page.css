@@ -115,8 +115,34 @@
 			color:inherit;
 		}
 		
+		
+		.followBtn{
+			border:none;
+			color:white;	
+			background-color: #ffb6c1;
+			height: 34px;
+			width: 60px;
+			border-radius: 7px;
+			font-size: 0.7rem;
+			font-weight:bold;
+		}
+		
+		.followBtn:hover{
+			background-color:#ff8da1;
+		}
+		
+		.unfollowBtn{
+			border: 1px solid #dcdcdc;
+			height: 34px;
+			color: #222222;
+			background-color: white;
+			width: 60px;
+			border-radius: 4px;
+			font-size: 0.7rem;
+		
+		}
 
-		#profile_btn button{
+		/* #profile_btn button{
 			border: 1px solid #dcdcdc;
 			height: 34px;
 			color: #222222;
@@ -125,7 +151,13 @@
 			border-radius: 4px;
 			font-size: 0.7rem;
 
-		}
+		} */
+		
+		/* .followBtn{
+			border:none;
+			color:white;	
+			background-color: #ff8da1;
+		} */
 
 		.bi-bookmark, .bi-heart{
 			font-size: 35px;
@@ -181,7 +213,7 @@
 			padding: 10px 15px;
 		}
 
-		#mystory_btn button:hover ,#profile_btn button:hover {
+		#mystory_btn button:hover {
 		 	background-color: #fffafa;
    		 	
 		}

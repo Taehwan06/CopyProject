@@ -55,7 +55,13 @@
 						<div class="community row">
 							<div class="profile">
 								<img src="${pageContext.request.contextPath}/image/${blist.profile_system }" class="profileImg" alt="팔로잉 유저 프로필 사진" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${blist.midx}'">
-								<div class="nick" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${blist.midx}'">${blist.writer }</div>${blist.write_date }
+								<div class="nick" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${blist.midx}'">${blist.writer }</div>
+								<c:if test="${blist.modify_yn == 'N' }">
+									${blist.write_date }
+								</c:if>
+								<c:if test="${blist.modify_yn == 'Y' }">
+									${blist.modify_date }(수정됨)
+								</c:if>
 								<button type="button" class="followingButton1" onclick="unfollow('${blist.midx}')">언팔로우</button>
 							</div>
 						</div>
@@ -135,7 +141,7 @@
 							<div class="row">
 								<c:forEach items="${mlist.bvo }" var="blist" end="3">
 									<div class="followingImgDiv col-3">
-										<img src="${pageContext.request.contextPath}/upload/${blist.img_system }" alt="게시글 사진" class="followingImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
+										<img src="${pageContext.request.contextPath}/upload/${blist.img_system }" alt="${blist.title }" class="followingImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
 									</div>
 								</c:forEach>
 							</div>

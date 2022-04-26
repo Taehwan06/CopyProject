@@ -138,6 +138,11 @@
 			cursor:pointer;
 		}
 		
+		.del_review:hover{
+			cursor: pointer;
+		}
+		
+		
 /* ============================ 프로필 박스 css ============================  */
 		
 		.mydivVacant{

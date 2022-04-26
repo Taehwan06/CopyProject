@@ -16,7 +16,8 @@
 			img_origin,
 			img_system,
 			spidx,
-			brand
+			brand, 
+			FORMAT((price*cnt), 0) AS view_price 
 		FROM
 			shopping_basket
 		WHERE
@@ -42,7 +43,8 @@
 			img_origin,
 			img_system,
 			spidx,
-			brand
+			brand, 
+			FORMAT((price*cnt), 0) AS view_price 
 		FROM
 			shopping_basket
 		WHERE
@@ -93,7 +95,8 @@
 			img_origin,
 			img_system,
 			spidx,
-			brand
+			brand, 
+			FORMAT((price*cnt), 0) AS view_price 
 		FROM
 			shopping_basket
 		WHERE
@@ -135,7 +138,7 @@
 				spidx,
 				midx,
 				ordernumber,
-				paynumber
+				paynumber, 	
 			) 
 			VALUES(
 				(select title from shopping_basket where sbidx = #{sbidx}),
@@ -162,7 +165,7 @@
 			free_delivery,
 			img_origin,
 			img_system,
-			brand
+			brand 
 		FROM
 			shopping_product
 		WHERE

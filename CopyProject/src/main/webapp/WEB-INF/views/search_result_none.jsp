@@ -69,8 +69,14 @@
 							<div class="brand">${storeListvo.brand}</div>
 							${storeListvo.title}
 						</div>
-						<div class="shopPrice">
-							<span class="red">${storeListvo.discount}%</span> ${storeListvo.sale_price}
+						<div class="shopPrice row">
+							<div class="discount_area col-4">
+								<span class="red discount">${storeListvo.discount}%</span>
+							</div>
+							<div class="price_area col-8">
+								<span class="origin">${storeListvo.origin_price}원</span><br>
+								${storeListvo.view_price}원
+							</div>
 						</div>
 						<span class="sky">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">

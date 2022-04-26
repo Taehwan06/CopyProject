@@ -101,7 +101,7 @@ section{
 		width: 80%;
 		margin-left: 20px;
 	}
-	.buyingDate{
+	.spidx{
 		display: none;
 	}
 }
@@ -123,7 +123,7 @@ section{
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
 	}
-	.spidx, .buyingDate{
+	.spidx{
 		display: none;
 	}
 }
@@ -151,7 +151,7 @@ section{
 	.sidebar_menu{
 		width: 400px;
 	}
-	.spidx, .detailNum, .buyingDate{
+	.spidx, .buyingDate{
 		display: none;
 	}
 }
@@ -169,7 +169,7 @@ section{
 		width: 100%;
 		max-width: 400px;
 	}
-	.spidx, .detailNum, .buyingDate{
+	.spidx, .buyingDate{
 		display: none;
 	}
 }

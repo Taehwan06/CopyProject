@@ -1,4 +1,4 @@
-$(function(){
+$(document).ready(function() {
 	//전체선택 클릭시 모든상품 선택되도록
 	$('input[name=all]').click(function(){
 		if($(this).is(':checked')){
@@ -16,19 +16,28 @@ $(function(){
 	//
 	
 	
-	//수량선택시 1미만 100초과시 선택못하도록 설정
+	//수량선택시 1미만 1000초과시 선택못하도록 설정
 	$('.decreaseQuantity').click(function(e){
 		e.preventDefault();
 		var stat = $(this).next().val();
 		var num = parseInt(stat,10);
 		num--;
 		if(num<=0){
-			alert('1개미만은 선택할 수 없습니다.');
-			num =1;
+			swal({
+				text: "1개미만은 선택할 수 없습니다.",
+				button: "확인",
+				icon: "warning",
+				closeOnClickOutside : false
+			}).then(function(){
+				num =1;
+			});
+		}else{
+			$(this).next().val(num);
+			var price = $(this).parent().parent().next('.price_val_box').children('.hidden').text();
+			$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text((price*num).toLocaleString());
 		}
-		$(this).next().val(num);
-		var price = $(this).parent().parent().next('.price_val_box').children('.hidden').text();
-		$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text(price*num);
+		
+		
 	});
 	$('.increaseQuantity').click(function(e){
 		e.preventDefault();
@@ -37,23 +46,41 @@ $(function(){
 		num++;
 
 		if(num>999){
-			alert('상품은 999개까지만 구매가능합니다');
-			num=999;
+			swal({
+				text: "상품은 999개까지만 구매가능합니다.",
+				button: "확인",
+				icon: "warning",
+				closeOnClickOutside : false
+			}).then(function(){
+				num=999;
+			});
+		}else{
+			$(this).prev().val(num);
+			var price = $(this).parent().parent().next('.price_val_box').children('.hidden').text();
+			$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text((price*num).toLocaleString());
 		}
-		$(this).prev().val(num);
-		var price = $(this).parent().parent().next('.price_val_box').children('.hidden').text();
-		$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text(price*num);
 	});
 	
 	
 	$('.numberUpDown').change(function(){
 		var count = $(this).val();
 		var price = $(this).parent().parent().next('.price_val_box').children('.hidden').text();
-		$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text(price*count);
+		if(count > 0){
+			$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text((price*count).toLocaleString());
+		}else{
+			swal({
+				text: "0이하는 선택할 수 없습니다.",
+				button: "확인",
+				icon: "warning",
+				closeOnClickOutside : false
+			}).then(function(){
+				
+			});
+			$(this).val("1");
+			$(this).parent().parent().next('.price_val_box').children('.price_val').children('span').text(parseInt(price).toLocaleString());
+		}
 	});
-	
 });
-
 
 
 var productCnt = 0;
@@ -74,7 +101,6 @@ window.onload = function(){
 	$(".totalDelivery").text(totalDelivery);
 }
 
-
 function deleteOneBasketFn(sbidx,cnt,price,delivery){
 	var basket = $("#basket"+sbidx);
 	
@@ -87,25 +113,25 @@ function deleteOneBasketFn(sbidx,cnt,price,delivery){
 		checkedPay -= (price*cnt);
 		checkedPay -= delivery;
 		
-		$(".totalPay").text(checkedPay);
+		$(".totalPay").text(checkedPay.toLocaleString());
 		$(".productCnt").text(checkedCnt);
-		$(".totalPrice").text(checkedPrice);
-		$(".totalDelivery").text(checkedDelivery);
+		$(".totalPrice").text(checkedPrice.toLocaleString());
+		$(".totalDelivery").text(checkedDelivery.toLocaleString());
 		
 	}
 	
 	$.ajax({
-		url: "deleteOneBasket",
+		url: contextPath+"/mypage/deleteOneBasket",
 		type: "post",
 		data: "sbidx="+sbidx,
 		success: function(data){
 			var result = data.trim();
 			if(result == "success"){
-				basket.css("display","none");
+				$("#Selection"+sbidx).prop("checked", false);
+				basket.remove();
 			}
 		}
 	});
-	
 }
 
 function selectFn(){
@@ -127,25 +153,25 @@ function selectFn(){
 			var delivery = parseInt(valueAry[3]);
 			
 			checkedCnt += cnt;
-			checkedPrice += (price*cnt);
-			checkedDelivery += delivery;
+			checkedPrice += parseInt(price*cnt);
+			checkedDelivery += parseInt(delivery);
 	        
 	    })
 	}
 	
 	checkedPay = (checkedPrice + checkedDelivery);
 	
-	$(".totalPay").text(checkedPay);
+	$(".totalPay").text(checkedPay.toLocaleString());
 	$(".productCnt").text(checkedCnt);
-	$(".totalPrice").text(checkedPrice);
-	$(".totalDelivery").text(checkedDelivery);
+	$(".totalPrice").text(checkedPrice.toLocaleString());
+	$(".totalDelivery").text(checkedDelivery.toLocaleString());
 }
 
 function minusFn(obj,sbidx,price,delivery){
 	var cnt = parseInt($(obj).next().val());
 	if(cnt > 1){
 		$.ajax({
-			url: "minusCntBasket",
+			url: contextPath+"/mypage/minusCntBasket",
 			type: "post",
 			data: "sbidx="+sbidx,
 			success: function(data){
@@ -153,16 +179,16 @@ function minusFn(obj,sbidx,price,delivery){
 				if(result = "success"){
 					if($("#Selection"+sbidx).is(":checked")){
 						
-						checkedPrice -= price;
+						checkedPrice -= parseInt(price);
 						checkedCnt -= 1;
-						checkedDelivery -= delivery;
-						checkedPay -= price;
-						checkedPay -= delivery;
+						checkedDelivery -= parseInt(delivery);
+						checkedPay -= parseInt(price);
+						checkedPay -= parseInt(delivery);
 						
-						$(".totalPay").text(checkedPay);
+						$(".totalPay").text(checkedPay.toLocaleString());
 						$(".productCnt").text(checkedCnt);
-						$(".totalPrice").text(checkedPrice);
-						$(".totalDelivery").text(checkedDelivery);
+						$(".totalPrice").text(checkedPrice.toLocaleString());
+						$(".totalDelivery").text(checkedDelivery.toLocaleString());
 					}
 				}
 			}
@@ -174,24 +200,24 @@ function plusFn(obj,sbidx,price,delivery){
 	var cnt = parseInt($(obj).prev().val());
 	if(cnt < 999){
 		$.ajax({
-			url: "plusCntBasket",
+			url: contextPath+"/mypage/plusCntBasket",
 			type: "post",
 			data: "sbidx="+sbidx,
 			success: function(data){
 				var result = data.trim();
-				if(result = "success"){						
+				if(result = "success"){			
 					if($("#Selection"+sbidx).is(":checked")){
 						
-						checkedPrice += price;
+						checkedPrice += parseInt(price);
 						checkedCnt += 1;
-						checkedDelivery += delivery;
-						checkedPay += price;
-						checkedPay += delivery;
+						checkedDelivery += parseInt(delivery);
+						checkedPay += parseInt(price);
+						checkedPay += parseInt(delivery);
 						
-						$(".totalPay").text(checkedPay);
+						$(".totalPay").text(checkedPay.toLocaleString());
 						$(".productCnt").text(checkedCnt);
-						$(".totalPrice").text(checkedPrice);
-						$(".totalDelivery").text(checkedDelivery);
+						$(".totalPrice").text(checkedPrice.toLocaleString());
+						$(".totalDelivery").text(checkedDelivery.toLocaleString())
 					}
 				}
 			}
@@ -209,7 +235,7 @@ function payFn(){
 			icon: "warning",
 			closeOnClickOutside : false
 		}).then(function(){
-			location.href="/controller/mypage/addr_modify.do";
+			location.href = contextPath+"/mypage/addr_modify.do";
 		});
 		
 	}else{
@@ -238,7 +264,7 @@ function payFn(){
 				});
 		}else{
 			document.payFrm.method = "post";
-			document.payFrm.action = "payment.do";
+			document.payFrm.action = contextPath+"/mypage/payment.do";
 			document.payFrm.submit();
 		}
 	}

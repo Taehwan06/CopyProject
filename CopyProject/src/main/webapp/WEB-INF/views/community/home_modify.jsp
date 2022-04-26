@@ -62,7 +62,7 @@
 	<!-- 본문 영역 -->
 	<section>
 		<div class="row MainImg">
-			<img src="${pageContext.request.contextPath}/upload/${vo.img_system }">
+			<img src="${pageContext.request.contextPath}/upload/${vo.img_system }" alt="${vo.title }">
 		</div>
 		<form id="updateFrm" name="updateFrm" action="home_modify.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">

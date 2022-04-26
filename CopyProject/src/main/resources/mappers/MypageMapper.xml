@@ -68,7 +68,6 @@
     		nick_name = #{nick_name},
     		gender = #{gender},
     		phone = CONCAT(#{phone1},"-",#{phone2},"-",#{phone3}),
-    		addr =  CONCAT(#{addr1}," ",#{addr2}), 
     		profile_origin = #{profile_origin}, 
     		profile_system = #{profile_system} 
     	WHERE 
@@ -96,7 +95,8 @@
          		progress,
          		delivery_status,
          		review_registration,
-         		spidx
+         		spidx,
+         		ordernumber
            FROM 
            		order_list
           WHERE 
@@ -117,7 +117,8 @@
          		progress,
          		delivery_status,
          		review_registration,
-         		spidx
+         		spidx,
+         		ordernumber
            FROM 
            		order_list
           WHERE 
@@ -165,7 +166,8 @@
     	SELECT
     			cbidx,
     			img_system,
-    			title
+    			title,
+    			midx
     	FROM
     			community_board
     	WHERE
@@ -219,6 +221,7 @@
     		O.free_delivery,
     		O.progress,
     		O.img_origin,
+    		O.img_system,
     		O.buying_date,
     		O.review_registration,
     		O.spidx,
@@ -226,7 +229,8 @@
     		M.membername,
     		M.addr,
     		M.phone,
-    		O.memo
+    		O.memo,
+    		O.price
     	FROM order_list O
     	INNER JOIN member M
 		ON M.midx = O.midx
@@ -234,6 +238,9 @@
     		O.spidx = #{spidx}
     	AND
 			M.midx = #{midx}
+		AND
+			O.ordernumber = #{ordernumber}
+		
     </select>
     
    
@@ -247,7 +254,8 @@
     		B.img_origin,
     		B.cbidx,
     		R.write_date,
-    		R.content
+    		R.content,
+    		R.midx
   		FROM 
   		 	community_board B
   		INNER JOIN 
@@ -273,7 +281,8 @@
     		P.img_origin,
     		Q.spidx,
     		Q.answer_content,
-    		Q.answer
+    		Q.answer,
+    		Q.midx
   		FROM 
   		 	shopping_product P
   		INNER JOIN 
@@ -295,6 +304,8 @@
     		shopping_review 
     	WHERE 
     		midx = #{midx}
+    	AND 
+    	 	del_yn  = "N"
     </select>
     
      <select id="myreview" resultType="Store_reviewVO" parameterType="Store_reviewVO">
@@ -307,7 +318,8 @@
     		 P.img_origin,
     		 R.spidx,
     		 R.sridx,
-    		 R.score
+    		 R.score,
+    		 R.midx
 		FROM 
 			shopping_review R
 		INNER JOIN 
@@ -410,5 +422,31 @@
     AND
     	img_origin is not null
     </select>
+    
+    <!-- 팔로우 버튼 관련 -->
+    <insert id="follow">
+		INSERT INTO follow(
+			midx,
+			fmidx
+		) VALUES(
+			#{midx},
+			#{fmidx}
+		)
+	</insert>
+    <!-- 언팔로우 기능 -->
+	<delete id="unfollow">
+		DELETE FROM follow
+		 WHERE midx = #{midx}
+		   AND fmidx = #{fmidx}
+	</delete>
+	
+    <!-- 팔로우 유무 조회 -->
+    <select id="isFollow" resultType="int" parameterType="FollowVO">
+    	SELECT COUNT(*)
+    	  FROM follow
+    	 WHERE midx = #{midx}
+    	   AND fmidx = #{fmidx}
+    </select>
+    
     
 </mapper>

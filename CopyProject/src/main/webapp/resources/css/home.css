@@ -4,7 +4,9 @@ section{
 	margin: auto;
 	max-width: 1560px;
 }
-
+body, section{
+	overflow-x : hidden;
+}
 .sectionImg{
 	width: 70%;
 }
@@ -25,6 +27,7 @@ section{
 	border: none;
 	background: none;
 	color: white;
+	z-index: 500;
 }
 #cycle{
 	margin-right: 20px;
@@ -113,6 +116,29 @@ section{
 	color: gray;
 }
 
+/*상품금액영역*/
+.shop_price{
+	display: flex;
+}
+.price_area{
+	display: inline-block;
+	padding: 0;
+}
+.discount_area{
+	display: inline-block;
+	margin-top : auto;
+	margin-bottom : auto;
+
+}
+.discount{
+	font-size: 1.3em;
+}
+.origin{
+	font-size: 0.8em;
+	text-decoration:line-through;
+	color: gray;
+}
+
 
 /* 미디어 쿼리  CSS */
 /*========================================================================*/
@@ -138,7 +164,7 @@ section{
 		display: none;
 	}
 	.storyImg{
-		height : 25vh;
+		height : 20vh;
 	}
 }
 @media screen and (min-width: 992px) and (max-width: 1199.99px){
@@ -156,7 +182,13 @@ section{
 		width: 80%;
 		margin-left: 20px;
 	}
+	.storyImg{
+		height : 25vh;
+	}
 	#mdlg_display_none, #mdlg_display_none_{
+		display: none;
+	}
+	#storeList4, #storyList4{
 		display: none;
 	}
 }
@@ -175,10 +207,16 @@ section{
 		width: 90%;
 		margin-left: 0px;
 	}
+	.storyImg{
+		height : 20vh;
+	}
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
 	}
 	#mdlg_display_none, #mdlg_display_none_{
+		display: none;
+	}
+	#storeList4, #storyList4{
 		display: none;
 	}
 }
@@ -206,12 +244,14 @@ section{
 	.sidebar_menu{
 		width: 400px;
 	}
-	
 }
 @media screen and (max-width: 576px){
    #spaceDiv{
       display : block;
    }
+   #storeList3, #storeList4, #storyList3, #storyList4{
+		display: none;
+	}
 }
 @media screen and (max-width: 575.99px){
 	#headerDiv, .navbar, section, footer{
@@ -228,6 +268,9 @@ section{
 		max-width: 400px;
 	}
 	.storyImg{
-		height : 45vh;
+		height : 35vh;
+	}
+	#storeList3, #storeList4, #storyList3, #storyList4{
+		display: none;
 	}
 }

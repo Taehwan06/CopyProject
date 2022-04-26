@@ -24,11 +24,7 @@ function guide(type){
 	var phone3 = document.getElementById("phone3").value;
 	
 	if(type == 'nickname'){
-		if(nickInput.length < 3){
-			guideSpan.innerHTML = "공백,특수문자 제외 3자리 이상 입력하세요";
-			guideSpan.style.color = "red";
-			guideSpan.style.visibility = "visible";
-		}else if(nickInput.length > 20){
+		if(nickInput.length > 20){
 			guideSpan.innerHTML = "20자리 이하로 입력하세요";
 			guideSpan.style.color = "red";
 			guideSpan.style.visibility = "visible";	
@@ -55,26 +51,63 @@ function checkForm() {
 	var nickInput = document.getElementById("nickInput").value;
 	var phone2 = document.getElementById("phone2").value;
 	var phone3 = document.getElementById("phone3").value;
-	var fileVal = document.getElementById("profile_system").value;
+	var fileVal = document.getElementById("imgUpload").value;
+	var prevImg = document.getElementById("profile_prev").value;
+	
+	let phone_val =  /^[0-9]+$/; 
+	let nick_val = /[가-힣0-9a-zA-Z]{1,20}$/;
+	
+	if(fileVal == '' || fileVal == null){
+		if(prevImg == '' || prevImg == null){
+			$("#profile_origin").val("kakao_profile_basic.png");
+			$("#profile_system").val("kakao_profile_basic.png");
+		}else{
+			$("#profile_origin").val(prevImg);
+			$("#profile_system").val(prevImg);
+		}
+	}
 	
 	if(nickInput == '' || phone2 == '' ||phone3 == ''){
-		alert("값을 입력하세요");
-		//return false;
-	}else if(fileVal == '' || fileVal == null){
-		$("#profile_origin").val("kakao_profile_basic.png");
-		$("#profile_system").val("kakao_profile_basic.png");
 		
-		document.memberModifyFrm.method = "post";
-		document.memberModifyFrm.action = "member_modify.do";
-		document.memberModifyFrm.submit();
+		swal({
+         text: "값을 입력하세요.",
+         button: "확인",
+         closeOnClickOutside : false
+     	 }).then(function(){
+         
+    			 });
+		//alert("값을 입력하세요");
 		//return false;
+		
+	}else if(!phone_val.test(phone2)||!phone_val.test(phone3)||!nick_val.test(nickInput)){
+		swal({
+         text: "입력형식이 맞지 않습니다",
+         button: "확인",
+         closeOnClickOutside : false
+     	 }).then(function(){
+         
+    			 });
+		//alert("입력형식이 맞지 않습니다");
+		
 	}else{
-		alert("회원정보가 수정되었습니다");
+		swal({
+         text: "회원정보가 수정되었습니다",
+         button: "확인",
+         closeOnClickOutside : false
+     	 }).then(function(){
+         
+         			document.memberModifyFrm.method = "post";
+					document.memberModifyFrm.action = "member_modify.do";
+					document.memberModifyFrm.submit();
+			         
+         
+    			 });
+		
+		
+		//alert("회원정보가 수정되었습니다");
 		//return ture;
 		
-		document.memberModifyFrm.method = "post";
-		document.memberModifyFrm.action = "member_modify.do";
-		document.memberModifyFrm.submit();
+		
 	}
 	
 }
@@ -102,7 +135,7 @@ function readURL(input) {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}else{
-		$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+		$("#coverImg").attr("src", contextPath+"/image/kakao_profile_basic.png");
 		$("#coverImg").css("width", "180px");
 		$("#coverImg").css("height", "auto");
 	}
@@ -114,7 +147,7 @@ function imgValCheckFn(){
     console.log("fileValue="+fileValue);
     
     if(fileValue == "" || fileValue == null){
-    	$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
+    	$("#coverImg").attr("src", contextPath+"/image/kakao_profile_basic.png");
 		$("#coverImg").css("width", "180px");
 		$("#coverImg").css("height", "auto");
     }
@@ -137,16 +170,47 @@ $(function() {
 				var result = data.trim();
 				
 				if(result == "fail1"){
-					alert("이미지 파일만 등록할 수 있습니다");
+					
+					swal({
+			         text: "이미지 파일만 등록할 수 있습니다",
+			         button: "확인",
+			         closeOnClickOutside : false
+			     	 }).then(function(){
+			         
+			    			 });
+					
+					//alert("이미지 파일만 등록할 수 있습니다");
 					
 				}else if(result == "fail2"){
-					alert("이미지 변경에 실패했습니다");
-					$("#coverImg").attr("src", "/controller/image/kakao_profile_basic.png");
-					$("#coverImg").css("width", "180px");
-					$("#coverImg").css("height", "auto");
+					
+					swal({
+			         text: "이미지 변경에 실패했습니다",
+			         button: "확인",
+			         closeOnClickOutside : false
+			     	 }).then(function(){
+				
+					         $("#coverImg").attr("src", contextPath+"/image/kakao_profile_basic.png");
+							 $("#coverImg").css("width", "180px");
+							 $("#coverImg").css("height", "auto");
+					         
+			         
+			    			 });
+					
+					
+					//alert("이미지 변경에 실패했습니다");
+					
 					
 				}else if(result == "fail3"){
-					alert("변경할 이미지를 선택해 주세요");
+					
+					swal({
+			         text: "변경할 이미지를 선택해 주세요",
+			         button: "확인",
+			         closeOnClickOutside : false
+			     	 }).then(function(){
+			         
+			    			 });
+					
+					//alert("변경할 이미지를 선택해 주세요");
 					
 				}else{
 					var resultAry = result.split(",")

@@ -37,8 +37,11 @@
    
 	<script>
 		var category="${param.category}";
-		var detail="${param.detail}";	
+		var detail="${param.detail}";
+		
 	</script>
+	<!-- 페이지 경로가져오기 -->
+   <script>var contextPath = "${pageContext.request.contextPath}"</script>
 	<title>
 		카테고리 - 홈프렌즈
 	</title>

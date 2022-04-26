@@ -97,7 +97,7 @@
 				<c:forEach items="${orderList}" var="list" varStatus="cnt">
 					<tr>
 						<td>${list.ordernumber}</td>
-						<td>${list.price}</td>
+						<td>${list.view_price}</td>
 						<td class="detailNum">${list.detail}</td>
 						<td class="spidx">${list.spidx}</td>
 						<td class="buyingDate">${list.buying_date}</td>

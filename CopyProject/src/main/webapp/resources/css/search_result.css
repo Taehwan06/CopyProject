@@ -38,6 +38,11 @@ section{
 	margin-top: 10px;
 	margin-bottom: 50px;
 }
+.storyListTitle, .shopListTitle{
+	font-size: 25px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
 .searchType, .recommendTitle{
 	font-size: 25px;
 	margin-bottom: 20px;
@@ -105,6 +110,29 @@ section{
 .gray{
 	color: gray;
 }
+
+/*상품금액영역*/
+.shop_price{
+	display: flex;
+}
+.price_area{
+	display: inline-block;
+	padding: 0;
+}
+.discount_area{
+	display: inline-block;
+	margin-top : auto;
+	margin-bottom : auto;
+
+}
+.discount{
+	font-size: 1.3em;
+}
+.origin{
+	font-size: 0.8em;
+	text-decoration:line-through;
+	color: gray;
+}
 		
 
 /* 미디어 쿼리  CSS */
@@ -146,6 +174,9 @@ section{
 		width: 80%;
 		margin-left: 20px;
 	}
+	#storeList4{
+		display: none;
+	}
 }
 @media screen and (min-width: 768px) and (max-width: 991.99px){
 	#headerDiv, .navbar, section, footer{
@@ -164,6 +195,9 @@ section{
 	}
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
+	}
+	#storeList4{
+		display: none;
 	}
 }
 @media screen and (min-width: 576px) and (max-width: 767.99px){
@@ -187,6 +221,11 @@ section{
 		width: 95%;
 		margin-left: 0px;
 	}
+	.eventDiv{
+		width: 99%;
+		margin-right: auot;
+		margin-left: auot;
+	}
 }
 @media screen and (max-width: 575.99px){
 	#headerDiv, .navbar, section, footer{
@@ -197,5 +236,10 @@ section{
 	}
 	#smallMenu{
 		display: inline-block;
+	}
+	.eventDiv{
+		width: 99%;
+		margin-right: auot;
+		margin-left: auot;
 	}
 }

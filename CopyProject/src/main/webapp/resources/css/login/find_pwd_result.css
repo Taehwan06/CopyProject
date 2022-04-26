@@ -7,7 +7,6 @@ section{
 	text-align: center;
 	font-size: 25px;
 	width: 80%;
-	min-width: 400px;
 	margin-top: 100px;
 	margin-bottom: 50px;
 	margin-right: auto;
@@ -23,7 +22,6 @@ section{
 	text-align: center;
 	font-size: 25px;
 	width: 80%;
-	min-width: 400px;
 	margin-top: 50px;
 	margin-bottom: 150px;
 	margin-right: auto;
@@ -157,5 +155,15 @@ section{
 	.sidebar_menu{
 		width: 100%;
 		max-width: 400px;
+	}
+	.contents{
+		font-size: 15px;
+		margin-right: auot;
+		margin-left: auot;
+	}
+	#sectionLoginBtn{
+		font-size: 15px;
+		width: 150px;
+		height: 35px;
 	}
 }

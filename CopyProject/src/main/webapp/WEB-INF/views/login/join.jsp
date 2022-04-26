@@ -87,23 +87,24 @@
 			</label>
 			
 			<!-- 인증번호 입력 -->
-			<div class="border">
+			<div class="phoneCheckArea border">
 				<label for="phoneCheck" class="label">
 					<div class="head">인증번호</div>
 				</label>
-				<input name="phoneCheck" id="phoneCheck" type="text" class="input value" title="인증번호 입력" required/> 
+				<input name="phoneCheck" id="phoneCheck" type="text" class="input value" title="인증번호 입력" maxlength="6" required/> 
 				<input id="phoneChk2" class="doubleChk button" type="button" value="인증번호 확인" onclick="checkphone2()">
 			</div>
 			
 			<label for="phoneCheck">
 				<div id="phoneCheckFoot" class="foot successPhoneChk">인증번호를 입력해주세요</div>
+			</label>
 			
 			<!-- 비밀번호 -->
 			<div class="pwdArea border">
 				<label for="pwd" class="label">
 					<div name="pwdHead" id="pwdHead" class="head">비밀번호</div>
 				</label>
-				<input type="password" name="pass" id="pwd" class="input value" onblur="onBlurFn(this)" placeholder="예) abc123!@">
+				<input type="password" name="pass" id="pwd" class="input value" onblur="onBlurFn(this)" maxlength="20" placeholder="예) abc123!@">
 			</div>
 			<label for="pwd">
 				<div id="pwdFoot" class="foot">비밀번호를 입력하세요</div>
@@ -114,7 +115,7 @@
 				<label for="pwdcheck" class="label">
 					<div name="pwdcheckHead" id="pwdcheckHead" class="head">비밀번호 확인</div>
 				</label>
-				<input type="password" name="pwdcheck" id="pwdcheck" class="input value" onblur="onBlurFn(this)" placeholder="예) abc123!@">
+				<input type="password" name="pwdcheck" id="pwdcheck" class="input value" onblur="onBlurFn(this)" maxlength="20" placeholder="예) abc123!@">
 			</div>
 			<label for="pwdcheck">
 				<div id="pwdcheckFoot" class="foot">비밀번호를 다시 입력하세요</div>
@@ -219,7 +220,7 @@
 				<label for="recommend" class="label">
 					<div name="recommendHead" id="recommendHead" class="head">추천인</div>
 				</label>
-				<input type="text" name="recommender" id="recommend" class="input value"onblur="onBlurFn(this)" placeholder="예) abc123@naver.com">
+				<input type="text" name="recommender" id="recommend" class="input value" placeholder="예) abc123@naver.com">
 			</div>
 			<label for="recommend">
 				<div id="recommendFoot" class="foot">유효하지 않은 회원입니다</div>

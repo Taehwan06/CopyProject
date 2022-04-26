@@ -56,8 +56,15 @@ public class StatsVO {
 	private String amount;
 	private String recentBuying;
 	private String detail;
-		
+	private String view_price;
 	
+	
+	public String getView_price() {
+		return view_price;
+	}
+	public void setView_price(String view_price) {
+		this.view_price = view_price;
+	}
 	public String getDetail() {
 		return detail;
 	}

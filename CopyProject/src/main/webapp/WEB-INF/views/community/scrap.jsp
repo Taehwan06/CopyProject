@@ -50,11 +50,11 @@
 			<div class="row storyList">
 				<c:forEach items="${boardlist }" var="blist" end="8">
 					<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 story">
-						<img src="${pageContext.request.contextPath}/upload/${blist.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
+						<img src="${pageContext.request.contextPath}/upload/${blist.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'" alt="${vo.title }">
 						<div class="storyText" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
 							<div class="storyTitle">${blist.title }</div>
 							<div class="storyWriter">
-								<img class="writerImg" src="${pageContext.request.contextPath}/image/${blist.profile_system }">${vo.writer }
+								<img class="writerImg" src="${pageContext.request.contextPath}/image/${blist.profile_system }" alt="게시글 작성자 프로필 사진">${vo.writer }
 							</div>
 							<div class="likeyView">
 								좋아요${blist.scrap_cnt } &middot; 조회${blist.hit_cnt }
@@ -69,11 +69,11 @@
 			<div class="row storyList">
 				<c:forEach items="${boardlist }" var="blist" end="8">
 					<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 story">
-						<img src="${pageContext.request.contextPath}/upload/${blist.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
+						<img src="${pageContext.request.contextPath}/upload/${blist.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'" alt="${blist.title }">
 						<div class="storyText" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
 							<div class="storyTitle">${blist.title }</div>
 							<div class="storyWriter">
-								<img class="writerImg" src="${pageContext.request.contextPath}/image/${blist.profile_system }">${vo.writer }
+								<img class="writerImg" src="${pageContext.request.contextPath}/image/${blist.profile_system }" alt="게시글 작성자 프로필 사진">${vo.writer }
 							</div>
 							<div class="likeyView">
 								좋아요${blist.scrap_cnt } &middot; 조회${blist.hit_cnt }
@@ -87,11 +87,11 @@
 		<div class="row storyList">
 			<c:forEach items="${slist}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 story">
-					<img src="${pageContext.request.contextPath}/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+					<img src="${pageContext.request.contextPath}/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'" alt="${vo.title }">
 					<div class="storyText">
 						<div class="storyTitle" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
 						<div class="storyWriter" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
-							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }">${vo.writer }
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" alt="게시글 작성자 프로필 사진">${vo.writer }
 						</div>
 						<div class="likeyView">
 							좋아요${vo.scrap_cnt } &middot; 조회${vo.hit_cnt }

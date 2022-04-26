@@ -57,13 +57,13 @@
 	<section id="story_area">
 		<div class="row" id="storyimg">
 			<div class="col-12 col-sm-9 col-md-9 col-xg-9 col-xl-9" id="storyimg_area">
-				<img src="${pageContext.request.contextPath}/upload/${CommMain.img_system}" id="MainImg" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
+				<img src="${pageContext.request.contextPath}/upload/${CommMain.img_system}" id="MainImg" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'" alt="${CommMain.title}">
 				<div id="absolute_">
 					<div id="story_title" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
 						${CommMain.title}
 					</div>
 					<div id="profile" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${CommMain.midx}'">
-						<img class="writerImg" src="${pageContext.request.contextPath}/image/${CommMain.profile_system }">${CommMain.writer}
+						<img class="writerImg" src="${pageContext.request.contextPath}/image/${CommMain.profile_system }" alt="게시글 작성자 프로필 사진">${CommMain.writer}
 					</div>
 				</div>
 				<div id="btn_absolute" onclick="location.href='home_view.do?cbidx=${CommMain.cbidx}&fmidx=${CommMain.midx }&nowPage=1'">
@@ -120,12 +120,12 @@
 			</div>
 			<c:forEach items="${list}" var="vo" varStatus="cnt">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
-					<img src="${pageContext.request.contextPath}/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">
+					<img src="${pageContext.request.contextPath}/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'" alt="${vo.title }">
 					<div class="storyText">
 						<!-- ${vo.title} -->
 						<div class="storyTitle" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'">${vo.title }</div>
 						<div class="storyWriter" onclick="location.href='${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}'">
-							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" onclick="">${vo.writer }
+							<img class="writerImg" src="${pageContext.request.contextPath}/image/${vo.profile_system }" onclick="${pageContext.request.contextPath}/mypage/Member_page.do?midx=${vo.midx}" alt="게시글 작성자 프로필 사진">${vo.writer }
 						</div>
 					</div>
 				</div>

@@ -4,6 +4,10 @@ section{
 	margin: auto;
 	max-width: 1560px;
 }
+.follow_area{
+	margin-left : auto;
+	margin-right : auto;
+}
 .followingTitle{
 	text-align: center;
 	margin-bottom: 20px;
@@ -21,7 +25,6 @@ section{
 	padding-right: 30px;
 	padding-left: 30px;
 	height: auto;
-	width : 840px;
 }
 .recommend{
 	text-align : center;

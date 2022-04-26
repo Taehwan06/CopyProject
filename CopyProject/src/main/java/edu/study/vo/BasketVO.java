@@ -23,8 +23,15 @@ public class BasketVO {
 	private String paynumber;
 	
 	private int sale_price;
+	private String view_price;
 	
-		
+	
+	public String getView_price() {
+		return view_price;
+	}
+	public void setView_price(String view_price) {
+		this.view_price = view_price;
+	}
 	public int getSale_price() {
 		return sale_price;
 	}

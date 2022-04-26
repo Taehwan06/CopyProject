@@ -16,7 +16,6 @@ section{
 	margin-right : auto;
 	margin-top : 50px;
 	padding : 0;
-	width : 750px;
 }
 .comm_area_{
 	margin : auto;
@@ -76,7 +75,6 @@ section{
 	height : 36px;
 }
 .content_area{
-	width : 750px;
 	padding : 0;
 	margin-top : 100px;
 	margin-left : auto;
@@ -84,7 +82,6 @@ section{
 	
 }
 .content_img{
-	min-width : 580px;
 	margin : auto;
 }
 .content_img div{
@@ -99,9 +96,9 @@ section{
 }
 .btn_area{
 	text-align : right;
-	width : 750px;
 	margin-left : auto;
 	margin-right : auto;
+	padding-right : 24px;
 }
 .btn_area button{
 	background : #ffb6c1;
@@ -115,7 +112,6 @@ section{
 }
 .content_stats{
 	padding : 12px;
-	width : 750px;
 	margin : auto;
 	margin-top : 50px;
 	margin-bottom : 20px;
@@ -131,8 +127,10 @@ section{
 #footer_img_{
 	text-align : center;
 }
+#footer_img_ img{
+	width : 100%;
+}
 .footer_profile{
-	width : 750px;
 	margin : auto;
 	padding :30px 12px;
 	border-top : 1px solid #dedede;
@@ -160,7 +158,6 @@ section{
 	font-weight : 900;
 }
 #reply_area{
-	width : 750px;
 	margin : auto;
 	margin-top : 40px;
 }
@@ -197,7 +194,7 @@ section{
 	display : flex;
 	position : relative;
 	width : 100%;
-	height : 50px;
+	height : 60px;
 	margin-top : 5px;
 	margin-left : 15px;
 	border : 1px solid #dbdbdb;
@@ -245,7 +242,7 @@ section{
     background: none;
     color: #424242;
     margin: 0;
-    padding: 8px 15px 9px;
+    padding: 8px 10px 9px;
     font-family: inherit;
     font-size: 15px;
     line-height: 1.4;
@@ -255,11 +252,19 @@ section{
     box-sizing: border-box;
     outline : none;
 }
-.reply_content_input span{
+.reply_writer_{
+	padding-top : 10px;
+	display : inline-block;
 	color : #ffb6c1;
 	font-weight : 900;
-	margin-top : 10px;
 	margin-left : 10px;
+	width : 68px;
+}
+.reply_writer_1{
+	width : 75px;
+}
+.reply_writer_2{
+	width : 93px;
 }
 .reply_action{
 	right : 10px;
@@ -299,15 +304,14 @@ section{
 .reply{
 	clear : both;
 	float : left;
-	margin-top : 30px;
-	margin-left : 10px;
+	margin-top : 10px;
 }
 .reply_item{
 	padding-left : 40px;
 	display : block;
 }
 .reply_item_{
-	padding : 20px 0 0 61px;
+	padding : 0 0 0 61px;
 }
 p{
 	display: block;
@@ -365,6 +369,9 @@ p{
 	padding : 0;
 	margin-left : 20px;
 	font-weight : bold;
+}
+.reply_item_footer_reply-btn3{
+	display : none;
 }
 .Re{
 	width: 99%;
@@ -468,7 +475,7 @@ p{
 }
 @media screen and (min-width: 768.01px) and (max-width: 880px){
 	.slide_bar, .slide_bar_{
-		visibility : hidden;
+		right : 30px;
 	}
 	.reply_item{
 		margin-bottom : 30px;
@@ -476,22 +483,22 @@ p{
 }
 @media screen and (max-width: 768px){
 	.slide_bar, .slide_bar_{
-		visibility : hidden;
+		right : 30px;
 	}
 }
 @media screen and (min-width: 576.01px) and (max-width: 767.99px){
 	.slide_bar, .slide_bar_{
-		visibility : hidden;
+		right : 10px;
 	}
 	
 }
 @media screen and (max-width: 576px){
 	.slide_bar, .slide_bar_{
-		visibility : hidden;
+		right : 10px;
 	}
 }
 @media screen and (max-width: 575.99px){
 	.slide_bar, .slide_bar_{
-		visibility : hidden;
+		right : 10px;
 	}
 }

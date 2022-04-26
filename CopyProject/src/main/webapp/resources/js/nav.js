@@ -131,7 +131,7 @@ function kakaoLogout() {
       })
       Kakao.Auth.setAccessToken(undefined)
     }
-    location.href="/controller/login/logout.do";
+    location.href=contextPath+"/login/logout.do";
 }
   
   
@@ -152,5 +152,5 @@ function facebookLogout() {
     FB.logout((res)=>{
         
     });
-    location.href="/controller/login/logout.do";
+    location.href=contextPath+"/login/logout.do";
 }

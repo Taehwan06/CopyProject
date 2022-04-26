@@ -270,4 +270,14 @@ section{
 		font-size: 12px;
 		width: 30px;
 	}
+	.contents{
+		width: 95%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#sectionFindBtn{
+		font-size: 15px;
+		width: 160px;
+		height: 35px;
+	}
 }

@@ -51,3 +51,6 @@ footer{
     height : 60px;
     color : #ffb6c1;
 }
+#searchInput{
+	width: 87%;
+}

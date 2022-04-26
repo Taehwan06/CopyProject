@@ -73,18 +73,36 @@ $(function() {
 				var result = data.trim();
 				
 				if(result == "fail1"){
-					alert("이미지 파일만 등록할 수 있습니다");
+					swal({
+				         text: "이미지 파일만 등록할 수 있습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         
+				      });
 					
 				}else if(result == "fail2"){
-					alert("이미지 변경에 실패했습니다");
+					swal({
+				         text: "이미지 변경에 실패했습니다.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				        
+				      });
 					
 				}else if(result == "fail3"){
-					alert("변경할 이미지를 선택해 주세요");
+					aswal({
+				         text: "변경할 이미지를 선택해 주세요.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				        
+				      });
 					
 				}else{
 					var resultAry = result.split(",")
-					var img_origin = resultAry[1];
-					var img_system = resultAry[0];
+					var img_origin = resultAry[0];
+					var img_system = resultAry[1];
 					
 					$("#img_origin").val(img_origin);
 					$("#img_system").val(img_system);
@@ -126,34 +144,22 @@ function resize(obj) {
 }
 
 function cancelFn(){
-   var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");
-   if(isCancel){
-      location.href = "store_view.do?spidx="+spidx;
-   }
+   swal({
+	      text: "이 페이지를 나가면 수정된 사항이 모두 유실됩니다!\n그래도 나가시겠어요?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          location.href = "store_view.do?spidx="+spidx;
+		   } else {
+		      
+		   }
+		});
 }
 
-function readURL(input) {
-	let regex = new RegExp("(.*?)\.(jpg|png|webp|jfif|bmp|rle|dib|gif|tif|tiff|raw)$");
-	
-	var fileValue = document.getElementById("imgUpload").value;
-	
-	var fileNameAry = fileValue.split("\\");
-	var fileNameBe = fileNameAry[2];
-	var fileName = fileNameBe.toLowerCase();
-	
-	if(regex.test(fileName)){
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function (e) {
-				$("#imgArea").css("background-color", "none");
-				$("#imgArea").css("background-image", "url('"+e.target.result+"')");
-				$("#imgText").css("display", "none");
-				$("#imgButton").css("display", "none");
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-}
+
 //textarea크기 자동조절
 function adjustHeight() {
    var textEle = $(".note-editable");

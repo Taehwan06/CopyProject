@@ -276,4 +276,13 @@
           </foreach>
     </select>
     
+    <select id="phoneCheckMember" resultType="memberVO" parameterType="memberVO">
+		SELECT
+			midx
+		FROM
+			member
+		WHERE
+			phone = CONCAT(#{phone1},"-",#{phone2},"-",#{phone3})
+    </select>
+    
 </mapper>

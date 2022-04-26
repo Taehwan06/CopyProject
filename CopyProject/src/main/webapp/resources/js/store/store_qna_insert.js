@@ -34,7 +34,13 @@ function submitFn(){
 				      });
 					
 				}else{
-					alert("실행오류");
+					swal({
+				         text: "실행오류.",
+				         button: "확인",
+				         closeOnClickOutside : false
+				      }).then(function(){
+				         
+				      });
 				}
 			}
 		});
@@ -48,10 +54,19 @@ function resize(obj) {
     obj.style.height = (12 + obj.scrollHeight) + 'px';
 }
 function cancelFn(){
-	var isCancel = confirm("이 페이지를 나가면 수정된 사항이 모두 유실됩니다! 그래도 나가시겠어요?");
-	if(isCancel){
-		location.href = "home_list.do"
-	}
+	swal({
+	      text: "이 페이지를 나가면 수정된 사항이 모두 유실됩니다!\n그래도 나가시겠어요?",
+	      icon: "warning",
+	      buttons: [" 취소 ", " 확인 "],
+	      dangerMode: false,
+	   })
+	   .then((willDelete) => {
+		      if (willDelete) {
+		          location.href = "store_view.do?spidx="+spidx;
+		   } else {
+		      
+		   }
+		});
 }
 /* 이미지 업로드 */
 

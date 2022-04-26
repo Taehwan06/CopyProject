@@ -3,6 +3,7 @@ package edu.study.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1300,11 +1301,7 @@ public class MypageController {
 			directvo.setCnt(cnt);
 			directvo.setMidx(loginUser.getMidx());
 			directvo.setPrice(directvo.getSale_price());
-			
-			List<BasketVO> basketList = new ArrayList<BasketVO>();
-			
-			basketList.add(directvo);
-			
+				
 			LocalDateTime now = LocalDateTime.now(); 
 			String ordernumber = now.format(DateTimeFormatter.ofPattern("YYMMddHHmmss"));
 			
@@ -1331,6 +1328,8 @@ public class MypageController {
 			int insertPaymentResult = basketService.insertPaymentInfo(payInfovo);
 			
 			if(insertPaymentResult > 0) {
+				List<BasketVO> basketList = new ArrayList<BasketVO>();
+				basketList.add(directvo);
 				model.addAttribute("basketList", basketList);
 				
 				return "mypage/payment";

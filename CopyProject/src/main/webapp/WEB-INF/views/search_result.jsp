@@ -46,8 +46,10 @@
 		</div>
 
 		<div class="searchTitle">
-			<span class="bold">${searchvo.search_value}</span>에 대한 검색 결과
+			<span class="bold">${searchvo.search_value}</span>에 대한 ${searchvo.cnt}건의 검색 결과
 		</div>
+		
+		<%-- <div class="resultNone">${searchvo.cnt}건의 검색결과입니다</div> --%>
 
 		<!-- 홈 스토리 영역 -->
 		<!-- ================================================================================ -->
@@ -55,17 +57,17 @@
 			<div class="row">
 				<div class="searchType bold col-8">홈 스토리</div>
 				<div class="col-4 moreButtonDiv">
-					<span class="moreview" onclick="location.href='${pageContext.request.contextPath}/community/home_list.do?searchValue=${searchvo.search_value}'">더보기</span>
+					<%-- <span class="moreview" onclick="location.href='${pageContext.request.contextPath}/community/home_list.do?searchValue=${searchvo.search_value}'">더보기</span> --%>
 		           	<div class="clear"></div>
 				</div>
 			</div>
 			
 			<div class="row storyList">
-				<c:forEach items="${storyList}" end="7" var="storyListVO" varStatus="cnt">
+				<c:forEach items="${storyList}" var="storyListVO" varStatus="cnt">
 					<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
 						<img src="${pageContext.request.contextPath}/upload/${storyListVO.img_system}" class="storyImg" 
-						onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
-						<div class="storyText" onclick="${pageContext.request.contextPath}/community/location.href='home_view.do?cbidx=${storyListVO.cbidx}&nowPage=1'">
+						onclick="location.href='${pageContext.request.contextPath}/community/home_view.do?cbidx=${storyListVO.cbidx}&fmidx=${storyListVO.midx }&nowPage=1'">
+						<div class="storyText" onclick="${pageContext.request.contextPath}/community/location.href='home_view.do?cbidx=${storyListVO.cbidx}&fmidx=${storyListVO.midx }&nowPage=1'">
 							<div class="storyTitle">${storyListVO.title}</div>
 							<div class="storyWriter">
 								<img class="writerImg" src="${pageContext.request.contextPath}/image/${storyListVO.profile_system}">${storyListVO.writer}
@@ -85,13 +87,13 @@
 			<div class="row">
 				<div class="searchType bold col-8">스토어</div>
 				<div class="col-4 moreButtonDiv">
-					<span class="moreview" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?searchValue=${searchvo.search_value}'">더보기</span>
+					<%-- <span class="moreview" onclick="location.href='${pageContext.request.contextPath}/store/store_list.do?searchValue=${searchvo.search_value}'">더보기</span> --%>
 		           	<div class="clear"></div>
 				</div>
 			</div>
 				
 				<div class="row shopList">
-					<c:forEach items="${storeList}" end="7" var="storeListVO" varStatus="cnt">
+					<c:forEach items="${storeList}" var="storeListVO" varStatus="cnt">
 						<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 shop">
 							<img src="${pageContext.request.contextPath}/image/${storeListVO.img_system }" class="shopImg" 
 							onclick="location.href='${pageContext.request.contextPath}/store/store_view.do?spidx=${storeListVO.spidx}'">
@@ -100,11 +102,14 @@
 									<div class="brand">${storeListVO.brand}</div>
 									${storeListVO.title}
 								</div>
-								<div class="shopPrice">
-									<c:if test="${storeListVO.discount > 0}">
-										<span class="red">${storeListVO.discount}%</span>
-									</c:if>
-									${storeListVO.sale_price}
+								<div class="shopPrice row">
+									<div class="discount_area col-4">
+										<span class="red discount">${storeListVO.discount}%</span>
+									</div>
+									<div class="price_area col-8">
+										<span class="origin">${storeListVO.oview_price}원</span><br>
+										${storeListVO.view_price}원
+									</div>
 								</div>
 								<span class="sky">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">

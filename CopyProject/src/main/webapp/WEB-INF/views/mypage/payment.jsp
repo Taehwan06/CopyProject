@@ -108,14 +108,13 @@
 										<script>$("#proPrice${cnt.count}").val((${basketListvo.price * basketListvo.cnt}).toLocaleString());</script>
 									</div>
 									<div class="productDelivery col-4 col-md-4 col-lg-2">
-										<input type="text" id="deliCharge${cnt.count}" class="deliCharge" 
-											<c:if test="${basketListvo.free_delivery == 'Y'}">
-												value="무료배송"
-											</c:if>
-											<c:if test="${basketListvo.free_delivery == 'N'}">
-												value="${basketListvo.delivery_charge}원"
-											</c:if>
-										disabled>
+										<input type="text" id="deliCharge${cnt.count}" class="deliCharge" value="" disabled>
+										<c:if test="${basketListvo.free_delivery == 'Y'}">
+											<script>$("#deliCharge${cnt.count}").val("무료배송");</script>
+										</c:if>
+										<c:if test="${basketListvo.free_delivery == 'N'}">
+											<script>$("#deliCharge${cnt.count}").val((${basketListvo.delivery_charge}).toLocaleString()+"원");</script>
+										</c:if>
 									</div>
 								</div>
 							</div>

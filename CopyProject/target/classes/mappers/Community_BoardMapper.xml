@@ -220,6 +220,14 @@
 			    WHEN TIMESTAMPDIFF(DAY, write_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, write_date, NOW()), '일 전')
 		    	ELSE CONCAT(TIMESTAMPDIFF(MONTH, write_date, NOW()), '달 전')
 			END AS write_date,
+				modify_yn,
+			CASE
+			    WHEN TIMESTAMPDIFF(MINUTE, modify_date, NOW()) <= 0 THEN '방금 전'
+			    WHEN TIMESTAMPDIFF(MINUTE, modify_date, NOW()) < 60 THEN CONCAT(TIMESTAMPDIFF(MINUTE, modify_date, NOW()), '분 전')
+			    WHEN TIMESTAMPDIFF(HOUR, modify_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, modify_date, NOW()), '시간 전')
+			    WHEN TIMESTAMPDIFF(DAY, modify_date, NOW()) < 30 THEN CONCAT(TIMESTAMPDIFF(DAY, modify_date, NOW()), '일 전')
+		    	ELSE CONCAT(TIMESTAMPDIFF(MONTH, modify_date, NOW()), '달 전')
+			END AS modify_date,
          		img_system,
          		profile_system,
          		c.midx

@@ -271,4 +271,17 @@
 	.sumPriceBox_button{
 	height: 45px;
 	}
+	.text_left, .numberUpDown, .price_val, .priceSpan, .increaseQuantity, .decreaseQuantity{
+		font-size: 10px;
+	}
+	.text_left{
+		margin-right: 5px;
+	}
+	.price_val{
+		margin-left: 5px;
+	}
+	.price_val{
+		margin-top: 16px;
+	}
+	
 }

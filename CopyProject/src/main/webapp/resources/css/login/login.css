@@ -115,6 +115,10 @@ input[type=text]:hover,input[type=password]:hover{
 	margin-top: 10px;
 }
 
+#id, #pwd{
+	padding: 0px 15px;
+}
+
 
 @media screen and (min-width: 1400px){
 	#headerDiv,.navbar{
@@ -226,5 +230,9 @@ input[type=text]:hover,input[type=password]:hover{
 	}
 	section{
 		border-top: 3px solid #ffb6c1; 
+	}
+	#loginArea{
+		margin: 0px;
+		padding: 0px;
 	}
 }
