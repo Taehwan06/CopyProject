@@ -26,10 +26,10 @@
 			title like CONCAT("%",#{search_value},"%")
 		</foreach>
 		OR
-		<foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
+		<!-- <foreach item="search_value" index="index" collection="searchValueAry" open="(" close=")" separator=" AND ">
 			content like CONCAT("%",#{search_value},"%")
 		</foreach>			
-		OR	
+		OR -->	
 			writer like CONCAT("%",#{search_value},"%")
 		)
     </select>

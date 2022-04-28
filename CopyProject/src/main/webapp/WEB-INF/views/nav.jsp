@@ -48,32 +48,32 @@
 			<c:if test="${kakaoUser != null}">
 				<li class="col-md-2 mainMenu" id="menuLogout" onclick="kakaoLogout();">로그아웃</li>
 			</c:if>
-			<c:if test="${facebookUser != null}">
+			<%-- <c:if test="${facebookUser != null}">
 				<li class="col-md-2 mainMenu" id="menuLogout" onclick="facebookLogout();">로그아웃</li>
-			</c:if>
+			</c:if> --%>
 			<c:if test="${loginUser == null && kakaoUser == null && facebookUser == null && naverUser == null}">
 				<li class="col-md-2 mainMenu" id="menuJoin" onclick="location.href='${pageContext.request.contextPath}/login/join.do'">회원가입</li>
 			</c:if>
 			<c:if test="${loginUser != null && loginUser.grade ne 'A' && loginUser.grade ne 'M'}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${loginUser.profile_system}"> ${loginUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${loginUser.profile_system}" alt="유저 프로필 사진"> ${loginUser.nick_name}
 				</li>
 			</c:if>
 			<c:if test="${naverUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${naverUser.profile_system}"> ${naverUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${naverUser.profile_system}" alt="유저 프로필 사진"> ${naverUser.nick_name}
 				</li>
 			</c:if>
 			<c:if test="${kakaoUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${kakaoUser.profile_system}"> ${kakaoUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${kakaoUser.profile_system}" alt="유저 프로필 사진"> ${kakaoUser.nick_name}
 				</li>
 			</c:if>
-			<c:if test="${facebookUser != null}">
+			<%-- <c:if test="${facebookUser != null}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
-					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${facebookUser.profile_system}"> ${facebookUser.nick_name}
+					<img id="navProfileImg" src="${pageContext.request.contextPath}/image/${facebookUser.profile_system}" alt="유저 프로필 사진"> ${facebookUser.nick_name}
 				</li>
-			</c:if>
+			</c:if> --%>
 			<c:if test="${loginUser != null && (loginUser.grade eq 'A' or loginUser.grade eq 'M')}">
 				<li class="col-md-2 mainMenu" id="navProfile" onclick="location.href='${pageContext.request.contextPath}/management/management.do'">
 					회원 관리

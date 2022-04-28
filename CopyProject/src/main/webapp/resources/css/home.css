@@ -64,9 +64,6 @@ body, section{
 	border-radius: 10px;
 	cursor: pointer;
 }
-.storyImg{
-	height : 27vh;
-}
 .shopText{
 	width: 100%;
 	padding: 15px;
@@ -163,9 +160,6 @@ body, section{
 	#spaceDiv{
 		display: none;
 	}
-	.storyImg{
-		height : 20vh;
-	}
 }
 @media screen and (min-width: 992px) and (max-width: 1199.99px){
 	#headerDiv, .navbar, section, footer{
@@ -181,9 +175,6 @@ body, section{
 		font-size: 15px;
 		width: 80%;
 		margin-left: 20px;
-	}
-	.storyImg{
-		height : 25vh;
 	}
 	#mdlg_display_none, #mdlg_display_none_{
 		display: none;
@@ -206,9 +197,6 @@ body, section{
 		font-size: 12px;
 		width: 90%;
 		margin-left: 0px;
-	}
-	.storyImg{
-		height : 20vh;
 	}
 	.categoryUl{
 		padding: 15px 0px 15px 10px;
@@ -266,9 +254,6 @@ body, section{
 	.sidebar_menu{
 		width: 100%;
 		max-width: 400px;
-	}
-	.storyImg{
-		height : 35vh;
 	}
 	#storeList3, #storeList4, #storyList3, #storyList4{
 		display: none;

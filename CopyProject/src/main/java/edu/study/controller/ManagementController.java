@@ -209,7 +209,9 @@ public class ManagementController {
 			model.addAttribute("memberPagingvo", vo);
 			int result = managementService.withdrawMember(vo);
 					
-			return "redirect:/management/member_view.do?midx="+vo.getMidx()+"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+"&searchValue="+vo.getSearchValue();
+			return "redirect:/management/member_view.do?midx="+vo.getMidx()+
+					"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+
+					"&searchValue="+vo.getSearchValue()+"&cntPerPage="+vo.getCntPerPage();
 		}
 	}
 	
@@ -239,7 +241,9 @@ public class ManagementController {
 			model.addAttribute("memberPagingvo", vo);
 			int result = managementService.restoreMember(vo);
 			
-			return "redirect:/management/member_view.do?midx="+vo.getMidx()+"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+"&searchValue="+vo.getSearchValue();
+			return "redirect:/management/member_view.do?midx="+vo.getMidx()+
+					"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+
+					"&searchValue="+vo.getSearchValue()+"&cntPerPage="+vo.getCntPerPage();
 		}
 	}
 	
@@ -270,7 +274,9 @@ public class ManagementController {
 			
 			int result = managementService.modifyMember(Mvo);
 			
-			return "redirect:/management/member_view.do?midx="+vo.getMidx()+"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+"&searchValue="+vo.getSearchValue();
+			return "redirect:/management/member_view.do?midx="+vo.getMidx()+
+					"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+
+					"&searchValue="+vo.getSearchValue()+"&cntPerPage="+vo.getCntPerPage();
 		}
 	}
 	
@@ -301,7 +307,9 @@ public class ManagementController {
 			
 			int result = managementService.imgDelMember(Mvo);
 			
-			return "redirect:/management/member_view.do?midx="+vo.getMidx()+"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+"&searchValue="+vo.getSearchValue();
+			return "redirect:/management/member_view.do?midx="+vo.getMidx()+
+					"&nowPage="+vo.getNowPage()+"&searchType="+vo.getSearchType()+
+					"&searchValue="+vo.getSearchValue()+"&cntPerPage="+vo.getCntPerPage();
 		}
 	}
 	

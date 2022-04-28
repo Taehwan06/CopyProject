@@ -14,7 +14,16 @@ $(document).ready(function() {
 		$("#pause").css({"display" : "inline-block"});
 		console.log("재생 클릭");
 	});
+	var boxWidth = $(".storyImg").width();
+	$(".storyImg").height(boxWidth/4*3);
 });
+
+$(window).resize(function() {
+	var boxWidth = $(".storyImg").width();
+	$(".storyImg").height(boxWidth/4*3);
+});
+
+
 /**/
 
 /*function pauseFn(){

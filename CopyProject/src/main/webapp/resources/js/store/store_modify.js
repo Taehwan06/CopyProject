@@ -414,6 +414,9 @@ $(document).ready(function() {
 	      }
 
    });
+	//로드시 기존 이미지 width 100%
+	var img = document.getElementsByTagName("img");
+	$(".note-editable").children().find(img).css("width", "100%");
 
 	//썸머노트 반응형
     $(".note-editor").css({"width" : "auto", "max-width" : "100%" , "min-width" : "500px"});

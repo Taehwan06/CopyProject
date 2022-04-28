@@ -31,28 +31,39 @@ function submitFn(){
 		/*
 		console.log($("#insertFrm").serialize());*/
 		var content =$("#reviewContents").val();
-		content = content.replace(/(\n|\r\n)/g,'<br>');
-		var score = $("input:radio[name='score']:checked").val( );
-		$.ajax({
-			type : "POST",
-			url : "store_review_modify.do",
-			data : $("#myform").serialize()+"&sridx="+sridx,
-			success : function(res) {
-				
-				console.log(res);
-				if(res>0){
-					swal({
-				         text: "리뷰가 수정되었습니다.",
-				         button: "확인",
-				         closeOnClickOutside : false
-				      }).then(function(){
-				         location.href="store_view.do?spidx="+spidx;
-				      });
-				}else{
-					alert("실행오류");
+		content = content.trim();
+		if(content==""){
+			swal({
+		         text: "내용을 입력하여주세요.",
+		         button: "확인",
+		         closeOnClickOutside : false
+		      }).then(function(){
+		         $(".reply_content_input_text").focus();
+		      });
+		}else{
+			content = content.replace(/(\n|\r\n)/g,'<br>');
+			var score = $("input:radio[name='score']:checked").val( );
+			$.ajax({
+				type : "POST",
+				url : "store_review_modify.do",
+				data : $("#myform").serialize()+"&sridx="+sridx,
+				success : function(res) {
+					
+					console.log(res);
+					if(res>0){
+						swal({
+					         text: "리뷰가 수정되었습니다.",
+					         button: "확인",
+					         closeOnClickOutside : false
+					      }).then(function(){
+					         location.href="store_view.do?spidx="+spidx;
+					      });
+					}else{
+						alert("실행오류");
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 }
 

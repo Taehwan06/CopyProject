@@ -41,9 +41,6 @@ li{
 	color : gray;
 	text-align : center;
 }
-.storyImg{
-	height : 40vh;
-}
 .storyText{
 	text-align : center;
 }
@@ -77,9 +74,6 @@ li{
 	#menuComm{
 		color : #ffb6c1;
 	}
-	.storyImg{
-		height : 35vh;
-	}
 }
 @media screen and (min-width: 992px) and (max-width: 1199.99px){
 	.write_btn{
@@ -95,9 +89,6 @@ li{
 	}
 	#logo{
 		padding : 0;
-	}
-	.storyImg{
-		height : 30vh;
 	}
 }
 @media screen and (min-width: 768px) and (max-width: 991.99px){
@@ -116,9 +107,6 @@ li{
 	#logo{
 		padding : 0;
 	}
-	.storyImg{
-		height : 25vh;
-	}
 }
 @media screen and (min-width: 576px) and (max-width: 767.99px){
 	.write_btn{
@@ -134,9 +122,6 @@ li{
 	}
 	#logo{
 		padding : 0;
-	}
-	.storyImg{
-		height : 27vh;
 	}
 	
 }

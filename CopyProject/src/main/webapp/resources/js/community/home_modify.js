@@ -95,5 +95,5 @@ $(document).ready(function() {
 	$(".note-editable").children().find(img).css("width", "100%")
 	
 	
-	$(".note-editor").css({"width" : "auto", "max-width" : "750px" , "min-width" : "500px"});
+	$(".note-editor").css({"width" : "auto", "max-width" : "750px"});
 });

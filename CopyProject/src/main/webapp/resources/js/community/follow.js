@@ -40,4 +40,12 @@ function login(){
 $(document).ready(function(){
 	var img = document.getElementsByTagName("img");
 	$(".com_content").children().find(img).css("width", "100%");
+	
+	var boxWidth = $(".followingImg").width();
+	$(".followingImg").height(boxWidth/4*3);
+});
+
+$(window).resize(function() {
+	var boxWidth = $(".followingImg").width();
+	$(".followingImg").height(boxWidth/4*3);
 });

@@ -236,8 +236,7 @@ section{
     outline : none;
 }
 .reply_content_input_text_{
-	width : 80%;
-	min-height: 48px;
+	width : 70%;
     border: none;
     background: none;
     color: #424242;
@@ -258,13 +257,13 @@ section{
 	color : #ffb6c1;
 	font-weight : 900;
 	margin-left : 10px;
-	width : 68px;
+	width : 70px;
 }
 .reply_writer_1{
-	width : 75px;
+	width : 80px;
 }
 .reply_writer_2{
-	width : 93px;
+	width : 110px;
 }
 .reply_action{
 	right : 10px;

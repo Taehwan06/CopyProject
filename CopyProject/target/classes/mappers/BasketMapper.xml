@@ -138,7 +138,7 @@
 				spidx,
 				midx,
 				ordernumber,
-				paynumber, 	
+				paynumber 	
 			) 
 			VALUES(
 				(select title from shopping_basket where sbidx = #{sbidx}),

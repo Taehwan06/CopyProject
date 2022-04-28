@@ -81,7 +81,7 @@ function kakaoLogout() {
 }*/
 
 //페이스북 (로그인)
-function facebookLogin() {
+/*function facebookLogin() {
     //로그인 정보 GET
     FB.login((res)=>{
         //사용자 정보 GET
@@ -104,7 +104,7 @@ function facebookLogin() {
         });
     });
 
-}
+}*/
 
 //페이스북 (로그아웃)
 /*function facebookLogout() {

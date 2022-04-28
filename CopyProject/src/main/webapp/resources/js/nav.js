@@ -136,7 +136,7 @@ function kakaoLogout() {
   
   
   
-//페이스북 (로그인) 기본 설정
+/*//페이스북 (로그인) 기본 설정
 window.fbAsyncInit = function () {
     //페이스북 로그인 기능 클라이언트 설정
     FB.init({
@@ -153,4 +153,4 @@ function facebookLogout() {
         
     });
     location.href=contextPath+"/login/logout.do";
-}
+}*/

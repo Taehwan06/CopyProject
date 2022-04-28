@@ -1,20 +1,20 @@
 @charset "UTF-8";
 /* 본문 CSS */
-body{
+/* body{
 	min-width : 518px;
-}
+} */
 #headerDiv{
 	padding-left : 60px;
 	padding-right : 60px;
 	padding-top : 10px;
 	padding-bottom : 10px;
-	min-width : 568px;
+	min-width : 490px;
 }
 #logo{
 	width : 140px;
 }
 #searchInput{
-	width : 86%;
+	width : 85%;
 	min-width : 182px;
 }
 .headerMenu{
@@ -404,7 +404,6 @@ a:hover{
 }
 
 /*리뷰영역*/
-
 #reply_area{
 	width : 100%;
 	margin : auto;
@@ -761,7 +760,7 @@ p{
 		display: none;
 	}
 	.content{
-		margin-left : 20px;
+		margin-left : 0px;
 	}
 }
 @media screen and (max-width: 575.99px){
@@ -779,6 +778,6 @@ p{
 		display: none;
 	}
 	.content{
-		margin-left : 20px;
+		margin-left : 0px;
 	}
 }

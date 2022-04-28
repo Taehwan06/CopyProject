@@ -93,16 +93,6 @@ public class LoginController {
 		return "login/join_result";
 	}
 	
-	@RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
-	@ResponseBody 
-	public String sendSMS(@RequestParam("phone") String userPhoneNumber) throws Exception { // 휴대폰 문자보내기 
-		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성 
-		
-		testService.certifiedPhoneNumber(userPhoneNumber,randomNumber); 
-		
-		return Integer.toString(randomNumber);
-	}
-	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpSession session) throws Exception {
 		
@@ -270,7 +260,7 @@ public class LoginController {
 				HttpSession session = request.getSession(); 
 			    session.setAttribute("user", user);
 				
-				String setfrom = "testmaillth@gmail.com";
+				String setfrom = "homefriendsmail@gmail.com";
 				String tomail = user.getId(); // 받는 사람 이메일
 				String title = "[홈 프렌즈] 임시 비밀번호 입니다."; // 제목
 				String content = "회원님의 임시 비밀번호는 "+ranPass+" 입니다."; // 내용
@@ -396,16 +386,18 @@ public class LoginController {
 	 * 
 	 * if(result > 0) {
 	 * 
-	 * String setfrom = "testmaillth@gmail.com"; String tomail = id; // 받는 사람 이메일
-	 * String title = "[홈 프렌즈] 이메일 인증 번호입니다."; // 제목 String content =
-	 * "이메일 인증 번호는 "+ranNum+" 입니다."; // 내용
+	 * String setfrom = "homefriendsmail@gmail.com"; 
+	 * String tomail = id; // 받는 사람 이메일
+	 * String title = "[홈 프렌즈] 이메일 인증 번호입니다."; // 제목 
+	 * String content =	"이메일 인증 번호는 "+ranNum+" 입니다."; // 내용
 	 * 
 	 * try { MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
 	 * messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 	 * 
 	 * messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-	 * messageHelper.setTo(tomail); // 받는사람 이메일 messageHelper.setSubject(title); //
-	 * 메일제목은 생략이 가능하다 messageHelper.setText(content); // 메일 내용
+	 * messageHelper.setTo(tomail); // 받는사람 이메일 
+	 * messageHelper.setSubject(title); // 메일제목은 생략이 가능하다 
+	 * messageHelper.setText(content); // 메일 내용
 	 * 
 	 * mailSender.send(message); } catch (Exception e) { System.out.println(e); }
 	 * 
@@ -459,24 +451,26 @@ public class LoginController {
 		return "redirect:/";	
 	}
 	
-	@RequestMapping(value = "/facebookLogin.do", method = RequestMethod.POST)
-	public String facebookLogin(Locale locale, Model model, HttpServletRequest request, MemberVO vo) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		HttpSession session = request.getSession();
-		
-		
-		vo.setProfile_system("facebook.png");
-		
-		session.setAttribute("facebookUser", vo);
-		
-		return "redirect:/";
-	}
+	/*
+	 * @RequestMapping(value = "/facebookLogin.do", method = RequestMethod.POST)
+	 * public String facebookLogin(Locale locale, Model model, HttpServletRequest
+	 * request, MemberVO vo) throws Exception {
+	 * 
+	 * int deleteResult = homeService.deleteSearchList();
+	 * 
+	 * List<HomeSearchVO> searchList = homeService.listSearchList();
+	 * 
+	 * model.addAttribute("searchList", searchList);
+	 * 
+	 * HttpSession session = request.getSession();
+	 * 
+	 * 
+	 * vo.setProfile_system("facebook.png");
+	 * 
+	 * session.setAttribute("facebookUser", vo);
+	 * 
+	 * return "redirect:/"; }
+	 */
 		
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
@@ -549,6 +543,16 @@ public class LoginController {
 			
 			return "redirect:/";
 		}
+	}
+	
+	@RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
+	@ResponseBody 
+	public String sendSMS(@RequestParam("phone") String userPhoneNumber) throws Exception { // 휴대폰 문자보내기 
+		int randomNum = (int)((Math.random()* (999999 - 100000 + 1)) + 100000);//난수 생성
+		
+		testService.certifiedPhoneNumber(userPhoneNumber,randomNum); 
+		
+		return Integer.toString(randomNum);
 	}
 	
 	@RequestMapping(value = "/phoneCheck", method = RequestMethod.POST)

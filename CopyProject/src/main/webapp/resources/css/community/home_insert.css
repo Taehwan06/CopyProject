@@ -1,10 +1,12 @@
 @charset "UTF-8";
+html, body{
+	overflow-x:hidden;
+}
 .dropdown-toggle::after {
 	display:none;
 }
 #insertFrm, #updateFrm{
 	width: 70%;
-	min-width: 500px;
 	max-width: 1200px;
 	margin-right: auto;
 	margin-left: auto;
@@ -14,18 +16,15 @@
 	margin-top: 50px;
 }
 #imgArea{
-	height: 500px;
-	width: 500px;
 	margin-right: auto;
 	margin-left: auto;
 	background-color: #eeeeee;
 	cursor: pointer;
 	text-align: center;
-	background-size: 500px 500px;
 }
 #imgText{
 	display: inline-block;
-	padding-top: 250px;
+	padding-top: 40%;
 	font-size: 20px;
 	font-weight: bold;
 	color: #747474;
@@ -60,7 +59,6 @@ label{
 	text-align: center;
 }
 #titleArea{
-	min-width : 450px;
 	margin-left : auto;
 	margin-right : auto;
 	padding : 0;
@@ -136,6 +134,10 @@ label{
 /* 미디어 쿼리  CSS */
 /*========================================================================*/
 @media screen and (min-width: 1400px){
+	#imgArea{
+		height: 500px;
+		width: 500px;
+	}
 	#headerDiv, .navbar, footer{
 		width: 80%;
 	}
@@ -147,6 +149,10 @@ label{
 	}
 }
 @media screen and (min-width: 1200px) and (max-width: 1399.99px){
+	#imgArea{
+		height: 500px;
+		width: 500px;
+	}
 	#headerDiv, .navbar, footer{
 		width: 85%;
 	}
@@ -158,6 +164,10 @@ label{
 	}
 }
 @media screen and (min-width: 992px) and (max-width: 1199.99px){
+	#imgArea{
+		height: 500px;
+		width: 500px;
+	}
 	#headerDiv, .navbar, footer{
 		width: 90%;
 	}
@@ -174,6 +184,10 @@ label{
 	}
 }
 @media screen and (min-width: 768px) and (max-width: 991.99px){
+	#imgArea{
+		height: 500px;
+		width: 500px;
+	}
 	#headerDiv, .navbar, footer{
 		width: 95%;
 	}
@@ -193,6 +207,7 @@ label{
 	}
 }
 @media screen and (min-width: 576px) and (max-width: 767.99px){
+	
 	#headerDiv, .navbar, footer{
 		width: 98%;
 	}
@@ -229,6 +244,8 @@ label{
 	}
 	.sidebar_menu{
 		width: 100%;
-		max-width: 400px;
+	}
+	#submitButton, #calcelButton{
+		width : 100px;
 	}
 }

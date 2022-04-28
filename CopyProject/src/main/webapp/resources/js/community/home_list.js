@@ -23,16 +23,8 @@ function writeFn(){
 	});
 }
 $(document).ready(function(){
-	if(sort == "recent"){
-		$(".list_btn").css({"background" : "none", "color" : "black"});
-		$("#recent").css({"background" : "#ffb6c1", "color" : "white"});
-	}else if(sort == 'view'){
-		$(".list_btn").css({"background" : "none", "color" : "black"});
-		$("#view").css({"background" : "#ffb6c1", "color" : "white"});
-	}else if(sort == "scrap"){
-		$(".list_btn").css({"background" : "none", "color" : "black"});
-		$("#scrap").css({"background" : "#ffb6c1", "color" : "white"});
-	}
+	var boxWidth = $(".storyImg").width();
+	$(".storyImg").height(boxWidth/4*3);
 	/* 스토어 서브 네비 */
 	/*========================================================================*/
 	$("#menuStore").mouseover(function(){
@@ -133,11 +125,26 @@ $(document).ready(function(){
 		$("#categoryLi").css({"color" : "black"});
 		$(".categoryDiv").css({"display" : "none"});
 	});
+	
+	if(sort == "recent"){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#recent").css({"background" : "#ffb6c1", "color" : "white"});
+	}else if(sort == 'view'){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#view").css({"background" : "#ffb6c1", "color" : "white"});
+	}else if(sort == "scrap"){
+		$(".list_btn").css({"background" : "none", "color" : "black"});
+		$("#scrap").css({"background" : "#ffb6c1", "color" : "white"});
+	}
 });	
 
 $(window).resize(function() {
+	var boxWidth = $(".storyImg").width();
+	$(".storyImg").height(boxWidth/4*3);
+	
 	if($(window).width()<751 && $(window).width()>576){
 			$("#subNav").css({"display" : "none"});
 			$("#subNav2").css({"display" : "none"});
+			$(".storyImg").height(boxWidth/4*3);
 	}
 });

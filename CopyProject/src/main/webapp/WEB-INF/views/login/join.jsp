@@ -39,9 +39,8 @@
 	<%@ include file="../header.jsp" %>
 	<%@ include file="../nav.jsp" %>
 
-	<!-- 본문 영역 -->	
+	<!-- 본문 영역 -->
 	<section>
-
 		<form name="joinFrm" id="joinFrm" class="joinFrm" method="post">
 			<div class="title">회원 가입</div>
 			
@@ -230,13 +229,12 @@
 			<div class="submitArea">
 				<input type="button" name="submitbtn" id="submitbtn" class="submitbtn button" onclick="joinSubmitFn()" value="회원 가입"><br>
 				<div>
-					<a href="${pageContext.request.contextPath}/login/find_id.do">아이디 찾기 |</a>
-					<a href="${pageContext.request.contextPath}/login/find_pwd.do">비밀번호 찾기 |</a>
-					<a href="${pageContext.request.contextPath}/login/login.do">로그인</a>
+					<a class="subLink" href="${pageContext.request.contextPath}/login/find_id.do">아이디 찾기 |</a>
+					<a class="subLink href="${pageContext.request.contextPath}/login/find_pwd.do">비밀번호 찾기 |</a>
+					<a class="subLink href="${pageContext.request.contextPath}/login/login.do">로그인</a>
 				</div>
 			</div>
 		</form>
-		
 	</section>
 	
 	<!-- 우편번호 찾기 -->
@@ -245,17 +243,15 @@
 
 	<%@ include file="../footer.jsp" %>
 	
-	<!-- 부트스트랩 -->	
-
+	<!-- 부트스트랩 -->
 	<!-- Optional JavaScript; choose one of the two! -->
-
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 	-->
+	
 </body>
 </html>

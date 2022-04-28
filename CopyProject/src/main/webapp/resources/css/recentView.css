@@ -5,9 +5,8 @@ section{
 	max-width: 1560px;
 }
 
-
 .eventDiv{
-	width: 90%;
+	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50px;
@@ -16,7 +15,6 @@ section{
 	width: 100%;
 	height: auto;
 	border-radius: 15px;
-	cursor: pointer;
 }
 
 .searchTitle{
@@ -225,7 +223,7 @@ section{
 		margin-left: 0px;
 	}
 	.eventDiv{
-		width: 99%;
+		width: 89%;
 		margin-right: auot;
 		margin-left: auot;
 	}

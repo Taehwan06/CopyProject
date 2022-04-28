@@ -113,12 +113,23 @@
 		<!-- ====================================================================================== -->
 		<!-- ====================================================================================== -->
 		<div class="row storyList">
-			<div class="storyListTitle">
+			<div class="col-6 storyListTitle">
 				오늘의 스토리
-				<span id="moreview" onclick="location.href='home_list.do?&sort=recent'">더보기</span>
-				<div id="clear"></div>
 			</div>
-			<c:forEach items="${list}" var="vo" varStatus="cnt">
+			<div class="col-6 float">
+				<c:if test="${loginUser == null }">
+					<button class="write_btn_" onclick="writeFn()">
+						글쓰기
+					</button>
+				</c:if>
+				<c:if test="${loginUser != null }">
+					<button class="write_btn_" onclick="location.href='home_insert.do'">
+						글쓰기
+					</button>
+				</c:if>
+				<span id="moreview" onclick="location.href='home_list.do?&sort=recent'">더보기</span>
+			</div>
+			<c:forEach items="${list}" var="vo" varStatus="cnt" end="7">
 				<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 story">
 					<img src="${pageContext.request.contextPath}/upload/${vo.img_system}" class="storyImg" onclick="location.href='home_view.do?cbidx=${vo.cbidx}&fmidx=${vo.midx }&nowPage=1'" alt="${vo.title }">
 					<div class="storyText">

@@ -1,5 +1,5 @@
 /* 전역 변수 */
-var idcheck = false;
+var emailCheck = false;
 var bir1Reg = /^\d{4}/;
 var bir2Reg = /^\d{1,2}/;
 var bir3Reg = /^\d{1,2}/;
@@ -163,7 +163,7 @@ function onBlurFn(obj){
 		}
 	}
 	
-/* =================================================================================================== */
+/*    생년월일 유효성 검사     =========================================================================== */
 /* =================================================================================================== */
 /* =================================================================================================== */
 	var checkYear = /^[0-9]{4}/g;
@@ -176,14 +176,14 @@ function onBlurFn(obj){
 	    var mmVal = document.getElementById("birth2").value;
 	    var ddVal = document.getElementById("birth3").value;
     
-	    if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900){
+	    if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900 || parseInt(yyVal) > 2022){
 			span.text("태어난 년도 4자리를 정확하게 입력하세요.");
 			span.css({"color" : "red", "visibility" : "visible"});
 	    }else if(!checkYear.test(yyVal)){
 			span.text("태어난 년도 4자리를 정확하게 입력하세요.");
 			span.css({"color" : "red", "visibility" : "visible"});
 		}else{
-			if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null){
+			if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null || parseInt(mmVal) > 12){
 				span.text("태어난 월을 정확하게 입력하세요.");
 				span.css({"color" : "red", "visibility" : "visible"});
 			}else{
@@ -243,11 +243,11 @@ function onBlurFn(obj){
 	    var ddVal = document.getElementById("birth3").value;
 		
 		
-		if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null){
-			span.text("태어난 월을 입력하세요.");
+		if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null || parseInt(mmVal) > 12){
+			span.text("태어난 월을 정확하게 입력하세요.");
 			span.css({"color" : "red", "visibility" : "visible"});
 	    }else if(mmVal != "00" && mmVal != "0" && mmVal != "" && mmVal != null){
-			if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900){
+			if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900 || parseInt(yyVal) > 2022){
 				span.text("태어난 년도 4자리를 정확하게 입력하세요.");
 				span.css({"color" : "red", "visibility" : "visible"});
 			}else if(ddVal == "" || ddVal == null){
@@ -314,11 +314,11 @@ function onBlurFn(obj){
 			span.text("생년월일을 다시 확인해주세요.");
 			span.css({"color" : "red", "visibility" : "visible"});
 	    }else{
-			if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900){
+			if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900 || parseInt(yyVal) > 2022){
 				span.text("태어난 년도 4자리를 정확하게 입력하세요.");
 				span.css({"color" : "red", "visibility" : "visible"});
-			}else if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null){
-				span.text("태어난 월을 선택하세요.");
+			}else if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null || parseInt(mmVal) > 12){
+				span.text("태어난 월을 정확하게 입력하세요.");
 				span.css({"color" : "red", "visibility" : "visible"});
 			}else{
 				if(mmVal == "01" || mmVal == "03" || mmVal == "05" || mmVal == "07" || mmVal == "08" || mmVal == "10" || mmVal == "12"
@@ -593,7 +593,90 @@ function joinSubmitFn(){
 		info.style.color = "green";
 	}
 
-	info = document.getElementById("birthFoot");
+
+/*    생년월일 유효성 검사     =========================================================================== */
+/* =================================================================================================== */
+/* =================================================================================================== */
+	var checkYear = /^[0-9]{4}/g;
+	var checkDate = /\d{1,2}/;
+	
+    var span = $("#birthFoot");
+    var yyVal = document.getElementById("birth1").value;
+    var mmVal = document.getElementById("birth2").value;
+    var ddVal = document.getElementById("birth3").value;
+
+    if(yyVal == "" || yyVal == null || parseInt(yyVal) < 1900 || parseInt(yyVal) > 2022){
+		span.text("태어난 년도 4자리를 정확하게 입력하세요.");
+		span.css({"color" : "red", "visibility" : "visible"});
+		result = false;
+    }else if(!checkYear.test(yyVal)){
+		span.text("태어난 년도 4자리를 정확하게 입력하세요.");
+		span.css({"color" : "red", "visibility" : "visible"});
+		result = false;
+	}else{
+		if(mmVal == "00" || mmVal == "0" || mmVal == "" || mmVal == null || parseInt(mmVal) > 12){
+			span.text("태어난 월을 정확하게 입력하세요.");
+			span.css({"color" : "red", "visibility" : "visible"});
+			result = false;
+		}else{
+			if(ddVal == "0" || ddVal == "00" || ddVal == "" || ddVal == null || parseInt(ddVal) > 31){
+				span.text("생년월일을 다시 확인해주세요.");
+				span.css({"color" : "red", "visibility" : "visible"});
+				result = false;
+			}else if(ddVal == ""){
+				span.text("태어난 일(날짜) 2자리를 정확하게 입력하세요.");
+				span.css({"color" : "red", "visibility" : "visible"});
+				result = false;
+			}else{
+				if(mmVal == "01" || mmVal == "03" || mmVal == "05" || mmVal == "07" || mmVal == "08" || mmVal == "10" || mmVal == "12"
+					|| mmVal == "1" || mmVal == "3" || mmVal == "5" || mmVal == "7" || mmVal == "8" ){
+					if(parseInt(ddVal) <= 31){
+						span.text("");
+						span.css({"visibility" : "hidden"});
+					}else{
+						span.text("생년월일을 다시 확인해주세요.");
+						span.css({"color" : "red", "visibility" : "visible"});
+						result = false;
+					}
+				}else if(mmVal == "02" || mmVal == "2"){
+					if(parseInt(yyVal)%4 == 0){
+						if(parseInt(ddVal) <= 29){
+							span.text("");
+							span.css({"visibility" : "hidden"});
+						}else{
+							span.text("생년월일을 다시 확인해주세요.");
+							span.css({"color" : "red", "visibility" : "visible"});
+							result = false;
+						}
+					}else{
+						if(parseInt(ddVal) <= 28){
+							span.text("");
+							span.css({"visibility" : "hidden"});
+						}else{
+							span.text("생년월일을 다시 확인해주세요.");
+							span.css({"color" : "red", "visibility" : "visible"});
+							result = false;
+						}
+					}
+				}else{
+					if(parseInt(ddVal) <= 30){
+						span.text("");
+						span.css({"visibility" : "hidden"});
+					}else{
+						span.text("생년월일을 다시 확인해주세요.");
+						span.css({"color" : "red", "visibility" : "visible"});
+						result = false;
+					}
+				}
+			}
+		}
+	}
+	
+/* =================================================================================================== */
+/* =================================================================================================== */
+/* =================================================================================================== */
+
+	/*info = document.getElementById("birthFoot");
 	var bir1Val = document.getElementById("birth1").value;
 	var bir2Val = document.getElementById("birth2").value;
 	var bir3Val = document.getElementById("birth3").value;
@@ -622,15 +705,11 @@ function joinSubmitFn(){
 		info.textContent = "생년월일을 올바르게 입력해주세요";
 		info.style.color = "red";
 		result = false;
-	}
-
-	if(result && phoneCk){
-		document.joinFrm.method = "post";
-		document.joinFrm.action = "join.do";
-		document.joinFrm.submit();
-	}else if(!result){
+	}*/
+	
+	if(!emailCheck){
 		swal({
-			text: "입력하신 정보가 올바르지 않습니다.",
+			text: "아이디 중복확인을 해주세요.",
 			button: "확인",
 			icon: "warning",
 			closeOnClickOutside : false
@@ -642,6 +721,17 @@ function joinSubmitFn(){
 			icon: "warning",
 			closeOnClickOutside : false
 		});
+	}else if(!result){
+		swal({
+			text: "입력하신 정보가 올바르지 않습니다.",
+			button: "확인",
+			icon: "warning",
+			closeOnClickOutside : false
+		});
+	}else if(result && phoneCk && idCheck){
+		document.joinFrm.method = "post";
+		document.joinFrm.action = "join.do";
+		document.joinFrm.submit();
 	}
 }
 
@@ -665,10 +755,12 @@ function idCheck(){
 					idFoot.text("이미 사용 중인 메일 주소입니다.");
 					idFoot.css("color","red");
 					idFoot.css("visibility","visible");
+					emailCheck = false;
 				}else if(result == "idCheckSuccess"){
 					idFoot.text("사용 가능한 아이디입니다.");
 					idFoot.css("color","green");
 					idFoot.css("visibility","visible");
+					emailCheck = true;
 				}
 			}
 		});
@@ -727,13 +819,15 @@ function checkphone(){
 					icon: "warning",
 					closeOnClickOutside : false
 				});
-				$(".successPhoneChk").text("유효한 번호를 입력해주세요."); 
-				$(".successPhoneChk").css("color","red"); 
+				$("#phoneCheckFoot").text("유효한 번호를 입력해주세요."); 
+				$("#phoneCheckFoot").css("color","red");
+				$("#phoneCheckFoot").css("visibility","visible");
 				$("#phone").attr("autofocus",true); 
 			}else{ $("#phoneCheck").attr("disabled",false); 
 				$("#phoneChk2").css("display","inline-block"); 
-				$(".successPhoneChk").text("인증번호를 입력한 뒤 본인인증을 눌러주십시오."); 
-				$(".successPhoneChk").css("color","green"); 
+				$("#phoneCheckFoot").text("인증번호 입력 후 인증번호 확인을 눌러주세요."); 
+				$("#phoneCheckFoot").css("color","green"); 
+				$("#phoneCheckFoot").css("visibility","visible"); 
 				$("#phone").attr("readonly",true); 
 				code2 = data; 
 			} 
@@ -744,18 +838,20 @@ function checkphone(){
 /* 휴대폰 인증번호 대조 */ 
 function checkphone2(){
 	if($("#phoneCheck").val() == code2){ 
-		$(".successPhoneChk").text("인증번호가 일치합니다."); 
-		$(".successPhoneChk").css("color","green"); 
+		$("#phoneCheckFoot").text("인증번호가 일치합니다."); 
+		$("#phoneCheckFoot").css("color","green"); 
+		$("#phoneCheckFoot").css("visibility","visible");
 		$("#phoneDoubleChk").val("true"); 
 		$("#phoneCheck").attr("disabled",true); 
 		phoneCk = true;
-	}else{ $(".successPhoneChk").text("인증번호가 일치하지 않습니다. 확인해주시기 바랍니다."); 
-		$(".successPhoneChk").css("color","red"); 
-		$("#phoneDoubleChk").val("false"); 
-		$(this).attr("autofocus",true); 
+	}else{ 
+		$("#phoneCheckFoot").text("인증번호가 일치하지 않습니다.");
+		$("#phoneCheckFoot").css("color","red");
+		$("#phoneCheckFoot").css("visibility","visible");
+		$("#phoneDoubleChk").val("false");
+		$(this).attr("autofocus",true);
 	} 
 }
-				
 
 
 /* 인증번호 발송 */

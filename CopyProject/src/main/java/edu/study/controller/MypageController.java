@@ -940,7 +940,7 @@ public class MypageController {
 				
 			session.setAttribute("loginUser", null);
 	
-			return "redirect:"+request.getContextPath()+"/login/login.do";
+			   return "redirect:/login/login.do";
 	    }
 	}
 	

@@ -4,7 +4,7 @@
 }
 #insertFrm{
 	width: 70%;
-	min-width: 500px;
+	/* min-width: 500px; */
 	max-width: 1200px;
 	margin-right: auto;
 	margin-left: auto;
@@ -177,7 +177,7 @@ select:focus{
 	text-align: center;
 }
 #product_img{
-	width: 150px;
+	width: 100%;
 }
 #product_title, #product_price, #product_img{
 	padding: 10px;
@@ -186,7 +186,7 @@ select:focus{
 #product_title{
 	padding-top: 50px;
 	border-left: 1px solid #dcdcdc;
-	font-size: 1.5em;
+	font-size: 1em;
 }
 
 /*서브 타이틀*/
@@ -341,5 +341,8 @@ select:focus{
 	.sidebar_menu{
 		width: 100%;
 		max-width: 400px;
+	}
+	#product_img{
+	width: 150px;
 	}
 }

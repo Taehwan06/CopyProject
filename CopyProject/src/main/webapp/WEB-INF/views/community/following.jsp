@@ -105,7 +105,7 @@
 							<div class="row">
 								<c:forEach items="${mlist.bvo }" var="blist" end="3">
 									<div class="followingImgDiv col-3">
-										<img src="${pageContext.request.contextPath}/upload/${blist.img_system }" alt="게시글 사진" class="followingImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
+										<img src="${pageContext.request.contextPath}/upload/${blist.img_system }" alt="${blist.title }" class="followingImg" onclick="location.href='home_view.do?cbidx=${blist.cbidx}&fmidx=${blist.midx }&nowPage=1'">
 									</div>
 								</c:forEach>
 							</div>

@@ -8,7 +8,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">
-					<img class="col-4" id="modalLogo" src="${pageContext.request.contextPath}/image/mainLogo.png" alt="메인 로고" 
+					<img class="col-4" id="modalLogo" src="${pageContext.request.contextPath}/image/mainLogo.png" alt="메인 로고 이미지" 
 					onclick="location.href='${pageContext.request.contextPath}'">
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -66,8 +66,6 @@
 						</div>
 					</c:if>		
 				</div>
-
-
 
 				<!-- 아코디언 영역 -->
 				<!-- ====================================================================================== -->
@@ -129,7 +127,7 @@
 	<div class="row" id="headerDiv">
 		
 		<div class="col-4" id="spaceDiv"></div>
-		<img class="col-4 col-pull-4 col-md-2 col-sm-3" id="logo" src="${pageContext.request.contextPath}/image/mainLogo.png" alt="메인 로고" 
+		<img class="col-4 col-pull-4 col-md-2 col-sm-3" id="logo" src="${pageContext.request.contextPath}/image/mainLogo.png" alt="메인 로고 이미지" 
 		onclick="location.href='${pageContext.request.contextPath}'">
 		<div class="col-2" id="spaceDiv"></div>
 		
@@ -146,7 +144,6 @@
 			<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
 		</svg>
 		
-
 		<button class="iconBtn col-md-1" onclick="location.href='${pageContext.request.contextPath}/mypage/mypage.do'">
 			<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person headerMenu" viewBox="0 0 16 16" id="mypage">
 				<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>

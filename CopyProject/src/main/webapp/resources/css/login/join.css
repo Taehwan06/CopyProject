@@ -193,6 +193,11 @@ section{
 	background-color: white;
 }
 
+.subLink:hover{
+	color: #ffb6c1;
+	cursor: pointer;
+}
+
 
 
 /* 미디어 쿼리  CSS */

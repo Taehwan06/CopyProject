@@ -47,7 +47,7 @@
 	
 	<!-- 본문 영역 -->
 	<div class="MainImg">
-		<img src="${pageContext.request.contextPath}/upload/${vo.img_system }">
+		<img src="${pageContext.request.contextPath}/upload/${vo.img_system }" alt="${vo.title }">
 	</div>
 	<section id="story_area">
 		<div class="comm_area col-10 col-sm-10 col-md-8 col-lg-8">
@@ -144,7 +144,7 @@
 				<input type="hidden" id="midx" name="midx" value="${loginUser.midx }">
 				<input type="hidden" name="writer" value="${loginUser.nick_name }">
 				<div class="reply_writer">
-					<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }" alt="게시글 작성자 사진">
+					<img src="${pageContext.request.contextPath}/image/${loginUser.profile_system }" alt="게시글 작성자 프로필 사진">
 				</div>
 				<div class="reply_input">
 					<div class="reply_content">
@@ -164,7 +164,7 @@
 				<input type="hidden" id="origin_cbridx" name="origin_cbridx" value="${orincbridx}">
 				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
 				<div class="reply_writer">
-					<img src="${pageContext.request.contextPath}/image/kakao_profile_basic.png" alt="게시글 작성자 기본 사진">
+					<img src="${pageContext.request.contextPath}/image/kakao_profile_basic.png" alt="댓글 작성자 기본 사진">
 				</div>
 				<div class="reply_input" onclick="ReNot()">
 					<div class="reply_content">
@@ -194,7 +194,7 @@
 					<article class="reply_item_">
 						<p class="reply_item_content reply_item_content${reply.cbridx }">
 							<a class="reply_item_content_writer" href="${pageContext.request.contextPath}/mypage/Member_page.do?midx=${reply.midx }">${reply.writer }
-								<img class="reply_item_content_writer_image" src="${pageContext.request.contextPath}/image/${reply.profile_system }">
+								<img class="reply_item_content_writer_image" src="${pageContext.request.contextPath}/image/${reply.profile_system }" alt="댓글 작성자 프로필 사진">
 							</a>
 							<c:if test="${reply.del_yn == 'N' || loginUser.grade == 'A' }">
 								<span class="reply_item_content_content reply_item_content_content${reply.cbridx}">${reply.content }</span>

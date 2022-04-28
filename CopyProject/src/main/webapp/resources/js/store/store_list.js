@@ -40,7 +40,12 @@ $(document).ready( function(){
 	$(".numberOnly").on("keyup", function() {
     	$(this).val($(this).val().replace(/[^0-9]/g,""));
     });
-
+	//가격 인풋범위초과시 가격고정
+	$(".max_price").on("keyup", function() {
+		if($(this).val()>69930000){
+			$(this).val(69930000)
+		}
+	});
 	
 });
 

@@ -236,14 +236,14 @@
 								<div class="property-filter-panel-range-control__input-row">
 									<span class="property-filter-panel-range-control__input-row__cell">
 										<span class="property-filter-panel-range-control__input-row__input-wrap">
-											<input id="priceStart" type="text" width="5" placeholder="0" class="numberOnly property-filter-panel-range-control__input-row__input" value="">
+											<input id="priceStart" type="text" width="5" placeholder="0" class="max_price numberOnly property-filter-panel-range-control__input-row__input" value="">
 										</span>
 										<span class="property-filter-panel-range-control__input-row__footer">원</span>
 									</span>
 									<span class="property-filter-panel-range-control__input-row__separator">~</span>
 									<span class="property-filter-panel-range-control__input-row__cell">
 										<span class="property-filter-panel-range-control__input-row__input-wrap">
-											<input id="priceEnd"  type="text" width="5" placeholder="69,930,000" class="numberOnly property-filter-panel-range-control__input-row__input" value="">
+											<input id="priceEnd"  type="text" width="5" placeholder="69,930,000" class="max_price numberOnly property-filter-panel-range-control__input-row__input" value="">
 										</span>
 										<span class="property-filter-panel-range-control__input-row__footer">원</span>
 									</span>

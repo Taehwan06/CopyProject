@@ -246,10 +246,10 @@
 			AND 
 				del_yn = #{searchValue} 
 		</if> 
-		<if test="period == null or period.equals('1week')"> 
+		<if test="period == null or period.equals('1week') or period.equals('')">
 			AND 
 				o.buying_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) 
-		</if> 
+		</if>
 		<if test="period != null and period.equals('1month')"> 
 			AND 
 				o.buying_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) 

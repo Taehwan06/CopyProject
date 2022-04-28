@@ -383,6 +383,8 @@ function adjustHeight() {
 //페이지가 로딩된 후 동작
 $(document).ready(function() {
 	
+	
+	
 	$('#summernote').summernote({
       width : 750,
       maxWidth : 750, 
@@ -418,6 +420,8 @@ $(document).ready(function() {
 	      }
    });
 
+	
+	
 	//썸머노트 반응형
     $(".note-editor").css({"width" : "auto", "max-width" : "100%" , "min-width" : "500px"});
 

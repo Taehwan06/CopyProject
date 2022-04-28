@@ -1,4 +1,14 @@
 $(document).ready(function(){
+	var boxWidth = $(".storyImg").width();
+	$(".storyImg").height(boxWidth/4*3);
+	
+	boxWidth = $("#storyimg_area").width();
+	$("#storyimg_area").height(boxWidth*0.6);
+	
+	if($(window).width()<576){
+		$("#storyimg_area").height(boxWidth*0.8);
+	}
+	
 	/* 스토어 서브 네비 */
 	/*========================================================================*/
 	$("#menuStore").mouseover(function(){
@@ -103,9 +113,20 @@ $(document).ready(function(){
 });	
 
 $(window).resize(function() {
+	var boxWidth = $(".storyImg").width();
+	$(".storyImg").height(boxWidth/4*3);
+	
 	if($(window).width()<751 && $(window).width()>576){
 			$("#subNav").css({"display" : "none"});
 			$("#subNav2").css({"display" : "none"});
+			$(".storyImg").height(boxWidth/4*3);
+	}
+	
+	boxWidth = $("#storyimg_area").width();
+	$("#storyimg_area").height(boxWidth*0.6);
+	
+	if($(window).width()<576){
+		$("#storyimg_area").height(boxWidth*0.8);
 	}
 });
 function writeFn(){

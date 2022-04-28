@@ -203,7 +203,19 @@ $(document).ready(function() {
 		
 	}
 	
-	$(".note-editor").css({"width" : "auto", "max-width" : "750px" , "min-width" : "500px"});
+	$(".note-editor").css({"width" : "auto", "max-width" : "750px"});
 	
-	
+	if($(window).width() > 0){
+	var boxWidth = $('#imgArea').width();
+	$('#imgArea').height(boxWidth*1);
+}
+});
+
+$(window).resize(function(){
+    var winWidth = $(window).width();
+    var boxWidth = $('#imgArea').width();
+    
+    if(winWidth > 0){
+        $('#imgArea').height(boxWidth*1);
+    }
 });
