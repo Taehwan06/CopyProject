@@ -1,11 +1,15 @@
 /* 전역 변수 */
+var idcheck = false;
 var emailCheck = false;
+var ph1Reg = /\d{2,3}/;
+var ph2Reg = /\d{3,4}/;
+var ph3Reg = /\d{4}/;
 var bir1Reg = /^\d{4}/;
 var bir2Reg = /^\d{1,2}/;
 var bir3Reg = /^\d{1,2}/;
 var spaceReg = /^\s/g;
 //var emailCheck = false;
-var phoneCk = false;
+//var phoneCk = false;
 
 var phReg = /^\d{10,11}/;
 
@@ -17,6 +21,9 @@ function onBlurFn(obj){
 	var parent = obj.parentElement;
 	var reg = "";
 	var pwdValue = document.getElementById("pwd").value;
+	var ph1Val = document.getElementById("phone1").value;
+	var ph2Val = document.getElementById("phone2").value;
+	var ph3Val = document.getElementById("phone3").value;
 	var bir1Val = document.getElementById("birth1").value;
 	var bir2Val = document.getElementById("birth2").value;
 	var bir3Val = document.getElementById("birth3").value;
@@ -37,20 +44,15 @@ function onBlurFn(obj){
 			info.textContent = "올바르게 입력하셨습니다";
 			info.style.color = "green";
 		}
-	}else if(id =="phone"){	
-		reg = /^\d{10,11}/;
-		info = document.getElementById("phoneFoot");
+	}else if(id =="emailcheck"){
+		info = document.getElementById("emailFoot");
 		if(value == ""){
 			info.style.visibility = "visible";
-			info.textContent = "휴대폰 번호를 입력하세요";
-			info.style.color = "red";
-		}else if(!reg.test(value)){
-			info.style.visibility = "visible";
-			info.textContent = "휴대폰 번호 형식이 올바르지 않습니다";
+			info.textContent = "이메일 인증을 해주세요";
 			info.style.color = "red";
 		}else{
-			info.style.visibility = "visible";
-			info.textContent = "올바르게 입력하셨습니다";
+			info.style.visibility = "hidden";
+			info.textContent = "";
 			info.style.color = "green";
 		}
 	}else if(id =="pwd"){
@@ -160,6 +162,43 @@ function onBlurFn(obj){
 		}else{
 			info.style.visibility = "hidden";
 			info.style.color = "green";
+		}
+	}
+	
+	if(id =="phone1"){
+		info = document.getElementById("phoneFoot");
+		if(ph1Reg.test(ph1Val) && ph2Reg.test(ph2Val) && ph3Reg.test(ph3Val)){
+			info.style.visibility = "visible";
+			info.textContent = "올바르게 입력하셨습니다";
+			info.style.color = "green";
+		}else{
+			info.style.visibility = "visible";
+			info.textContent = "연락처를 올바르게 입력해주세요";
+			info.style.color = "red";
+		}
+	}
+	if(id =="phone2"){
+		info = document.getElementById("phoneFoot");
+		if(ph1Reg.test(ph1Val) && ph2Reg.test(ph2Val) && ph3Reg.test(ph3Val)){
+			info.style.visibility = "visible";
+			info.textContent = "올바르게 입력하셨습니다";
+			info.style.color = "green";
+		}else{
+			info.style.visibility = "visible";
+			info.textContent = "연락처를 올바르게 입력해주세요";
+			info.style.color = "red";
+		}
+	}
+	if(id =="phone3"){
+		info = document.getElementById("phoneFoot");
+		if(ph1Reg.test(ph1Val) && ph2Reg.test(ph2Val) && ph3Reg.test(ph3Val)){
+			info.style.visibility = "visible";
+			info.textContent = "올바르게 입력하셨습니다";
+			info.style.color = "green";
+		}else{
+			info.style.visibility = "visible";
+			info.textContent = "연락처를 올바르게 입력해주세요";
+			info.style.color = "red";				
 		}
 	}
 	
@@ -459,18 +498,13 @@ function joinSubmitFn(){
 		info.style.color = "green";
 	}
 	
-	value = document.getElementById("phone").value;
-	info = document.getElementById("phoneFoot");
-	reg = /^\d{10,11}/;
+	value = document.getElementById("emailcheck").value;
+	info = document.getElementById("emailFoot");
+		
 	if(value == ""){
 		result = false;
 		info.style.visibility = "visible";
-		info.textContent = "휴대폰 번호를 입력하세요";
-		info.style.color = "red";
-	}else if(!reg.test(value)){
-		result = false;
-		info.style.visibility = "visible";
-		info.textContent = "휴대폰 번호 형식이 올바르지 않습니다";
+		info.textContent = "이메일 인증을 해주세요";
 		info.style.color = "red";
 	}else{
 		info.style.visibility = "hidden";
@@ -593,6 +627,19 @@ function joinSubmitFn(){
 		info.style.color = "green";
 	}
 
+	info = document.getElementById("phoneFoot");
+	var ph1Val = document.getElementById("phone1").value;
+	var ph2Val = document.getElementById("phone2").value;
+	var ph3Val = document.getElementById("phone3").value;		
+	if(ph1Reg.test(ph1Val) && ph2Reg.test(ph2Val) && ph3Reg.test(ph3Val)){
+		info.style.visibility = "hidden";
+		info.textContent = "";
+	}else{
+		info.style.visibility = "visible";
+		info.textContent = "연락처를 올바르게 입력해주세요";
+		info.style.color = "red";
+		result = false;
+	}
 
 /*    생년월일 유효성 검사     =========================================================================== */
 /* =================================================================================================== */
@@ -709,14 +756,7 @@ function joinSubmitFn(){
 	
 	if(!emailCheck){
 		swal({
-			text: "아이디 중복확인을 해주세요.",
-			button: "확인",
-			icon: "warning",
-			closeOnClickOutside : false
-		});
-	}else if(!phoneCk){
-		swal({
-			text: "인증번호를 다시 확인해주세요.",
+			text: "이메일 인증을 해주세요.",
 			button: "확인",
 			icon: "warning",
 			closeOnClickOutside : false
@@ -728,17 +768,27 @@ function joinSubmitFn(){
 			icon: "warning",
 			closeOnClickOutside : false
 		});
-	}else if(result && phoneCk && idCheck){
+	}else if(result && emailCheck){
 		document.joinFrm.method = "post";
 		document.joinFrm.action = "join.do";
 		document.joinFrm.submit();
 	}
 }
 
+// 휴대폰 문자인증 관련 
+/*else if(!phoneCk){
+		swal({
+			text: "인증번호를 다시 확인해주세요.",
+			button: "확인",
+			icon: "warning",
+			closeOnClickOutside : false
+		});
+}*/
+
 
 /* 아이디 중복 확인 */
 /* ============================================================== */
-function idCheck(){
+/*function idCheck(){
 	var id = $("#id").val();
 	var idFoot = $("#idFoot");
 	var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -765,11 +815,11 @@ function idCheck(){
 			}
 		});
 	}
-}
+}*/
 
 /* 휴대폰 번호 인증 */ 
 
-function phoneCheckFn(){
+/*function phoneCheckFn(){
 	var phone = $("#phone").val();
 	var phoneFoot = $("#phoneFoot");
 	var reg = /^\d{10,11}/;
@@ -796,9 +846,9 @@ function phoneCheckFn(){
 			}
 		});
 	}
-}
+}*/
 
-var code2 = "";
+/*var code2 = "";
 function checkphone(){
 	swal({
 		text: "인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주십시오.",
@@ -833,10 +883,10 @@ function checkphone(){
 			} 
 		} 
 	}); 
-}
+}*/
 
 /* 휴대폰 인증번호 대조 */ 
-function checkphone2(){
+/*function checkphone2(){
 	if($("#phoneCheck").val() == code2){ 
 		$("#phoneCheckFoot").text("인증번호가 일치합니다."); 
 		$("#phoneCheckFoot").css("color","green"); 
@@ -851,19 +901,19 @@ function checkphone2(){
 		$("#phoneDoubleChk").val("false");
 		$(this).attr("autofocus",true);
 	} 
-}
+}*/
 
 
 /* 인증번호 발송 */
 /* ============================================================== */
-/*function sendMailFn(){
+function sendMailFn(){
 	var id = $("#id").val();
 	var idFoot = $("#idFoot");
 	var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 	
 	if(id != null && id != "" && reg.test(id)){
 		$.ajax({
-			url: "send_number",
+			url: contextPath+"/login/send_number",
 			type: "post",
 			data: "id="+id,
 			success: function(data){
@@ -887,19 +937,19 @@ function checkphone2(){
 	}else{
 		
 	}
-}*/
+}
 
 
 /* 인증번호 확인 */
 /* ============================================================== */
-/*function tempNumCheckFn(){
+function tempNumCheckFn(){
 	var id = $("#id").val();
 	var tempNum = $("#emailcheck").val();
 	var foot = $("#emailFoot");
 	
 	if(tempNum != null && tempNum != "" ){
 		$.ajax({
-			url: "temp_num_check",
+			url: contextPath+"/login/temp_num_check",
 			type: "post",
 			data: "temp_number="+tempNum+"&id="+id,
 			success: function(data){
@@ -921,4 +971,4 @@ function checkphone2(){
 	}else{
 		emailCheck = false;
 	}
-}*/
+}

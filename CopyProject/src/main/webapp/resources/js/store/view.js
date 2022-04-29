@@ -4,7 +4,7 @@ $(document).ready(function(){
 	$("#menuStore").mouseover(function(){
 		$("#menuStore").css({"color" : "#ffb6c1"});
 		if($(window).width()>751){
-			$("#subNav").css({"display" : "block", "border-bottom" : "3px solid #ffb6c1"});
+			$("#subNav").css({"display" : "block"});
 			$("#subNav2").css({"display" : "none"});
 		}
 	});
@@ -59,7 +59,7 @@ $(document).ready(function(){
 		$("#menuComm").css({"color" : "#ffb6c1"});
 		if($(window).width()>751){
 			$("#subNav").css({"display" : "none"});
-			$("#subNav2").css({"display" : "block", "border-bottom" : "3px solid #ffb6c1"});
+			$("#subNav2").css({"display" : "block"});
 		}else{
 			$("#subNav").css({"display" : "none"});
 			$("#subNav2").css({"display" : "none"});

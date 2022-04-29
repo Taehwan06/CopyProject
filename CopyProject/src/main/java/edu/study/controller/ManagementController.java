@@ -43,7 +43,9 @@ public class ManagementController {
 	 */
 	
 	@RequestMapping(value = "/management.do", method = RequestMethod.GET)
-	public String management(Locale locale, Model model, HttpServletRequest request) throws Exception {
+	public String management(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setHeader("Cache-Control","no-store");
 		
 		HttpSession session = request.getSession(); 
 	    MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");

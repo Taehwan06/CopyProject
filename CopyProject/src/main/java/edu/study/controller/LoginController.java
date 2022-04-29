@@ -77,14 +77,12 @@ public class LoginController {
 		
 		model.addAttribute("searchList", searchList);
 		
-		String phone = vo.getPhone();
-		String phone1 = phone.substring(0, 3);
-		String phone2 = phone.substring(3, 7);
-		String phone3 = phone.substring(7);
-		
-		vo.setPhone1(phone1);
-		vo.setPhone2(phone2);
-		vo.setPhone3(phone3);
+		/*
+		 * String phone = vo.getPhone(); String phone1 = phone.substring(0, 3); String
+		 * phone2 = phone.substring(3, 7); String phone3 = phone.substring(7);
+		 * 
+		 * vo.setPhone1(phone1); vo.setPhone2(phone2); vo.setPhone3(phone3);
+		 */
 		
 		int result = memberService.insert(vo);
 		
@@ -335,32 +333,10 @@ public class LoginController {
 		return "login/find_pwd_result_fail";
 	}
 	
-	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
-	@ResponseBody
-	public String idCheck(Locale locale, Model model, HttpServletRequest request) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		String id = request.getParameter("id");
-		
-		MemberVO idCheck = memberService.idCheckMember(id);
-		
-		if(idCheck != null) {
-			return "idCheckFail";
-			
-		}else {
-			return "idCheckSuccess";
-		}
-	}
-	
 	/*
-	 * @RequestMapping(value = "/send_number", method = RequestMethod.POST)
+	 * @RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	 * 
-	 * @ResponseBody public String send_number(Locale locale, Model model,
+	 * @ResponseBody public String idCheck(Locale locale, Model model,
 	 * HttpServletRequest request) throws Exception {
 	 * 
 	 * int deleteResult = homeService.deleteSearchList();
@@ -375,62 +351,83 @@ public class LoginController {
 	 * 
 	 * if(idCheck != null) { return "idCheckFail";
 	 * 
-	 * }else { memberService.deleteTempNum(id);
-	 * 
-	 * String ranNum = randomNumber.random();
-	 * 
-	 * MemberVO tempVo = new MemberVO(); tempVo.setId(id);
-	 * tempVo.setTemp_number(ranNum);
-	 * 
-	 * int result = memberService.insertTempNum(tempVo);
-	 * 
-	 * if(result > 0) {
-	 * 
-	 * String setfrom = "homefriendsmail@gmail.com"; 
-	 * String tomail = id; // 받는 사람 이메일
-	 * String title = "[홈 프렌즈] 이메일 인증 번호입니다."; // 제목 
-	 * String content =	"이메일 인증 번호는 "+ranNum+" 입니다."; // 내용
-	 * 
-	 * try { MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
-	 * messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-	 * 
-	 * messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
-	 * messageHelper.setTo(tomail); // 받는사람 이메일 
-	 * messageHelper.setSubject(title); // 메일제목은 생략이 가능하다 
-	 * messageHelper.setText(content); // 메일 내용
-	 * 
-	 * mailSender.send(message); } catch (Exception e) { System.out.println(e); }
-	 * 
-	 * return "success";
-	 * 
-	 * }else { return "fail"; } } }
+	 * }else { return "idCheckSuccess"; } }
 	 */
 	
-	/*
-	 * @RequestMapping(value = "/temp_num_check", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String temp_num_check(Locale locale, Model model,
-	 * HttpServletRequest request) throws Exception {
-	 * 
-	 * int deleteResult = homeService.deleteSearchList();
-	 * 
-	 * List<HomeSearchVO> searchList = homeService.listSearchList();
-	 * 
-	 * model.addAttribute("searchList", searchList);
-	 * 
-	 * String id = request.getParameter("id"); String temp_number =
-	 * request.getParameter("temp_number");
-	 * 
-	 * MemberVO vo = new MemberVO();
-	 * 
-	 * vo.setId(id); vo.setTemp_number(temp_number);
-	 * 
-	 * MemberVO tempCheck = memberService.tempNumCheck(vo);
-	 * 
-	 * if(tempCheck != null) { return "success";
-	 * 
-	 * }else { return "fail"; } }
-	 */
+	
+	@RequestMapping(value = "/send_number", method = RequestMethod.POST)
+	
+	@ResponseBody public String send_number(Locale locale, Model model,
+	HttpServletRequest request) throws Exception {
+	
+	int deleteResult = homeService.deleteSearchList();
+	
+	List<HomeSearchVO> searchList = homeService.listSearchList();
+	
+	model.addAttribute("searchList", searchList);
+	
+	String id = request.getParameter("id");
+	
+	MemberVO idCheck = memberService.idCheckMember(id);
+	
+	if(idCheck != null) { return "idCheckFail";
+	
+	}else { memberService.deleteTempNum(id);
+	
+	String ranNum = randomNumber.random();
+	
+	MemberVO tempVo = new MemberVO(); tempVo.setId(id);
+	tempVo.setTemp_number(ranNum);
+	
+	int result = memberService.insertTempNum(tempVo);
+	
+	if(result > 0) {
+	
+	String setfrom = "homefriendsmail@gmail.com"; 
+	String tomail = id; // 받는 사람 이메일
+	String title = "[홈 프렌즈] 이메일 인증 번호입니다."; // 제목 
+	String content =	"이메일 인증 번호는 "+ranNum+" 입니다."; // 내용
+	
+	try { MimeMessage message = mailSender.createMimeMessage(); MimeMessageHelper
+	messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+	
+	messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+	messageHelper.setTo(tomail); // 받는사람 이메일 
+	messageHelper.setSubject(title); // 메일제목은 생략이 가능하다 
+	messageHelper.setText(content); // 메일 내용
+	
+	mailSender.send(message); } catch (Exception e) { System.out.println(e); }
+	
+	return "success";
+	
+	}else { return "fail"; } } }
+	
+	
+
+	@RequestMapping(value = "/temp_num_check", method = RequestMethod.POST)
+	
+	@ResponseBody public String temp_num_check(Locale locale, Model model,
+	HttpServletRequest request) throws Exception {
+	
+	int deleteResult = homeService.deleteSearchList();
+	
+	List<HomeSearchVO> searchList = homeService.listSearchList();
+	
+	model.addAttribute("searchList", searchList);
+	
+	String id = request.getParameter("id"); String temp_number =
+	request.getParameter("temp_number");
+	
+	MemberVO vo = new MemberVO();
+	
+	vo.setId(id); vo.setTemp_number(temp_number);
+	
+	MemberVO tempCheck = memberService.tempNumCheck(vo);
+	
+	if(tempCheck != null) { return "success";
+	
+	}else { return "fail"; } }
+	
 	
 	@RequestMapping(value = "/kakaoLogin.do", method = RequestMethod.POST)
 	public String kakaoLogin(Locale locale, Model model, HttpServletRequest request, MemberVO vo) throws Exception {
@@ -471,7 +468,7 @@ public class LoginController {
 	 * 
 	 * return "redirect:/"; }
 	 */
-		
+	
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, NaverLoginVO naverLoginVO, 
@@ -545,45 +542,43 @@ public class LoginController {
 		}
 	}
 	
-	@RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
-	@ResponseBody 
-	public String sendSMS(@RequestParam("phone") String userPhoneNumber) throws Exception { // 휴대폰 문자보내기 
-		int randomNum = (int)((Math.random()* (999999 - 100000 + 1)) + 100000);//난수 생성
-		
-		testService.certifiedPhoneNumber(userPhoneNumber,randomNum); 
-		
-		return Integer.toString(randomNum);
-	}
+	/*
+	 * @RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
+	 * 
+	 * @ResponseBody public String sendSMS(@RequestParam("phone") String
+	 * userPhoneNumber) throws Exception { // 휴대폰 문자보내기 int randomNum =
+	 * (int)((Math.random()* (999999 - 100000 + 1)) + 100000);//난수 생성
+	 * 
+	 * testService.certifiedPhoneNumber(userPhoneNumber,randomNum);
+	 * 
+	 * return Integer.toString(randomNum); }
+	 */
 	
-	@RequestMapping(value = "/phoneCheck", method = RequestMethod.POST)
-	@ResponseBody
-	public String phoneCheck(Locale locale, Model model, HttpServletRequest request) throws Exception {
-		
-		int deleteResult = homeService.deleteSearchList();
-		
-		List<HomeSearchVO> searchList = homeService.listSearchList();
-		
-		model.addAttribute("searchList", searchList);
-		
-		String phone = request.getParameter("phone");
-		String phone1 = phone.substring(0, 3);
-		String phone2 = phone.substring(3, 7);
-		String phone3 = phone.substring(7);
-		
-		MemberVO vo = new MemberVO();
-		vo.setPhone1(phone1);
-		vo.setPhone2(phone2);
-		vo.setPhone3(phone3);
-		
-		MemberVO phoneCheck = memberService.phoneCheckMember(vo);
-		
-		if(phoneCheck != null) {
-			return "CheckFail";
-			
-		}else {
-			return "CheckSuccess";
-		}
-	}
+	/*
+	 * @RequestMapping(value = "/phoneCheck", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String phoneCheck(Locale locale, Model model,
+	 * HttpServletRequest request) throws Exception {
+	 * 
+	 * int deleteResult = homeService.deleteSearchList();
+	 * 
+	 * List<HomeSearchVO> searchList = homeService.listSearchList();
+	 * 
+	 * model.addAttribute("searchList", searchList);
+	 * 
+	 * String phone = request.getParameter("phone"); String phone1 =
+	 * phone.substring(0, 3); String phone2 = phone.substring(3, 7); String phone3 =
+	 * phone.substring(7);
+	 * 
+	 * MemberVO vo = new MemberVO(); vo.setPhone1(phone1); vo.setPhone2(phone2);
+	 * vo.setPhone3(phone3);
+	 * 
+	 * MemberVO phoneCheck = memberService.phoneCheckMember(vo);
+	 * 
+	 * if(phoneCheck != null) { return "CheckFail";
+	 * 
+	 * }else { return "CheckSuccess"; } }
+	 */
 	
 	
 }

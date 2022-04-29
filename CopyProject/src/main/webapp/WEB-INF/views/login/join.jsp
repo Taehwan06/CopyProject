@@ -52,7 +52,7 @@
 					<div name="idHead" id="idHead" class="head">아이디</div>
 				</label>
 				<input type="text" name="id" id="id" class="input value" onblur="onBlurFn(this)" placeholder="예) IU@hanmail.net">
-				<input type="button" name="idbtn" id="idbtn" class="idbtn button" value="중복 확인" onclick="idCheck()">
+				<input type="button" name="idbtn" id="idbtn" class="idbtn button" value="인증번호 발송" onclick="sendMailFn()">
 			</div>
 			
 			<label for="id">
@@ -60,7 +60,7 @@
 			</label>
 			
 			<!-- 이메일 인증번호 입력 -->
-			<!-- <div class="emailArea border">
+			<div class="emailArea border">
 				<label for="emailcheck" class="label">
 					<div name="emailcheckHead" id="emailcheckHead" class="head">인증번호</div>
 				</label>
@@ -70,10 +70,10 @@
 			
 			<label for="emailcheck">
 				<div id="emailFoot" class="foot">이메일로 발송된 인증번호를 입력해주세요</div>
-			</label> -->				
+			</label>
 			
 			<!-- 휴대폰 번호 -->
-			<div class="mobileNo border phoneArea"> 
+			<!-- <div class="mobileNo border phoneArea"> 
 				<label for="phone" class="label">
 					<div name="phoneHead" id="phoneHead" class="head">휴대폰 번호</div>
 				</label>
@@ -83,10 +83,10 @@
 						
 			<label for="phone">
 				<div class="foot" id="phoneFoot">휴대폰 번호를 입력하세요</div>
-			</label>
+			</label> -->
 			
 			<!-- 인증번호 입력 -->
-			<div class="phoneCheckArea border">
+			<!-- <div class="phoneCheckArea border">
 				<label for="phoneCheck" class="label">
 					<div class="head">인증번호</div>
 				</label>
@@ -96,7 +96,7 @@
 			
 			<label for="phoneCheck">
 				<div id="phoneCheckFoot" class="foot successPhoneChk">인증번호를 입력해주세요</div>
-			</label>
+			</label> -->
 			
 			<!-- 비밀번호 -->
 			<div class="pwdArea border">
@@ -162,7 +162,7 @@
 			</label>
 	
 			<!-- 연락처 -->
-			<!-- <div class="phoneArea border">
+			<div class="phoneArea border">
 				<label for="phone2" class="label">
 					<div name="phoneHead" id="phoneHead" class="head">연락처</div>
 				</label>
@@ -180,7 +180,7 @@
 			</div>
 			<label for="phone2">
 				<div class="foot" id="phoneFoot">연락처를 입력하세요</div>
-			</label> -->
+			</label>
 	
 			<!-- 생년월일 -->
 			<div class="birthArea border">
