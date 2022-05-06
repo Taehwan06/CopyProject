@@ -106,7 +106,12 @@
 				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
 			</form>
 		</c:if>
-			
+		<c:if test="${loginUser.grade == 'A' }">
+			<button type="button" onclick="del()">삭제</button>
+			<form name="delfrm" action="home_delete.do" method="post">
+				<input type="hidden" id="cbidx" name="cbidx" value="${vo.cbidx }">
+			</form>
+		</c:if>	
 		</div>
 		<div class="content_stats col-10 col-sm-10 col-md-8 col-lg-8">
 			<div>스크랩<span>${vo.scrap_cnt }</span></div>

@@ -29,7 +29,7 @@
 	
 	<link href="${pageContext.request.contextPath}/css/header.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/nav.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/css/home.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/store/store_common.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/footer.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/mypage/basket.css" rel="stylesheet">
 	
